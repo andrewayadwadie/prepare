@@ -1,0 +1,23 @@
+const Map<String, String> ar = {
+  'login': 'تسجيل الدخول',
+  'user name': 'إسم المستخدم ',
+  'password': 'الرقم السري',
+  'enter': 'الدخول',
+  'preparation screen': 'شاشة التحضير',
+  'to do list': 'قائمة المهام',
+  'projects list': 'قائمة المشاريع',
+  'report screen': 'عرض البلاغات',
+  'Coding screen': 'شاشة التكويد ',
+  'work plans': 'خطط العمل',
+  'mission details': 'تفاصيل المهمة ',
+  'project details': 'تفاصيل المشروع ',
+  'report details': 'تفاصيل البلاغ ',
+  'Reports':'البلاغات',
+  'Report insect area':'الإبلاغ عن منطقة حشرات',
+  'Report a stray or ferocious animal area':'الإبلاغ عن منطقة حيوانات ضالة او ضارية',
+  'Report a leaking area or water gathering':'الإبلاغ عن منطقة تسريب او تجمع مياه',
+  'Track of my reports':'تتبع بلاغاتى',
+  'add location':'إضافة مكان',
+  'add picture':'إضافة صورة ',
+  'take picture':'إلتقط صورة '
+};
