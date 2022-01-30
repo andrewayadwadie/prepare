@@ -3,8 +3,6 @@ import 'package:get/get.dart';
 import 'package:prepare/utils/style.dart';
 import 'package:prepare/view/on_board/on_board_screen.dart';
 
-
-
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -13,15 +11,13 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
-
   String? ssn = '';
 
   String? password = '';
 
   bool vis = true;
 
-  final  _loginformKey = GlobalKey<FormState>();
+  final _loginformKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +78,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Column(
                         children: [
                           Padding(
-                          padding: const EdgeInsets.only(left: 40,right:40,top: 40),
+                            padding: const EdgeInsets.only(
+                                left: 40, right: 40, top: 40),
                             child: TextFormField(
                               keyboardType: TextInputType.phone,
                               cursorColor: primaryColor,
@@ -121,9 +118,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           StatefulBuilder(builder: (context, setter) {
                             return Padding(
-                             padding: const EdgeInsets.only(left: 40,right:40,top: 30),
+                              padding: const EdgeInsets.only(
+                                  left: 40, right: 40, top: 30),
                               child: TextFormField(
-                                
                                 obscureText: vis,
                                 keyboardType: TextInputType.visiblePassword,
                                 cursorColor: primaryColor,
@@ -153,7 +150,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                           vis = !vis;
                                         });
                                       },
-                                      
                                       child: Icon(
                                         vis == true
                                             ? Icons.visibility
@@ -184,7 +180,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             onTap: () {
                               if (_loginformKey.currentState!.validate()) {
                                 _loginformKey.currentState!.save();
-                                Get.to(() =>const  OnBoardScreen());
+                                Get.to(() => const OnBoardScreen());
                               }
                             },
                             child: Container(
@@ -216,9 +212,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ],
                       )),
-
-            
-               ],
+                ],
               ))),
     );
   }
