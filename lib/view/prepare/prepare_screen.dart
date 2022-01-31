@@ -82,7 +82,7 @@ class PrepareScreen extends StatelessWidget {
                               GetBuilder<CarsController>(
                                 init: CarsController(),
                                 builder: (controller) {
-                                  return SingleListItem(title: "السيارات", count:"${controller.getCarsSum(controller.carsCount)}" );
+                                  return SingleListItem(title: "عدد السيارات", count:"${controller.getCarsSum(controller.carsCount)}" );
                                 }
                               )),
                       //==================================
@@ -104,7 +104,7 @@ class PrepareScreen extends StatelessWidget {
                               GetBuilder<ToolsController>(
                                 init: ToolsController(),
                                 builder: (controller) {
-                                  return SingleListItem(title: "الاداوات", count: "${controller.getToolsSum(controller.toolsCount)}");
+                                  return SingleListItem(title: "عدد الأداوات", count: "${controller.getToolsSum(controller.toolsCount)}");
                                 }
                               )),
                       //==================================
@@ -126,7 +126,7 @@ class PrepareScreen extends StatelessWidget {
                               GetBuilder<DevicesController>(
                                 init: DevicesController(),
                                 builder: (controller) {
-                                  return SingleListItem(title: "الاجهزة ", count: "${controller.getDeviceSum(controller.devicesCount)}");
+                                  return SingleListItem(title: "عدد الأجهزة ", count: "${controller.getDeviceSum(controller.devicesCount)}");
                                 }
                               )),
                       //==================================
@@ -148,7 +148,7 @@ class PrepareScreen extends StatelessWidget {
                               GetBuilder<PestsidesController>(
                                 init: PestsidesController(),
                                 builder: (controller) {
-                                  return SingleListItem(title: "المبيدات", count: "${controller.getPestSideSum(controller.pestsidesCount)}");
+                                  return SingleListItem(title: "عدد المبيدات", count: "${controller.getPestSideSum(controller.pestsidesCount)}");
                                 }
                               )),
                       //==================================

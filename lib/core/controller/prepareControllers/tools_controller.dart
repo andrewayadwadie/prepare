@@ -13,6 +13,7 @@ class ToolsController extends GetxController {
     for (int i = 0; i < toolsList.length; i++) {
       sum += toolsList[i] as int;
     }
+
     return sum;
   }
 }

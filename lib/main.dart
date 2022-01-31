@@ -33,6 +33,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Prepare',
         theme: ThemeData(
+          fontFamily: 'hanimation',
           primarySwatch: colorCustom,
         ),
         home: const IntroPage(),
