@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:prepare/core/controller/prepareControllers/devices_controllers.dart';
 import 'package:prepare/utils/style.dart';
 import 'package:prepare/view/shared_widgets/line_dot.dart';
 
@@ -77,31 +79,38 @@ class DevicesDialogWidget extends StatelessWidget {
                       }, // enabledBorder: InputBorder.none,
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      if (_devicesFormKey.currentState!.validate()) {
-                        _devicesFormKey.currentState!.save();
-                      }
-                    },
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 30),
-                      alignment: Alignment.center,
-                      width: MediaQuery.of(context).size.width / 3,
-                      height: MediaQuery.of(context).size.height / 16,
-                      decoration: BoxDecoration(
-                          color: lightPrimaryColor,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: const Text(
-                        "تحضير ",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 15,
-                            fontFamily: 'hanimation',
-                            fontWeight: FontWeight.w600),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
+                  GetBuilder<DevicesController>(
+                    init: DevicesController(),
+                    builder: (controller) {
+                      return GestureDetector(
+                        onTap: () {
+                          if (_devicesFormKey.currentState!.validate()) {
+                            _devicesFormKey.currentState!.save();
+                            controller.getdevicesCount(devices??'0');
+                            Get.back();
+                          }
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 30),
+                          alignment: Alignment.center,
+                          width: MediaQuery.of(context).size.width / 3,
+                          height: MediaQuery.of(context).size.height / 16,
+                          decoration: BoxDecoration(
+                              color: lightPrimaryColor,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: const Text(
+                            "تحضير ",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontFamily: 'hanimation',
+                                fontWeight: FontWeight.w600),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      );
+                    }
                   )
                 ],
               ),

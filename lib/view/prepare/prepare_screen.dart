@@ -1,6 +1,12 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:prepare/core/controller/prepareControllers/cars_controller.dart';
+import 'package:prepare/core/controller/prepareControllers/devices_controllers.dart';
+import 'package:prepare/core/controller/prepareControllers/pestsides_controllers.dart';
+import 'package:prepare/core/controller/prepareControllers/team_controllers.dart';
+import 'package:prepare/core/controller/prepareControllers/tools_controller.dart';
 import 'package:prepare/utils/style.dart';
 import 'package:prepare/view/prepare/widgets/cars_dialog_widget.dart';
 import 'package:prepare/view/prepare/widgets/devices_dialog_widget.dart';
@@ -18,12 +24,7 @@ class PrepareScreen extends StatelessWidget {
 
   final int id;
   final String title;
-  final _formKey = GlobalKey<FormState>();
-  String? cars;
-  String? tools;
-  String? machines;
-  String? pesticides;
-  String? teams;
+
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +80,12 @@ class PrepareScreen extends StatelessWidget {
                                 });
                           },
                           child:
-                              SingleListItem(title: "السيارات", count: "10")),
+                              GetBuilder<CarsController>(
+                                init: CarsController(),
+                                builder: (controller) {
+                                  return SingleListItem(title: "السيارات", count: controller.carsCount.value);
+                                }
+                              )),
                       //==================================
                       //============== tools ==============
                       //==================================
@@ -96,7 +102,12 @@ class PrepareScreen extends StatelessWidget {
                                 });
                           },
                           child:
-                              SingleListItem(title: "الاداوات", count: "2000")),
+                              GetBuilder<ToolsController>(
+                                init: ToolsController(),
+                                builder: (controller) {
+                                  return SingleListItem(title: "الاداوات", count: controller.toolsCount.value);
+                                }
+                              )),
                       //==================================
                       //============== devices ==============
                       //==================================
@@ -113,7 +124,12 @@ class PrepareScreen extends StatelessWidget {
                                 });
                           },
                           child:
-                              SingleListItem(title: "الاجهزة ", count: "150")),
+                              GetBuilder<DevicesController>(
+                                init: DevicesController(),
+                                builder: (controller) {
+                                  return SingleListItem(title: "الاجهزة ", count: controller.devicesCount.value);
+                                }
+                              )),
                       //==================================
                       //============== pesticides ==============
                       //==================================
@@ -130,7 +146,12 @@ class PrepareScreen extends StatelessWidget {
                                 });
                           },
                           child:
-                              SingleListItem(title: "المبيدات", count: "60")),
+                              GetBuilder<PestsidesController>(
+                                init: PestsidesController(),
+                                builder: (controller) {
+                                  return SingleListItem(title: "المبيدات", count: controller.pestsidesCount.value);
+                                }
+                              )),
                       //==================================
                       //============== Team ==============
                       //==================================
@@ -145,7 +166,12 @@ class PrepareScreen extends StatelessWidget {
                                       emptyErrorText: 'برجاء إدخال عدد الفرق');
                                 });
                           },
-                          child: SingleListItem(title: "الفرق", count: "6")),
+                          child: GetBuilder<TeamController>(
+                            init: TeamController(),
+                            builder: (controller) {
+                              return SingleListItem(title: "الفرق", count: controller.teamCount.value);
+                            }
+                          )),
                       //============== ************* ==============
                       SizedBox(
                         height: MediaQuery.of(context).size.height / 20,

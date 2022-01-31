@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:prepare/core/controller/prepareControllers/cars_controller.dart';
 import 'package:prepare/utils/style.dart';
 import 'package:prepare/view/shared_widgets/line_dot.dart';
 
 // ignore: must_be_immutable
 class CarsDialogWidget extends StatelessWidget {
-  CarsDialogWidget({Key? key, 
-  required this.title, 
-  required this.label, 
-  required this.emptyErrorText}) : super(key: key);
+  CarsDialogWidget(
+      {Key? key,
+      required this.title,
+      required this.label,
+      required this.emptyErrorText})
+      : super(key: key);
 
   final String title;
   final String label;
   final String emptyErrorText;
 
   final _carsFormKey = GlobalKey<FormState>();
-  String? cars ;
-
+  String? cars;
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +27,10 @@ class CarsDialogWidget extends StatelessWidget {
         height: MediaQuery.of(context).size.height / 2.5,
         child: Column(
           children: [
-             Center(
+            Center(
               child: Text(
-               title,
-                style:const TextStyle(
+                title,
+                style: const TextStyle(
                     color: lightPrimaryColor,
                     fontFamily: 'hanimation',
                     fontSize: 20,
@@ -77,32 +80,38 @@ class CarsDialogWidget extends StatelessWidget {
                       }, // enabledBorder: InputBorder.none,
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      if (_carsFormKey.currentState!.validate()) {
-                        _carsFormKey.currentState!.save();
-                      }
-                    },
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 30),
-                      alignment: Alignment.center,
-                      width: MediaQuery.of(context).size.width / 3,
-                      height: MediaQuery.of(context).size.height / 16,
-                      decoration: BoxDecoration(
-                          color: lightPrimaryColor,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: const Text(
-                        "تحضير ",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 15,
-                            fontFamily: 'hanimation',
-                            fontWeight: FontWeight.w600),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  )
+                  GetBuilder<CarsController>(
+                      init: CarsController(),
+                      builder: (controller) {
+                        return GestureDetector(
+                          onTap: () {
+                            if (_carsFormKey.currentState!.validate()) {
+                              _carsFormKey.currentState!.save();
+                              controller.getCarsCount(cars??"0");
+                              Get.back();
+                            }
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 30),
+                            alignment: Alignment.center,
+                            width: MediaQuery.of(context).size.width / 3,
+                            height: MediaQuery.of(context).size.height / 16,
+                            decoration: BoxDecoration(
+                                color: lightPrimaryColor,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: const Text(
+                              "تحضير ",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                  fontFamily: 'hanimation',
+                                  fontWeight: FontWeight.w600),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        );
+                      })
                 ],
               ),
             ),
