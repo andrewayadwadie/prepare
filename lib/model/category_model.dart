@@ -3,38 +3,41 @@ class ProjectModel {
   final String name;
   final String startDate;
   final String endDate;
-  final String districtName;
-  final String districtLat;
-  final String districtLong;
-  final String cityName;
-  final String cityLat;
-  final String cityLong;
+  final String cost;
+  final List tools;
+  final List exterminators;
+  final List devices;
+  final List vehicles;
+  final List teams;
+  final List cities;
 
   ProjectModel({
     required this.id,
     required this.name,
     required this.startDate,
     required this.endDate,
-    required this.districtName,
-    required this.districtLat,
-    required this.districtLong,
-    required this.cityName,
-    required this.cityLat,
-    required this.cityLong,
+    required this.cost,
+    required this.tools,
+    required this.exterminators,
+    required this.devices,
+    required this.vehicles,
+    required this.teams,
+    required this.cities,
   });
 
   factory ProjectModel.fromJson(Map<String, dynamic> jsonData) {
     return ProjectModel(
       id: jsonData['id'],
       name: jsonData['name'],
-      cityLat: jsonData['cityLat'],
-      cityLong: jsonData['cityLong'],
-      districtLat: jsonData['districtLat'],
-      cityName: jsonData['cityName'],
-      districtLong: jsonData['districtLong'],
-      districtName: jsonData['districtName'],
+      cost: jsonData['cost'],
       startDate: jsonData['startDate'],
       endDate: jsonData['endDate'],
+      cities: jsonData['cities'],
+      devices: jsonData['devices'],
+      exterminators: jsonData['exterminators'],
+      teams: jsonData['teams'],
+      tools: jsonData['tools'],
+      vehicles: jsonData['vehicles'],
     );
   }
 }

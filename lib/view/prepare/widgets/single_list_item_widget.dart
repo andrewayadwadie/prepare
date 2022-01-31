@@ -1,8 +1,6 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:prepare/utils/style.dart';
-import 'package:prepare/view/shared_widgets/line_dot.dart';
 
 // ignore: must_be_immutable
 class SingleListItem extends StatelessWidget {
@@ -12,7 +10,7 @@ class SingleListItem extends StatelessWidget {
   final String title;
   final String count;
   String? value;
-  final _formKey = GlobalKey<FormState>();
+ // final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +18,7 @@ class SingleListItem extends StatelessWidget {
       margin: const EdgeInsets.only(top: 16),
       height: MediaQuery.of(context).size.height / 15,
       decoration: BoxDecoration(
-        color: const Color(0xff91C483),
+        color: offwhiteColor,
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
@@ -37,20 +35,20 @@ class SingleListItem extends StatelessWidget {
           Text(
             title,
             style: const TextStyle(
-                color: Colors.white, fontFamily: "hanimation", fontSize: 16),
+                color:lightPrimaryColor, fontFamily: "hanimation", fontSize: 16),
           ),
           Container(
             alignment: Alignment.center,
             width: MediaQuery.of(context).size.width / 10,
             height: MediaQuery.of(context).size.height / 20,
             decoration: BoxDecoration(
-                color: const Color(0xffF6D860),
+                color: yellowColor,
                 borderRadius: BorderRadius.circular(50)),
             child: Text(
               count,
               textAlign: TextAlign.center,
               style: const TextStyle(
-                  color: Colors.white,
+                  color:lightPrimaryColor,
                   fontFamily: 'hanimation',
                   fontSize: 12),
             ),

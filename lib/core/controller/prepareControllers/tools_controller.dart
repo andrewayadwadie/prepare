@@ -1,12 +1,18 @@
 import 'package:get/get.dart';
 
 class ToolsController extends GetxController {
-  RxString toolsCount = "0".obs;
-  final RxBool _loading = true.obs;
+  List toolsCount = [];
 
-  bool get loading => _loading.value;
-  void gettoolsCount(String count) {
-    toolsCount.value = count;
+  void gettoolsCount(int count) {
+    toolsCount.add(count);
     update();
+  }
+
+  int getToolsSum(List toolsList) {
+    int sum = 0;
+    for (int i = 0; i < toolsList.length; i++) {
+      sum += toolsList[i] as int;
+    }
+    return sum;
   }
 }

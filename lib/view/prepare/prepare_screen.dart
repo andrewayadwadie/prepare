@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,7 +18,7 @@ import 'package:prepare/view/shared_widgets/line_dot.dart';
 
 // ignore: must_be_immutable
 class PrepareScreen extends StatelessWidget {
-  PrepareScreen({Key? key, required this.id, required this.title})
+  const PrepareScreen({Key? key, required this.id, required this.title})
       : super(key: key);
 
   final int id;
@@ -83,7 +82,7 @@ class PrepareScreen extends StatelessWidget {
                               GetBuilder<CarsController>(
                                 init: CarsController(),
                                 builder: (controller) {
-                                  return SingleListItem(title: "السيارات", count: controller.carsCount.value);
+                                  return SingleListItem(title: "السيارات", count:"${controller.getCarsSum(controller.carsCount)}" );
                                 }
                               )),
                       //==================================
@@ -105,7 +104,7 @@ class PrepareScreen extends StatelessWidget {
                               GetBuilder<ToolsController>(
                                 init: ToolsController(),
                                 builder: (controller) {
-                                  return SingleListItem(title: "الاداوات", count: controller.toolsCount.value);
+                                  return SingleListItem(title: "الاداوات", count: "${controller.getToolsSum(controller.toolsCount)}");
                                 }
                               )),
                       //==================================
@@ -127,7 +126,7 @@ class PrepareScreen extends StatelessWidget {
                               GetBuilder<DevicesController>(
                                 init: DevicesController(),
                                 builder: (controller) {
-                                  return SingleListItem(title: "الاجهزة ", count: controller.devicesCount.value);
+                                  return SingleListItem(title: "الاجهزة ", count: "${controller.getDeviceSum(controller.devicesCount)}");
                                 }
                               )),
                       //==================================
@@ -149,7 +148,7 @@ class PrepareScreen extends StatelessWidget {
                               GetBuilder<PestsidesController>(
                                 init: PestsidesController(),
                                 builder: (controller) {
-                                  return SingleListItem(title: "المبيدات", count: controller.pestsidesCount.value);
+                                  return SingleListItem(title: "المبيدات", count: "${controller.getPestSideSum(controller.pestsidesCount)}");
                                 }
                               )),
                       //==================================
@@ -161,15 +160,15 @@ class PrepareScreen extends StatelessWidget {
                                 context: context,
                                 builder: (ctx) {
                                   return TeamDialogWidget(
-                                      title: "إدخل عدد الفرق",
-                                      label: "عدد الفرق",
-                                      emptyErrorText: 'برجاء إدخال عدد الفرق');
+                                      title: "إدخل عدد العمال",
+                                      label: "عدد العمال",
+                                      emptyErrorText: 'برجاء إدخال عدد العمال');
                                 });
                           },
                           child: GetBuilder<TeamController>(
                             init: TeamController(),
                             builder: (controller) {
-                              return SingleListItem(title: "الفرق", count: controller.teamCount.value);
+                              return SingleListItem(title: "عدد العمال ", count: controller.teamCount.value);
                             }
                           )),
                       //============== ************* ==============

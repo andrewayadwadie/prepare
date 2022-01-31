@@ -1,12 +1,18 @@
 import 'package:get/get.dart';
 
 class PestsidesController extends GetxController {
-  RxString pestsidesCount = "0".obs;
-  final RxBool _loading = true.obs;
+  List pestsidesCount = [];
 
-  bool get loading => _loading.value;
-  void getpestsidesCount(String count) {
-    pestsidesCount.value = count;
+  void getpestsidesCount(int count) {
+    pestsidesCount.add(count);
     update();
+  }
+
+  int getPestSideSum(List pestSideList) {
+    int sum = 0;
+    for (int i = 0; i < pestSideList.length; i++) {
+      sum += pestSideList[i] as int;
+    }
+    return sum;
   }
 }

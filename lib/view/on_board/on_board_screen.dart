@@ -68,7 +68,7 @@ class OnBoardScreen extends StatelessWidget {
                                           MediaQuery.of(context).size.height /
                                               15,
                                       decoration: BoxDecoration(
-                                        color: const Color(0xff91C483),
+                                        color: offwhiteColor,
                                         borderRadius: BorderRadius.circular(10),
                                         boxShadow: [
                                           BoxShadow(
@@ -87,7 +87,7 @@ class OnBoardScreen extends StatelessWidget {
                                           Text(
                                             controller.projects[index].name,
                                             style: const TextStyle(
-                                                color: Colors.white,
+                                                color: lightPrimaryColor,
                                                 fontFamily: "hanimation",
                                                 fontSize: 16),
                                           ),
