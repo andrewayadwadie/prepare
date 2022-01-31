@@ -2,23 +2,28 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:prepare/utils/style.dart';
+import 'package:prepare/view/prepare/widgets/cars_dialog_widget.dart';
+import 'package:prepare/view/prepare/widgets/devices_dialog_widget.dart';
+import 'package:prepare/view/prepare/widgets/pesticides_dialog_widget.dart';
 import 'package:prepare/view/prepare/widgets/single_list_item_widget.dart';
+import 'package:prepare/view/prepare/widgets/team_dialog_widget.dart';
+import 'package:prepare/view/prepare/widgets/tools_dialog_widget.dart';
 import 'package:prepare/view/shared_widgets/header_widget.dart';
 import 'package:prepare/view/shared_widgets/line_dot.dart';
 
 // ignore: must_be_immutable
 class PrepareScreen extends StatelessWidget {
-    PrepareScreen({Key? key, required this.id, required this.title})
+  PrepareScreen({Key? key, required this.id, required this.title})
       : super(key: key);
 
   final int id;
   final String title;
-final _formKey = GlobalKey<FormState>();
-  String? cars ;
-  String? tools ;
-  String? machines ;
-  String? pesticides ;
-  String? teams ;
+  final _formKey = GlobalKey<FormState>();
+  String? cars;
+  String? tools;
+  String? machines;
+  String? pesticides;
+  String? teams;
 
   @override
   Widget build(BuildContext context) {
@@ -58,723 +63,96 @@ final _formKey = GlobalKey<FormState>();
                       )),
                   child: ListView(
                     children: [
+                      //==================================
+                      //============== cars ==============
+                      //==================================
                       InkWell(
                           onTap: () {
                             showDialog(
                                 context: context,
                                 builder: (ctx) {
-                                  return AlertDialog(
-                                    content: SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              2.5,
-                                      child: Column(
-                                        children: [
-                                          const Center(
-                                            child: Text(
-                                              "إدخل عدد السيارات",
-                                              style: TextStyle(
-                                                  color: lightPrimaryColor,
-                                                  fontFamily: 'hanimation',
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.w600),
-                                            ),
-                                          ),
-                                          const LineDots(),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          Form(
-                                            key: _formKey,
-                                            child: Column(
-                                              children: [
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 40,
-                                                          right: 40,
-                                                          top: 40),
-                                                  child: TextFormField(
-                                                    keyboardType:
-                                                        TextInputType.number,
-                                                    cursorColor: primaryColor,
-                                                    decoration: InputDecoration(
-                                                        border:
-                                                            OutlineInputBorder(
-                                                          borderSide:
-                                                              const BorderSide(
-                                                                  width: 2,
-                                                                  color: Colors
-                                                                      .grey),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(10),
-                                                        ),
-                                                        focusedBorder:
-                                                            OutlineInputBorder(
-                                                          borderSide:
-                                                              const BorderSide(
-                                                                  width: 2,
-                                                                  color:
-                                                                      primaryColor),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(10),
-                                                        ),
-                                                        labelText:
-                                                            "عدد السيارات",
-                                                        hintText:
-                                                            "عدد السيارات",
-                                                        labelStyle:
-                                                            const TextStyle(
-                                                                fontSize: 16,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold)
-                                                        //enabledBorder: InputBorder.none
-                                                        ),
-                                                    onSaved: (val) {
-                                                      cars = val;
-                                                    },
-                                                    validator: (value) {
-                                                      if (value == null ||
-                                                          value.isEmpty) {
-                                                        return 'برجاء إدخال عدد السيارات';
-                                                      } else {
-                                                        return null;
-                                                      }
-                                                    }, // enabledBorder: InputBorder.none,
-                                                  ),
-                                                ),
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    if (_formKey.currentState!
-                                                        .validate()) {
-                                                      _formKey.currentState!
-                                                          .save();
-                                                    }
-                                                  },
-                                                  child: Container(
-                                                    margin: const EdgeInsets
-                                                            .symmetric(
-                                                        horizontal: 10,
-                                                        vertical: 30),
-                                                    alignment: Alignment.center,
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            3,
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .height /
-                                                            16,
-                                                    decoration: BoxDecoration(
-                                                        color:
-                                                            lightPrimaryColor,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10)),
-                                                    child: const Text(
-                                                      "تحضير ",
-                                                      style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 15,
-                                                          fontFamily:
-                                                              'hanimation',
-                                                          fontWeight:
-                                                              FontWeight.w600),
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                    ),
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  );
+                                  return CarsDialogWidget(
+                                      title: "إدخل عدد السيارات ",
+                                      label: "عدد السيارات",
+                                      emptyErrorText:
+                                          "برجاء إدخال عدد السيارات");
                                 });
                           },
                           child:
                               SingleListItem(title: "السيارات", count: "10")),
+                      //==================================
+                      //============== tools ==============
+                      //==================================
                       InkWell(
                           onTap: () {
                             showDialog(
                                 context: context,
                                 builder: (ctx) {
-                                  return AlertDialog(
-                                    content: SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              2.5,
-                                      child: Column(
-                                        children: [
-                                          const Center(
-                                            child: Text(
-                                              "إدخل عدد الادوات",
-                                              style: TextStyle(
-                                                  color: lightPrimaryColor,
-                                                  fontFamily: 'hanimation',
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.w600),
-                                            ),
-                                          ),
-                                          const LineDots(),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          Form(
-                                            key: _formKey,
-                                            child: Column(
-                                              children: [
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 40,
-                                                          right: 40,
-                                                          top: 40),
-                                                  child: TextFormField(
-                                                    keyboardType:
-                                                        TextInputType.number,
-                                                    cursorColor: primaryColor,
-                                                    decoration: InputDecoration(
-                                                        border:
-                                                            OutlineInputBorder(
-                                                          borderSide:
-                                                              const BorderSide(
-                                                                  width: 2,
-                                                                  color: Colors
-                                                                      .grey),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(10),
-                                                        ),
-                                                        focusedBorder:
-                                                            OutlineInputBorder(
-                                                          borderSide:
-                                                              const BorderSide(
-                                                                  width: 2,
-                                                                  color:
-                                                                      primaryColor),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(10),
-                                                        ),
-                                                        labelText:
-                                                            "عدد الادوات",
-                                                        hintText:
-                                                            "عدد الادوات",
-                                                        labelStyle:
-                                                            const TextStyle(
-                                                                fontSize: 16,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold)
-                                                        //enabledBorder: InputBorder.none
-                                                        ),
-                                                    onSaved: (val) {
-                                                      tools = val;
-                                                    },
-                                                    validator: (value) {
-                                                      if (value == null ||
-                                                          value.isEmpty) {
-                                                        return 'برجاء إدخال عدد الادوات';
-                                                      } else {
-                                                        return null;
-                                                      }
-                                                    }, // enabledBorder: InputBorder.none,
-                                                  ),
-                                                ),
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    if (_formKey.currentState!
-                                                        .validate()) {
-                                                      _formKey.currentState!
-                                                          .save();
-                                                    }
-                                                  },
-                                                  child: Container(
-                                                    margin: const EdgeInsets
-                                                            .symmetric(
-                                                        horizontal: 10,
-                                                        vertical: 30),
-                                                    alignment: Alignment.center,
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            3,
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .height /
-                                                            16,
-                                                    decoration: BoxDecoration(
-                                                        color:
-                                                            lightPrimaryColor,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10)),
-                                                    child: const Text(
-                                                      "تحضير ",
-                                                      style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 15,
-                                                          fontFamily:
-                                                              'hanimation',
-                                                          fontWeight:
-                                                              FontWeight.w600),
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                    ),
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  );
+                                  return ToolsDialogWidget(
+                                      title: "إدخل عدد الادوات",
+                                      label: "عدد الادوات",
+                                      emptyErrorText:
+                                          'برجاء إدخال عدد الادوات');
                                 });
                           },
                           child:
                               SingleListItem(title: "الاداوات", count: "2000")),
+                      //==================================
+                      //============== devices ==============
+                      //==================================
                       InkWell(
                           onTap: () {
                             showDialog(
                                 context: context,
                                 builder: (ctx) {
-                                  return AlertDialog(
-                                    content: SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              2.5,
-                                      child: Column(
-                                        children: [
-                                          const Center(
-                                            child: Text(
-                                              "إدخل عدد الاجهزة",
-                                              style: TextStyle(
-                                                  color: lightPrimaryColor,
-                                                  fontFamily: 'hanimation',
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.w600),
-                                            ),
-                                          ),
-                                          const LineDots(),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          Form(
-                                            key: _formKey,
-                                            child: Column(
-                                              children: [
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 40,
-                                                          right: 40,
-                                                          top: 40),
-                                                  child: TextFormField(
-                                                    keyboardType:
-                                                        TextInputType.number,
-                                                    cursorColor: primaryColor,
-                                                    decoration: InputDecoration(
-                                                        border:
-                                                            OutlineInputBorder(
-                                                          borderSide:
-                                                              const BorderSide(
-                                                                  width: 2,
-                                                                  color: Colors
-                                                                      .grey),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(10),
-                                                        ),
-                                                        focusedBorder:
-                                                            OutlineInputBorder(
-                                                          borderSide:
-                                                              const BorderSide(
-                                                                  width: 2,
-                                                                  color:
-                                                                      primaryColor),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(10),
-                                                        ),
-                                                        labelText:
-                                                            "عدد الأجهزة",
-                                                        hintText:
-                                                            "عدد الأجهزة",
-                                                        labelStyle:
-                                                            const TextStyle(
-                                                                fontSize: 16,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold)
-                                                        //enabledBorder: InputBorder.none
-                                                        ),
-                                                    onSaved: (val) {
-                                                      machines = val;
-                                                    },
-                                                    validator: (value) {
-                                                      if (value == null ||
-                                                          value.isEmpty) {
-                                                        return 'برجاء إدخال عدد الأجهزة';
-                                                      } else {
-                                                        return null;
-                                                      }
-                                                    }, // enabledBorder: InputBorder.none,
-                                                  ),
-                                                ),
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    if (_formKey.currentState!
-                                                        .validate()) {
-                                                      _formKey.currentState!
-                                                          .save();
-                                                    }
-                                                  },
-                                                  child: Container(
-                                                    margin: const EdgeInsets
-                                                            .symmetric(
-                                                        horizontal: 10,
-                                                        vertical: 30),
-                                                    alignment: Alignment.center,
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            3,
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .height /
-                                                            16,
-                                                    decoration: BoxDecoration(
-                                                        color:
-                                                            lightPrimaryColor,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10)),
-                                                    child: const Text(
-                                                      "تحضير ",
-                                                      style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 15,
-                                                          fontFamily:
-                                                              'hanimation',
-                                                          fontWeight:
-                                                              FontWeight.w600),
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                    ),
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  );
+                                  return DevicesDialogWidget(
+                                      title: "إدخل عدد الاجهزة",
+                                      label: "عدد الأجهزة",
+                                      emptyErrorText:
+                                          'برجاء إدخال عدد الأجهزة');
                                 });
                           },
                           child:
                               SingleListItem(title: "الاجهزة ", count: "150")),
+                      //==================================
+                      //============== pesticides ==============
+                      //==================================
                       InkWell(
                           onTap: () {
                             showDialog(
                                 context: context,
                                 builder: (ctx) {
-                                  return AlertDialog(
-                                    content: SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              2.5,
-                                      child: Column(
-                                        children: [
-                                          const Center(
-                                            child: Text(
-                                              "إدخل عدد المبيدات",
-                                              style: TextStyle(
-                                                  color: lightPrimaryColor,
-                                                  fontFamily: 'hanimation',
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.w600),
-                                            ),
-                                          ),
-                                          const LineDots(),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          Form(
-                                            key: _formKey,
-                                            child: Column(
-                                              children: [
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 40,
-                                                          right: 40,
-                                                          top: 40),
-                                                  child: TextFormField(
-                                                    keyboardType:
-                                                        TextInputType.number,
-                                                    cursorColor: primaryColor,
-                                                    decoration: InputDecoration(
-                                                        border:
-                                                            OutlineInputBorder(
-                                                          borderSide:
-                                                              const BorderSide(
-                                                                  width: 2,
-                                                                  color: Colors
-                                                                      .grey),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(10),
-                                                        ),
-                                                        focusedBorder:
-                                                            OutlineInputBorder(
-                                                          borderSide:
-                                                              const BorderSide(
-                                                                  width: 2,
-                                                                  color:
-                                                                      primaryColor),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(10),
-                                                        ),
-                                                        labelText:
-                                                            "عدد المبيدات",
-                                                        hintText:
-                                                            "عدد المبيدات",
-                                                        labelStyle:
-                                                            const TextStyle(
-                                                                fontSize: 16,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold)
-                                                        //enabledBorder: InputBorder.none
-                                                        ),
-                                                    onSaved: (val) {
-                                                      pesticides = val;
-                                                    },
-                                                    validator: (value) {
-                                                      if (value == null ||
-                                                          value.isEmpty) {
-                                                        return 'برجاء إدخال عدد المبيدات';
-                                                      } else {
-                                                        return null;
-                                                      }
-                                                    }, // enabledBorder: InputBorder.none,
-                                                  ),
-                                                ),
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    if (_formKey.currentState!
-                                                        .validate()) {
-                                                      _formKey.currentState!
-                                                          .save();
-                                                    }
-                                                  },
-                                                  child: Container(
-                                                    margin: const EdgeInsets
-                                                            .symmetric(
-                                                        horizontal: 10,
-                                                        vertical: 30),
-                                                    alignment: Alignment.center,
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            3,
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .height /
-                                                            16,
-                                                    decoration: BoxDecoration(
-                                                        color:
-                                                            lightPrimaryColor,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10)),
-                                                    child: const Text(
-                                                      "تحضير ",
-                                                      style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 15,
-                                                          fontFamily:
-                                                              'hanimation',
-                                                          fontWeight:
-                                                              FontWeight.w600),
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                    ),
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  );
+                                  return PesticidesDialogWidget(
+                                      title: 'برجاء إدخال عدد المبيدات',
+                                      label: "عدد المبيدات",
+                                      emptyErrorText:
+                                          'برجاء إدخال عدد المبيدات');
                                 });
                           },
                           child:
                               SingleListItem(title: "المبيدات", count: "60")),
+                      //==================================
+                      //============== Team ==============
+                      //==================================
                       InkWell(
                           onTap: () {
                             showDialog(
                                 context: context,
                                 builder: (ctx) {
-                                  return AlertDialog(
-                                    content: SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              2.5,
-                                      child: Column(
-                                        children: [
-                                          const Center(
-                                            child: Text(
-                                              "إدخل عدد الفرق",
-                                              style: TextStyle(
-                                                  color: lightPrimaryColor,
-                                                  fontFamily: 'hanimation',
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.w600),
-                                            ),
-                                          ),
-                                          const LineDots(),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          Form(
-                                            key: _formKey,
-                                            child: Column(
-                                              children: [
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 40,
-                                                          right: 40,
-                                                          top: 40),
-                                                  child: TextFormField(
-                                                    keyboardType:
-                                                        TextInputType.number,
-                                                    cursorColor: primaryColor,
-                                                    decoration: InputDecoration(
-                                                        border:
-                                                            OutlineInputBorder(
-                                                          borderSide:
-                                                              const BorderSide(
-                                                                  width: 2,
-                                                                  color: Colors
-                                                                      .grey),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(10),
-                                                        ),
-                                                        focusedBorder:
-                                                            OutlineInputBorder(
-                                                          borderSide:
-                                                              const BorderSide(
-                                                                  width: 2,
-                                                                  color:
-                                                                      primaryColor),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(10),
-                                                        ),
-                                                        labelText:
-                                                            "عدد الفرق",
-                                                        hintText:
-                                                            "عدد الفرق",
-                                                        labelStyle:
-                                                            const TextStyle(
-                                                                fontSize: 16,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold)
-                                                        //enabledBorder: InputBorder.none
-                                                        ),
-                                                    onSaved: (val) {
-                                                      teams = val;
-                                                    },
-                                                    validator: (value) {
-                                                      if (value == null ||
-                                                          value.isEmpty) {
-                                                        return 'برجاء إدخال عدد الفرق';
-                                                      } else {
-                                                        return null;
-                                                      }
-                                                    }, // enabledBorder: InputBorder.none,
-                                                  ),
-                                                ),
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    if (_formKey.currentState!
-                                                        .validate()) {
-                                                      _formKey.currentState!
-                                                          .save();
-                                                    }
-                                                  },
-                                                  child: Container(
-                                                    margin: const EdgeInsets
-                                                            .symmetric(
-                                                        horizontal: 10,
-                                                        vertical: 30),
-                                                    alignment: Alignment.center,
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            3,
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .height /
-                                                            16,
-                                                    decoration: BoxDecoration(
-                                                        color:
-                                                            lightPrimaryColor,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10)),
-                                                    child: const Text(
-                                                      "تحضير ",
-                                                      style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 15,
-                                                          fontFamily:
-                                                              'hanimation',
-                                                          fontWeight:
-                                                              FontWeight.w600),
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                    ),
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  );
+                                  return TeamDialogWidget(
+                                      title: "إدخل عدد الفرق",
+                                      label: "عدد الفرق",
+                                      emptyErrorText: 'برجاء إدخال عدد الفرق');
                                 });
                           },
                           child: SingleListItem(title: "الفرق", count: "6")),
+                      //============== ************* ==============
                       SizedBox(
                         height: MediaQuery.of(context).size.height / 20,
                       ),
+                      //==================================
+                      //============== submit ==============
+                      //==================================
                       InkWell(
                         onTap: () {},
                         child: Container(
