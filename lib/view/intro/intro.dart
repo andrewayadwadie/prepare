@@ -1,8 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:prepare/core/db/auth_shared_preferences.dart';
+import 'package:prepare/core/service/project_services.dart';
 import 'package:prepare/utils/style.dart';
 import 'package:prepare/view/auth/login_screen.dart';
-
+import 'package:prepare/view/on_board/on_board_screen.dart';
+import 'package:prepare/view/shared_widgets/no_internet_screen.dart';
 
 class IntroPage extends StatefulWidget {
   const IntroPage({Key? key}) : super(key: key);
@@ -21,27 +25,30 @@ class _IntroPageState extends State<IntroPage> with TickerProviderStateMixin {
   void initState() {
     _lottieAnimation = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 2),
+      duration: const Duration(seconds: 1),
     );
 
-    Future.delayed(const Duration(seconds: 2))
-        .then((value) => setState(() => expanded = true))
-        .then((value) => const Duration(seconds: 2))
+    Future.delayed(const Duration(seconds: 1))
+        .then((value0) => setState(() => expanded = true))
+        .then((value1) => const Duration(seconds: 1))
         .then(
-          (value) => Future.delayed(const Duration(seconds: 2)).then(
-            (value) => _lottieAnimation.forward().then(
-                  (value) => Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (context) {
-                    // ignore: unnecessary_null_comparison
-
-                    return 
-             //       TokenPref.getTokenValue().isEmpty ||
-                    //        TokenPref.getTokenValue() == null
-                    //   ? 
-                        const LoginScreen();
-                     //   :
-                       //  const OnBoardScreen();
-                  }), (route) => false),
+          (value2) => Future.delayed(const Duration(seconds: 1)).then(
+            (value3) => _lottieAnimation.forward().then(
+                  (value4) =>
+                      ProjectServices.getAllProjects().then((checkValue) {
+                    if (checkValue == 401) {
+                      Get.offAll(const LoginScreen());
+                    } else if (checkValue.runtimeType == List) {
+                      Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(builder: (context) {
+                        return TokenPref.getTokenValue().isEmpty
+                            ? const LoginScreen()
+                            : const OnBoardScreen();
+                      }), (route) => false);
+                    }else if(checkValue == 500){
+                      Get.offAll(const NoInternetScreen());
+                    }
+                  }),
                 ),
           ),
         );

@@ -1,5 +1,8 @@
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:prepare/core/db/auth_shared_preferences.dart';
+import 'package:prepare/core/service/auth_services.dart';
 import 'package:prepare/utils/style.dart';
 import 'package:prepare/view/on_board/on_board_screen.dart';
 
@@ -11,7 +14,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  String? ssn = '';
+  String? email = '';
 
   String? password = '';
 
@@ -81,7 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             padding: const EdgeInsets.only(
                                 left: 40, right: 40, top: 40),
                             child: TextFormField(
-                              keyboardType: TextInputType.phone,
+                              keyboardType: TextInputType.emailAddress,
                               cursorColor: primaryColor,
                               decoration: InputDecoration(
                                   border: OutlineInputBorder(
@@ -95,21 +98,23 @@ class _LoginScreenState extends State<LoginScreen> {
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   icon: const Icon(
-                                    Icons.card_membership,
+                                    Icons.email,
                                     color: primaryColor,
                                   ),
-                                  labelText: "رقم الهوية ",
-                                  hintText: "رقم الهوية ",
+                                  labelText: "البريد الإلكتروني ",
+                                  hintText: "البريد الإلكتروني ",
                                   labelStyle: const TextStyle(
                                       fontSize: 16, fontWeight: FontWeight.bold)
                                   //enabledBorder: InputBorder.none
                                   ),
                               onSaved: (val) {
-                                ssn = val;
+                                email = val;
                               },
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'برجاء إدخال رقم الهوية  ';
+                                  return 'برجاء إدخال البريد الإلكتروني  ';
+                                } else if (!value.contains("@")) {
+                                  return 'برجاء إدخال بريد إلكتروني صحيح  ';
                                 } else {
                                   return null;
                                 }
@@ -177,10 +182,38 @@ class _LoginScreenState extends State<LoginScreen> {
 
                           // login button ========
                           GestureDetector(
-                            onTap: () {
+                            onTap: () async {
                               if (_loginformKey.currentState!.validate()) {
                                 _loginformKey.currentState!.save();
-                                Get.to(() => const OnBoardScreen());
+
+                                var res = await AuthServices.login(
+                                    email: email ?? "",
+                                    password: password ?? "");
+                                if (res.runtimeType == List) {
+                                  //    IsLogin.setIsLoginValue(true);
+                                  TokenPref.setTokenValue(res[0].toString());
+                                  ExpireDatePref.setExpireDateValue(
+                                      res[1].toString());
+
+                                  Get.offAll(() => const OnBoardScreen());
+                                } else if (res.runtimeType == String) {
+                                  CoolAlert.show(
+                                    context: context,
+                                    type: CoolAlertType.error,
+                                    //==========response message =============
+                                    title: res.toString(),
+                                    barrierDismissible: false,
+                                    animType: CoolAlertAnimType.slideInUp,
+                                    onConfirmBtnTap: () {
+                                      Navigator.pop(context);
+                                    },
+                                    confirmBtnColor: redColor,
+                                    confirmBtnText: "حسناً",
+                                    confirmBtnTextStyle: const TextStyle(),
+                                    backgroundColor: redColor,
+                                  );
+                                }
+                               
                               }
                             },
                             child: Container(

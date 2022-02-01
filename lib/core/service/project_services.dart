@@ -6,7 +6,7 @@ import 'package:prepare/utils/constants.dart';
 import 'package:http/http.dart' as http;
 
 class ProjectServices {
-  static Future<List<dynamic>> getAllProjects() async {
+  static Future  getAllProjects() async {
     String url = "${apiUrl}Projects/GetAllProjects";
 
     http.Response res = await http.get(
@@ -29,7 +29,11 @@ class ProjectServices {
       }).toList();
 
       return projects;
+    }else if(res.statusCode == 401){
+      return 401;
+    }else if(res.statusCode == 500 || res.statusCode == 501 || res.statusCode == 504 || res.statusCode == 502){
+      return 500 ;
     }
-    return [];
+    return 400;
   }
 }
