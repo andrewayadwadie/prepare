@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -36,6 +38,7 @@ class _IntroPageState extends State<IntroPage> with TickerProviderStateMixin {
             (value3) => _lottieAnimation.forward().then(
                   (value4) =>
                       ProjectServices.getAllProjects().then((checkValue) {
+                        log("$checkValue");
                     if (checkValue == 401) {
                       Get.offAll(const LoginScreen());
                     } else if (checkValue.runtimeType == List) {

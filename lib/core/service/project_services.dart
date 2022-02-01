@@ -1,12 +1,14 @@
 import 'dart:convert';
-  
-import 'package:prepare/model/category_model.dart';
+import 'dart:developer';
+
+import 'package:prepare/core/db/auth_shared_preferences.dart';
+import 'package:prepare/model/project_model.dart';
 import 'package:prepare/utils/constants.dart';
 import 'package:http/http.dart' as http;
 
 class ProjectServices {
   static Future getAllProjects() async {
-    String url = "${apiUrl}Projects/GetAllProjects";
+    String url = "${apiUrl}Preparations/GetProjectsWithUserPreparationStatus";
 
     http.Response res = await http.get(
       Uri.parse(url),
@@ -14,11 +16,10 @@ class ProjectServices {
         "Content-type": "application/json",
         'Accept': 'application/json',
         // 'Authorization': 'Bearer $token',
-        'Authorization':
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBZHZpc29yIiwianRpIjoiMWY0NzMzODQtMGI1MC00NWM4LWFlODktMWNkOTU3YTgyMTlmIiwiZW1haWwiOiJBZHZpc29yQGdtYWlsLmNvbSIsInVpZCI6ImI3NGRkZDE0LTYzNDAtNDg0MC05NWMyLWRiMTI1NTQ4NDNlNSIsInJvbGVzIjoiQWR2aXNvciIsImV4cCI6MTY0MzcxMDgxMSwiaXNzIjoiU2VjdXJlQXBpIiwiYXVkIjoiU2VjdXJlQXBpVXNlciJ9.6D69kXl64UPZLaQkvN5qCgxNvXRoiPCyQeJSXondyGM',
+        'Authorization': 'Bearer ${TokenPref.getTokenValue()}',
       },
     );
-
+ //   log("token is : ${TokenPref.getTokenValue()}");
     if (res.statusCode == 200) {
       var jsonData = jsonDecode(res.body);
 
