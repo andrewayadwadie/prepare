@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prepare/core/controller/prepareControllers/cars_controller.dart';
@@ -48,8 +46,7 @@ class SingleCarTextField extends StatelessWidget {
                     //enabledBorder: InputBorder.none
                     ),
                 onSaved: (val) {
-
-                  controller.getCarsCount(int.parse(val??""));
+                  controller.getCarsCount(int.parse(val ?? ""));
                 },
                 // enabledBorder: InputBorder.none,
               ),

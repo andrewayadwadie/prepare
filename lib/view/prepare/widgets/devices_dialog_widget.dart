@@ -68,7 +68,7 @@ class DevicesDialogWidget extends StatelessWidget {
                 },
                 child: Container(
                   margin:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
+                      const EdgeInsets.symmetric(horizontal: 10 ),
                   alignment: Alignment.center,
                   width: MediaQuery.of(context).size.width / 3,
                   height: MediaQuery.of(context).size.height / 16,
@@ -86,7 +86,29 @@ class DevicesDialogWidget extends StatelessWidget {
                   ),
                 ),
               );
-            })
+            }),
+        GestureDetector(
+          onTap: () {
+            Get.back();
+          },
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 10 ),
+            alignment: Alignment.center,
+            width: MediaQuery.of(context).size.width / 4.5,
+            height: MediaQuery.of(context).size.height / 16,
+            decoration: BoxDecoration(
+                color: redColor, borderRadius: BorderRadius.circular(10)),
+            child: const Text(
+              "إلغاء ",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 15,
+                  fontFamily: 'hanimation',
+                  fontWeight: FontWeight.w600),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        )
       ],
     );
   }
