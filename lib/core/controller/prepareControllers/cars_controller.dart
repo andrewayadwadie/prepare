@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 
 class CarsController extends GetxController {
@@ -13,6 +15,8 @@ class CarsController extends GetxController {
     for (int i = 0; i < carList.length; i++) {
       sum += carList[i] as int;
     }
+   // log("CAR 1 : ${carsCount[0]}");
+    
     return sum;
   }
 }

@@ -19,7 +19,7 @@ class CarsDialogWidget extends StatelessWidget {
   final String emptyErrorText;
 
   final _carsFormKey = GlobalKey<FormState>();
-  List? cars;
+ 
 
   @override
   Widget build(BuildContext context) {

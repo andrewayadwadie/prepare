@@ -24,7 +24,7 @@ class SinglePestSideTextField extends StatelessWidget {
               return SizedBox(
                 width: MediaQuery.of(context).size.width / 4,
                 height: MediaQuery.of(context).size.height / 25,
-                child: TextField(
+                child: TextFormField(
                   keyboardType: TextInputType.number,
                   cursorColor: primaryColor,
                   textAlign: TextAlign.center,
@@ -45,8 +45,8 @@ class SinglePestSideTextField extends StatelessWidget {
                           const TextStyle(fontSize: 9, fontWeight: FontWeight.bold)
                       //enabledBorder: InputBorder.none
                       ),
-                  onChanged: (val) {
-                    controller.getpestsidesCount(int.parse(val));
+                  onSaved: (val) {
+                    controller.getpestsidesCount(int.parse(val??""));
                   },
                   // enabledBorder: InputBorder.none,
                 ),
