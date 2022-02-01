@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:prepare/core/controller/project_controller.dart';
 
 import 'package:prepare/utils/style.dart';
+import 'package:prepare/view/prepare/display_prepare_screen.dart';
 import 'package:prepare/view/prepare/prepare_screen.dart';
 import 'package:prepare/view/shared_widgets/custom_loader.dart';
 import 'package:prepare/view/shared_widgets/header_widget.dart';
@@ -144,12 +145,12 @@ class OnBoardScreen extends StatelessWidget {
                                                   1)
                                                 GestureDetector(
                                                   onTap: () {
-                                                    // Get.to(() => PrepareScreen(
-                                                    //     id: controller
-                                                    //         .projects[index].id,
-                                                    //     title: controller
-                                                    //         .projects[index]
-                                                    //         .name));
+                                                    Get.to(() => DisplayPrepareScreen(
+                                                        id: controller
+                                                            .projects[index].id,
+                                                        title: controller
+                                                            .projects[index]
+                                                            .name));
                                                   },
                                                   child: Container(
                                                     alignment: Alignment.center,

@@ -5,10 +5,45 @@ import 'package:prepare/model/cars_model.dart';
 import 'package:prepare/model/devices_model.dart';
 import 'package:prepare/model/pestSide_model.dart';
 import 'package:prepare/model/tools_model.dart';
+import 'package:prepare/model/user_prepration_model.dart';
 import 'package:prepare/utils/constants.dart';
 import 'package:http/http.dart' as http;
 
 class PreprationServices {
+  static Future getUserPrepration(int id) async {
+    String url = "${apiUrl}Preparations/GetUserPreparation/$id";
+
+    http.Response res = await http.get(
+      Uri.parse(url),
+      headers: <String, String>{
+        "Content-type": "application/json",
+        'Accept': 'application/json',
+        // 'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer ${TokenPref.getTokenValue()}',
+      },
+    );
+    //   log("token is : ${TokenPref.getTokenValue()}");
+    if (res.statusCode == 200) {
+      var jsonData = jsonDecode(res.body);
+
+      // List data = jsonData.map((element) {
+      //   return UserPreprationModel.fromJson(element);
+      // }).toList();
+
+      dynamic data = UserPreprationModel.fromJson(jsonData);
+
+      return data;
+    } else if (res.statusCode == 401) {
+      return 401;
+    } else if (res.statusCode == 500 ||
+        res.statusCode == 501 ||
+        res.statusCode == 504 ||
+        res.statusCode == 502) {
+      return 500;
+    }
+    return 400;
+  }
+
   static Future getAllCars() async {
     String url = "${apiUrl}Vehicles/GetAllVehicles";
 
