@@ -1,12 +1,11 @@
 import 'dart:convert';
-import 'dart:developer';
-
+  
 import 'package:prepare/model/category_model.dart';
 import 'package:prepare/utils/constants.dart';
 import 'package:http/http.dart' as http;
 
 class ProjectServices {
-  static Future  getAllProjects() async {
+  static Future getAllProjects() async {
     String url = "${apiUrl}Projects/GetAllProjects";
 
     http.Response res = await http.get(
@@ -20,19 +19,21 @@ class ProjectServices {
       },
     );
 
-    log("request res ${res.body}");
     if (res.statusCode == 200) {
       var jsonData = jsonDecode(res.body);
-      log("message$jsonData");
+
       List projects = jsonData.map((element) {
         return ProjectModel.fromJson(element);
       }).toList();
 
       return projects;
-    }else if(res.statusCode == 401){
+    } else if (res.statusCode == 401) {
       return 401;
-    }else if(res.statusCode == 500 || res.statusCode == 501 || res.statusCode == 504 || res.statusCode == 502){
-      return 500 ;
+    } else if (res.statusCode == 500 ||
+        res.statusCode == 501 ||
+        res.statusCode == 504 ||
+        res.statusCode == 502) {
+      return 500;
     }
     return 400;
   }

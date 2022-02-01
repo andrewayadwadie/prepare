@@ -7,7 +7,6 @@ import 'package:prepare/view/prepare/prepare_screen.dart';
 import 'package:prepare/view/shared_widgets/custom_loader.dart';
 import 'package:prepare/view/shared_widgets/header_widget.dart';
 import 'package:prepare/view/shared_widgets/line_dot.dart';
-import 'package:prepare/view/shared_widgets/no_internet_screen.dart';
 
 class OnBoardScreen extends StatelessWidget {
   const OnBoardScreen({Key? key}) : super(key: key);
