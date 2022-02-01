@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prepare/core/controller/prepareControllers/cars_controller.dart';
+import 'package:prepare/core/controller/prepareCountController/cars_count_controller.dart';
 import 'package:prepare/utils/style.dart';
 import 'package:prepare/view/prepare/widgets/single_car_textfield.dart';
+import 'package:prepare/view/shared_widgets/custom_loader.dart';
 import 'package:prepare/view/shared_widgets/line_dot.dart';
 
 // ignore: must_be_immutable
@@ -22,6 +24,7 @@ class CarsDialogWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+ 
     return AlertDialog(
       title: Column(
         children: [
@@ -30,7 +33,7 @@ class CarsDialogWidget extends StatelessWidget {
               title,
               style: const TextStyle(
                   color: lightPrimaryColor,
-                  fontFamily: 'hanimation',
+                  fontFamily: 'hanimation', 
                   fontSize: 20,
                   fontWeight: FontWeight.w600),
             ),
@@ -46,11 +49,19 @@ class CarsDialogWidget extends StatelessWidget {
         child: SizedBox(
             height: MediaQuery.of(context).size.height / 4,
             width: 300,
-            child: ListView.builder(
-                itemCount: 3,
-                itemBuilder: (context, index) {
-                  return SingleCarTextField(label: label);
-                })),
+            child: GetBuilder<CarsCountController>(
+              init: CarsCountController(),
+              builder: (controller) {
+                return ListView.builder(
+                    itemCount: controller.cars.length,
+                    itemBuilder: (context, index) {
+                      return 
+                      controller.loading == true?
+                      const LoaderWidget():
+                      SingleCarTextField(label:label ,title:controller.cars[index].number);
+                    });
+              }
+            )),
       ),
       actions: [
         GetBuilder<CarsController>(

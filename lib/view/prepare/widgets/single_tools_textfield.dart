@@ -4,9 +4,10 @@ import 'package:prepare/core/controller/prepareControllers/tools_controller.dart
 import 'package:prepare/utils/style.dart';
 
 class SingleToolTextField extends StatelessWidget {
-  const SingleToolTextField({Key? key, required this.label}) : super(key: key);
+  const SingleToolTextField({Key? key, required this.label,required this.title}) : super(key: key);
 
   final String label;
+  final String title;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -14,9 +15,9 @@ class SingleToolTextField extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          const Text(
-            "إسم الاداة : ",
-            style: TextStyle(color: primaryColor),
+           Text(
+            "أداة $title : ",
+            style:const TextStyle(color: primaryColor),
           ),
           GetBuilder<ToolsController>(
 

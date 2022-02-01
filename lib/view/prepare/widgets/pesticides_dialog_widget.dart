@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prepare/core/controller/prepareControllers/pestsides_controllers.dart';
+import 'package:prepare/core/controller/prepareCountController/pestside_count_controller.dart';
 import 'package:prepare/utils/style.dart';
 import 'package:prepare/view/prepare/widgets/single_pestside_textfield.dart';
 import 'package:prepare/view/shared_widgets/line_dot.dart';
@@ -47,11 +48,16 @@ class PesticidesDialogWidget extends StatelessWidget {
         child: SizedBox(
             height: MediaQuery.of(context).size.height / 4,
             width: 300,
-            child: ListView.builder(
-                itemCount: 3,
-                itemBuilder: (context, index) {
-                  return SinglePestSideTextField(label: label);
-                })),
+            child: GetBuilder<PestSideCountController>(
+              init: PestSideCountController(),
+              builder: (controller) {
+                return ListView.builder(
+                    itemCount: controller.pestSide.length,
+                    itemBuilder: (context, index) {
+                      return SinglePestSideTextField(label: label,title: controller.pestSide[index].name,);
+                    });
+              }
+            )),
       ),
       actions: [
         GetBuilder<PestsidesController>(

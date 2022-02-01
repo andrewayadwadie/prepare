@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prepare/core/controller/prepareControllers/tools_controller.dart';
+import 'package:prepare/core/controller/prepareCountController/tools_count_controller.dart';
 import 'package:prepare/utils/style.dart';
 import 'package:prepare/view/prepare/widgets/single_tools_textfield.dart';
 import 'package:prepare/view/shared_widgets/line_dot.dart';
@@ -47,11 +48,16 @@ class ToolsDialogWidget extends StatelessWidget {
         child: SizedBox(
             height: MediaQuery.of(context).size.height / 4,
             width: 300,
-            child: ListView.builder(
-                itemCount: 3,
-                itemBuilder: (context, index) {
-                  return SingleToolTextField(label: label);
-                })),
+            child: GetBuilder<ToolsCountController>(
+              init: ToolsCountController(),
+              builder: (controller) {
+                return ListView.builder(
+                    itemCount: controller.tools.length,
+                    itemBuilder: (context, index) {
+                      return SingleToolTextField(label: label,title: controller.tools[index].name,);
+                    });
+              }
+            )),
       ),
       actions: [
         GetBuilder<ToolsController>(

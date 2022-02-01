@@ -4,9 +4,10 @@ import 'package:prepare/core/controller/prepareControllers/devices_controllers.d
 import 'package:prepare/utils/style.dart';
 
 class SingleDevicesTextField extends StatelessWidget {
-  const SingleDevicesTextField({Key? key, required this.label}) : super(key: key);
+  const SingleDevicesTextField({Key? key, required this.label,required this.title}) : super(key: key);
 
   final String label;
+  final String title;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -14,9 +15,9 @@ class SingleDevicesTextField extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          const Text(
-            "نوع الجهاز   : ",
-            style: TextStyle(color: primaryColor),
+           Text(
+            "جهاز $title : ",
+            style: const TextStyle(color: primaryColor),
           ),
           GetBuilder<DevicesController>(
 

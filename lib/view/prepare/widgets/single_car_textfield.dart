@@ -4,9 +4,10 @@ import 'package:prepare/core/controller/prepareControllers/cars_controller.dart'
 import 'package:prepare/utils/style.dart';
 
 class SingleCarTextField extends StatelessWidget {
-  const SingleCarTextField({Key? key, required this.label}) : super(key: key);
+  const SingleCarTextField({Key? key, required this.label,required this.title}) : super(key: key);
 
   final String label;
+  final String title;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -14,9 +15,9 @@ class SingleCarTextField extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          const Text(
-            "نوع السيارة  : ",
-            style: TextStyle(color: primaryColor),
+            Text(
+            "سيارة رقم $title : ",
+            style:const TextStyle(color: primaryColor),
           ),
           GetBuilder<CarsController>(builder: (controller) {
             return SizedBox(

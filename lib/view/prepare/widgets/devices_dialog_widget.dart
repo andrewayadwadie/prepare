@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prepare/core/controller/prepareControllers/devices_controllers.dart';
+import 'package:prepare/core/controller/prepareCountController/devices_count_controller.dart';
 import 'package:prepare/utils/style.dart';
 import 'package:prepare/view/shared_widgets/line_dot.dart';
 
@@ -48,11 +49,16 @@ class DevicesDialogWidget extends StatelessWidget {
         child: SizedBox(
             height: MediaQuery.of(context).size.height / 4,
             width: 300,
-            child: ListView.builder(
-                itemCount: 3,
-                itemBuilder: (context, index) {
-                  return SingleDevicesTextField(label: label);
-                })),
+            child: GetBuilder<DevicesCountController>(
+              init: DevicesCountController(),
+              builder: (controller) {
+                return ListView.builder(
+                    itemCount: controller.devices.length,
+                    itemBuilder: (context, index) {
+                      return SingleDevicesTextField(label: label,title: controller.devices[index].name,);
+                    });
+              }
+            )),
       ),
       actions: [
         GetBuilder<DevicesController>(

@@ -4,9 +4,10 @@ import 'package:get/get.dart';
 import 'package:prepare/utils/style.dart';
 
 class SinglePestSideTextField extends StatelessWidget {
-  const SinglePestSideTextField({Key? key, required this.label}) : super(key: key);
+  const SinglePestSideTextField({Key? key, required this.label, required this.title}) : super(key: key);
 
   final String label;
+  final String title;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -14,9 +15,9 @@ class SinglePestSideTextField extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          const Text(
-            "نوع المبيد   : ",
-            style: TextStyle(color: primaryColor),
+           Text(
+            "مبيد $title : ",
+            style:const TextStyle(color: primaryColor),
           ),
           GetBuilder<PestsidesController>(
 
