@@ -1,6 +1,3 @@
-
-
-
 import 'dart:developer';
 import 'dart:io';
 
@@ -9,46 +6,69 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 
-class ImagePickerController extends GetxController{
-  
-   File? image;
-
-    List<Asset> images = <Asset>[];
-     String errorr = 'No Error Dectected';
+class ImagePickerController extends GetxController {
+  File? image;
+  File? image2;
+  List<Asset> images = <Asset>[];
+  String errorr = 'No Error Dectected';
 
   Future pickImageFromCam() async {
     try {
-    final  imagefromCamera =
-         await ImagePicker().pickImage(source: ImageSource.camera);
+      final imagefromCamera =
+          await ImagePicker().pickImage(source: ImageSource.camera);
 
-    final imageTemproray =  File(imagefromCamera!.path);
-      
-        image = imageTemproray;
-     update();
+      final imageTemproray = File(imagefromCamera!.path);
 
+      image = imageTemproray;
+      update();
     } on PlatformException catch (e) {
       log("failed pick image $e");
+    }
+  }
+
+  Future pickImageFromCam2() async {
+    try {
+      final imagefromCamera2 =
+          await ImagePicker().pickImage(source: ImageSource.camera);
+
+      final imageTemproray2 = File(imagefromCamera2!.path);
+
+      image2 = imageTemproray2;
+      update();
+    } on PlatformException catch (e) {
+      log("failed pick image2 $e");
     }
   }
 
   Future pickImageFromGallrey() async {
-    
     try {
-      final   imagefromGallery =
-         await ImagePicker().pickImage(source: ImageSource.gallery);
+      final imagefromGallery =
+          await ImagePicker().pickImage(source: ImageSource.gallery);
 
-      
+      final imageTemproray = File(imagefromGallery!.path);
 
-      final imageTemproray =  File(imagefromGallery!.path);
-      
-        image = imageTemproray;
-     update();
+      image = imageTemproray;
+      update();
     } on PlatformException catch (e) {
       log("failed pick image $e");
     }
   }
 
- Future<void> loadAssets() async {
+  Future pickImageFromGallrey2() async {
+    try {
+      final imagefromGallery2 =
+          await ImagePicker().pickImage(source: ImageSource.gallery);
+
+      final imageTemproray2 = File(imagefromGallery2!.path);
+
+      image2 = imageTemproray2;
+      update();
+    } on PlatformException catch (e) {
+      log("failed pick image $e");
+    }
+  }
+
+  Future<void> loadAssets() async {
     List<Asset> resultList = <Asset>[];
     String error = 'No Error Detected';
 
@@ -61,7 +81,7 @@ class ImagePickerController extends GetxController{
           takePhotoIcon: "chat",
           doneButtonTitle: "Fatto",
         ),
-        materialOptions:const MaterialOptions(
+        materialOptions: const MaterialOptions(
           actionBarColor: "#abcdef",
           actionBarTitle: "Example App",
           allViewTitle: "All Photos",
@@ -77,9 +97,8 @@ class ImagePickerController extends GetxController{
     // message was in flight, we want to discard the reply rather than calling
     // setState to update our non-existent appearance.
 
-      images = resultList;
-      errorr = error;
-      update();
+    images = resultList;
+    errorr = error;
+    update();
   }
-
 }
