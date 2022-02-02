@@ -9,7 +9,7 @@ class HomeBodyWidget extends StatelessWidget {
   HomeBodyWidget({Key? key}) : super(key: key);
   final List<String> titles = [
     "شاشة التحضير",
-    "إستكشاف الحشرات "
+    "إستكشاف حشري "
   ];
   final List<Widget> screens = const [
     AllProjectsScreen(),

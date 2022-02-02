@@ -6,8 +6,7 @@ import 'package:get/get.dart';
 import 'package:prepare/core/db/auth_shared_preferences.dart';
 import 'package:prepare/core/service/project_services.dart';
 import 'package:prepare/utils/style.dart';
-import 'package:prepare/view/all_projects/all_projects_screen.dart';
-import 'package:prepare/view/auth/login_screen.dart';
+ import 'package:prepare/view/auth/login_screen.dart';
 import 'package:prepare/view/home/home_screen.dart';
  import 'package:prepare/view/shared_widgets/no_internet_screen.dart';
 

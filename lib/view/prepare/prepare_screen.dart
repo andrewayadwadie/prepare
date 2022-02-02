@@ -8,8 +8,7 @@ import 'package:prepare/core/controller/prepareControllers/team_controllers.dart
 import 'package:prepare/core/controller/prepareControllers/tools_controller.dart';
 import 'package:prepare/core/service/prepration_services.dart';
 import 'package:prepare/utils/style.dart';
-import 'package:prepare/view/all_projects/all_projects_screen.dart';
-import 'package:prepare/view/auth/login_screen.dart';
+ import 'package:prepare/view/auth/login_screen.dart';
 import 'package:prepare/view/home/home_screen.dart';
 import 'package:prepare/view/prepare/widgets/cars_dialog_widget.dart';
 import 'package:prepare/view/prepare/widgets/devices_dialog_widget.dart';

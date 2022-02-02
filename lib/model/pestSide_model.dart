@@ -1,5 +1,4 @@
-// ignore: file_names
-class PestSideModel{
+ class PestSideModel{
   final int id;
   final String name;
 
