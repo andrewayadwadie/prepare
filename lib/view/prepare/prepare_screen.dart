@@ -9,9 +9,9 @@ import 'package:prepare/core/controller/prepareControllers/team_controllers.dart
 import 'package:prepare/core/controller/prepareControllers/tools_controller.dart';
 import 'package:prepare/core/service/prepration_services.dart';
 import 'package:prepare/utils/style.dart';
+import 'package:prepare/view/all_projects/all_projects_screen.dart';
 import 'package:prepare/view/auth/login_screen.dart';
-import 'package:prepare/view/on_board/on_board_screen.dart';
-import 'package:prepare/view/prepare/widgets/cars_dialog_widget.dart';
+ import 'package:prepare/view/prepare/widgets/cars_dialog_widget.dart';
 import 'package:prepare/view/prepare/widgets/devices_dialog_widget.dart';
 import 'package:prepare/view/prepare/widgets/pesticides_dialog_widget.dart';
 import 'package:prepare/view/prepare/widgets/single_list_item_widget.dart';
@@ -234,7 +234,7 @@ class PrepareScreen extends StatelessWidget {
                                         numberOfDevices: deviceCount,
                                         numberOfExterminators: pestsideCount);
                                 if (res == 200) {
-                                  Get.offAll(const OnBoardScreen());
+                                  Get.offAll(const AllProjectsScreen());
                                   CoolAlert.show(
                                     context: context,
                                     type: CoolAlertType.confirm,
@@ -265,7 +265,7 @@ class PrepareScreen extends StatelessWidget {
                                 numberOfDevices: deviceCount,
                                 numberOfExterminators: pestsideCount);
                             if (res == 200) {
-                              Get.offAll(const OnBoardScreen());
+                              Get.offAll(const AllProjectsScreen());
                               CoolAlert.show(
                                 context: context,
                                 type: CoolAlertType.success,

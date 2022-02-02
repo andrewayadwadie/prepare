@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prepare/core/controller/project_controller.dart';
-
 import 'package:prepare/utils/style.dart';
 import 'package:prepare/view/prepare/display_prepare_screen.dart';
 import 'package:prepare/view/prepare/prepare_screen.dart';
@@ -9,8 +8,8 @@ import 'package:prepare/view/shared_widgets/custom_loader.dart';
 import 'package:prepare/view/shared_widgets/header_widget.dart';
 import 'package:prepare/view/shared_widgets/line_dot.dart';
 
-class OnBoardScreen extends StatelessWidget {
-  const OnBoardScreen({Key? key}) : super(key: key);
+class AllProjectsScreen extends StatelessWidget {
+  const AllProjectsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

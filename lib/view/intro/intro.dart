@@ -6,9 +6,9 @@ import 'package:get/get.dart';
 import 'package:prepare/core/db/auth_shared_preferences.dart';
 import 'package:prepare/core/service/project_services.dart';
 import 'package:prepare/utils/style.dart';
+import 'package:prepare/view/all_projects/all_projects_screen.dart';
 import 'package:prepare/view/auth/login_screen.dart';
-import 'package:prepare/view/on_board/on_board_screen.dart';
-import 'package:prepare/view/shared_widgets/no_internet_screen.dart';
+ import 'package:prepare/view/shared_widgets/no_internet_screen.dart';
 
 class IntroPage extends StatefulWidget {
   const IntroPage({Key? key}) : super(key: key);
@@ -46,7 +46,7 @@ class _IntroPageState extends State<IntroPage> with TickerProviderStateMixin {
                           MaterialPageRoute(builder: (context) {
                         return TokenPref.getTokenValue().isEmpty
                             ? const LoginScreen()
-                            : const OnBoardScreen();
+                            : const AllProjectsScreen();
                       }), (route) => false);
                     }else if(checkValue == 500){
                       Get.offAll(const NoInternetScreen());

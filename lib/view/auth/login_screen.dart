@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import 'package:prepare/core/db/auth_shared_preferences.dart';
 import 'package:prepare/core/service/auth_services.dart';
 import 'package:prepare/utils/style.dart';
-import 'package:prepare/view/on_board/on_board_screen.dart';
-
+import 'package:prepare/view/all_projects/all_projects_screen.dart';
+ 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -195,7 +195,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ExpireDatePref.setExpireDateValue(
                                       res[1].toString());
 
-                                  Get.offAll(() => const OnBoardScreen());
+                                  Get.offAll(() => const AllProjectsScreen());
                                 } else if (res.runtimeType == String) {
                                   CoolAlert.show(
                                     context: context,
