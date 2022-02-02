@@ -23,7 +23,7 @@ class AllProjectsScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const HeaderWidget(arrow: false),
+                const HeaderWidget(arrow: true),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 20,
                 ),

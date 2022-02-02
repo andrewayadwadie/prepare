@@ -10,6 +10,7 @@ import 'package:prepare/core/service/prepration_services.dart';
 import 'package:prepare/utils/style.dart';
 import 'package:prepare/view/all_projects/all_projects_screen.dart';
 import 'package:prepare/view/auth/login_screen.dart';
+import 'package:prepare/view/home/home_screen.dart';
 import 'package:prepare/view/prepare/widgets/cars_dialog_widget.dart';
 import 'package:prepare/view/prepare/widgets/devices_dialog_widget.dart';
 import 'package:prepare/view/prepare/widgets/pesticides_dialog_widget.dart';
@@ -231,7 +232,7 @@ class PrepareScreen extends StatelessWidget {
                                         numberOfDevices: deviceCount,
                                         numberOfExterminators: pestsideCount);
                                 if (res == 200) {
-                                  Get.offAll(const AllProjectsScreen());
+                                  Get.offAll(const HomeScreen());
                                   CoolAlert.show(
                                     context: context,
                                     type: CoolAlertType.confirm,
@@ -262,7 +263,7 @@ class PrepareScreen extends StatelessWidget {
                                 numberOfDevices: deviceCount,
                                 numberOfExterminators: pestsideCount);
                             if (res == 200) {
-                              Get.offAll(const AllProjectsScreen());
+                             Get.offAll(const HomeScreen());
                               CoolAlert.show(
                                 context: context,
                                 type: CoolAlertType.success,
