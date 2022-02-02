@@ -65,8 +65,8 @@ class AllProjectsScreen extends StatelessWidget {
                                                   fit: BoxFit.contain)),
                                         )
                                       : Container(
-                                          margin:
-                                              const EdgeInsets.only(top: 16),
+                                          margin: const EdgeInsets.only(
+                                              top: 16, right: 5, left: 5),
                                           height: MediaQuery.of(context)
                                                   .size
                                                   .height /
@@ -79,108 +79,151 @@ class AllProjectsScreen extends StatelessWidget {
                                               BoxShadow(
                                                 color: Colors.grey
                                                     .withOpacity(0.6),
-                                                spreadRadius: 5,
-                                                blurRadius: 7,
+                                                spreadRadius: 2,
+                                                blurRadius: 4,
                                                 offset: const Offset(0,
-                                                    3), // changes position of shadow
+                                                    2), // changes position of shadow
                                               ),
                                             ],
                                           ),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceAround,
-                                            children: <Widget>[
-                                              Text(
-                                                controller.projects[index].name,
-                                                style: const TextStyle(
-                                                    color: lightPrimaryColor,
-                                                    fontFamily: "hanimation",
-                                                    fontSize: 16),
-                                              ),
-                                              if (controller
-                                                      .projects[index].status ==
-                                                  0)
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    Get.to(() => PrepareScreen(
-                                                        id: controller
-                                                            .projects[index].id,
-                                                        title: controller
-                                                            .projects[index]
-                                                            .name));
-                                                  },
-                                                  child: Container(
-                                                    alignment: Alignment.center,
+                                          child: IntrinsicWidth(
+                                            child: Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.stretch,
+                                              children: <Widget>[
+                                                const Spacer(),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 8),
+                                                  child: SizedBox(
                                                     width:
                                                         MediaQuery.of(context)
                                                                 .size
                                                                 .width /
-                                                            7,
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .height /
-                                                            30,
-                                                    decoration: BoxDecoration(
-                                                        color:
-                                                            lightPrimaryColor,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(9)),
-                                                    child: const Text(
-                                                      "تحضير",
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style: TextStyle(
-                                                          color: Colors.white,
+                                                            2.5,
+                                                    child: Text(
+                                                      controller
+                                                          .projects[index].name,
+                                                      style: const TextStyle(
+                                                          color:
+                                                              lightPrimaryColor,
                                                           fontFamily:
-                                                              'hanimation',
-                                                          fontSize: 12),
+                                                              "hanimation",
+                                                          fontSize: 16),
                                                     ),
                                                   ),
                                                 ),
-                                              if (controller
-                                                      .projects[index].status ==
-                                                  1)
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    Get.to(() => DisplayPrepareScreen(
-                                                        id: controller
-                                                            .projects[index].id,
-                                                        title: controller
-                                                            .projects[index]
-                                                            .name));
-                                                  },
-                                                  child: Container(
-                                                    alignment: Alignment.center,
-                                                    width:
-                                                        MediaQuery.of(context)
+                                                if (controller.projects[index]
+                                                        .status ==
+                                                    0)
+                                                  GestureDetector(
+                                                    onTap: () {
+                                                      Get.to(() =>
+                                                          PrepareScreen(
+                                                              id: controller
+                                                                  .projects[
+                                                                      index]
+                                                                  .id,
+                                                              title: controller
+                                                                  .projects[
+                                                                      index]
+                                                                  .name));
+                                                    },
+                                                    child: Padding(
+                                                      padding: const EdgeInsets
+                                                              .symmetric(
+                                                          vertical: 5),
+                                                      child: Container(
+                                                        alignment:
+                                                            Alignment.center,
+                                                        width: MediaQuery.of(
+                                                                    context)
                                                                 .size
                                                                 .width /
                                                             6,
-                                                    height:
-                                                        MediaQuery.of(context)
+                                                        height: MediaQuery.of(
+                                                                    context)
                                                                 .size
                                                                 .height /
                                                             30,
-                                                    decoration: BoxDecoration(
-                                                        color: redColor,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(9)),
-                                                    child: const Text(
-                                                      "عرض التحضير",
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontFamily:
-                                                              'hanimation',
-                                                          fontSize: 12),
+                                                        decoration: BoxDecoration(
+                                                            color:
+                                                                lightPrimaryColor,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        9)),
+                                                        child: const Text(
+                                                          "تحضير",
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontFamily:
+                                                                  'hanimation',
+                                                              fontSize: 12),
+                                                        ),
+                                                      ),
                                                     ),
                                                   ),
-                                                )
-                                            ],
+                                                if (controller.projects[index]
+                                                        .status ==
+                                                    1)
+                                                  GestureDetector(
+                                                    onTap: () {
+                                                      Get.to(() =>
+                                                          DisplayPrepareScreen(
+                                                              id: controller
+                                                                  .projects[
+                                                                      index]
+                                                                  .id,
+                                                              title: controller
+                                                                  .projects[
+                                                                      index]
+                                                                  .name));
+                                                    },
+                                                    child: Padding(
+                                                      padding: const EdgeInsets
+                                                              .symmetric(
+                                                          vertical: 5),
+                                                      child: Container(
+                                                        alignment:
+                                                            Alignment.center,
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width /
+                                                            6,
+                                                        height: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .height /
+                                                            30,
+                                                        decoration: BoxDecoration(
+                                                            color: redColor,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        9)),
+                                                        child: const Text(
+                                                          "عرض التحضير",
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontFamily:
+                                                                  'hanimation',
+                                                              fontSize: 12),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                const Spacer()
+                                              ],
+                                            ),
                                           ),
                                         );
                                 }),

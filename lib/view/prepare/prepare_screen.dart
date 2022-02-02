@@ -1,4 +1,3 @@
- 
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,7 +10,7 @@ import 'package:prepare/core/service/prepration_services.dart';
 import 'package:prepare/utils/style.dart';
 import 'package:prepare/view/all_projects/all_projects_screen.dart';
 import 'package:prepare/view/auth/login_screen.dart';
- import 'package:prepare/view/prepare/widgets/cars_dialog_widget.dart';
+import 'package:prepare/view/prepare/widgets/cars_dialog_widget.dart';
 import 'package:prepare/view/prepare/widgets/devices_dialog_widget.dart';
 import 'package:prepare/view/prepare/widgets/pesticides_dialog_widget.dart';
 import 'package:prepare/view/prepare/widgets/single_list_item_widget.dart';
@@ -204,11 +203,7 @@ class PrepareScreen extends StatelessWidget {
                       //==================================
                       InkWell(
                         onTap: () async {
-                          // log("car count : $carCount");
-                          // log("tool count : $toolCount");
-                          // log("device count : $deviceCount");
-                          // log("pestside count : $pestsideCount");
-                          // log("team count : $teamCount");
+                     
 
                           if (carCount == 0 ||
                               toolCount == 0 ||
@@ -217,8 +212,10 @@ class PrepareScreen extends StatelessWidget {
                               teamCount == 0) {
                             CoolAlert.show(
                               context: context,
-                              confirmBtnTextStyle:const TextStyle(color: Colors.white,fontSize: 12),
-                              cancelBtnTextStyle:const TextStyle(color: redColor,fontSize: 22),
+                              confirmBtnTextStyle: const TextStyle(
+                                  color: Colors.white, fontSize: 12),
+                              cancelBtnTextStyle: const TextStyle(
+                                  color: redColor, fontSize: 22),
                               type: CoolAlertType.error,
                               title:
                                   " لم يتم ادخال كل البيانات المطلوبة للتحضير ",
