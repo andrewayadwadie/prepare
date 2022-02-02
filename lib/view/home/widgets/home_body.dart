@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prepare/utils/style.dart';
 import 'package:prepare/view/all_projects/all_projects_screen.dart';
+import 'package:prepare/view/bug_discover/bug_discover_screen.dart';
  
 
 class HomeBodyWidget extends StatelessWidget {
@@ -11,9 +12,9 @@ class HomeBodyWidget extends StatelessWidget {
     "شاشة التحضير",
     "إستكشاف حشري "
   ];
-  final List<Widget> screens = const [
-    AllProjectsScreen(),
-    AllProjectsScreen(),
+  final List<Widget> screens =  [
+   const AllProjectsScreen(),
+    BugDiscoverScreen(),
  
   ];
   @override
