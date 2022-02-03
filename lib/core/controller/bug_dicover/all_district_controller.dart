@@ -16,22 +16,19 @@ class AllDistrictController extends GetxController {
   }
 
   String districtText = "إختر إسم الحي ";
-
   int districtId = 0;
 
   void onTapSelected(BuildContext con, int id) {
     districtId = id;
     Navigator.pop(con);
-
     districtText = district[id - 1].name;
-
     update();
   }
 
   bool get loading => _loading.value;
-  dynamic getDistrictCount(int id) {
+  dynamic getDistrictCount(int disId) {
     if (_loading.value == true) {
-      BugDiscoverServices.getAllDistrict(id).then((value) {
+      BugDiscoverServices.getAllDistrict(disId).then((value) {
         district = value;
         _loading.value = false;
         update();

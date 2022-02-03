@@ -55,6 +55,7 @@ dependencies:
   connectivity_plus: ^2.2.0
   geolocator: ^8.0.5
   hawk_fab_menu: ^1.1.1
+  
 
 
 dev_dependencies:
