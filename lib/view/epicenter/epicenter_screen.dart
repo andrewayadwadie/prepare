@@ -58,7 +58,7 @@ class EpiCenterScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(5),
                 child: ListView(
                   children: [
-                    //====== street ==========
+                    //====== name ==========
                     NameWidget(onChange: (value) {
                       name = value;
                     }),
@@ -102,29 +102,27 @@ class EpiCenterScreen extends StatelessWidget {
                                                   return InkWell(
                                                     onTap: () async {
                                                       log("hiiii");
-                                                
 
-                                                        if (locationCtrl
-                                                                    .currentLat ==
-                                                                0 &&
-                                                            locationCtrl
-                                                                    .currentLong ==
-                                                                0) {
-                                                          toast(
-                                                              "please open Gps ",
-                                                              duration:
-                                                                  const Duration(
-                                                                      seconds:
-                                                                          2));
-                                                        } else if (name == "") {
-                                                          toast(
-                                                              "برجاء إدخال  الاسم",
-                                                              duration:
-                                                                  const Duration(
-                                                                      seconds:
-                                                                          2));
-                                                        }
-                                                       else if (cityCtrl
+                                                      if (locationCtrl
+                                                                  .currentLat ==
+                                                              0 &&
+                                                          locationCtrl
+                                                                  .currentLong ==
+                                                              0) {
+                                                        toast(
+                                                            "please open Gps ",
+                                                            duration:
+                                                                const Duration(
+                                                                    seconds:
+                                                                        2));
+                                                      } else if (name == "") {
+                                                        toast(
+                                                            "برجاء إدخال  الاسم",
+                                                            duration:
+                                                                const Duration(
+                                                                    seconds:
+                                                                        2));
+                                                      } else if (cityCtrl
                                                               .cityText.value ==
                                                           "إختر إسم المدينة") {
                                                         toast(
@@ -157,15 +155,17 @@ class EpiCenterScreen extends StatelessWidget {
                                                             .checkInternet()
                                                             .then((val) {
                                                           if (val) {
-                                                            log("hiiii");
+                                              
                                                             EpicenterServices.addEpiCenter(
                                                                     name:
                                                                         name ??
                                                                             "",
                                                                     lat: locationCtrl
-                                                                        .currentLat.toString(),
+                                                                        .currentLat
+                                                                        .toString(),
                                                                     long: locationCtrl
-                                                                        .currentLong.toString(),
+                                                                        .currentLong
+                                                                        .toString(),
                                                                     insectId:
                                                                         insectCtrl
                                                                             .insectsId,
@@ -184,8 +184,9 @@ class EpiCenterScreen extends StatelessWidget {
                                                                 Get.offAll(
                                                                     const LoginScreen());
                                                               } else if (value ==
-                                                                  201||value ==
-                                                                  200) {
+                                                                      201 ||
+                                                                  value ==
+                                                                      200) {
                                                                 Get.offAll(() =>
                                                                     const HomeScreen());
                                                                 CoolAlert.show(
@@ -205,7 +206,7 @@ class EpiCenterScreen extends StatelessWidget {
                                                                       primaryColor,
                                                                   onConfirmBtnTap:
                                                                       () {
-                                                                   Get.back();
+                                                                    Get.back();
                                                                   },
                                                                 );
                                                               }
@@ -278,44 +279,3 @@ class EpiCenterScreen extends StatelessWidget {
     );
   }
 }
-
-
-
-/*
-
-if (value == 400) {
-                                                          toast(
-                                                              "يوجد خطأ فى الإرسال ",
-                                                              duration:
-                                                                  const Duration(
-                                                                      seconds:
-                                                                          2));
-                                                        } else if (value ==
-                                                            401) {
-                                                          Get.offAll(
-                                                              const LoginScreen());
-                                                        } else if (value ==
-                                                            201) {
-                                                          CoolAlert.show(
-                                                            barrierDismissible:
-                                                                false,
-                                                            context: context,
-                                                            type: CoolAlertType
-                                                                .success,
-                                                            title:
-                                                                "تم الارسال بنجاح",
-                                                            confirmBtnText:
-                                                                "حسناً",
-                                                            confirmBtnColor:
-                                                                primaryColor,
-                                                            backgroundColor:
-                                                                primaryColor,
-                                                            onConfirmBtnTap:
-                                                                () {
-                                                              Get.offAll(() =>
-                                                                  const HomeScreen());
-                                                            },
-                                                          );
-                                                        }
-
- */

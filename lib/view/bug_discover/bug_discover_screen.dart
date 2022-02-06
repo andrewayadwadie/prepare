@@ -159,6 +159,7 @@ class BugDiscoverScreen extends StatelessWidget {
                                 HumidityWidget(onSave: (value) {
                                   humidity = double.parse(value ?? "");
                                 }),
+                               
                                 //====== waving  ==========
                                 WavingWidget(onSave: (value) {
                                   waving = double.parse(value ?? "");
