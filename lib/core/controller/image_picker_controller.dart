@@ -1,16 +1,14 @@
 import 'dart:developer';
 import 'dart:io';
 
- import 'package:flutter/services.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 
 class ImagePickerController extends GetxController {
-  
-  File? image ;
-  File? image2 ;
- 
+    File?  image;
+   File?  image2;
   List<Asset> images = <Asset>[];
   String errorr = 'No Error Dectected';
 

@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hawk_fab_menu/hawk_fab_menu.dart';
 import 'package:overlay_support/overlay_support.dart';
@@ -398,28 +397,12 @@ class BugDiscoverScreen extends StatelessWidget {
                                                                           else {
                                                                             net.checkInternet().then((val) {
                                                                               if (val) {
-                                                                                BugDiscoverServices.sendFormData(
-                                                                                  street: street,
-                                                                                      temperature: temperature, 
-                                                                                      windSpeed: windspeed,
-                                                                                      humidity: humidity,
-                                                                                      recommendation: recommendation,
-                                                                                      waving: waving, 
-                                                                                      ph: ph,
-                                                                                      districtId: 1,
-                                                                                      flyTypeId: flyType.flyTypeId,
-                                                                                      flyNoteId: flyNoteCtrl.flyNoteId,
-                                                                                      flySampleTypeId: sampleCtrl.flySampleId,
-                                                                                      imge: imgCtrl.image!,
-                                                                                      imge2: imgCtrl.image2!,
-                                                                                      lat: locationCtrl.currentLat, 
-                                                                                      long: locationCtrl.currentLong
-                                                                                      ).then((value) {
+                                                                                BugDiscoverServices.sendFormData(districtId: 1, flyNoteId: flyNoteCtrl.flyNoteId, flySampleTypeId: sampleCtrl.flySampleId, flyTypeId: flyType.flyTypeId, humidity: humidity, imge: imgCtrl.image!, imge2: imgCtrl.image2!, lat: locationCtrl.currentLat, long: locationCtrl.currentLong, ph: ph, recommendation: recommendation, street: street, temperature: temperature, waving: waving, windSpeed: windspeed).then((value) {
                                                                                   if (value == 400) {
                                                                                     toast("يوجد خطأ فى الإرسال ", duration: const Duration(seconds: 2));
                                                                                   } else if (value == 401) {
                                                                                     Get.offAll(const LoginScreen());
-                                                                                  } else if(value == 201){
+                                                                                  } else if (value == 201) {
                                                                                     CoolAlert.show(
                                                                                       barrierDismissible: false,
                                                                                       context: context,
@@ -433,7 +416,6 @@ class BugDiscoverScreen extends StatelessWidget {
                                                                                       },
                                                                                     );
                                                                                   }
-                                                                                  
                                                                                 });
                                                                               }
                                                                             });
