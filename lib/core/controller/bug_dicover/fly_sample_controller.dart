@@ -17,11 +17,11 @@ class AllFlySampleController extends GetxController {
 
   int flySampleId = 0;
 
-  void onTapSelected(BuildContext con, int id) {
+  void onTapSelected(BuildContext con, int id,int index) {
     flySampleId = id;
     Navigator.pop(con);
 
-    flySampleText = flySample[id - 1].name;
+    flySampleText = flySample[index].name;
 
     update();
   }

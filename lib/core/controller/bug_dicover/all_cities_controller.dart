@@ -16,11 +16,11 @@ class AllCitiesController extends GetxController {
 
   RxInt cityId = 0.obs;
 
-  void onTapSelected(BuildContext con, int id) {
+  void onTapSelected(BuildContext con, int id,index) {
     cityId.value = id;
     Navigator.pop(con);
 
-    cityText.value = cities[id - 1].name;
+    cityText.value = cities[index].name;
 
     update();
   }

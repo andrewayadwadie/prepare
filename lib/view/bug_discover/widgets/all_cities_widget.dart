@@ -39,7 +39,7 @@ class AllCitiesWidget extends StatelessWidget {
                                       onTap: () {
                                         log("TokenPref.getTokenValue : ${TokenPref.getTokenValue()}");
                                         controller.onTapSelected(
-                                            ctx, controller.cities[index].id);
+                                            ctx, controller.cities[index].id,index);
                                         disCtrl.getDistrictCount(
                                             disId: controller.cityId.value);
                                         //  dis.getDistrictCount(controller.cityId.value);

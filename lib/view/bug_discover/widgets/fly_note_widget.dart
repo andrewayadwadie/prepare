@@ -28,7 +28,7 @@ class FlyNoteWidget extends StatelessWidget {
                                   return InkWell(
                                     onTap: () {
                                       controller.onTapSelected(
-                                          ctx, controller.flyNote[index].id);
+                                          ctx, controller.flyNote[index].id,index);
                                     },
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(

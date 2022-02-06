@@ -18,12 +18,12 @@ class AllDistrictController extends GetxController {
   // }
 
   RxString districtText = "إختر إسم الحي ".obs;
-  RxInt  districtId = 0.obs;
+  RxInt districtId = 0.obs;
 
-  void onTapSelected(BuildContext con, int id)async {
+  void onTapSelected(BuildContext con, int id, index) async {
     districtId.value = id;
-   
-    districtText.value = district[id - 1].name;
+    Navigator.pop(con);
+    districtText.value = district[index].name;
     update();
   }
 
@@ -31,13 +31,13 @@ class AllDistrictController extends GetxController {
   dynamic getDistrictCount({required int disId}) {
     log("disId : $disId");
     // if (_loading.value == true) {
-      log("disId : $disId");
-      BugDiscoverServices.getAllDistrict(disId).then((value) { 
-        district = value;
-        log("district return value is : $value");
-        // _loading.value = false;
-        update();
-      });
+    log("disId : $disId");
+    BugDiscoverServices.getAllDistrict(disId).then((value) {
+      district = value;
+      log("district return value is : $value");
+      // _loading.value = false;
+      update();
+    });
     // }
     return district;
   }

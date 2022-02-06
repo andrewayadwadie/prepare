@@ -45,7 +45,7 @@ class AllDistrictWidget extends StatelessWidget {
                                    :InkWell(
                                     onTap: () {
                                       disCtrl.onTapSelected(
-                                          ctx, disCtrl.district[index].id);
+                                          ctx, disCtrl.district[index].id,index);
                                     },
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(

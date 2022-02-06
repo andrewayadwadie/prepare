@@ -41,7 +41,7 @@ class BugDiscoverScreen extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final _reportFormKey = GlobalKey<FormState>();
+  final _bugFormKey = GlobalKey<FormState>();
 
 ////////////////////////////////////////////
   String? street;
@@ -109,7 +109,7 @@ class BugDiscoverScreen extends StatelessWidget {
                   child: SingleChildScrollView(
                     reverse: true,
                     child: Form(
-                      key: _reportFormKey,
+                      key: _bugFormKey,
                       child: Column(
                         children: [
                           const HeaderWidget(arrow: true),
@@ -354,10 +354,10 @@ class BugDiscoverScreen extends StatelessWidget {
                                                                     return InkWell(
                                                                       onTap:
                                                                           () async {
-                                                                        if (_reportFormKey
+                                                                        if (_bugFormKey
                                                                             .currentState!
                                                                             .validate()) {
-                                                                          _reportFormKey
+                                                                          _bugFormKey
                                                                               .currentState!
                                                                               .save();
 

@@ -16,11 +16,11 @@ class AllFlyNoteController extends GetxController {
 
   int flyNoteId = 0;
 
-  void onTapSelected(BuildContext con, int id) {
+  void onTapSelected(BuildContext con, int id,index) {
     flyNoteId = id;
     Navigator.pop(con);
 
-    flyNoteText = flyNote[id - 1].name;
+    flyNoteText = flyNote[index].name;
 
     update();
   }
