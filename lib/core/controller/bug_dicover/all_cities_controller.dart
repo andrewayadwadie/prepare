@@ -12,7 +12,7 @@ class AllCitiesController extends GetxController {
     super.onInit();
   }
 
-  String cityText = "إختر إسم المدينة";
+  RxString cityText = "إختر إسم المدينة".obs;
 
   RxInt cityId = 0.obs;
 
@@ -20,7 +20,7 @@ class AllCitiesController extends GetxController {
     cityId.value = id;
     Navigator.pop(con);
 
-    cityText = cities[id - 1].name;
+    cityText.value = cities[id - 1].name;
 
     update();
   }

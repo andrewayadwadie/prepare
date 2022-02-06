@@ -50,6 +50,7 @@ class BugDiscoverServices {
   }
 
   static Future getAllDistrict(int id) async {
+    log("district id is : $id");
     String url = "${apiUrl}Districts/GetCityDistricts/$id";
 
     http.Response res = await http.get(
@@ -63,8 +64,9 @@ class BugDiscoverServices {
     );
     //   log("token is : ${TokenPref.getTokenValue()}");
     log("district status code is : ${res.statusCode}");
-    log("district id is : $id");
+    
     if (res.statusCode == 200) {
+
       var jsonData = jsonDecode(res.body);
 
       List district = jsonData.map((element) {
@@ -212,21 +214,21 @@ class BugDiscoverServices {
   }
 
   static Future sendFormData({
- required  street,
-required temperature,
-required windSpeed,
-required humidity,
-required recommendation,
-required waving,
-required ph,
-required districtId,
-required flyTypeId,
-required flyNoteId,
-required flySampleTypeId,
-required File imge,
-required File imge2,
-required lat,
-required long,
+    required street,
+    required temperature,
+    required windSpeed,
+    required humidity,
+    required recommendation,
+    required waving,
+    required ph,
+    required districtId,
+    required flyTypeId,
+    required flyNoteId,
+    required flySampleTypeId,
+    required File imge,
+    required File imge2,
+    required lat,
+    required long,
   }) async {
     final Uri url = Uri.parse(
         'https://qualityapi.afaqci.com/api/InsectExplorations/AddInsectExploration');

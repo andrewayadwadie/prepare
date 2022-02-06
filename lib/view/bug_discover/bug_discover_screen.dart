@@ -167,14 +167,16 @@ class BugDiscoverScreen extends StatelessWidget {
                                 //<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
                                 //====== Cities  & District==========
 
-                                GetBuilder<AllCitiesController>(
+                                GetX<AllCitiesController>(
                                     init: AllCitiesController(),
                                     builder: (controller) {
+                                       log("controller.cityId.value : ${controller.cityId.value}");
                                       return Column(
                                         children: [
                                           AllCitiesWidget(
                                               controller: controller),
                                           if (controller.cityId.value != 0)
+                                         
                                             AllDistrictWidget(
                                                 id: controller.cityId.value)
                                         ],
@@ -340,9 +342,8 @@ class BugDiscoverScreen extends StatelessWidget {
                                                                 AllDistrictController>(
                                                             init:
                                                                 AllDistrictController(
-                                                                    cityCtrl
-                                                                        .cityId
-                                                                        .value),
+                                                                   
+                                                                        ),
                                                             builder: (disCtrl) {
                                                               return GetBuilder<
                                                                       InternetController>(
@@ -363,6 +364,18 @@ class BugDiscoverScreen extends StatelessWidget {
                                                                           if (locationCtrl.currentLat == 0 &&
                                                                               locationCtrl.currentLong == 0) {
                                                                             toast("please open Gps ",
+                                                                                duration: const Duration(seconds: 2));
+                                                                          } else if (street ==
+                                                                              "") {
+                                                                            toast("برجاء إدخال إسم الشارع",
+                                                                                duration: const Duration(seconds: 2));
+                                                                          } else if (ph ==
+                                                                              "") {
+                                                                            toast("برجاء إدخال ph",
+                                                                                duration: const Duration(seconds: 2));
+                                                                          } else if (recommendation ==
+                                                                              "") {
+                                                                            toast("برجاء إدخال ملاحظات",
                                                                                 duration: const Duration(seconds: 2));
                                                                           } else if (flyType.flyTypeText ==
                                                                               "إختر نوع الموقع") {

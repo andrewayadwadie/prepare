@@ -1,39 +1,44 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prepare/core/service/bug_discover_services.dart';
 
 class AllDistrictController extends GetxController {
-  AllDistrictController(this.id);
-  final int id;
+  // AllDistrictController(this.id);
+  // final RxInt id;
 
   List<dynamic> district = [].obs;
   final RxBool _loading = true.obs;
 
-  @override
-  void onInit() {
-    getDistrictCount(id);
-    super.onInit();
-  }
+  // @override
+  // void onInit() {
+  //   getDistrictCount(disId :id.value);
+  //   super.onInit();
+  // }
 
-  String districtText = "إختر إسم الحي ";
-  int districtId = 0;
+  RxString districtText = "إختر إسم الحي ".obs;
+  RxInt  districtId = 0.obs;
 
-  void onTapSelected(BuildContext con, int id) {
-    districtId = id;
-    Navigator.pop(con);
-    districtText = district[id - 1].name;
+  void onTapSelected(BuildContext con, int id)async {
+    districtId.value = id;
+   
+    districtText.value = district[id - 1].name;
     update();
   }
 
   bool get loading => _loading.value;
-  dynamic getDistrictCount(int disId) {
-    if (_loading.value == true) {
-      BugDiscoverServices.getAllDistrict(disId).then((value) {
+  dynamic getDistrictCount({required int disId}) {
+    log("disId : $disId");
+    // if (_loading.value == true) {
+      log("disId : $disId");
+      BugDiscoverServices.getAllDistrict(disId).then((value) { 
         district = value;
-        _loading.value = false;
+        log("district return value is : $value");
+        // _loading.value = false;
         update();
       });
-    }
+    // }
     return district;
   }
 }

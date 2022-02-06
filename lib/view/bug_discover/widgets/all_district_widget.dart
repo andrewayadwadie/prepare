@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,25 +13,37 @@ class AllDistrictWidget extends StatelessWidget {
     required this.id,
   }) : super(key: key);
  final int id;
+
   @override
   Widget build(BuildContext context) {
+     log("id from district id widget : $id");
     return Padding(
         padding: const EdgeInsets.symmetric(vertical: 10),
-        child: GetBuilder<AllDistrictController>(
-          init: AllDistrictController(id),
+        child: GetX<AllDistrictController>(
+          init: AllDistrictController(),
           builder: (disCtrl) {
+    
             return GestureDetector(
                 onTap: () {
+            
                   showModalBottomSheet(
                     context: context,
-                    builder: (ctx) => disCtrl.loading == true
-                        ? const LoaderWidget()
-                        : SizedBox(
+                    builder: (ctx) =>
+                    //  disCtrl.loading == true
+                    //     ? const LoaderWidget()
+                    //     :
+                         SizedBox(
                             height: MediaQuery.of(context).size.height / 2.5,
                             child: ListView.builder(
                                 itemCount: disCtrl.district.length,
                                 itemBuilder: (context, index) {
-                                  return InkWell(
+                                  log("disCtrl.district.length : ${disCtrl.district.length}");
+                                  return
+                                  
+                                  disCtrl.district.isEmpty?
+
+                                  Image.asset("assets/images/empty_product_banner.c076afe7.png",fit: BoxFit.contain,width: 100,height: 100,)
+                                   :InkWell(
                                     onTap: () {
                                       disCtrl.onTapSelected(
                                           ctx, disCtrl.district[index].id);
@@ -72,7 +86,7 @@ class AllDistrictWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Text(
-                        disCtrl.districtText,
+                        disCtrl.districtText.value ,
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                             height: 1.1,

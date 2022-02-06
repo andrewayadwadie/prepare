@@ -1,6 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:prepare/core/controller/bug_dicover/all_cities_controller.dart';
+import 'package:prepare/core/controller/bug_dicover/all_district_controller.dart';
+import 'package:prepare/core/db/auth_shared_preferences.dart';
 import 'package:prepare/utils/style.dart';
 import 'package:prepare/view/shared_widgets/custom_loader.dart';
 
@@ -10,9 +15,10 @@ class AllCitiesWidget extends StatelessWidget {
     required this.controller,
   }) : super(key: key);
   final AllCitiesController controller;
+
   @override
   Widget build(BuildContext context) {
-   // AllDistrictController dis = Get.put(AllDistrictController(controller.cityId.value));
+    // AllDistrictController dis = Get.put(AllDistrictController(controller.cityId.value));
     return Padding(
         padding: const EdgeInsets.symmetric(vertical: 10),
         child: GestureDetector(
@@ -26,31 +32,43 @@ class AllCitiesWidget extends StatelessWidget {
                         child: ListView.builder(
                             itemCount: controller.cities.length,
                             itemBuilder: (context, index) {
-                              return InkWell(
-                                onTap: () {
-                                  controller.onTapSelected(
-                                      ctx, controller.cities[index].id);
-                                    //  dis.getDistrictCount(controller.cityId.value);
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 60, vertical: 15),
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    height:
-                                        MediaQuery.of(context).size.height / 12,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(
-                                            width: 1, color: Colors.grey)),
-                                    child: Text(
-                                      controller.cities[index].name,
-                                      style: const TextStyle(
-                                          color: primaryColor, fontSize: 15),
-                                    ),
-                                  ),
-                                ),
-                              );
+                              return GetBuilder<AllDistrictController>(
+                                  init: AllDistrictController(),
+                                  builder: (disCtrl) {
+                                    return InkWell(
+                                      onTap: () {
+                                        log("TokenPref.getTokenValue : ${TokenPref.getTokenValue()}");
+                                        controller.onTapSelected(
+                                            ctx, controller.cities[index].id);
+                                        disCtrl.getDistrictCount(
+                                            disId: controller.cityId.value);
+                                        //  dis.getDistrictCount(controller.cityId.value);
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 60, vertical: 15),
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              12,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              border: Border.all(
+                                                  width: 1,
+                                                  color: Colors.grey)),
+                                          child: Text(
+                                            controller.cities[index].name,
+                                            style: const TextStyle(
+                                                color: primaryColor,
+                                                fontSize: 15),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  });
                             }),
                       ),
               );
@@ -70,7 +88,7 @@ class AllCitiesWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Text(
-                    controller.cityText,
+                    controller.cityText.value,
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                         height: 1.1,
