@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 
 import 'package:prepare/core/controller/bug_dicover/all_district_controller.dart';
 import 'package:prepare/utils/style.dart';
-import 'package:prepare/view/shared_widgets/custom_loader.dart';
 
 class AllDistrictWidget extends StatelessWidget {
   const AllDistrictWidget({

@@ -243,7 +243,7 @@ class BugDiscoverServices {
 
     var request = http.MultipartRequest("POST", url);
     request.headers.addAll(headers);
-    if (imge != null) {
+    if (imge.path !=  "") {
       var stream = http.ByteStream(DelegatingStream.typed(imge.openRead()));
       // ignore: deprecated_member_use
 
@@ -254,7 +254,7 @@ class BugDiscoverServices {
 
       request.files.add(multipartFile1);
     }
-    if (imge2 != null) {
+    if (imge2.path !=  "") {
       // ignore: deprecated_member_use
       var stream2 = http.ByteStream(DelegatingStream.typed(imge2.openRead()));
 

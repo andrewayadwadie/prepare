@@ -196,7 +196,7 @@ class BugDiscoverScreen extends StatelessWidget {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    imgCtrl.image != null
+                                    imgCtrl.image.path != ""
                                         ? Container(
                                             width: MediaQuery.of(context)
                                                     .size
@@ -214,7 +214,7 @@ class BugDiscoverScreen extends StatelessWidget {
                                                 borderRadius:
                                                     BorderRadius.circular(10)),
                                             child: Image.file(
-                                              imgCtrl.image!,
+                                              imgCtrl.image,
                                               width: 120,
                                               height: 100,
                                               fit: BoxFit.contain,
@@ -255,7 +255,7 @@ class BugDiscoverScreen extends StatelessWidget {
                                               ],
                                             ),
                                           ),
-                                    imgCtrl.image2 != null
+                                    imgCtrl.image2.path != ""
                                         ? Container(
                                             width: MediaQuery.of(context)
                                                     .size
@@ -273,7 +273,7 @@ class BugDiscoverScreen extends StatelessWidget {
                                                 borderRadius:
                                                     BorderRadius.circular(10)),
                                             child: Image.file(
-                                              imgCtrl.image2!,
+                                              imgCtrl.image2,
                                               width: 120,
                                               height: 100,
                                               fit: BoxFit.contain,
@@ -389,7 +389,7 @@ class BugDiscoverScreen extends StatelessWidget {
                                                                               "إختر نوع العينة ") {
                                                                             toast("برجاء اختيار نوع العينة",
                                                                                 duration: const Duration(seconds: 2));
-                                                                          } else if (cityCtrl.cityText ==
+                                                                          } else if (cityCtrl.cityText.value ==
                                                                               "إختر إسم المدينة") {
                                                                             toast("برجاء اختيار إسم المدينة",
                                                                                 duration: const Duration(seconds: 2));
@@ -410,7 +410,7 @@ class BugDiscoverScreen extends StatelessWidget {
                                                                           else {
                                                                             net.checkInternet().then((val) {
                                                                               if (val) {
-                                                                                BugDiscoverServices.sendFormData(districtId: 1, flyNoteId: flyNoteCtrl.flyNoteId, flySampleTypeId: sampleCtrl.flySampleId, flyTypeId: flyType.flyTypeId, humidity: humidity, imge: imgCtrl.image!, imge2: imgCtrl.image2!, lat: locationCtrl.currentLat, long: locationCtrl.currentLong, ph: ph, recommendation: recommendation, street: street, temperature: temperature, waving: waving, windSpeed: windspeed).then((value) {
+                                                                                BugDiscoverServices.sendFormData(districtId: disCtrl.districtId, flyNoteId: flyNoteCtrl.flyNoteId, flySampleTypeId: sampleCtrl.flySampleId, flyTypeId: flyType.flyTypeId, humidity: humidity, imge: imgCtrl.image, imge2: imgCtrl.image2, lat: locationCtrl.currentLat, long: locationCtrl.currentLong, ph: ph, recommendation: recommendation, street: street, temperature: temperature, waving: waving, windSpeed: windspeed).then((value) {
                                                                                   if (value == 400) {
                                                                                     toast("يوجد خطأ فى الإرسال ", duration: const Duration(seconds: 2));
                                                                                   } else if (value == 401) {

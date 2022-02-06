@@ -7,8 +7,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 
 class ImagePickerController extends GetxController {
-    File?  image;
-   File?  image2;
+    File  image = File("");
+   File  image2 = File("");
   List<Asset> images = <Asset>[];
   String errorr = 'No Error Dectected';
 
