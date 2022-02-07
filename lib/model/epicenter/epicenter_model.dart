@@ -1,13 +1,13 @@
 class EpiCenterModel {
   final int id;
   final String name;
-  final String density;
+  final String code;
  
 
   EpiCenterModel({
     required this.id,
     required this.name,
-    required this.density,
+    required this.code,
  
   });
 
@@ -15,7 +15,7 @@ class EpiCenterModel {
     return EpiCenterModel(
       id: jsonData['id'],
       name: jsonData['name'],
-      density: jsonData['density'],
+      code: jsonData['code'],
  
     );
   }

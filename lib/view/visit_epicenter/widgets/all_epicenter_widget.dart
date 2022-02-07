@@ -24,9 +24,11 @@ class AllEpicenterWidget extends StatelessWidget {
                           if (val) {
                             showModalBottomSheet(
                               context: context,
-                              builder: (ctx) => controller.loading == true
+                              builder: (ctx) => 
+                              controller.loading == true
                                   ? const LoaderWidget()
-                                  : SizedBox(
+                                  : 
+                                  SizedBox(
                                       height:
                                           MediaQuery.of(context).size.height /
                                               2.5,
