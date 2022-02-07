@@ -78,7 +78,11 @@ class VisitEpicenterScreen extends StatelessWidget {
                     SizedBox(
                       height: MediaQuery.of(context).size.height / 30,
                     ),
-                    // Send Report button
+                   
+                  ],
+                ),
+              ),
+               // Send Report button
                     GetBuilder<InternetController>(
                         init: InternetController(),
                         builder: (net) {
@@ -144,9 +148,7 @@ class VisitEpicenterScreen extends StatelessWidget {
                                 );
                               });
                         })
-                  ],
-                ),
-              ),
+                  
             ],
           ),
         ),

@@ -82,196 +82,162 @@ class EpiCenterScreen extends StatelessWidget {
                     SizedBox(
                       height: MediaQuery.of(context).size.height / 20,
                     ),
-                    // Send Report button
-                    GetBuilder<CurrentLocationController>(
-                        init: CurrentLocationController(),
-                        builder: (locationCtrl) {
-                          return GetBuilder<AllCitiesController>(
-                              init: AllCitiesController(),
-                              builder: (cityCtrl) {
-                                return GetBuilder<AllDistrictController>(
-                                    init: AllDistrictController(),
-                                    builder: (disCtrl) {
-                                      return GetBuilder<InternetController>(
-                                          init: InternetController(),
-                                          builder: (net) {
-                                            return GetBuilder<
-                                                    AllInsectsController>(
-                                                init: AllInsectsController(),
-                                                builder: (insectCtrl) {
-                                                  return InkWell(
-                                                    onTap: () async {
-                                                      log("hiiii");
-
-                                                      if (locationCtrl
-                                                                  .currentLat ==
-                                                              0 &&
-                                                          locationCtrl
-                                                                  .currentLong ==
-                                                              0) {
-                                                        toast(
-                                                            "please open Gps ",
-                                                            duration:
-                                                                const Duration(
-                                                                    seconds:
-                                                                        2));
-                                                      } else if (name == "") {
-                                                        toast(
-                                                            "برجاء إدخال  الاسم",
-                                                            duration:
-                                                                const Duration(
-                                                                    seconds:
-                                                                        2));
-                                                      } else if (cityCtrl
-                                                              .cityText.value ==
-                                                          "إختر إسم المدينة") {
-                                                        toast(
-                                                            "برجاء اختيار إسم المدينة",
-                                                            duration:
-                                                                const Duration(
-                                                                    seconds:
-                                                                        2));
-                                                      } else if (disCtrl
-                                                              .districtText
-                                                              .value ==
-                                                          "إختر إسم الحي ") {
-                                                        toast(
-                                                            "برجاء اختيار إسم الحي",
-                                                            duration:
-                                                                const Duration(
-                                                                    seconds:
-                                                                        2));
-                                                      } else if (insectCtrl
-                                                              .insectsText ==
-                                                          "إختر نوع الحشرة") {
-                                                        toast(
-                                                            "برجاء اختيار  نوع الحشرة ",
-                                                            duration:
-                                                                const Duration(
-                                                                    seconds:
-                                                                        2));
-                                                      } else {
-                                                        net
-                                                            .checkInternet()
-                                                            .then((val) {
-                                                          if (val) {
-                                              
-                                                            EpicenterServices.addEpiCenter(
-                                                                    name:
-                                                                        name ??
-                                                                            "",
-                                                                    lat: locationCtrl
-                                                                        .currentLat
-                                                                        .toString(),
-                                                                    long: locationCtrl
-                                                                        .currentLong
-                                                                        .toString(),
-                                                                    insectId:
-                                                                        insectCtrl
-                                                                            .insectsId,
-                                                                    districtId: disCtrl
-                                                                        .districtId
-                                                                        .value)
-                                                                .then((value) {
-                                                              if (value ==
-                                                                  400) {
-                                                                toast(value,
-                                                                    duration: const Duration(
-                                                                        seconds:
-                                                                            2));
-                                                              } else if (value ==
-                                                                  401) {
-                                                                Get.offAll(
-                                                                    const LoginScreen());
-                                                              } else if (value ==
-                                                                      201 ||
-                                                                  value ==
-                                                                      200) {
-                                                                Get.offAll(() =>
-                                                                    const HomeScreen());
-                                                                CoolAlert.show(
-                                                                  barrierDismissible:
-                                                                      false,
-                                                                  context:
-                                                                      context,
-                                                                  type: CoolAlertType
-                                                                      .success,
-                                                                  title:
-                                                                      "تم الإضافة بنجاح",
-                                                                  confirmBtnText:
-                                                                      "حسناً",
-                                                                  confirmBtnColor:
-                                                                      primaryColor,
-                                                                  backgroundColor:
-                                                                      primaryColor,
-                                                                  onConfirmBtnTap:
-                                                                      () {
-                                                                    Get.back();
-                                                                  },
-                                                                );
-                                                              }
-                                                            });
-                                                          }
-                                                        });
-                                                      }
-                                                    },
-                                                    child: Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      height:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height /
-                                                              17,
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width /
-                                                              2,
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(40),
-                                                        gradient:
-                                                            const LinearGradient(
-                                                                colors: [
-                                                                  lightPrimaryColor,
-                                                                  primaryColor,
-                                                                ],
-                                                                begin:
-                                                                    FractionalOffset(
-                                                                        0.0,
-                                                                        0.0),
-                                                                end:
-                                                                    FractionalOffset(
-                                                                        1.0,
-                                                                        0.0),
-                                                                stops: [
-                                                                  0.0,
-                                                                  1.0
-                                                                ],
-                                                                tileMode:
-                                                                    TileMode
-                                                                        .clamp),
-                                                      ),
-                                                      child: const Text(
-                                                        "إضافة بؤرة ",
-                                                        style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 18),
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                      ),
-                                                    ),
-                                                  );
-                                                });
-                                          });
-                                    });
-                              });
-                        })
                   ],
                 ),
               ),
+              // Send Report button
+              GetBuilder<CurrentLocationController>(
+                  init: CurrentLocationController(),
+                  builder: (locationCtrl) {
+                    return GetBuilder<AllCitiesController>(
+                        init: AllCitiesController(),
+                        builder: (cityCtrl) {
+                          return GetBuilder<AllDistrictController>(
+                              init: AllDistrictController(),
+                              builder: (disCtrl) {
+                                return GetBuilder<InternetController>(
+                                    init: InternetController(),
+                                    builder: (net) {
+                                      return GetBuilder<AllInsectsController>(
+                                          init: AllInsectsController(),
+                                          builder: (insectCtrl) {
+                                            return InkWell(
+                                              onTap: () async {
+                                                log("hiiii");
+
+                                                if (locationCtrl.currentLat ==
+                                                        0 &&
+                                                    locationCtrl.currentLong ==
+                                                        0) {
+                                                  toast("please open Gps ",
+                                                      duration: const Duration(
+                                                          seconds: 2));
+                                                } else if (name == "") {
+                                                  toast("برجاء إدخال  الاسم",
+                                                      duration: const Duration(
+                                                          seconds: 2));
+                                                } else if (cityCtrl
+                                                        .cityText.value ==
+                                                    "إختر إسم المدينة") {
+                                                  toast(
+                                                      "برجاء اختيار إسم المدينة",
+                                                      duration: const Duration(
+                                                          seconds: 2));
+                                                } else if (disCtrl
+                                                        .districtText.value ==
+                                                    "إختر إسم الحي ") {
+                                                  toast("برجاء اختيار إسم الحي",
+                                                      duration: const Duration(
+                                                          seconds: 2));
+                                                } else if (insectCtrl
+                                                        .insectsText ==
+                                                    "إختر نوع الحشرة") {
+                                                  toast(
+                                                      "برجاء اختيار  نوع الحشرة ",
+                                                      duration: const Duration(
+                                                          seconds: 2));
+                                                } else {
+                                                  net
+                                                      .checkInternet()
+                                                      .then((val) {
+                                                    if (val) {
+                                                      EpicenterServices.addEpiCenter(
+                                                              name: name ?? "",
+                                                              lat: locationCtrl
+                                                                  .currentLat
+                                                                  .toString(),
+                                                              long: locationCtrl
+                                                                  .currentLong
+                                                                  .toString(),
+                                                              insectId:
+                                                                  insectCtrl
+                                                                      .insectsId,
+                                                              districtId: disCtrl
+                                                                  .districtId
+                                                                  .value)
+                                                          .then((value) {
+                                                        if (value == 400) {
+                                                          toast(value,
+                                                              duration:
+                                                                  const Duration(
+                                                                      seconds:
+                                                                          2));
+                                                        } else if (value ==
+                                                            401) {
+                                                          Get.offAll(
+                                                              const LoginScreen());
+                                                        } else if (value ==
+                                                                201 ||
+                                                            value == 200) {
+                                                          Get.offAll(() =>
+                                                              const HomeScreen());
+                                                          CoolAlert.show(
+                                                            barrierDismissible:
+                                                                false,
+                                                            context: context,
+                                                            type: CoolAlertType
+                                                                .success,
+                                                            title:
+                                                                "تم الإضافة بنجاح",
+                                                            confirmBtnText:
+                                                                "حسناً",
+                                                            confirmBtnColor:
+                                                                primaryColor,
+                                                            backgroundColor:
+                                                                primaryColor,
+                                                            onConfirmBtnTap:
+                                                                () {
+                                                              Get.back();
+                                                            },
+                                                          );
+                                                        }
+                                                      });
+                                                    }
+                                                  });
+                                                }
+                                              },
+                                              child: Container(
+                                                alignment: Alignment.center,
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height /
+                                                    17,
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    2,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(40),
+                                                  gradient:
+                                                      const LinearGradient(
+                                                          colors: [
+                                                            lightPrimaryColor,
+                                                            primaryColor,
+                                                          ],
+                                                          begin:
+                                                              FractionalOffset(
+                                                                  0.0, 0.0),
+                                                          end: FractionalOffset(
+                                                              1.0, 0.0),
+                                                          stops: [0.0, 1.0],
+                                                          tileMode:
+                                                              TileMode.clamp),
+                                                ),
+                                                child: const Text(
+                                                  "إضافة بؤرة ",
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 18),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ),
+                                            );
+                                          });
+                                    });
+                              });
+                        });
+                  })
             ],
           ),
         ),
