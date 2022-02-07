@@ -52,7 +52,7 @@ class EpiCenterScreen extends StatelessWidget {
               ),
               const LineDots(),
               Container(
-                height: MediaQuery.of(context).size.height / 1.68,
+                height: MediaQuery.of(context).size.height / 2,
                 margin:
                     const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
                 padding: const EdgeInsets.all(5),
