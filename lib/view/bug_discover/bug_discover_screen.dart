@@ -447,11 +447,11 @@ class BugDiscoverScreen extends StatelessWidget {
                                                                                           stops: const [0.0, 1.0],
                                                                                           tileMode: TileMode.clamp),
                                                                                     ),
-                                                                              child: const Text(
+                                                                              child:clk.clicked == false? const Text(
                                                                                 "إرسال الإستكشاف ",
                                                                                 style: TextStyle(color: Colors.white, fontSize: 18),
                                                                                 textAlign: TextAlign.center,
-                                                                              ),
+                                                                              ):const CircularProgressIndicator(color: Colors.white,),
                                                                             ),
                                                                           );
                                                                         });

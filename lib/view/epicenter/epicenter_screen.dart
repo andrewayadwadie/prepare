@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:prepare/core/controller/bug_dicover/all_cities_controller.dart';
 import 'package:prepare/core/controller/bug_dicover/all_district_controller.dart';
+import 'package:prepare/core/controller/click_controller.dart';
 import 'package:prepare/core/controller/current_location_controller.dart';
 import 'package:prepare/core/controller/epicenter/all_insects_controller.dart';
 import 'package:prepare/core/controller/internet_connectivity_controller.dart';
@@ -63,12 +64,9 @@ class EpiCenterScreen extends StatelessWidget {
                       name = value;
                     }),
                     // ======= insects =================
-
                     const InsectWidget(),
-
                     //====== Cities  & District==========
-
-                    GetX<AllCitiesController>(
+                    GetBuilder<AllCitiesController>(
                         init: AllCitiesController(),
                         builder: (controller) {
                           return Column(
@@ -101,138 +99,210 @@ class EpiCenterScreen extends StatelessWidget {
                                       return GetBuilder<AllInsectsController>(
                                           init: AllInsectsController(),
                                           builder: (insectCtrl) {
-                                            return InkWell(
-                                              onTap: () async {
-                                                log("hiiii");
-
-                                                if (locationCtrl.currentLat ==
-                                                        0 &&
-                                                    locationCtrl.currentLong ==
-                                                        0) {
-                                                  toast("please open Gps ",
-                                                      duration: const Duration(
-                                                          seconds: 2));
-                                                } else if (name == "") {
-                                                  toast("برجاء إدخال  الاسم",
-                                                      duration: const Duration(
-                                                          seconds: 2));
-                                                } else if (cityCtrl
-                                                        .cityText.value ==
-                                                    "إختر إسم المدينة") {
-                                                  toast(
-                                                      "برجاء اختيار إسم المدينة",
-                                                      duration: const Duration(
-                                                          seconds: 2));
-                                                } else if (disCtrl
-                                                        .districtText.value ==
-                                                    "إختر إسم الحي ") {
-                                                  toast("برجاء اختيار إسم الحي",
-                                                      duration: const Duration(
-                                                          seconds: 2));
-                                                } else if (insectCtrl
-                                                        .insectsText ==
-                                                    "إختر نوع الحشرة") {
-                                                  toast(
-                                                      "برجاء اختيار  نوع الحشرة ",
-                                                      duration: const Duration(
-                                                          seconds: 2));
-                                                } else {
-                                                  net
-                                                      .checkInternet()
-                                                      .then((val) {
-                                                    if (val) {
-                                                      EpicenterServices.addEpiCenter(
-                                                              name: name ?? "",
-                                                              lat: locationCtrl
-                                                                  .currentLat
-                                                                  .toString(),
-                                                              long: locationCtrl
-                                                                  .currentLong
-                                                                  .toString(),
-                                                              insectId:
-                                                                  insectCtrl
-                                                                      .insectsId,
-                                                              districtId: disCtrl
-                                                                  .districtId
-                                                                  .value)
-                                                          .then((value) {
-                                                        if (value == 400) {
-                                                          toast("يوجد مشكلة فى الاتصال ",
+                                            return GetBuilder<ClickController>(
+                                                init: ClickController(),
+                                                builder: (clk) {
+                                                  return InkWell(
+                                                    onTap: () async {
+                                                      if (clk.clicked ==
+                                                          false) {
+                                                        if (locationCtrl
+                                                                    .currentLat ==
+                                                                0 &&
+                                                            locationCtrl
+                                                                    .currentLong ==
+                                                                0) {
+                                                          toast(
+                                                              "please open Gps ",
                                                               duration:
                                                                   const Duration(
                                                                       seconds:
                                                                           2));
-                                                        } else if (value ==
-                                                            401) {
-                                                          Get.offAll(
-                                                              const LoginScreen());
-                                                        } else if (value ==
-                                                                201 ||
-                                                            value == 200) {
-                                                          Get.offAll(() =>
-                                                              const HomeScreen());
-                                                          CoolAlert.show(
-                                                            barrierDismissible:
-                                                                false,
-                                                            context: context,
-                                                            type: CoolAlertType
-                                                                .success,
-                                                            title:
-                                                                "تم الإضافة بنجاح",
-                                                            confirmBtnText:
-                                                                "حسناً",
-                                                            confirmBtnColor:
-                                                                primaryColor,
-                                                            backgroundColor:
-                                                                primaryColor,
-                                                            onConfirmBtnTap:
-                                                                () {
-                                                              Get.back();
-                                                            },
-                                                          );
+                                                          clk.changeClick();
+                                                        } else if (name == "") {
+                                                          toast(
+                                                              "برجاء إدخال  الاسم",
+                                                              duration:
+                                                                  const Duration(
+                                                                      seconds:
+                                                                          2));
+                                                          clk.changeClick();
+                                                        } else if (cityCtrl
+                                                                .cityText
+                                                                .value ==
+                                                            "إختر إسم المدينة") {
+                                                          toast(
+                                                              "برجاء اختيار إسم المدينة",
+                                                              duration:
+                                                                  const Duration(
+                                                                      seconds:
+                                                                          2));
+                                                          clk.changeClick();
+                                                        } else if (disCtrl
+                                                                .districtText
+                                                                .value ==
+                                                            "إختر إسم الحي ") {
+                                                          toast(
+                                                              "برجاء اختيار إسم الحي",
+                                                              duration:
+                                                                  const Duration(
+                                                                      seconds:
+                                                                          2));
+                                                          clk.changeClick();
+                                                        } else if (insectCtrl
+                                                                .insectsText ==
+                                                            "إختر نوع الحشرة") {
+                                                          toast(
+                                                              "برجاء اختيار  نوع الحشرة ",
+                                                              duration:
+                                                                  const Duration(
+                                                                      seconds:
+                                                                          2));
+                                                          clk.changeClick();
+                                                        } else {
+                                                          net
+                                                              .checkInternet()
+                                                              .then((val) {
+                                                            if (val) {
+                                                              EpicenterServices.addEpiCenter(
+                                                                      name:
+                                                                          name ??
+                                                                              "",
+                                                                      lat: locationCtrl
+                                                                          .currentLat
+                                                                          .toString(),
+                                                                      long: locationCtrl
+                                                                          .currentLong
+                                                                          .toString(),
+                                                                      insectId:
+                                                                          insectCtrl
+                                                                              .insectsId,
+                                                                      districtId: disCtrl
+                                                                          .districtId
+                                                                          .value)
+                                                                  .then(
+                                                                      (value) {
+                                                                if (value.runtimeType
+                                                                    == String) {
+                                                                  toast(
+                                                                      value.toString(),
+                                                                      duration:
+                                                                          const Duration(
+                                                                              seconds: 2));
+                                                                  clk.changeClick();
+                                                                } else if (value ==
+                                                                    401) {
+                                                                  Get.offAll(
+                                                                      const LoginScreen());
+                                                                } else if (value ==
+                                                                        201 ||
+                                                                    value ==
+                                                                        200) {
+                                                                  Get.offAll(() =>
+                                                                      const HomeScreen());
+                                                                  CoolAlert
+                                                                      .show(
+                                                                    barrierDismissible:
+                                                                        false,
+                                                                    context:
+                                                                        context,
+                                                                    type: CoolAlertType
+                                                                        .success,
+                                                                    title:
+                                                                        "تم الإضافة بنجاح",
+                                                                    confirmBtnText:
+                                                                        "حسناً",
+                                                                    confirmBtnColor:
+                                                                        primaryColor,
+                                                                    backgroundColor:
+                                                                        primaryColor,
+                                                                    onConfirmBtnTap:
+                                                                        () {
+                                                                      Get.back();
+                                                                    },
+                                                                  );
+                                                                }
+                                                              });
+                                                            }
+                                                          });
                                                         }
-                                                      });
-                                                    }
-                                                  });
-                                                }
-                                              },
-                                              child: Container(
-                                                alignment: Alignment.center,
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height /
-                                                    17,
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    2,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(40),
-                                                  gradient:
-                                                      const LinearGradient(
-                                                          colors: [
-                                                            lightPrimaryColor,
-                                                            primaryColor,
-                                                          ],
-                                                          begin:
-                                                              FractionalOffset(
-                                                                  0.0, 0.0),
-                                                          end: FractionalOffset(
-                                                              1.0, 0.0),
-                                                          stops: [0.0, 1.0],
-                                                          tileMode:
-                                                              TileMode.clamp),
-                                                ),
-                                                child: const Text(
-                                                  "إضافة بؤرة ",
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 18),
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                              ),
-                                            );
+                                                        clk.changeClick();
+                                                      }
+                                                    },
+                                                    child: Container(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      height:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height /
+                                                              17,
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width /
+                                                              2,
+                                                      decoration:
+                                                          clk.clicked == false
+                                                              ? BoxDecoration(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              40),
+                                                                  gradient:
+                                                                      const LinearGradient(
+                                                                          colors: [
+                                                                            lightPrimaryColor,
+                                                                            primaryColor,
+                                                                          ],
+                                                                          begin: FractionalOffset(
+                                                                              0.0,
+                                                                              0.0),
+                                                                          end: FractionalOffset(
+                                                                              1.0,
+                                                                              0.0),
+                                                                          stops: [
+                                                                            0.0,
+                                                                            1.0
+                                                                          ],
+                                                                          tileMode:
+                                                                              TileMode.clamp),
+                                                                )
+                                                              : BoxDecoration(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              40),
+                                                                  gradient:
+                                                                      LinearGradient(
+                                                                          colors: [
+                                                                            Colors.grey.shade300,
+                                                                            Colors.grey,
+                                                                          ],
+                                                                          begin: const FractionalOffset(
+                                                                              0.0,
+                                                                              0.0),
+                                                                          end: const FractionalOffset(
+                                                                              1.0,
+                                                                              0.0),
+                                                                          stops: const [
+                                                                            0.0,
+                                                                            1.0
+                                                                          ],
+                                                                          tileMode:
+                                                                              TileMode.clamp),
+                                                                ),
+                                                      child: clk.clicked == false? const Text(
+                                                        "إضافة بؤرة ",
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 18),
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                      ): const CircularProgressIndicator(color: Colors.white,),
+                                                    ),
+                                                  );
+                                                });
                                           });
                                     });
                               });

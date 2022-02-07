@@ -365,7 +365,8 @@ class PrepareScreen extends StatelessWidget {
                                                     : Colors.grey,
                                                 borderRadius:
                                                     BorderRadius.circular(10)),
-                                            child: const Text(
+                                            child:
+                                            click.clicked == false? const Text(
                                               "تحضير ",
                                               style: TextStyle(
                                                   color: Colors.white,
@@ -373,7 +374,7 @@ class PrepareScreen extends StatelessWidget {
                                                   fontFamily: 'hanimation',
                                                   fontWeight: FontWeight.w600),
                                               textAlign: TextAlign.center,
-                                            ),
+                                            ):const CircularProgressIndicator(color: Colors.white,),
                                           ),
                                         );
                                       });

@@ -19,7 +19,7 @@ class AllDistrictWidget extends StatelessWidget {
     log("id from district id widget : $id");
     return Padding(
         padding: const EdgeInsets.symmetric(vertical: 10),
-        child: GetX<AllDistrictController>(
+        child: GetBuilder<AllDistrictController>(
             init: AllDistrictController(),
             builder: (disCtrl) {
               return GetBuilder<InternetController>(

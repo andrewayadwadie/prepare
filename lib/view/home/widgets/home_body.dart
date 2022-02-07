@@ -7,8 +7,6 @@ import 'package:prepare/view/bug_discover/bug_discover_screen.dart';
 import 'package:prepare/view/epicenter/epicenter_screen.dart';
 import 'package:prepare/view/visit_epicenter/visit_epicenter_screen.dart';
 
-import '../../test.dart';
-
 class HomeBodyWidget extends StatelessWidget {
   HomeBodyWidget({Key? key}) : super(key: key);
   final List<String> titles = [
@@ -16,14 +14,12 @@ class HomeBodyWidget extends StatelessWidget {
     "إستكشاف حشري ",
     "إضافة بؤرة",
     "زيارة بؤرة",
-    "test"
   ];
   final List<Widget> screens = [
     const AllProjectsScreen(),
     BugDiscoverScreen(),
     EpiCenterScreen(),
     VisitEpicenterScreen(),
-    TestScreen()
   ];
   @override
   Widget build(BuildContext context) {
@@ -44,7 +40,7 @@ class HomeBodyWidget extends StatelessWidget {
               childAspectRatio: 2 / 2,
               crossAxisSpacing: 10,
               mainAxisSpacing: 20),
-          itemCount: 5,
+          itemCount: 4,
           itemBuilder: (BuildContext ctx, index) {
             return InkWell(
               onTap: () {
