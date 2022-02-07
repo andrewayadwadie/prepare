@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
- 
+
 import 'package:get/get.dart';
 import 'package:prepare/utils/style.dart';
 import 'package:prepare/view/all_projects/all_projects_screen.dart';
 import 'package:prepare/view/bug_discover/bug_discover_screen.dart';
 import 'package:prepare/view/epicenter/epicenter_screen.dart';
 import 'package:prepare/view/visit_epicenter/visit_epicenter_screen.dart';
- 
+
+import '../../test.dart';
 
 class HomeBodyWidget extends StatelessWidget {
   HomeBodyWidget({Key? key}) : super(key: key);
@@ -14,14 +15,15 @@ class HomeBodyWidget extends StatelessWidget {
     "شاشة التحضير",
     "إستكشاف حشري ",
     "إضافة بؤرة",
-    "زيارة بؤرة"
+    "زيارة بؤرة",
+    "test"
   ];
-  final List<Widget> screens =  [
-   const AllProjectsScreen(),
+  final List<Widget> screens = [
+    const AllProjectsScreen(),
     BugDiscoverScreen(),
-     EpiCenterScreen(),
-     VisitEpicenterScreen()
- 
+    EpiCenterScreen(),
+    VisitEpicenterScreen(),
+    TestScreen()
   ];
   @override
   Widget build(BuildContext context) {
@@ -42,12 +44,11 @@ class HomeBodyWidget extends StatelessWidget {
               childAspectRatio: 2 / 2,
               crossAxisSpacing: 10,
               mainAxisSpacing: 20),
-          itemCount: 4,
+          itemCount: 5,
           itemBuilder: (BuildContext ctx, index) {
             return InkWell(
               onTap: () {
-                 Get.to(screens[index]);
-          
+                Get.to(screens[index]);
               },
               child: Container(
                 alignment: Alignment.center,
@@ -88,7 +89,7 @@ class HomeBodyWidget extends StatelessWidget {
                               bottomRight: Radius.circular(50),
                               bottomLeft: Radius.circular(50))),
                       child: Text(
-                        titles[index] ,
+                        titles[index],
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                             fontSize: 17,

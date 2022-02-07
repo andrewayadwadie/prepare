@@ -12,6 +12,7 @@ import 'package:prepare/core/controller/bug_dicover/all_district_controller.dart
 import 'package:prepare/core/controller/bug_dicover/fly_note_controller.dart';
 import 'package:prepare/core/controller/bug_dicover/fly_sample_controller.dart';
 import 'package:prepare/core/controller/bug_dicover/fly_type_controller.dart';
+import 'package:prepare/core/controller/click_controller.dart';
 import 'package:prepare/core/controller/current_location_controller.dart';
 import 'package:prepare/core/controller/image_picker_controller.dart';
 import 'package:prepare/core/controller/internet_connectivity_controller.dart';
@@ -159,7 +160,7 @@ class BugDiscoverScreen extends StatelessWidget {
                                 HumidityWidget(onSave: (value) {
                                   humidity = double.parse(value ?? "");
                                 }),
-                               
+
                                 //====== waving  ==========
                                 WavingWidget(onSave: (value) {
                                   waving = double.parse(value ?? "");
@@ -171,13 +172,12 @@ class BugDiscoverScreen extends StatelessWidget {
                                 GetX<AllCitiesController>(
                                     init: AllCitiesController(),
                                     builder: (controller) {
-                                       log("controller.cityId.value : ${controller.cityId.value}");
+                                      log("controller.cityId.value : ${controller.cityId.value}");
                                       return Column(
                                         children: [
                                           AllCitiesWidget(
                                               controller: controller),
                                           if (controller.cityId.value != 0)
-                                         
                                             AllDistrictWidget(
                                                 id: controller.cityId.value)
                                         ],
@@ -342,9 +342,7 @@ class BugDiscoverScreen extends StatelessWidget {
                                                         return GetBuilder<
                                                                 AllDistrictController>(
                                                             init:
-                                                                AllDistrictController(
-                                                                   
-                                                                        ),
+                                                                AllDistrictController(),
                                                             builder: (disCtrl) {
                                                               return GetBuilder<
                                                                       InternetController>(
@@ -352,140 +350,111 @@ class BugDiscoverScreen extends StatelessWidget {
                                                                       InternetController(),
                                                                   builder:
                                                                       (net) {
-                                                                    return InkWell(
-                                                                      onTap:
-                                                                          () async {
-                                                                        if (_bugFormKey
-                                                                            .currentState!
-                                                                            .validate()) {
-                                                                          _bugFormKey
-                                                                              .currentState!
-                                                                              .save();
-
-                                                                          if (locationCtrl.currentLat == 0 &&
-                                                                              locationCtrl.currentLong == 0) {
-                                                                            toast("please open Gps ",
-                                                                                duration: const Duration(seconds: 2));
-                                                                          } else if (street ==
-                                                                              "") {
-                                                                            toast("برجاء إدخال إسم الشارع",
-                                                                                duration: const Duration(seconds: 2));
-                                                                          } else if (ph ==
-                                                                              "") {
-                                                                            toast("برجاء إدخال ph",
-                                                                                duration: const Duration(seconds: 2));
-                                                                          } else if (recommendation ==
-                                                                              "") {
-                                                                            toast("برجاء إدخال ملاحظات",
-                                                                                duration: const Duration(seconds: 2));
-                                                                          } else if (flyType.flyTypeText ==
-                                                                              "إختر نوع الموقع") {
-                                                                            toast("برجاء اختيار نوع الموقع",
-                                                                                duration: const Duration(seconds: 2));
-                                                                          } else if (flyNoteCtrl.flyNoteText ==
-                                                                              "إختر نوع الملاحظة") {
-                                                                            toast("برجاء اختيار نوع الملاحظة",
-                                                                                duration: const Duration(seconds: 2));
-                                                                          } else if (sampleCtrl.flySampleText ==
-                                                                              "إختر نوع العينة ") {
-                                                                            toast("برجاء اختيار نوع العينة",
-                                                                                duration: const Duration(seconds: 2));
-                                                                          } else if (cityCtrl.cityText.value ==
-                                                                              "إختر إسم المدينة") {
-                                                                            toast("برجاء اختيار إسم المدينة",
-                                                                                duration: const Duration(seconds: 2));
-                                                                          }
-                                                                          //   else if(disCtrl.districtText=="إختر إسم الحي "){
-                                                                          //      toast("برجاء اختيار إسم الحي",duration:const Duration(seconds: 2));
-                                                                          //  }
-
-                                                                          // else if (imgCtrl.image ==
-                                                                          //     null) {
-                                                                          //   toast("برجاء اختيار الصورة الاولي",
-                                                                          //       duration: const Duration(seconds: 2));
-                                                                          // } else if (imgCtrl.image2 ==
-                                                                          //     null) {
-                                                                          //   toast("برجاء اختيار الصورة الثانية",
-                                                                          //       duration: const Duration(seconds: 2));
-                                                                          // }
-                                                                          else {
-                                                                            net.checkInternet().then((val) {
-                                                                              if (val) {
-                                                                                BugDiscoverServices.sendFormData(districtId: disCtrl.districtId, flyNoteId: flyNoteCtrl.flyNoteId, flySampleTypeId: sampleCtrl.flySampleId, flyTypeId: flyType.flyTypeId, humidity: humidity, imge: imgCtrl.image, imge2: imgCtrl.image2, lat: locationCtrl.currentLat, long: locationCtrl.currentLong, ph: ph, recommendation: recommendation, street: street, temperature: temperature, waving: waving, windSpeed: windspeed).then((value) {
-                                                                                  if (value == 400) {
-                                                                                    toast("يوجد خطأ فى الإرسال ", duration: const Duration(seconds: 2));
-                                                                                  } else if (value == 401) {
-                                                                                    Get.offAll(const LoginScreen());
-                                                                                  } else if (value == 201) {
-                                                                                    CoolAlert.show(
-                                                                                      barrierDismissible: false,
-                                                                                      context: context,
-                                                                                      type: CoolAlertType.success,
-                                                                                      title: "تم الارسال بنجاح",
-                                                                                      confirmBtnText: "حسناً",
-                                                                                      confirmBtnColor: primaryColor,
-                                                                                      backgroundColor: primaryColor,
-                                                                                      onConfirmBtnTap: () {
-                                                                                        Get.offAll(() => const HomeScreen());
-                                                                                      },
-                                                                                    );
+                                                                    return GetBuilder<
+                                                                            ClickController>(
+                                                                        init:
+                                                                            ClickController(),
+                                                                        builder:
+                                                                            (clk) {
+                                                                          return InkWell(
+                                                                            onTap:
+                                                                                () async {
+                                                                              if (_bugFormKey.currentState!.validate()) {
+                                                                                _bugFormKey.currentState!.save();
+                                                                                if (clk.clicked == false) {
+                                                                                  if (locationCtrl.currentLat == 0 && locationCtrl.currentLong == 0) {
+                                                                                    toast("please open Gps ", duration: const Duration(seconds: 2));
+                                                                                    clk.changeClick();
+                                                                                  } else if (street == "") {
+                                                                                    toast("برجاء إدخال إسم الشارع", duration: const Duration(seconds: 2));
+                                                                                    clk.changeClick();
+                                                                                  } else if (ph == "") {
+                                                                                    toast("برجاء إدخال ph", duration: const Duration(seconds: 2));
+                                                                                    clk.changeClick();
+                                                                                  } else if (recommendation == "") {
+                                                                                    toast("برجاء إدخال ملاحظات", duration: const Duration(seconds: 2));
+                                                                                    clk.changeClick();
+                                                                                  } else if (flyType.flyTypeText == "إختر نوع الموقع") {
+                                                                                    toast("برجاء اختيار نوع الموقع", duration: const Duration(seconds: 2));
+                                                                                    clk.changeClick();
+                                                                                  } else if (flyNoteCtrl.flyNoteText == "إختر نوع الملاحظة") {
+                                                                                    toast("برجاء اختيار نوع الملاحظة", duration: const Duration(seconds: 2));
+                                                                                    clk.changeClick();
+                                                                                  } else if (sampleCtrl.flySampleText == "إختر نوع العينة ") {
+                                                                                    toast("برجاء اختيار نوع العينة", duration: const Duration(seconds: 2));
+                                                                                    clk.changeClick();
+                                                                                  } else if (cityCtrl.cityText.value == "إختر إسم المدينة") {
+                                                                                    toast("برجاء اختيار إسم المدينة", duration: const Duration(seconds: 2));
+                                                                                    clk.changeClick();
+                                                                                  } else {
+                                                                                    net.checkInternet().then((val) {
+                                                                                      if (val) {
+                                                                                        BugDiscoverServices.sendFormData(districtId: disCtrl.districtId, flyNoteId: flyNoteCtrl.flyNoteId, flySampleTypeId: sampleCtrl.flySampleId, flyTypeId: flyType.flyTypeId, humidity: humidity, imge: imgCtrl.image, imge2: imgCtrl.image2, lat: locationCtrl.currentLat, long: locationCtrl.currentLong, ph: ph, recommendation: recommendation, street: street, temperature: temperature, waving: waving, windSpeed: windspeed).then((value) {
+                                                                                          if (value == 400) {
+                                                                                            toast("يوجد خطأ فى الإرسال ", duration: const Duration(seconds: 2));
+                                                                                            clk.changeClick();
+                                                                                          } else if (value == 401) {
+                                                                                            Get.offAll(const LoginScreen());
+                                                                                          } else if (value == 201) {
+                                                                                            CoolAlert.show(
+                                                                                              barrierDismissible: false,
+                                                                                              context: context,
+                                                                                              type: CoolAlertType.success,
+                                                                                              title: "تم الارسال بنجاح",
+                                                                                              confirmBtnText: "حسناً",
+                                                                                              confirmBtnColor: primaryColor,
+                                                                                              backgroundColor: primaryColor,
+                                                                                              onConfirmBtnTap: () {
+                                                                                                Get.offAll(() => const HomeScreen());
+                                                                                              },
+                                                                                            );
+                                                                                          }
+                                                                                        });
+                                                                                      }
+                                                                                    });
                                                                                   }
-                                                                                });
+                                                                                  clk.changeClick();
+                                                                                }
                                                                               }
-                                                                            });
-
-                                                                            log(TokenPref.getTokenValue());
-                                                                            log("street : $street");
-                                                                            log("ph : $ph");
-                                                                            log("recommendation : $recommendation");
-                                                                            log("windspeed : $windspeed");
-                                                                            log("temperature : $temperature");
-                                                                            log("humidity : $humidity");
-                                                                            log("waving : $waving");
-                                                                            log("current Lat  : ${locationCtrl.currentLat}");
-                                                                            log("current Long  : ${locationCtrl.currentLong}");
-                                                                            log("flytype  : ${flyType.flyTypeText}");
-                                                                            log("flyNote  : ${flyNoteCtrl.flyNoteText}");
-                                                                            log("city   : ${cityCtrl.cityText}");
-                                                                            log("District  : ${disCtrl.districtText}");
-                                                                          }
-                                                                        }
-                                                                      },
-                                                                      child:
-                                                                          Container(
-                                                                        alignment:
-                                                                            Alignment.center,
-                                                                        height:
-                                                                            MediaQuery.of(context).size.height /
-                                                                                17,
-                                                                        width:
-                                                                            MediaQuery.of(context).size.width /
-                                                                                2,
-                                                                        decoration:
-                                                                            BoxDecoration(
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(40),
-                                                                          gradient: const LinearGradient(
-                                                                              colors: [
-                                                                                lightPrimaryColor,
-                                                                                primaryColor,
-                                                                              ],
-                                                                              begin: FractionalOffset(0.0, 0.0),
-                                                                              end: FractionalOffset(1.0, 0.0),
-                                                                              stops: [0.0, 1.0],
-                                                                              tileMode: TileMode.clamp),
-                                                                        ),
-                                                                        child:
-                                                                            const Text(
-                                                                          "إرسال الإستكشاف ",
-                                                                          style: TextStyle(
-                                                                              color: Colors.white,
-                                                                              fontSize: 18),
-                                                                          textAlign:
-                                                                              TextAlign.center,
-                                                                        ),
-                                                                      ),
-                                                                    );
+                                                                            },
+                                                                            child:
+                                                                                Container(
+                                                                              alignment: Alignment.center,
+                                                                              height: MediaQuery.of(context).size.height / 17,
+                                                                              width: MediaQuery.of(context).size.width / 2,
+                                                                              decoration: clk.clicked == false
+                                                                                  ? BoxDecoration(
+                                                                                      borderRadius: BorderRadius.circular(40),
+                                                                                      gradient: const LinearGradient(
+                                                                                          colors: [
+                                                                                            lightPrimaryColor,
+                                                                                            primaryColor,
+                                                                                          ],
+                                                                                          begin: FractionalOffset(0.0, 0.0),
+                                                                                          end: FractionalOffset(1.0, 0.0),
+                                                                                          stops: [0.0, 1.0],
+                                                                                          tileMode: TileMode.clamp),
+                                                                                    )
+                                                                                  : BoxDecoration(
+                                                                                      borderRadius: BorderRadius.circular(40),
+                                                                                      gradient: LinearGradient(
+                                                                                          colors: [
+                                                                                            Colors.grey.shade300,
+                                                                                            Colors.grey,
+                                                                                          ],
+                                                                                          begin: const FractionalOffset(0.0, 0.0),
+                                                                                          end: const FractionalOffset(1.0, 0.0),
+                                                                                          stops: const [0.0, 1.0],
+                                                                                          tileMode: TileMode.clamp),
+                                                                                    ),
+                                                                              child: const Text(
+                                                                                "إرسال الإستكشاف ",
+                                                                                style: TextStyle(color: Colors.white, fontSize: 18),
+                                                                                textAlign: TextAlign.center,
+                                                                              ),
+                                                                            ),
+                                                                          );
+                                                                        });
                                                                   });
                                                             });
                                                       });

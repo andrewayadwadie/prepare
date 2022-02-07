@@ -47,7 +47,7 @@ class SingleToolTextField extends StatelessWidget {
                       //enabledBorder: InputBorder.none
                       ),
                   onSaved: (val) {
-                    controller.gettoolsCount(int.parse(val??""));
+                    controller.gettoolsCount(int.parse(val == "" || val ==null  ? "0":val));
                   },
                   // enabledBorder: InputBorder.none,
                 ),

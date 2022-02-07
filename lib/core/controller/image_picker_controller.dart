@@ -17,7 +17,7 @@ class ImagePickerController extends GetxController {
       final imagefromCamera =
           await ImagePicker().pickImage(source: ImageSource.camera);
 
-      final imageTemproray = File(imagefromCamera!.path);
+      final imageTemproray =imagefromCamera !=null ? File(imagefromCamera.path):File("");
 
       image = imageTemproray;
       update();
@@ -31,7 +31,7 @@ class ImagePickerController extends GetxController {
       final imagefromCamera2 =
           await ImagePicker().pickImage(source: ImageSource.camera);
 
-      final imageTemproray2 = File(imagefromCamera2!.path);
+      final imageTemproray2 =imagefromCamera2 !=null ? File(imagefromCamera2.path):File("");
 
       image2 = imageTemproray2;
       update();
@@ -45,7 +45,7 @@ class ImagePickerController extends GetxController {
       final imagefromGallery =
           await ImagePicker().pickImage(source: ImageSource.gallery);
 
-      final imageTemproray = File(imagefromGallery!.path);
+      final imageTemproray =imagefromGallery != null ?  File(imagefromGallery.path):File("");
 
       image = imageTemproray;
       update();
@@ -59,7 +59,7 @@ class ImagePickerController extends GetxController {
       final imagefromGallery2 =
           await ImagePicker().pickImage(source: ImageSource.gallery);
 
-      final imageTemproray2 = File(imagefromGallery2!.path);
+      final imageTemproray2 =imagefromGallery2 != null ?  File(imagefromGallery2.path):File("");
 
       image2 = imageTemproray2;
       update();

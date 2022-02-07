@@ -47,7 +47,7 @@ class SingleCarTextField extends StatelessWidget {
                     //enabledBorder: InputBorder.none
                     ),
                 onSaved: (val) {
-                  controller.getCarsCount(int.parse(val ?? ""));
+                  controller.getCarsCount(int.parse(val == "" || val ==null  ? "0":val));
                 },
                 // enabledBorder: InputBorder.none,
               ),

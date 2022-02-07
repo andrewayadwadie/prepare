@@ -47,7 +47,7 @@ class SingleDevicesTextField extends StatelessWidget {
                       //enabledBorder: InputBorder.none
                       ),
                   onSaved: (val) {
-                    controller.getdevicesCount(int.parse(val??""));
+                    controller.getdevicesCount(int.parse(val == "" || val ==null  ? "0":val));
                   },
                   // enabledBorder: InputBorder.none,
                 ),
