@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:overlay_support/overlay_support.dart';
 
-import 'package:prepare/core/controller/epicenter/all_insects_controller.dart';
 import 'package:prepare/core/controller/epicenter/visit_epicenter_controller.dart';
 import 'package:prepare/core/controller/internet_connectivity_controller.dart';
 import 'package:prepare/utils/style.dart';
