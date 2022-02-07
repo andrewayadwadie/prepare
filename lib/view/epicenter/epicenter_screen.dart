@@ -157,7 +157,7 @@ class EpiCenterScreen extends StatelessWidget {
                                                                   .value)
                                                           .then((value) {
                                                         if (value == 400) {
-                                                          toast(value,
+                                                          toast("يوجد مشكلة فى الاتصال ",
                                                               duration:
                                                                   const Duration(
                                                                       seconds:

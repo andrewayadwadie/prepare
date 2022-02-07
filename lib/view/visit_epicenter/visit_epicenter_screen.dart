@@ -1,16 +1,20 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:overlay_support/overlay_support.dart';
 
 import 'package:prepare/core/controller/epicenter/visit_epicenter_controller.dart';
 import 'package:prepare/core/controller/internet_connectivity_controller.dart';
+import 'package:prepare/core/service/all_epicenter_services.dart';
 import 'package:prepare/utils/style.dart';
+import 'package:prepare/view/auth/login_screen.dart';
 
 import 'package:prepare/view/bug_discover/widgets/humidity_widget.dart';
 import 'package:prepare/view/bug_discover/widgets/recommendation_widget.dart';
 import 'package:prepare/view/bug_discover/widgets/temperature_widget.dart';
 import 'package:prepare/view/bug_discover/widgets/windspeed_widget.dart';
+import 'package:prepare/view/home/home_screen.dart';
 
 import 'package:prepare/view/shared_widgets/header_widget.dart';
 import 'package:prepare/view/shared_widgets/line_dot.dart';
@@ -74,81 +78,104 @@ class VisitEpicenterScreen extends StatelessWidget {
                     }),
                     //====== AllEpicenterWidget  ==========
                     const AllEpicenterWidget(),
-                    //==========================================
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height / 30,
-                    ),
-                   
                   ],
                 ),
               ),
-               // Send Report button
-                    GetBuilder<InternetController>(
-                        init: InternetController(),
-                        builder: (net) {
-                          return GetBuilder<VisitEpicenterController>(
-                              init: VisitEpicenterController(),
-                              builder: (insectCtrl) {
-                                return InkWell(
-                                  onTap: () async {
-                                    if (recommendation == "") {
-                                      toast("برجاء إدخال  ملاحظات",
-                                          duration: const Duration(seconds: 2));
-                                    }else if (humidity == 0.0) {
-                                      toast("برجاء إدخال  قيمة الرطوبة",
-                                          duration: const Duration(seconds: 2));
-                                    } 
-                                    else if (windspeed == 0.0) {
-                                      toast("برجاء إدخال  سرعة الرياح ",
-                                          duration: const Duration(seconds: 2));
-                                    }
-                                    else if (temperature == 0.0) {
-                                      toast("برجاء إدخال  درجة الحرارة ",
-                                          duration: const Duration(seconds: 2));
-                                    }
-                                  
-                                    
-                                    else if(insectCtrl.epicenterText == "إختر البؤرة"){
-                                      toast("برجاء إختيار البؤرة ",
-                                          duration: const Duration(seconds: 2));
-                                    }
-                                    else {
-                                      net.checkInternet().then((val) {
-                                        if (val) {
-
+              // Send Report button
+              GetBuilder<InternetController>(
+                  init: InternetController(),
+                  builder: (net) {
+                    return GetBuilder<VisitEpicenterController>(
+                        init: VisitEpicenterController(),
+                        builder: (insectCtrl) {
+                          return InkWell(
+                            onTap: () async {
+                              if (_visitEpicenterFormKey.currentState!
+                                  .validate()) {
+                                _visitEpicenterFormKey.currentState!.save();
+                                if (recommendation == "") {
+                                  toast("برجاء إدخال  ملاحظات",
+                                      duration: const Duration(seconds: 2));
+                                } else if (humidity == 0.0) {
+                                  toast("برجاء إدخال  قيمة الرطوبة",
+                                      duration: const Duration(seconds: 2));
+                                } else if (windspeed == 0.0) {
+                                  toast("برجاء إدخال  سرعة الرياح ",
+                                      duration: const Duration(seconds: 2));
+                                } else if (temperature == 0.0) {
+                                  toast("برجاء إدخال  درجة الحرارة ",
+                                      duration: const Duration(seconds: 2));
+                                } else if (insectCtrl.epicenterText ==
+                                    "إختر البؤرة") {
+                                  toast("برجاء إختيار البؤرة ",
+                                      duration: const Duration(seconds: 2));
+                                } else {
+                                  net.checkInternet().then((val) {
+                                    if (val) {
+                                      AllEpicenterServices.addVisitEpiCenter(
+                                              temperature:
+                                                  temperature.toString(),
+                                              windSpeed: windspeed.toString(),
+                                              humidity: humidity.toString(),
+                                              recommendation:
+                                                  recommendation ?? "",
+                                              epicenterId:
+                                                  insectCtrl.epicenterId)
+                                          .then((value) {
+                                        if (value == 200) {
+                                          Get.offAll(() => const HomeScreen());
+                                          CoolAlert.show(
+                                            barrierDismissible: false,
+                                            context: context,
+                                            type: CoolAlertType.success,
+                                            title: "تم إضافة زيارة بنجاح بنجاح",
+                                            confirmBtnText: "حسناً",
+                                            confirmBtnColor: primaryColor,
+                                            backgroundColor: primaryColor,
+                                            onConfirmBtnTap: () {
+                                              Get.back();
+                                            },
+                                          );
+                                        }
+                                        if (value.runtimeType == String) {
+                                          toast(value.toString(),
+                                              duration:
+                                                  const Duration(seconds: 2));
+                                        } else if (value == 401) {
+                                          Get.offAll(const LoginScreen());
                                         }
                                       });
                                     }
-                                  },
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    height:
-                                        MediaQuery.of(context).size.height / 17,
-                                    width:
-                                        MediaQuery.of(context).size.width / 2,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(40),
-                                      gradient: const LinearGradient(
-                                          colors: [
-                                            lightPrimaryColor,
-                                            primaryColor,
-                                          ],
-                                          begin: FractionalOffset(0.0, 0.0),
-                                          end: FractionalOffset(1.0, 0.0),
-                                          stops: [0.0, 1.0],
-                                          tileMode: TileMode.clamp),
-                                    ),
-                                    child: const Text(
-                                      "إضافة بؤرة ",
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 18),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                );
-                              });
-                        })
-                  
+                                  });
+                                }
+                              }
+                            },
+                            child: Container(
+                              alignment: Alignment.center,
+                              height: MediaQuery.of(context).size.height / 17,
+                              width: MediaQuery.of(context).size.width / 2,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(40),
+                                gradient: const LinearGradient(
+                                    colors: [
+                                      lightPrimaryColor,
+                                      primaryColor,
+                                    ],
+                                    begin: FractionalOffset(0.0, 0.0),
+                                    end: FractionalOffset(1.0, 0.0),
+                                    stops: [0.0, 1.0],
+                                    tileMode: TileMode.clamp),
+                              ),
+                              child: const Text(
+                                "إضافة زيارة بؤرة ",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 18),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          );
+                        });
+                  })
             ],
           ),
         ),
