@@ -16,7 +16,6 @@ import 'package:prepare/core/controller/click_controller.dart';
 import 'package:prepare/core/controller/current_location_controller.dart';
 import 'package:prepare/core/controller/image_picker_controller.dart';
 import 'package:prepare/core/controller/internet_connectivity_controller.dart';
-import 'package:prepare/core/db/auth_shared_preferences.dart';
 import 'package:prepare/core/service/bug_discover_services.dart';
 import 'package:prepare/utils/style.dart';
 import 'package:prepare/view/auth/login_screen.dart';
@@ -447,11 +446,15 @@ class BugDiscoverScreen extends StatelessWidget {
                                                                                           stops: const [0.0, 1.0],
                                                                                           tileMode: TileMode.clamp),
                                                                                     ),
-                                                                              child:clk.clicked == false? const Text(
-                                                                                "إرسال الإستكشاف ",
-                                                                                style: TextStyle(color: Colors.white, fontSize: 18),
-                                                                                textAlign: TextAlign.center,
-                                                                              ):const CircularProgressIndicator(color: Colors.white,),
+                                                                              child: clk.clicked == false
+                                                                                  ? const Text(
+                                                                                      "إرسال الإستكشاف ",
+                                                                                      style: TextStyle(color: Colors.white, fontSize: 18),
+                                                                                      textAlign: TextAlign.center,
+                                                                                    )
+                                                                                  : const CircularProgressIndicator(
+                                                                                      color: Colors.white,
+                                                                                    ),
                                                                             ),
                                                                           );
                                                                         });

@@ -19,8 +19,7 @@ class EpicenterServices {
         "Content-type": "application/json",
         'Accept': 'application/json',
         // 'Authorization': 'Bearer $token',
-        'Authorization':
-            'Bearer ${TokenPref.getTokenValue()}',
+        'Authorization': 'Bearer ${TokenPref.getTokenValue()}',
       },
     );
     log("status code is : ${res.statusCode}");
@@ -43,10 +42,12 @@ class EpicenterServices {
     return 400;
   }
 
+//===================================================================
   static Future addEpiCenter({
     required String name,
     required String lat,
     required String long,
+    required String code ,
     required int insectId,
     required int districtId,
   }) async {
@@ -57,15 +58,15 @@ class EpicenterServices {
           headers: {
             'Content-type': 'application/json',
             'Accept': 'application/json',
-            'Authorization':
-            'Bearer ${TokenPref.getTokenValue()}',
+            'Authorization': 'Bearer ${TokenPref.getTokenValue()}',
           },
           body: jsonEncode({
             "Name": name,
             "Lat": lat,
             "Long": long,
             "InsectId": insectId,
-            "DistrictId": districtId
+            "DistrictId": districtId,
+            "Code":code
           }));
 
       if (res.statusCode == 200 || res.statusCode == 201) {
@@ -81,5 +82,39 @@ class EpicenterServices {
     } catch (e) {
       throw "exception is : $e";
     }
+  }
+
+//========================================================
+
+  static Future getInsectsCode(int cityId, int insectId) async {
+    String url = "${apiUrl}Epicenters/GetEpicenterCode/$cityId/$insectId";
+
+    http.Response res = await http.get(
+      Uri.parse(url),
+      headers: <String, String>{
+        "Content-type": "application/json",
+        'Accept': 'application/json',
+        // 'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer ${TokenPref.getTokenValue()}',
+      },
+    );
+    log("status code is : ${res.statusCode}");
+    if (res.statusCode == 200 ||res.statusCode == 201) {
+      var data = res.body;
+
+      return data;
+    } else if (res.statusCode == 401 || res.statusCode == 403) {
+      return "عير مصرح للمستخدم";
+    } else if (res.statusCode == 500 ||
+        res.statusCode == 501 ||
+        res.statusCode == 504 ||
+        res.statusCode == 502) {
+      return "يوجد مشكلة ";
+    }else if(res.statusCode == 400){
+       var errorMsg = jsonDecode(res.body);
+
+        return errorMsg['errors'][0][0];
+    }
+ 
   }
 }

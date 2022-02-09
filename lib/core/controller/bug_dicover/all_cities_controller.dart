@@ -12,7 +12,7 @@ class AllCitiesController extends GetxController {
     super.onInit();
   }
 
-  RxString cityText = "إختر إسم المدينة".obs;
+  RxString cityText = "إختر إسم البلدية ".obs;
 
   RxInt cityId = 0.obs;
 
