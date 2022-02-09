@@ -5,10 +5,11 @@ import 'package:get/get.dart';
 import 'package:hawk_fab_menu/hawk_fab_menu.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:prepare/core/controller/click_controller.dart';
-import 'package:prepare/core/controller/epicenter/visit_epicenter_controller.dart';
+import 'package:prepare/core/controller/epicenter/all_insects_controller.dart';
 import 'package:prepare/core/controller/image_picker_controller.dart';
 import 'package:prepare/core/controller/internet_connectivity_controller.dart';
-import 'package:prepare/core/service/all_epicenter_services.dart';
+import 'package:prepare/core/controller/site_status_controller.dart';
+import 'package:prepare/core/service/bug_discover_services.dart';
 import 'package:prepare/utils/style.dart';
 import 'package:prepare/view/auth/login_screen.dart';
 import 'package:prepare/view/bug_discover/widgets/humidity_widget.dart';
@@ -244,162 +245,199 @@ class VisitBugDiscoverScreen extends StatelessWidget {
                                 GetBuilder<InternetController>(
                                     init: InternetController(),
                                     builder: (net) {
-                                      return GetBuilder<
-                                              VisitEpicenterController>(
-                                          init: VisitEpicenterController(),
-                                          builder: (insectCtrl) {
-                                            return GetBuilder<ClickController>(
-                                                init: ClickController(),
-                                                builder: (clk) {
-                                                  return InkWell(
-                                                    onTap: () async {
-                                                      if (_visitBugDiscoverFormKey
-                                                          .currentState!
-                                                          .validate()) {
-                                                        _visitBugDiscoverFormKey
-                                                            .currentState!
-                                                            .save();
+                                      return GetBuilder<ClickController>(
+                                          init: ClickController(),
+                                          builder: (clk) {
+                                            return GetBuilder<
+                                                    AllInsectsController>(
+                                                init: AllInsectsController(),
+                                                builder: (insectCtrl) {
+                                                  return GetBuilder<
+                                                          SiteStatusController>(
+                                                      init:
+                                                          SiteStatusController(),
+                                                      builder:
+                                                          (siteStatusCtrl) {
+                                                        return InkWell(
+                                                          onTap: () async {
+                                                            if (_visitBugDiscoverFormKey
+                                                                .currentState!
+                                                                .validate()) {
+                                                              _visitBugDiscoverFormKey
+                                                                  .currentState!
+                                                                  .save();
 
-                                                        if (clk.clicked ==
-                                                            false) {
-                                                          if (recommendation ==
-                                                              "") {
-                                                            toast(
-                                                                "برجاء إدخال  ملاحظات",
-                                                                duration:
-                                                                    const Duration(
-                                                                        seconds:
-                                                                            2));
-                                                            clk.changeClick();
-                                                          } else if (humidity ==
-                                                              0.0.toString()) {
-                                                            toast(
-                                                                "برجاء إدخال  قيمة الرطوبة",
-                                                                duration:
-                                                                    const Duration(
-                                                                        seconds:
-                                                                            2));
-                                                            clk.changeClick();
-                                                          } else if (windspeed ==
-                                                              0.0.toString()) {
-                                                            toast(
-                                                                "برجاء إدخال  سرعة الرياح ",
-                                                                duration:
-                                                                    const Duration(
-                                                                        seconds:
-                                                                            2));
-                                                            clk.changeClick();
-                                                          } else if (temperature ==
-                                                              0.0.toString()) {
-                                                            toast(
-                                                                "برجاء إدخال  درجة الحرارة ",
-                                                                duration:
-                                                                    const Duration(
-                                                                        seconds:
-                                                                            2));
-                                                            clk.changeClick();
-                                                          } else if (insectCtrl
-                                                                  .epicenterText ==
-                                                              "إختر البؤرة") {
-                                                            toast(
-                                                                "برجاء إختيار البؤرة ",
-                                                                duration:
-                                                                    const Duration(
-                                                                        seconds:
-                                                                            2));
-                                                            clk.changeClick();
-                                                          } else {
-                                                            net
-                                                                .checkInternet()
-                                                                .then((val) {
-                                                              if (val) {}
-                                                            });
-                                                          }
-                                                          clk.changeClick();
-                                                        }
-                                                      }
-                                                    },
-                                                    child: Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      height:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height /
-                                                              17,
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width /
-                                                              2,
-                                                      decoration:
-                                                          clk.clicked == false
-                                                              ? BoxDecoration(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              40),
-                                                                  gradient:
-                                                                      const LinearGradient(
-                                                                          colors: [
-                                                                            lightPrimaryColor,
-                                                                            primaryColor,
-                                                                          ],
-                                                                          begin: FractionalOffset(
-                                                                              0.0,
-                                                                              0.0),
-                                                                          end: FractionalOffset(
-                                                                              1.0,
-                                                                              0.0),
-                                                                          stops: [
-                                                                            0.0,
-                                                                            1.0
-                                                                          ],
-                                                                          tileMode:
-                                                                              TileMode.clamp),
-                                                                )
-                                                              : BoxDecoration(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              40),
-                                                                  gradient:
-                                                                      LinearGradient(
-                                                                          colors: [
-                                                                            Colors.grey.shade300,
-                                                                            Colors.grey,
-                                                                          ],
-                                                                          begin: const FractionalOffset(
-                                                                              0.0,
-                                                                              0.0),
-                                                                          end: const FractionalOffset(
-                                                                              1.0,
-                                                                              0.0),
-                                                                          stops: const [
-                                                                            0.0,
-                                                                            1.0
-                                                                          ],
-                                                                          tileMode:
-                                                                              TileMode.clamp),
-                                                                ),
-                                                      child: clk.clicked ==
-                                                              false
-                                                          ? const Text(
-                                                              "إضافة زيارة إستكشاف ",
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontSize: 18),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                            )
-                                                          : const CircularProgressIndicator(
-                                                              color:
-                                                                  Colors.white,
-                                                            ),
-                                                    ),
-                                                  );
+                                                              if (clk.clicked ==
+                                                                  false) {
+                                                                if (recommendation ==
+                                                                    "") {
+                                                                  toast(
+                                                                      "برجاء إدخال  ملاحظات",
+                                                                      duration:
+                                                                          const Duration(
+                                                                              seconds: 2));
+                                                                  clk.changeClick();
+                                                                } else if (humidity ==
+                                                                    "") {
+                                                                  toast(
+                                                                      "برجاء إدخال  قيمة الرطوبة",
+                                                                      duration:
+                                                                          const Duration(
+                                                                              seconds: 2));
+                                                                  clk.changeClick();
+                                                                } else if (windspeed ==
+                                                                    "") {
+                                                                  toast(
+                                                                      "برجاء إدخال  سرعة الرياح ",
+                                                                      duration:
+                                                                          const Duration(
+                                                                              seconds: 2));
+                                                                  clk.changeClick();
+                                                                } else if (temperature ==
+                                                                    "") {
+                                                                  toast(
+                                                                      "برجاء إدخال  درجة الحرارة ",
+                                                                      duration:
+                                                                          const Duration(
+                                                                              seconds: 2));
+                                                                  clk.changeClick();
+                                                                } else if (ph ==
+                                                                    "") {
+                                                                  toast(
+                                                                      "برجاء إدخال  درجة ph ",
+                                                                      duration:
+                                                                          const Duration(
+                                                                              seconds: 2));
+                                                                  clk.changeClick();
+                                                                } else if (waving ==
+                                                                    "") {
+                                                                  toast(
+                                                                      "برجاء إدخال  درجة الملوحة  ",
+                                                                      duration:
+                                                                          const Duration(
+                                                                              seconds: 2));
+                                                                  clk.changeClick();
+                                                                } else {
+                                                                  net
+                                                                      .checkInternet()
+                                                                      .then(
+                                                                          (val) {
+                                                                    if (val) {
+                                                                      if (clk.clicked ==
+                                                                          false) {
+                                                                        BugDiscoverServices.sendVisitFormData(
+                                                                                temperature: temperature,
+                                                                                windSpeed: windspeed,
+                                                                                humidity: humidity,
+                                                                                recommendation: recommendation,
+                                                                                waving: waving,
+                                                                                ph: ph,
+                                                                                isNegative: siteStatusCtrl.isNegative,
+                                                                                imge: imgCtrl.image,
+                                                                                imge2: imgCtrl.image2,
+                                                                                insectExplorationId: insectCtrl.insectsId)
+                                                                            .then((value) {
+                                                                          if (value ==
+                                                                              400) {
+                                                                            toast("يوجد خطأ فى الإرسال ",
+                                                                                duration: const Duration(seconds: 2));
+                                                                            clk.changeClick();
+                                                                          } else if (value ==
+                                                                              401) {
+                                                                            Get.offAll(const LoginScreen());
+                                                                          } else if (value ==
+                                                                              200) {
+                                                                            Get.offAll(() =>
+                                                                                const HomeScreen());
+                                                                            CoolAlert.show(
+                                                                              barrierDismissible: false,
+                                                                              context: context,
+                                                                              type: CoolAlertType.success,
+                                                                              title: "تم الارسال بنجاح",
+                                                                              confirmBtnText: "حسناً",
+                                                                              confirmBtnColor: primaryColor,
+                                                                              backgroundColor: primaryColor,
+                                                                              onConfirmBtnTap: () {
+                                                                                Get.back();
+                                                                              },
+                                                                            );
+                                                                          }
+                                                                        });
+                                                                      }
+                                                                      clk.changeClick();
+                                                                    }
+                                                                  });
+                                                                }
+                                                              }
+                                                            }
+                                                          },
+                                                          child: Container(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            height: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .height /
+                                                                17,
+                                                            width: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width /
+                                                                2,
+                                                            decoration: clk
+                                                                        .clicked ==
+                                                                    false
+                                                                ? BoxDecoration(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            40),
+                                                                    gradient: const LinearGradient(
+                                                                        colors: [
+                                                                          lightPrimaryColor,
+                                                                          primaryColor,
+                                                                        ],
+                                                                        begin: FractionalOffset(0.0, 0.0),
+                                                                        end: FractionalOffset(1.0, 0.0),
+                                                                        stops: [0.0, 1.0],
+                                                                        tileMode: TileMode.clamp),
+                                                                  )
+                                                                : BoxDecoration(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            40),
+                                                                    gradient: LinearGradient(
+                                                                        colors: [
+                                                                          Colors
+                                                                              .grey
+                                                                              .shade300,
+                                                                          Colors
+                                                                              .grey,
+                                                                        ],
+                                                                        begin: const FractionalOffset(0.0, 0.0),
+                                                                        end: const FractionalOffset(1.0, 0.0),
+                                                                        stops: const [0.0, 1.0],
+                                                                        tileMode: TileMode.clamp),
+                                                                  ),
+                                                            child: clk.clicked ==
+                                                                    false
+                                                                ? const Text(
+                                                                    "إضافة زيارة إستكشاف ",
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            18),
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                  )
+                                                                : const CircularProgressIndicator(
+                                                                    color: Colors
+                                                                        .white,
+                                                                  ),
+                                                          ),
+                                                        );
+                                                      });
                                                 });
                                           });
                                     })
