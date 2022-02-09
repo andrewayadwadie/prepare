@@ -49,6 +49,7 @@ class BugDiscoverServices {
     return 400;
   }
 
+//===============================================
   static Future getAllDistrict(int id) async {
     log("district id is : $id");
     String url = "${apiUrl}Districts/GetCityDistricts/$id";
@@ -64,9 +65,8 @@ class BugDiscoverServices {
     );
     //   log("token is : ${TokenPref.getTokenValue()}");
     log("district status code is : ${res.statusCode}");
-    
-    if (res.statusCode == 200) {
 
+    if (res.statusCode == 200) {
       var jsonData = jsonDecode(res.body);
 
       List district = jsonData.map((element) {
@@ -85,6 +85,7 @@ class BugDiscoverServices {
     return 400;
   }
 
+//===============================================
   static Future getAllFlyTypes() async {
     String url = "${apiUrl}FlyTypes/GetAllFlyTypes";
 
@@ -117,6 +118,7 @@ class BugDiscoverServices {
     return 400;
   }
 
+//===============================================
   static Future getAllFlySampleTypes() async {
     String url = "${apiUrl}FlySampleTypes/GetAllFlySampleTypes";
 
@@ -149,6 +151,7 @@ class BugDiscoverServices {
     return 400;
   }
 
+//===============================================
   static Future getAllFlyNotes() async {
     String url = "${apiUrl}FlyNotes/GetAllFlyNotes";
 
@@ -181,6 +184,7 @@ class BugDiscoverServices {
     return 400;
   }
 
+//===============================================
   static Future getInsectExploration(int id) async {
     String url = "${apiUrl}InsectExplorations/GetInsectExploration/$id";
 
@@ -213,6 +217,40 @@ class BugDiscoverServices {
     return 400;
   }
 
+//===============================================
+  static Future getAllInsectExploration() async {
+    String url = "${apiUrl}InsectExplorations/GetUserInsectExplorations";
+
+    http.Response res = await http.get(
+      Uri.parse(url),
+      headers: <String, String>{
+        "Content-type": "application/json",
+        'Accept': 'application/json',
+        // 'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer ${TokenPref.getTokenValue()}',
+      },
+    );
+    //   log("token is : ${TokenPref.getTokenValue()}");
+    if (res.statusCode == 200) {
+      var jsonData = jsonDecode(res.body);
+
+      List insectExploration = jsonData.map((element) {
+        return InsectExplorationsModel.fromJson(element);
+      }).toList();
+
+      return insectExploration;
+    } else if (res.statusCode == 401) {
+      return 401;
+    } else if (res.statusCode == 500 ||
+        res.statusCode == 501 ||
+        res.statusCode == 504 ||
+        res.statusCode == 502) {
+      return 500;
+    }
+    return 400;
+  }
+
+//===============================================
   static Future sendFormData({
     required street,
     required temperature,
@@ -243,7 +281,7 @@ class BugDiscoverServices {
 
     var request = http.MultipartRequest("POST", url);
     request.headers.addAll(headers);
-    if (imge.path !=  "") {
+    if (imge.path != "") {
       // ignore: deprecated_member_use
       var stream = http.ByteStream(DelegatingStream.typed(imge.openRead()));
       // ignore: deprecated_member_use
@@ -255,7 +293,7 @@ class BugDiscoverServices {
 
       request.files.add(multipartFile1);
     }
-    if (imge2.path !=  "") {
+    if (imge2.path != "") {
       // ignore: deprecated_member_use
       var stream2 = http.ByteStream(DelegatingStream.typed(imge2.openRead()));
 
