@@ -22,9 +22,10 @@ import 'package:prepare/view/home/home_screen.dart';
 import 'package:prepare/view/shared_widgets/header_widget.dart';
 import 'package:prepare/view/shared_widgets/images_widget.dart';
 import 'package:prepare/view/shared_widgets/line_dot.dart';
-import 'package:prepare/view/visit_bug_discover/widgets/all_insect_exploration_widget.dart';
-import 'package:prepare/view/visit_bug_discover/widgets/site_status_widget.dart';
 
+import 'widgets/all_insect_exploration_widget.dart';
+import 'widgets/site_status_widget.dart';
+  
 // ignore: must_be_immutable
 class VisitBugDiscoverScreen extends StatelessWidget {
   VisitBugDiscoverScreen({Key? key}) : super(key: key);

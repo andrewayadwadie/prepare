@@ -19,8 +19,9 @@ import 'package:prepare/view/home/home_screen.dart';
 
 import 'package:prepare/view/shared_widgets/header_widget.dart';
 import 'package:prepare/view/shared_widgets/line_dot.dart';
-import 'package:prepare/view/visit_epicenter/widgets/all_epicenter_widget.dart';
 
+import 'widgets/all_epicenter_widget.dart';
+ 
 // ignore: must_be_immutable
 class VisitEpicenterScreen extends StatelessWidget {
   VisitEpicenterScreen({Key? key}) : super(key: key);

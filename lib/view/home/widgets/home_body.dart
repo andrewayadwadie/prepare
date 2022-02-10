@@ -3,32 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prepare/utils/style.dart';
 import 'package:prepare/view/all_projects/all_projects_screen.dart';
-import 'package:prepare/view/animal/animal_screen.dart';
-import 'package:prepare/view/animal/visit_animal_screen.dart';
-import 'package:prepare/view/bug_discover/bug_discover_screen.dart';
-import 'package:prepare/view/epicenter/epicenter_screen.dart';
-import 'package:prepare/view/visit_bug_discover/visit_bug_discover_screen.dart';
-import 'package:prepare/view/visit_epicenter/visit_epicenter_screen.dart';
+import 'package:prepare/view/animal/animal_main_screen.dart';
+
+import 'package:prepare/view/bug_discover/bug_discover_main_screen.dart';
+import 'package:prepare/view/epicenter/epicenter_main_screen.dart';
 
 class HomeBodyWidget extends StatelessWidget {
   HomeBodyWidget({Key? key}) : super(key: key);
   final List<String> titles = [
     "شاشة التحضير",
     "إستكشاف حشري ",
-    "إضافة بؤرة",
-    "زيارة بؤرة",
-    "زيارة إستكشاف حشري",
-    "كلاب ضالة ",
-    "زيارة كلاب ضالة "
+    "بؤرة ذباب وبعوض",
+    "بؤرة كلاب ضالة ",
+    
   ];
   final List<Widget> screens = [
     const AllProjectsScreen(),
-    BugDiscoverScreen(),
-    EpiCenterScreen(),
-    VisitEpicenterScreen(),
-    VisitBugDiscoverScreen(),
-    AnimalScreen(),
-    VisitAnimalScreen()
+    BugDiscoverMainScreen(),
+    EpicCenterMainScreen(),
+   AnimalMainScreen()
   ];
   @override
   Widget build(BuildContext context) {
@@ -49,7 +42,7 @@ class HomeBodyWidget extends StatelessWidget {
               childAspectRatio: 2 / 2,
               crossAxisSpacing: 10,
               mainAxisSpacing: 20),
-          itemCount: 7,
+          itemCount: 4,
           itemBuilder: (BuildContext ctx, index) {
             return InkWell(
               onTap: () {
