@@ -388,13 +388,30 @@ class BugDiscoverScreen extends StatelessWidget {
                                                                                   } else {
                                                                                     net.checkInternet().then((val) {
                                                                                       if (val) {
-                                                                                        BugDiscoverServices.sendFormData(districtId: disCtrl.districtId, flyNoteId: flyNoteCtrl.flyNoteId, flySampleTypeId: sampleCtrl.flySampleId, flyTypeId: flyType.flyTypeId, humidity: humidity, imge: imgCtrl.image, imge2: imgCtrl.image2, lat: locationCtrl.currentLat, long: locationCtrl.currentLong, ph: ph, recommendation: recommendation, street: street, temperature: temperature, waving: waving, windSpeed: windspeed).then((value) {
+                                                                                        BugDiscoverServices.sendFormData(
+                                                                                                districtId: disCtrl.districtId, // district
+                                                                                                flyNoteId: flyNoteCtrl.flyNoteId, // type of recommendation
+                                                                                                flySampleTypeId: sampleCtrl.flySampleId, //type of sample
+                                                                                                flyTypeId: flyType.flyTypeId,
+                                                                                                humidity: humidity,
+                                                                                                imge: imgCtrl.image,
+                                                                                                imge2: imgCtrl.image2,
+                                                                                                lat: locationCtrl.currentLat,
+                                                                                                long: locationCtrl.currentLong,
+                                                                                                ph: ph,
+                                                                                                recommendation: recommendation,
+                                                                                                street: street,
+                                                                                                temperature: temperature,
+                                                                                                waving: waving,
+                                                                                                windSpeed: windspeed)
+                                                                                            .then((value) {
                                                                                           if (value == 400) {
                                                                                             toast("يوجد خطأ فى الإرسال ", duration: const Duration(seconds: 2));
                                                                                             clk.changeClick();
                                                                                           } else if (value == 401) {
                                                                                             Get.offAll(const LoginScreen());
                                                                                           } else if (value == 201) {
+                                                                                            Get.offAll(() => const HomeScreen());
                                                                                             CoolAlert.show(
                                                                                               barrierDismissible: false,
                                                                                               context: context,
@@ -404,7 +421,7 @@ class BugDiscoverScreen extends StatelessWidget {
                                                                                               confirmBtnColor: primaryColor,
                                                                                               backgroundColor: primaryColor,
                                                                                               onConfirmBtnTap: () {
-                                                                                                Get.offAll(() => const HomeScreen());
+                                                                                                Get.back();
                                                                                               },
                                                                                             );
                                                                                           }
@@ -474,10 +491,6 @@ class BugDiscoverScreen extends StatelessWidget {
             }));
   }
 }
-
-
-
-
 
 /*
 

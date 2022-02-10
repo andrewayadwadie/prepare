@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hawk_fab_menu/hawk_fab_menu.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:prepare/core/controller/bug_dicover/get_all_insect_ecpolration_controller.dart';
 import 'package:prepare/core/controller/click_controller.dart';
 import 'package:prepare/core/controller/epicenter/all_insects_controller.dart';
 import 'package:prepare/core/controller/image_picker_controller.dart';
@@ -249,8 +252,8 @@ class VisitBugDiscoverScreen extends StatelessWidget {
                                           init: ClickController(),
                                           builder: (clk) {
                                             return GetBuilder<
-                                                    AllInsectsController>(
-                                                init: AllInsectsController(),
+                                                    GetUserInsectExplorationsController>(
+                                                init: GetUserInsectExplorationsController(),
                                                 builder: (insectCtrl) {
                                                   return GetBuilder<
                                                           SiteStatusController>(
@@ -335,8 +338,19 @@ class VisitBugDiscoverScreen extends StatelessWidget {
                                                                                 isNegative: siteStatusCtrl.isNegative,
                                                                                 imge: imgCtrl.image,
                                                                                 imge2: imgCtrl.image2,
-                                                                                insectExplorationId: insectCtrl.insectsId)
+                                                                                insectExplorationId: insectCtrl.insectExplorationsId)
                                                                             .then((value) {
+                                                                          log("humidity: $humidity");
+                                                                          log("imge: ${imgCtrl.image}");
+                                                                          log("imge 2: ${imgCtrl.image2}");
+                                                                          log(" insectExplorationId: ${insectCtrl.insectExplorationsId}");
+                                                                          log("isNegative: ${siteStatusCtrl.isNegative}");
+                                                                          log("recommendation: $recommendation");
+                                                                          log("ph: $ph");
+                                                                          log("temperature: $temperature");
+
+                                                                          log("waving: $waving");
+                                                                          log("windSpeed: $windspeed");
                                                                           if (value ==
                                                                               400) {
                                                                             toast("يوجد خطأ فى الإرسال ",

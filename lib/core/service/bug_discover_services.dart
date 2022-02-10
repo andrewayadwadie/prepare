@@ -268,8 +268,8 @@ class BugDiscoverServices {
     required lat,
     required long,
   }) async {
-    final Uri url = Uri.parse(
-        'https://qualityapi.afaqci.com/api/InsectExplorations/AddInsectExploration');
+    final Uri url =
+        Uri.parse('${apiUrl}InsectExplorations/AddInsectExploration');
 
     // ignore: deprecated_member_use
 
@@ -345,7 +345,7 @@ class BugDiscoverServices {
 
       }) async {
     final Uri url = Uri.parse(
-        'https://qualityapi.afaqci.com/api/InsectExplorations/AddInsectExploration');
+        '${apiUrl}InsectExplorationsVisits/AddInsectExplorationVisit');
 
     // ignore: deprecated_member_use
 
