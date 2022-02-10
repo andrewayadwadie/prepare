@@ -222,7 +222,7 @@ class AnimalScreen extends StatelessWidget {
                                                                       if (clk.clicked ==
                                                                           false) {
                                                                         // code here
-                                                                        AnimalServices.sendFormData(
+                                                                        AnimalServices.sendAnimalFormData(
                                                                                 street: street, // الشارع
                                                                                 districtId: disCtrl.districtId, // الحي
                                                                                 imge: imgCtrl.image, // صورة 1

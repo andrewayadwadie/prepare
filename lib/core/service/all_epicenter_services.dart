@@ -20,7 +20,7 @@ class AllEpicenterServices {
         'Accept': 'application/json',
         // 'Authorization': 'Bearer $token',
         'Authorization':
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBZHZpc29yIiwianRpIjoiODFmNTM5ZWUtMDlmMy00MDVkLWE0NGUtODY1ZDJmOGEzY2Q2IiwiZW1haWwiOiJBZHZpc29yQGdtYWlsLmNvbSIsInVpZCI6ImI3NGRkZDE0LTYzNDAtNDg0MC05NWMyLWRiMTI1NTQ4NDNlNSIsInJvbGVzIjoiQWR2aXNvciIsImV4cCI6MTY0NDIzNjc4NiwiaXNzIjoiU2VjdXJlQXBpIiwiYXVkIjoiU2VjdXJlQXBpVXNlciJ9.19CJKMiGOvh4vC6serxsm-zttJghQd0PXLgRLA7HD08',
+            'Bearer ${TokenPref.getTokenValue()}',
       },
     );
     log("status code is : ${res.statusCode}");

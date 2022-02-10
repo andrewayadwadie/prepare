@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:prepare/core/controller/bug_dicover/all_district_controller.dart';
 import 'package:prepare/core/controller/internet_connectivity_controller.dart';
 import 'package:prepare/utils/style.dart';
+import 'package:prepare/view/shared_widgets/custom_loader.dart';
 
 class AllDistrictWidget extends StatelessWidget {
   const AllDistrictWidget({
@@ -32,9 +33,9 @@ class AllDistrictWidget extends StatelessWidget {
                               showModalBottomSheet(
                                 context: context,
                                 builder: (ctx) =>
-                                    //  disCtrl.loading == true
-                                    //     ? const LoaderWidget()
-                                    //     :
+                                     disCtrl.loading == true
+                                        ? const LoaderWidget()
+                                        :
                                     SizedBox(
                                   height:
                                       MediaQuery.of(context).size.height / 2.5,
