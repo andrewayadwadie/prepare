@@ -39,8 +39,8 @@ class SingleListItem extends StatelessWidget {
           ),
           Container(
             alignment: Alignment.center,
-            width: MediaQuery.of(context).size.width / 10,
-            height: MediaQuery.of(context).size.height / 20,
+            width: 45,
+            height:45,
             decoration: BoxDecoration(
                 color: yellowColor,
                 borderRadius: BorderRadius.circular(50)),

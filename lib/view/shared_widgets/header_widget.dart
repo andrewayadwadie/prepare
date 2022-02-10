@@ -56,8 +56,9 @@ class HeaderWidget extends StatelessWidget {
           child: InkWell(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              width: MediaQuery.of(context).size.width / 20,
-              height: MediaQuery.of(context).size.height / 30,
+           //   decoration: BoxDecoration(border: Border.all(width: 2,color: Colors.red)),
+              width: MediaQuery.of(context).size.width / 7,
+              height: MediaQuery.of(context).size.height / 15,
               child: const Icon(
                 Icons.arrow_forward_ios,
                 color: Colors.white,

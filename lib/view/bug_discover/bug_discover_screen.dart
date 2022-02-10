@@ -33,6 +33,7 @@ import 'package:prepare/view/bug_discover/widgets/waving_widget.dart';
 import 'package:prepare/view/bug_discover/widgets/windspeed_widget.dart';
 import 'package:prepare/view/home/home_screen.dart';
 import 'package:prepare/view/shared_widgets/header_widget.dart';
+import 'package:prepare/view/shared_widgets/images_widget.dart';
 import 'package:prepare/view/shared_widgets/line_dot.dart';
 
 // ignore: must_be_immutable
@@ -192,130 +193,11 @@ class BugDiscoverScreen extends StatelessWidget {
                                 //<<<<<<<<<<<<<<<<<<Two Images >>>>>>>>>>>>>>>>>>>>>>>>>>>
 
                                 //<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    imgCtrl.image.path != ""
-                                        ? Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                3,
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height /
-                                                10,
-                                            padding: const EdgeInsets.all(5),
-                                            decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    width: 2,
-                                                    color: lightPrimaryColor),
-                                                borderRadius:
-                                                    BorderRadius.circular(10)),
-                                            child: Image.file(
-                                              imgCtrl.image,
-                                              width: 120,
-                                              height: 100,
-                                              fit: BoxFit.contain,
-                                            ),
-                                          )
-                                        : Container(
-                                            alignment: Alignment.center,
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                3,
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height /
-                                                10,
-                                            decoration: BoxDecoration(
-                                              color: redColor,
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                            child: Column(
-                                              children: [
-                                                Image.asset(
-                                                  'assets/icons/question-mark.png',
-                                                  width: 45,
-                                                  height: 45,
-                                                ),
-                                                const Text(
-                                                  'برجاء إرفاق صورة البلاغ الاولى ',
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 12,
-                                                      fontFamily: 'hanimation',
-                                                      fontWeight:
-                                                          FontWeight.w400),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                    imgCtrl.image2.path != ""
-                                        ? Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                3,
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height /
-                                                10,
-                                            padding: const EdgeInsets.all(5),
-                                            decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    width: 2,
-                                                    color: lightPrimaryColor),
-                                                borderRadius:
-                                                    BorderRadius.circular(10)),
-                                            child: Image.file(
-                                              imgCtrl.image2,
-                                              width: 120,
-                                              height: 100,
-                                              fit: BoxFit.contain,
-                                            ),
-                                          )
-                                        : Container(
-                                            alignment: Alignment.center,
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                3,
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height /
-                                                10,
-                                            decoration: BoxDecoration(
-                                              color: redColor,
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                            child: Column(
-                                              children: [
-                                                Image.asset(
-                                                  'assets/icons/question-mark.png',
-                                                  width: 45,
-                                                  height: 45,
-                                                ),
-                                                const Text(
-                                                  'برجاء إرفاق صورة البلاغ الثانية',
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 12,
-                                                      fontFamily: 'hanimation',
-                                                      fontWeight:
-                                                          FontWeight.w400),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                  ],
-                                ),
+                               ImagesWidget(
+                                    path1: imgCtrl.image.path,
+                                    path2: imgCtrl.image2.path,
+                                    file1: imgCtrl.image,
+                                    file2: imgCtrl.image2),
                               ],
                             ),
                           ),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prepare/utils/style.dart';
 import 'package:prepare/view/all_projects/all_projects_screen.dart';
+import 'package:prepare/view/animal/animal_screen.dart';
 import 'package:prepare/view/bug_discover/bug_discover_screen.dart';
 import 'package:prepare/view/epicenter/epicenter_screen.dart';
 import 'package:prepare/view/visit_bug_discover/visit_bug_discover_screen.dart';
@@ -15,22 +16,24 @@ class HomeBodyWidget extends StatelessWidget {
     "إستكشاف حشري ",
     "إضافة بؤرة",
     "زيارة بؤرة",
-    "زيارة إستكشاف حشري"
+    "زيارة إستكشاف حشري",
+    "كلاب ضالة "
   ];
   final List<Widget> screens = [
     const AllProjectsScreen(),
     BugDiscoverScreen(),
     EpiCenterScreen(),
     VisitEpicenterScreen(),
-      VisitBugDiscoverScreen()
+    VisitBugDiscoverScreen(),
+    AnimalScreen()
   ];
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: MediaQuery.of(context).size.height / 8),
+      margin: EdgeInsets.only(top: MediaQuery.of(context).size.height / 13),
       padding: const EdgeInsets.only(top: 5),
       width: MediaQuery.of(context).size.width / 1.1,
-      height: MediaQuery.of(context).size.height / 1.4,
+      height: MediaQuery.of(context).size.height / 1.315,
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(20)),
       child: GridView.builder(
@@ -43,7 +46,7 @@ class HomeBodyWidget extends StatelessWidget {
               childAspectRatio: 2 / 2,
               crossAxisSpacing: 10,
               mainAxisSpacing: 20),
-          itemCount: 5,
+          itemCount: 6,
           itemBuilder: (BuildContext ctx, index) {
             return InkWell(
               onTap: () {

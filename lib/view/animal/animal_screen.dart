@@ -1,187 +1,214 @@
+import 'dart:developer';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hawk_fab_menu/hawk_fab_menu.dart';
 import 'package:overlay_support/overlay_support.dart';
-import 'package:prepare/core/controller/bug_dicover/get_all_insect_ecpolration_controller.dart';
+import 'package:prepare/core/controller/bug_dicover/all_cities_controller.dart';
+import 'package:prepare/core/controller/bug_dicover/all_district_controller.dart';
 import 'package:prepare/core/controller/click_controller.dart';
+import 'package:prepare/core/controller/current_location_controller.dart';
 import 'package:prepare/core/controller/image_picker_controller.dart';
 import 'package:prepare/core/controller/internet_connectivity_controller.dart';
-import 'package:prepare/core/controller/site_status_controller.dart';
-import 'package:prepare/core/service/bug_discover_services.dart';
+import 'package:prepare/core/db/auth_shared_preferences.dart';
+import 'package:prepare/core/service/animal_services.dart';
 import 'package:prepare/utils/style.dart';
 import 'package:prepare/view/auth/login_screen.dart';
-import 'package:prepare/view/bug_discover/widgets/humidity_widget.dart';
-import 'package:prepare/view/bug_discover/widgets/ph_widget.dart';
-import 'package:prepare/view/bug_discover/widgets/recommendation_widget.dart';
-import 'package:prepare/view/bug_discover/widgets/temperature_widget.dart';
-import 'package:prepare/view/bug_discover/widgets/waving_widget.dart';
-import 'package:prepare/view/bug_discover/widgets/windspeed_widget.dart';
 import 'package:prepare/view/home/home_screen.dart';
-import 'package:prepare/view/shared_widgets/header_widget.dart';
 import 'package:prepare/view/shared_widgets/images_widget.dart';
+import 'package:prepare/view/bug_discover/widgets/all_cities_widget.dart';
+import 'package:prepare/view/bug_discover/widgets/all_district_widget.dart';
+import 'package:prepare/view/bug_discover/widgets/street_widget.dart';
+import 'package:prepare/view/shared_widgets/header_widget.dart';
 import 'package:prepare/view/shared_widgets/line_dot.dart';
-import 'package:prepare/view/visit_bug_discover/widgets/all_insect_exploration_widget.dart';
-import 'package:prepare/view/visit_bug_discover/widgets/site_status_widget.dart';
 
 // ignore: must_be_immutable
-class VisitBugDiscoverScreen extends StatelessWidget {
-  VisitBugDiscoverScreen({Key? key}) : super(key: key);
-  final _visitBugDiscoverFormKey = GlobalKey<FormState>();
+class AnimalScreen extends StatelessWidget {
+  AnimalScreen({Key? key}) : super(key: key);
+
+  final _animalFormKey = GlobalKey<FormState>();
 
 ////////////////////////////////////////////
-  String? recommendation;
-  String? ph;
-  String? waving;
-  String? windspeed;
-  String? temperature;
-  String? humidity;
+  String? street;
 
   @override
   Widget build(BuildContext context) {
+    //  AllCitiesController cityCtrl = Get.put(AllCitiesController());
     return Scaffold(
         body: GetBuilder<ImagePickerController>(
             init: ImagePickerController(),
             builder: (imgCtrl) {
               return HawkFabMenu(
+                openIcon: Icons.add,
+                blur: 0.5,
+                fabColor: Colors.yellow,
+                iconColor: primaryColor,
+                closeIcon: Icons.close,
+                items: [
+                  HawkFabMenuItem(
+                      label: 'إضافة الصورة الأولى',
+                      ontap: () {
+                        imgCtrl.pickImageFromGallrey();
+                      },
+                      icon: const Icon(Icons.image),
+                      color: primaryColor,
+                      labelColor: lightPrimaryColor,
+                      labelBackgroundColor: Colors.white),
+                  HawkFabMenuItem(
+                      label: 'إلتقط الصورة الأولى ',
+                      ontap: () {
+                        imgCtrl.pickImageFromCam();
+                      },
+                      icon: const Icon(Icons.add_a_photo),
+                      color: primaryColor,
+                      labelColor: lightPrimaryColor,
+                      labelBackgroundColor: Colors.white),
+                  HawkFabMenuItem(
+                      label: 'إضافة الصورة الثانية',
+                      ontap: () {
+                        imgCtrl.pickImageFromGallrey2();
+                      },
+                      icon: const Icon(Icons.image),
+                      color: primaryColor,
+                      labelColor: lightPrimaryColor,
+                      labelBackgroundColor: Colors.white),
+                  HawkFabMenuItem(
+                      label: 'إلتقط الصورة الثانية',
+                      ontap: () {
+                        imgCtrl.pickImageFromCam2();
+                      },
+                      icon: const Icon(Icons.add_a_photo),
+                      color: primaryColor,
+                      labelColor: lightPrimaryColor,
+                      labelBackgroundColor: Colors.white),
+                ],
                 body: SafeArea(
-                    child: SingleChildScrollView(
-                        child: Form(
-                            key: _visitBugDiscoverFormKey,
-                            child: Column(
-                              children: <Widget>[
-                                const HeaderWidget(arrow: true),
-                                SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height / 20,
-                                ),
-                                const AutoSizeText(
-                                  "زيارة إستكشاف حشري ",
-                                  style: TextStyle(
-                                      color: lightPrimaryColor,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                const LineDots(),
-                                Container(
-                                  height:
-                                      MediaQuery.of(context).size.height / 1.68,
-                                  margin: const EdgeInsets.symmetric(
-                                      vertical: 20, horizontal: 15),
-                                  padding: const EdgeInsets.all(5),
-                                  child: ListView(
-                                    children: [
-                                      //====== windspeed  ==========
-                                      WindspeedWidget(onSave: (value) {
-                                        windspeed = value;
-                                      }),
-                                      //====== temperature  ==========
-                                      TemperatureWidget(onSave: (value) {
-                                        temperature = value;
-                                      }),
-                                      //====== humidity  ==========
-                                      HumidityWidget(onSave: (value) {
-                                        humidity = value;
-                                      }),
-                                      //====== Recommendation  ==========
-                                      RecommendationWidget(onChange: (value) {
-                                        recommendation = value;
-                                      }),
-                                      //====== ph  ==========
-                                      PhWidget(onChange: (value) {
-                                        ph = value;
-                                      }),
-                                      //====== waving  ==========
-                                      WavingWidget(onSave: (value) {
-                                        waving = value;
-                                      }),
-                                      //======== all Insect Exploration =================
-                                      const AllInsectExplorationWidget(),
-                                      //====== Site Status  ==========
-                                      SiteStatusWidget(),
+                  child: SingleChildScrollView(
+                    reverse: true,
+                    child: Form(
+                      key: _animalFormKey,
+                      child: Column(
+                        children: [
+                          const HeaderWidget(arrow: true),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height / 20,
+                          ),
+                          const AutoSizeText(
+                            "إضافة كلاب ضالة ",
+                            style: TextStyle(
+                                color: lightPrimaryColor,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600),
+                          ),
+                          const LineDots(),
+                          Container(
+                            height: MediaQuery.of(context).size.height / 1.68,
+                            margin: const EdgeInsets.symmetric(
+                                vertical: 20, horizontal: 15),
+                            padding: const EdgeInsets.all(5),
+                            child: ListView(
+                              children: [
+                                //<<<<<<<<<<<<<<<<<<String Type >>>>>>>>>>>>>>>>>>>>>>>>>>>
+                                //<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+                                //====== street ==========
+                                StreetWidget(onChange: (value) {
+                                  street = value;
+                                }),
 
-                                      //<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-                                    ImagesWidget(
+                                //<<<<<<<<<<<<<<<<<<Dropdown Type >>>>>>>>>>>>>>>>>>>>>>>>>>>
+                                //<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+                                //====== Cities  & District==========
+
+                                GetX<AllCitiesController>(
+                                    init: AllCitiesController(),
+                                    builder: (controller) {
+                                      return Column(
+                                        children: [
+                                          AllCitiesWidget(
+                                              controller: controller),
+                                          if (controller.cityId.value != 0)
+                                            AllDistrictWidget(
+                                                id: controller.cityId.value)
+                                        ],
+                                      );
+                                    }),
+
+                                //<<<<<<<<<<<<<<<<<<Two Images >>>>>>>>>>>>>>>>>>>>>>>>>>>
+                                //<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+                                ImagesWidget(
                                     path1: imgCtrl.image.path,
                                     path2: imgCtrl.image2.path,
                                     file1: imgCtrl.image,
                                     file2: imgCtrl.image2),
-                                    ],
-                                  ),
-                                ),
-                                GetBuilder<InternetController>(
-                                    init: InternetController(),
-                                    builder: (net) {
-                                      return GetBuilder<ClickController>(
-                                          init: ClickController(),
-                                          builder: (clk) {
+                              ],
+                            ),
+                          ),
+                          // Send Report button
+                          GetBuilder<CurrentLocationController>(
+                              init: CurrentLocationController(),
+                              builder: (locationCtrl) {
+                                return GetBuilder<AllCitiesController>(
+                                    init: AllCitiesController(),
+                                    builder: (cityCtrl) {
+                                      return GetBuilder<AllDistrictController>(
+                                          init: AllDistrictController(),
+                                          builder: (disCtrl) {
                                             return GetBuilder<
-                                                    GetUserInsectExplorationsController>(
-                                                init:
-                                                    GetUserInsectExplorationsController(),
-                                                builder: (insectCtrl) {
+                                                    InternetController>(
+                                                init: InternetController(),
+                                                builder: (net) {
                                                   return GetBuilder<
-                                                          SiteStatusController>(
-                                                      init:
-                                                          SiteStatusController(),
-                                                      builder:
-                                                          (siteStatusCtrl) {
+                                                          ClickController>(
+                                                      init: ClickController(),
+                                                      builder: (clk) {
                                                         return InkWell(
                                                           onTap: () async {
-                                                            if (_visitBugDiscoverFormKey
+                                                            if (_animalFormKey
                                                                 .currentState!
                                                                 .validate()) {
-                                                              _visitBugDiscoverFormKey
+                                                              _animalFormKey
                                                                   .currentState!
                                                                   .save();
-
                                                               if (clk.clicked ==
                                                                   false) {
-                                                                if (recommendation ==
-                                                                    "") {
+                                                                if (locationCtrl
+                                                                            .currentLat ==
+                                                                        0 &&
+                                                                    locationCtrl
+                                                                            .currentLong ==
+                                                                        0) {
                                                                   toast(
-                                                                      "برجاء إدخال  ملاحظات",
+                                                                      "please open Gps ",
                                                                       duration:
                                                                           const Duration(
                                                                               seconds: 2));
                                                                   clk.changeClick();
-                                                                } else if (humidity ==
+                                                                } else if (street ==
                                                                     "") {
                                                                   toast(
-                                                                      "برجاء إدخال  قيمة الرطوبة",
+                                                                      "برجاء إدخال إسم الشارع",
                                                                       duration:
                                                                           const Duration(
                                                                               seconds: 2));
                                                                   clk.changeClick();
-                                                                } else if (windspeed ==
-                                                                    "") {
+                                                                } else if (cityCtrl
+                                                                        .cityText
+                                                                        .value ==
+                                                                    "إختر إسم البلدية") {
                                                                   toast(
-                                                                      "برجاء إدخال  سرعة الرياح ",
+                                                                      "برجاء اختيار إسم البلدية",
                                                                       duration:
                                                                           const Duration(
                                                                               seconds: 2));
                                                                   clk.changeClick();
-                                                                } else if (temperature ==
-                                                                    "") {
+                                                                } else if (disCtrl
+                                                                        .districtText
+                                                                        .value ==
+                                                                    "إختر إسم الحي ") {
                                                                   toast(
-                                                                      "برجاء إدخال  درجة الحرارة ",
-                                                                      duration:
-                                                                          const Duration(
-                                                                              seconds: 2));
-                                                                  clk.changeClick();
-                                                                } else if (ph ==
-                                                                    "") {
-                                                                  toast(
-                                                                      "برجاء إدخال  درجة ph ",
-                                                                      duration:
-                                                                          const Duration(
-                                                                              seconds: 2));
-                                                                  clk.changeClick();
-                                                                } else if (waving ==
-                                                                    "") {
-                                                                  toast(
-                                                                      "برجاء إدخال  درجة الملوحة  ",
+                                                                      "برجاء اختيار إسم الحي",
                                                                       duration:
                                                                           const Duration(
                                                                               seconds: 2));
@@ -194,18 +221,18 @@ class VisitBugDiscoverScreen extends StatelessWidget {
                                                                     if (val) {
                                                                       if (clk.clicked ==
                                                                           false) {
-                                                                        BugDiscoverServices.sendVisitFormData(
-                                                                                temperature: temperature,
-                                                                                windSpeed: windspeed,
-                                                                                humidity: humidity,
-                                                                                recommendation: recommendation,
-                                                                                waving: waving,
-                                                                                ph: ph,
-                                                                                isNegative: siteStatusCtrl.isNegative,
-                                                                                imge: imgCtrl.image,
-                                                                                imge2: imgCtrl.image2,
-                                                                                insectExplorationId: insectCtrl.insectExplorationsId)
+                                                                        // code here
+                                                                        AnimalServices.sendFormData(
+                                                                                street: street, // الشارع
+                                                                                districtId: disCtrl.districtId, // الحي
+                                                                                imge: imgCtrl.image, // صورة 1
+                                                                                imge2: imgCtrl.image2, // صورة 2
+                                                                                lat: locationCtrl.currentLat, // الطول
+                                                                                long: locationCtrl.currentLong // العرض
+
+                                                                                )
                                                                             .then((value) {
+                                                                              log("token : ${TokenPref.getTokenValue()}");
                                                                           if (value ==
                                                                               400) {
                                                                             toast("يوجد خطأ فى الإرسال ",
@@ -290,7 +317,7 @@ class VisitBugDiscoverScreen extends StatelessWidget {
                                                             child: clk.clicked ==
                                                                     false
                                                                 ? const Text(
-                                                                    "إضافة زيارة إستكشاف ",
+                                                                    "إضافة كلاب ضالة ",
                                                                     style: TextStyle(
                                                                         color: Colors
                                                                             .white,
@@ -309,52 +336,13 @@ class VisitBugDiscoverScreen extends StatelessWidget {
                                                       });
                                                 });
                                           });
-                                    })
-                              ],
-                            )))),
-                items: [
-                  HawkFabMenuItem(
-                      label: 'إضافة الصورة الأولى',
-                      ontap: () {
-                        imgCtrl.pickImageFromGallrey();
-                      },
-                      icon: const Icon(Icons.image),
-                      color: primaryColor,
-                      labelColor: lightPrimaryColor,
-                      labelBackgroundColor: Colors.white),
-                  HawkFabMenuItem(
-                      label: 'إلتقط الصورة الأولى ',
-                      ontap: () {
-                        imgCtrl.pickImageFromCam();
-                      },
-                      icon: const Icon(Icons.add_a_photo),
-                      color: primaryColor,
-                      labelColor: lightPrimaryColor,
-                      labelBackgroundColor: Colors.white),
-                  HawkFabMenuItem(
-                      label: 'إضافة الصورة الثانية',
-                      ontap: () {
-                        imgCtrl.pickImageFromGallrey2();
-                      },
-                      icon: const Icon(Icons.image),
-                      color: primaryColor,
-                      labelColor: lightPrimaryColor,
-                      labelBackgroundColor: Colors.white),
-                  HawkFabMenuItem(
-                      label: 'إلتقط الصورة الثانية',
-                      ontap: () {
-                        imgCtrl.pickImageFromCam2();
-                      },
-                      icon: const Icon(Icons.add_a_photo),
-                      color: primaryColor,
-                      labelColor: lightPrimaryColor,
-                      labelBackgroundColor: Colors.white),
-                ],
-                openIcon: Icons.add,
-                blur: 0.5,
-                fabColor: Colors.yellow,
-                iconColor: primaryColor,
-                closeIcon: Icons.close,
+                                    });
+                              })
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               );
             }));
   }
