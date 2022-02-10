@@ -33,7 +33,7 @@ class AllDistrictWidget extends StatelessWidget {
                               showModalBottomSheet(
                                 context: context,
                                 builder: (ctx) =>
-                                     disCtrl.loading == true
+                                     disCtrl.loading == false
                                         ? const LoaderWidget()
                                         :
                                     SizedBox(

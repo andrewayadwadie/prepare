@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
@@ -10,13 +12,19 @@ import 'package:prepare/core/controller/current_location_controller.dart';
 import 'package:prepare/core/controller/epicenter/all_insects_controller.dart';
 import 'package:prepare/core/controller/epicenter/insect_code_controller.dart';
 import 'package:prepare/core/controller/internet_connectivity_controller.dart';
+import 'package:prepare/core/db/auth_shared_preferences.dart';
 import 'package:prepare/core/service/epicenter_services.dart';
 import 'package:prepare/utils/style.dart';
 import 'package:prepare/view/auth/login_screen.dart';
 import 'package:prepare/view/bug_discover/widgets/all_cities_widget.dart';
 import 'package:prepare/view/bug_discover/widgets/all_district_widget.dart';
+import 'package:prepare/view/bug_discover/widgets/humidity_widget.dart';
+import 'package:prepare/view/bug_discover/widgets/recommendation_widget.dart';
+import 'package:prepare/view/bug_discover/widgets/temperature_widget.dart';
+import 'package:prepare/view/bug_discover/widgets/windspeed_widget.dart';
 import 'package:prepare/view/epicenter/widgets/insect_widget.dart';
 import 'package:prepare/view/epicenter/widgets/name_widget.dart';
+import 'package:prepare/view/epicenter/widgets/number_widget.dart';
 import 'package:prepare/view/home/home_screen.dart';
 import 'package:prepare/view/shared_widgets/header_widget.dart';
 import 'package:prepare/view/shared_widgets/line_dot.dart';
@@ -29,6 +37,12 @@ class EpiCenterScreen extends StatelessWidget {
 
 ////////////////////////////////////////////
   String? name;
+  String? number;
+  String? recommendation;
+  //===============
+  double? windspeed;
+  double? temperature;
+  double? humidity;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +66,7 @@ class EpiCenterScreen extends StatelessWidget {
               ),
               const LineDots(),
               Container(
-                height: MediaQuery.of(context).size.height / 2,
+                height: MediaQuery.of(context).size.height / 1.83,
                 margin:
                     const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
                 padding: const EdgeInsets.all(5),
@@ -61,6 +75,28 @@ class EpiCenterScreen extends StatelessWidget {
                     //====== name ==========
                     NameWidget(onChange: (value) {
                       name = value;
+                    }),
+                    //====== Recommendation  ==========
+                    RecommendationWidget(onChange: (value) {
+                      recommendation = value;
+                    }),
+
+                    //====== windspeed  ==========
+                    WindspeedWidget(onSave: (value) {
+                      windspeed = double.parse(value ?? "");
+                    }),
+                    //====== temperature  ==========
+                    TemperatureWidget(onSave: (value) {
+                      temperature = double.parse(value ?? "");
+                    }),
+                    //====== humidity  ==========
+                    HumidityWidget(onSave: (value) {
+                      humidity = double.parse(value ?? "");
+                    }),
+
+                    //====== Number ==========
+                    NumberWidget(onChange: (value) {
+                      number = value;
                     }),
                     // ======= insects =================
                     const InsectWidget(),
@@ -173,6 +209,13 @@ class EpiCenterScreen extends StatelessWidget {
                                                                         seconds:
                                                                             2));
                                                                 clk.changeClick();
+                                                              } else if (recommendation ==
+                                                                  "") {
+                                                                toast("برجاء إدخال ملاحظات",
+                                                                    duration: const Duration(
+                                                                        seconds:
+                                                                            2));
+                                                                clk.changeClick();
                                                               } else if (name ==
                                                                   "") {
                                                                 toast("برجاء إدخال  الاسم",
@@ -212,19 +255,30 @@ class EpiCenterScreen extends StatelessWidget {
                                                                     .then(
                                                                         (val) {
                                                                   if (val) {
+                                                                    log("token : ${TokenPref.getTokenValue()}");
                                                                     EpicenterServices.addEpiCenter(
+                                                                            number: int.parse(number ??
+                                                                                ""),
                                                                             code: insectCodeCtrl
                                                                                 .insectCode.value,
                                                                             name: name ??
                                                                                 "",
-                                                                            lat: locationCtrl.currentLat
-                                                                                .toString(),
-                                                                            long: locationCtrl.currentLong
-                                                                                .toString(),
+                                                                            lat:
+                                                                                "${locationCtrl.currentLat}",
+                                                                            long:
+                                                                                "${locationCtrl.currentLong}",
                                                                             insectId: insectCtrl
                                                                                 .insectsId,
                                                                             districtId: disCtrl
-                                                                                .districtId.value)
+                                                                                .districtId.value,
+                                                                            humidity:
+                                                                                "$humidity",
+                                                                            recommendation: recommendation ??
+                                                                                "",
+                                                                            temperature:
+                                                                                "$temperature",
+                                                                            windSpeed:
+                                                                                "$windspeed")
                                                                         .then(
                                                                             (value) {
                                                                       if (value

@@ -43,14 +43,18 @@ class EpicenterServices {
   }
 
 //===================================================================
-  static Future addEpiCenter({
-    required String name,
-    required String lat,
-    required String long,
-    required String code ,
-    required int insectId,
-    required int districtId,
-  }) async {
+  static Future addEpiCenter(
+      {required String name,
+      required String lat,
+      required String long,
+      required String code,
+      required String temperature,
+      required String windSpeed,
+      required String humidity,
+      required String recommendation,
+      required int insectId,
+      required int districtId,
+      required int number}) async {
     var url = "${apiUrl}Epicenters/AddEpicenter";
 
     try {
@@ -66,13 +70,18 @@ class EpicenterServices {
             "Long": long,
             "InsectId": insectId,
             "DistrictId": districtId,
-            "Code":code
+            "Code": code,
+            "Temperature": temperature,
+            "WindSpeed": windSpeed,
+            "Humidity": humidity,
+            "Recommendation": recommendation,
+            "Number": number
           }));
 
       if (res.statusCode == 200 || res.statusCode == 201) {
         return 200;
       } else if (res.statusCode == 400) {
-        log(" response body from login ${res.body}");
+        log(" response body from add epicenter ${res.body}");
         var errorData = jsonDecode(res.body);
 
         return errorData['errors'][0][0];
@@ -99,7 +108,7 @@ class EpicenterServices {
       },
     );
     log("status code is : ${res.statusCode}");
-    if (res.statusCode == 200 ||res.statusCode == 201) {
+    if (res.statusCode == 200 || res.statusCode == 201) {
       var data = res.body;
 
       return data;
@@ -110,11 +119,10 @@ class EpicenterServices {
         res.statusCode == 504 ||
         res.statusCode == 502) {
       return "يوجد مشكلة ";
-    }else if(res.statusCode == 400){
-       var errorMsg = jsonDecode(res.body);
+    } else if (res.statusCode == 400) {
+      var errorMsg = jsonDecode(res.body);
 
-        return errorMsg['errors'][0][0];
+      return errorMsg['errors'][0][0];
     }
- 
   }
 }
