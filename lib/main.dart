@@ -9,15 +9,13 @@ import 'package:prepare/view/intro/intro.dart';
 import 'core/db/auth_shared_preferences.dart';
 import 'utils/translations/app_translations.dart';
 
-Future<void> main()async {
-
-
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   //await Firebase.initializeApp();
- await TokenPref.init();
+  await TokenPref.init();
   await ExpireDatePref.init();
- 
+
   runApp(const MyApp());
 }
 

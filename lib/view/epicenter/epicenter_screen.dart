@@ -40,9 +40,9 @@ class EpiCenterScreen extends StatelessWidget {
   String? number;
   String? recommendation;
   //===============
-  double? windspeed;
-  double? temperature;
-  double? humidity;
+  String? windspeed;
+  String? temperature;
+  String? humidity;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,15 +83,15 @@ class EpiCenterScreen extends StatelessWidget {
 
                     //====== windspeed  ==========
                     WindspeedWidget(onSave: (value) {
-                      windspeed = double.parse(value ?? "");
+                      windspeed = value ?? "";
                     }),
                     //====== temperature  ==========
                     TemperatureWidget(onSave: (value) {
-                      temperature = double.parse(value ?? "");
+                      temperature = value ?? "";
                     }),
                     //====== humidity  ==========
                     HumidityWidget(onSave: (value) {
-                      humidity = double.parse(value ?? "");
+                      humidity = value ?? "";
                     }),
 
                     //====== Number ==========
@@ -196,7 +196,9 @@ class EpiCenterScreen extends StatelessWidget {
                                                           (insectCodeCtrl) {
                                                         return InkWell(
                                                           onTap: () async {
-                                                            if (clk.clicked ==
+                                                            if(_epiCenterFormKey.currentState!.validate()){
+                                                              _epiCenterFormKey.currentState!.save();
+                                                              if (clk.clicked ==
                                                                 false) {
                                                               if (locationCtrl
                                                                           .currentLat ==
@@ -255,7 +257,7 @@ class EpiCenterScreen extends StatelessWidget {
                                                                     .then(
                                                                         (val) {
                                                                   if (val) {
-                                                                    log("token : ${TokenPref.getTokenValue()}");
+                                                                  
                                                                     EpicenterServices.addEpiCenter(
                                                                             number: int.parse(number ??
                                                                                 ""),
@@ -272,13 +274,13 @@ class EpiCenterScreen extends StatelessWidget {
                                                                             districtId: disCtrl
                                                                                 .districtId.value,
                                                                             humidity:
-                                                                                "$humidity",
+                                                                                humidity??"",
                                                                             recommendation: recommendation ??
                                                                                 "",
                                                                             temperature:
-                                                                                "$temperature",
+                                                                                temperature??"",
                                                                             windSpeed:
-                                                                                "$windspeed")
+                                                                                windspeed??"")
                                                                         .then(
                                                                             (value) {
                                                                       if (value
@@ -327,6 +329,7 @@ class EpiCenterScreen extends StatelessWidget {
                                                                 });
                                                               }
                                                               clk.changeClick();
+                                                            }
                                                             }
                                                           },
                                                           child: Container(

@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:prepare/core/db/auth_shared_preferences.dart';
 import 'package:prepare/model/epicenter/epicenter_model.dart';
+import 'package:prepare/model/epicenter/nearst_picenter_point_model.dart';
 
 // ignore: implementation_imports
 
@@ -125,4 +126,38 @@ class EpicenterServices {
       return errorMsg['errors'][0][0];
     }
   }
+
+//<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>//
+
+static Future getNearstEpicenterVisit(double lat, double long) async {
+    String url = "${apiUrl}Epicenters/GetClosestEpicenters/$lat/$long";
+ http.Response res = await http.get(
+      Uri.parse(url),
+      headers: <String, String>{
+        "Content-type": "application/json",
+        'Accept': 'application/json',
+        // 'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer ${TokenPref.getTokenValue()}',
+      },
+    );
+    //   log("token is : ${TokenPref.getTokenValue()}");
+    if (res.statusCode == 200) {
+      var jsonData = jsonDecode(res.body);
+
+      List closeEpicenter = jsonData.map((element) {
+        return NearstEpicenterModel.fromJson(element);
+      }).toList();
+
+      return closeEpicenter;
+    } else if (res.statusCode == 401) {
+      return 401;
+    } else if (res.statusCode == 500 ||
+        res.statusCode == 501 ||
+        res.statusCode == 504 ||
+        res.statusCode == 502) {
+      return 500;
+    }
+    return 400;
+  }
+
 }
