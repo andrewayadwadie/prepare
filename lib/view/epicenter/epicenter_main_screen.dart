@@ -19,8 +19,8 @@ class EpicCenterMainScreen extends StatelessWidget {
   final List<Widget> screens = [
     EpiCenterScreen(),
     VisitEpicenterScreen(),
-    const EpiCenterMapScreen()
-  ];
+      EpiCenterMapScreen()
+  ]; 
 
   @override
   Widget build(BuildContext context) {

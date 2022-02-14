@@ -1,7 +1,6 @@
-
 import 'package:get/get.dart';
 import 'package:location/location.dart';
-
+ 
 class CurrentLocationController extends GetxController {
   @override
   void onInit() {
@@ -19,6 +18,7 @@ class CurrentLocationController extends GetxController {
   double? long;
 
   get currentLat => lat;
+
   get currentLong => long;
   getLocationByLocation() async {
     if (permissionGranted == null || locationData == null) {

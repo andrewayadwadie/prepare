@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+//import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prepare/core/service/epicenter_services.dart';
 
@@ -15,7 +15,7 @@ class AllNearstPointsController extends GetxController {
     getPointCount(lat, long);
     super.onInit();
   }
-
+/*
   String pointText = "إختر نوع الحشرة";
 
   int pointId = 0;
@@ -28,7 +28,7 @@ class AllNearstPointsController extends GetxController {
 
     update();
   }
-
+*/
   bool get loading => _loading.value;
   dynamic getPointCount(double lat, double long) {
     if (_loading.value == true) {
