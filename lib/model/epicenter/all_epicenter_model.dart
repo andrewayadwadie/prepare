@@ -2,7 +2,7 @@ class AllEpicenterModel {
   final int id;
   final String name;
   final String insectName;
-  final String insectDensity;
+
   final String lat;
   final String long;
   final String date;
@@ -13,7 +13,6 @@ class AllEpicenterModel {
     required this.id,
     required this.name,
     required this.insectName,
-    required this.insectDensity,
     required this.lat,
     required this.long,
     required this.date,
@@ -26,7 +25,6 @@ class AllEpicenterModel {
       id: jsonData['id'],
       name: jsonData['name'],
       insectName: jsonData['insectName'],
-      insectDensity: jsonData['insectDensity'],
       lat: jsonData['lat'],
       long: jsonData['long'],
       date: jsonData['date'],

@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:location/location.dart';
- 
+
 class CurrentLocationController extends GetxController {
   @override
   void onInit() {
@@ -37,10 +37,13 @@ class CurrentLocationController extends GetxController {
           return;
         }
       }
-      locationData = await location.getLocation();
-      lat = locationData!.latitude;
-      long = locationData!.longitude;
-      update();
+      location.onLocationChanged.listen((LocationData currentLocation) {
+        lat = currentLocation.latitude;
+        long = currentLocation.longitude;
+        update();
+        // Use current location
+      });
+      location.enableBackgroundMode(enable: true);
     }
   }
 }

@@ -1,5 +1,4 @@
-import 'dart:developer';
-
+ 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +11,6 @@ import 'package:prepare/core/controller/current_location_controller.dart';
 import 'package:prepare/core/controller/epicenter/all_insects_controller.dart';
 import 'package:prepare/core/controller/epicenter/insect_code_controller.dart';
 import 'package:prepare/core/controller/internet_connectivity_controller.dart';
-import 'package:prepare/core/db/auth_shared_preferences.dart';
 import 'package:prepare/core/service/epicenter_services.dart';
 import 'package:prepare/utils/style.dart';
 import 'package:prepare/view/auth/login_screen.dart';

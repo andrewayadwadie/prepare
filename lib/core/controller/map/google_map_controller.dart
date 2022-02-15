@@ -1,13 +1,14 @@
 import 'dart:async';
 import 'dart:math';
 import 'dart:developer' as dev;
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:prepare/core/controller/epicenter/all_nearst_point_controllerd.dart';
 import 'package:prepare/utils/style.dart';
+import 'package:prepare/view/epicenter/visit_epicenter/visit_epicenter_screen.dart';
 
 import '../current_location_controller.dart';
 
@@ -26,6 +27,8 @@ class MapCtrl extends GetxController {
   Marker? mark;
   Set<Marker> marks = {};
   Set<Polyline> polyline = {};
+  // List of coordinates to join
+  List<LatLng> polylineCoordinates = [];
 
   get initialCamPos => initialCameraPosition;
 //<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
@@ -33,6 +36,7 @@ class MapCtrl extends GetxController {
   Future<void> animateCamera(LocationData _location) async {
     final GoogleMapController controller = await compeleteController.future;
     CameraPosition _cameraPostion = CameraPosition(
+        bearing: 192.8334901395799,
         target: LatLng(
           _location.latitude!,
           _location.longitude!,
@@ -80,7 +84,7 @@ class MapCtrl extends GetxController {
     for (var i = 0; i < locations.length; i++) {
       marks.add(Marker(
           markerId: MarkerId(locations[i].toString()),
-          icon: BitmapDescriptor.defaultMarker,
+          icon: BitmapDescriptor.defaultMarkerWithHue(10),
           position: locations[i],
           onTap: () {
             if (calculateDistance(
@@ -95,20 +99,24 @@ class MapCtrl extends GetxController {
                     color: primaryColor, fontWeight: FontWeight.bold),
                 middleText:
                     "انت على بعد مسافة ${calculateDistance(deviceCurrentLocation.currentLat, deviceCurrentLocation.currentLong, double.parse(nearstPoint.point[i].lat), double.parse(nearstPoint.point[i].long))} متر من البؤرة ",
-                cancel: Container(
-                    alignment: Alignment.center,
-                    width: 135,
-                    height: 40,
-                    decoration: BoxDecoration(
-                        color: lightPrimaryColor,
-                        borderRadius: BorderRadius.circular(30)),
-                    child: const Text(
-                      "إضافة زيارة بؤرة ",
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    )),
-                onCancel: () {},
+                cancel: InkWell(
+                  onTap: () {
+                    Get.to(VisitEpicenterScreen());
+                  },
+                  child: Container(
+                      alignment: Alignment.center,
+                      width: 135,
+                      height: 40,
+                      decoration: BoxDecoration(
+                          color: lightPrimaryColor,
+                          borderRadius: BorderRadius.circular(30)),
+                      child: const Text(
+                        "إضافة زيارة بؤرة ",
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      )),
+                ),
               );
             } else {
               Get.defaultDialog(
@@ -145,28 +153,32 @@ class MapCtrl extends GetxController {
                           color: primaryColor,
                           borderRadius: BorderRadius.circular(30)),
                       child: const Text(
-                        " الذهاب إلى البؤرة ",
+                        " الذهاب إلى الموقع  ",
                         style: TextStyle(
-                          fontSize: 10,
+                          fontSize: 11,
                           color: Colors.white,
                         ),
                       )),
                 ),
-                cancel: Container(
-                    alignment: Alignment.center,
-                    width: 90,
-                    height: 40,
-                    decoration: BoxDecoration(
-                        color: lightPrimaryColor,
-                        borderRadius: BorderRadius.circular(30)),
-                    child: const Text(
-                      "زيارة البؤرة",
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    )),
-
-                onCancel: () {},
+                cancel: InkWell(
+                  onTap: () {
+                    Get.to(VisitEpicenterScreen());
+                  },
+                  child: Container(
+                      alignment: Alignment.center,
+                      width: 90,
+                      height: 40,
+                      decoration: BoxDecoration(
+                          color: lightPrimaryColor,
+                          borderRadius: BorderRadius.circular(30)),
+                      child: const Text(
+                        "إضافة زيارة للبؤرة ",
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: Colors.white,
+                        ),
+                      )),
+                ),
 
                 // confirm:
               );
@@ -176,24 +188,43 @@ class MapCtrl extends GetxController {
     }
   }
 
-  void setPolyLine(List<LatLng> locations) {
- 
-    for (var i = 0; i < locations.length; i++) {
-      polyline.add(Polyline(
-          polylineId: PolylineId(locations[i].toString()),
-          width: 5,
-          visible: true,
-          color: Colors.red,
-          consumeTapEvents: true,
-          startCap: Cap.roundCap,
-          endCap: Cap.roundCap,
-          points: [
-            locations[i],
-            LatLng(deviceCurrentLocation.currentLat ?? 0.0,
-                deviceCurrentLocation.currentLong ?? 0.0)
-          ]));
-      update();
+  void setPolyLine(List<LatLng> locations) async {
+    // List of coordinates to join
+    // Initializing PolylinePoints
+    PolylinePoints polylinePoints = PolylinePoints();
+
+    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
+      "AIzaSyBGOAVKbeA0MiN6NfGm8Z0y5LtE7cgdCo4",
+      PointLatLng(
+          locations[1].latitude, locations[1].longitude), // Google Maps API Key
+      PointLatLng(locations[0].latitude, locations[0].longitude),
+
+      travelMode: TravelMode.walking,
+    );
+    dev.log(
+        "locations[0].latitude = ${locations[0].latitude} || locations[0].longitude = ${locations[0].longitude} ");
+    dev.log(
+        "locations[1].latitude = ${locations[1].latitude} || locations[1].longitude = ${locations[1].longitude} ");
+    dev.log("result error = ${result.errorMessage}");
+    dev.log("result status = ${result.status}");
+    if (result.points.isNotEmpty) {
+      for (var point in result.points) {
+        polylineCoordinates.add(LatLng(point.latitude, point.longitude));
+      }
+    } else {
+      dev.log("result failed ");
     }
+
+    polyline.add(Polyline(
+        polylineId: PolylineId(locations[0].latitude.toString()),
+        width: 5,
+        visible: true,
+        color: Colors.red,
+        consumeTapEvents: true,
+        startCap: Cap.roundCap,
+        endCap: Cap.roundCap,
+        points: polylineCoordinates));
+    update();
   }
 
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//

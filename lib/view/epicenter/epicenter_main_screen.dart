@@ -7,18 +7,17 @@ import 'package:prepare/view/shared_widgets/header_widget.dart';
 import 'package:prepare/view/shared_widgets/line_dot.dart';
  
 import 'epicenter_screen.dart';
-import 'visit_epicenter/visit_epicenter_screen.dart';
-
+ 
 class EpicCenterMainScreen extends StatelessWidget {
   EpicCenterMainScreen({Key? key}) : super(key: key);
   final List<String> titles = [
     "إضافة بؤرة",
-    "زيارة بؤرة",
+  //  "زيارة بؤرة",
     "الذهاب إلى بؤرة"
   ];
   final List<Widget> screens = [
     EpiCenterScreen(),
-    VisitEpicenterScreen(),
+  //  VisitEpicenterScreen(),
       EpiCenterMapScreen()
   ]; 
 
@@ -60,7 +59,7 @@ class EpicCenterMainScreen extends StatelessWidget {
                 crossAxisSpacing: 20.0,
                 mainAxisSpacing: 20.0,
               ),
-                  itemCount: 3,
+                  itemCount: 2,
                   itemBuilder: (BuildContext ctx, index) {
                     return InkWell(
                       onTap: () {

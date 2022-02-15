@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -43,7 +41,7 @@ class EpiCenterMapScreen extends StatelessWidget {
                         onTap: mapCtrl.setMarker,
                         markers: mapCtrl.marks,
                         polylines: mapCtrl.polyline,
-                        //     myLocationEnabled: true,
+                        myLocationEnabled: true,
                         //    myLocationButtonEnabled: true,
                         //     indoorViewEnabled: true,
                         //     trafficEnabled: true,
