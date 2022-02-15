@@ -1,5 +1,3 @@
- 
-
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -10,7 +8,6 @@ import 'package:prepare/core/controller/current_location_controller.dart';
 import 'package:prepare/core/controller/epicenter/all_nearst_point_controllerd.dart';
 import 'package:prepare/core/controller/map/google_map_controller.dart';
 import 'package:prepare/core/controller/map/location_controller.dart';
- 
 
 // ignore: must_be_immutable
 class EpiCenterMapScreen extends StatelessWidget {
@@ -45,8 +42,11 @@ class EpiCenterMapScreen extends StatelessWidget {
                         mapType: MapType.normal,
                         onTap: mapCtrl.setMarker,
                         markers: mapCtrl.marks,
-                        polylines:mapCtrl.polyline ,
-                        myLocationEnabled: true,
+                        polylines: mapCtrl.polyline,
+                        //     myLocationEnabled: true,
+                        //    myLocationButtonEnabled: true,
+                        //     indoorViewEnabled: true,
+                        //     trafficEnabled: true,
                         onMapCreated: (GoogleMapController controller) {
                           mapCtrl.compeleteController.complete(controller);
                           // mapCtrl.setMarkers(locations);
@@ -54,7 +54,6 @@ class EpiCenterMapScreen extends StatelessWidget {
                         onCameraMove: (CameraPosition newPos) {
                           mapCtrl.onCamMove(newPos.target);
                           mapCtrl.setMarkers(locations);
-                         
                         },
                       ),
 
