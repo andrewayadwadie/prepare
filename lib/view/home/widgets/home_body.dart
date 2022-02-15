@@ -37,11 +37,11 @@ class HomeBodyWidget extends StatelessWidget {
           shrinkWrap: true,
           physics: const BouncingScrollPhysics(),
           scrollDirection: Axis.vertical,
-          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 200,
-              childAspectRatio: 2 / 2,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 20),
+          gridDelegate:const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 20.0,
+                mainAxisSpacing: 20.0,
+              ),
           itemCount: 4,
           itemBuilder: (BuildContext ctx, index) {
             return InkWell(
@@ -82,10 +82,10 @@ class HomeBodyWidget extends StatelessWidget {
                       decoration: const BoxDecoration(
                           color: lightPrimaryColor,
                           borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(60),
-                              topLeft: Radius.circular(60),
-                              bottomRight: Radius.circular(50),
-                              bottomLeft: Radius.circular(50))),
+                              topRight: Radius.circular(25),
+                              topLeft: Radius.circular(25),
+                              bottomRight: Radius.circular(12),
+                              bottomLeft: Radius.circular(12))),
                       child: Text(
                         titles[index],
                         textAlign: TextAlign.center,
