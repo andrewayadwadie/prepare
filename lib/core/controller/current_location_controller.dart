@@ -43,7 +43,7 @@ class CurrentLocationController extends GetxController {
         update();
         // Use current location
       });
-      location.enableBackgroundMode(enable: true);
+     
     }
   }
 }

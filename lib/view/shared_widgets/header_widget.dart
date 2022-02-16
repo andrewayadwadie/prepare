@@ -27,8 +27,8 @@ class HeaderWidget extends StatelessWidget {
         ),
       ),
       Positioned(
-        top: MediaQuery.of(context).size.height / 16,
-        right: MediaQuery.of(context).size.width / 2.63,
+        top: MediaQuery.of(context).size.height / 14.8,
+        right: MediaQuery.of(context).size.width / 2.45,
         child: Container(
           decoration: BoxDecoration(
             border: Border.all(width: 2, color: primaryColor),

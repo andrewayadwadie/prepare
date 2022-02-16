@@ -113,6 +113,8 @@ class EpiCenterScreen extends StatelessWidget {
                     SizedBox(
                       height: MediaQuery.of(context).size.height / 20,
                     ),
+                  
+                  //Generate Epicenter Code 
                     GetBuilder<AllInsectsController>(
                         init: AllInsectsController(),
                         builder: (insect) {
@@ -124,8 +126,8 @@ class EpiCenterScreen extends StatelessWidget {
                                     builder: (codeCtrl) {
                                       return Container(
                                         alignment: Alignment.center,
-                                        margin: const EdgeInsets.symmetric(
-                                            horizontal: 100),
+                                        margin: const EdgeInsets.only(
+                                            right: 100,left:100,top: 10,bottom: 30),
                                         //  width: MediaQuery.of(context).size.width/4,
                                         height:
                                             MediaQuery.of(context).size.height /
