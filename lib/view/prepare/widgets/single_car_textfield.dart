@@ -15,10 +15,16 @@ class SingleCarTextField extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-            Text(
-            "سيارة رقم $title : ",
-            style:const TextStyle(color: primaryColor),
+            Container(
+              alignment: Alignment.center,
+              height: MediaQuery.of(context).size.height/9,
+              width: MediaQuery.of(context).size.width/3,
+              
+              child: Text(
+              title.toString(),
+              style:const TextStyle(color: primaryColor,fontSize: 12),
           ),
+            ),
           GetBuilder<CarsController>(builder: (controller) {
             return SizedBox(
               width: MediaQuery.of(context).size.width / 4,

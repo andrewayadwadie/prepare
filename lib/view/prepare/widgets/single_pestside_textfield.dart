@@ -15,10 +15,15 @@ class SinglePestSideTextField extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-           Text(
-            "مبيد $title : ",
-            style:const TextStyle(color: primaryColor),
+           Container(
+              alignment: Alignment.center,
+              height: MediaQuery.of(context).size.height/9,
+              width: MediaQuery.of(context).size.width/3,
+             child: Text(
+              title.toString() ,
+              style:const TextStyle(color: primaryColor),
           ),
+           ),
           GetBuilder<PestsidesController>(
 
             builder: (controller) {

@@ -15,10 +15,15 @@ class SingleDevicesTextField extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-           Text(
-            "جهاز $title : ",
-            style: const TextStyle(color: primaryColor),
+           Container(
+              alignment: Alignment.center,
+              height: MediaQuery.of(context).size.height/9,
+              width: MediaQuery.of(context).size.width/3,
+             child: Text(
+          title.toString(),
+              style: const TextStyle(color: primaryColor,fontSize: 9),
           ),
+           ),
           GetBuilder<DevicesController>(
 
             builder: (controller) {

@@ -37,6 +37,7 @@ class DisplayPrepareScreen extends StatelessWidget {
                 ),
                 Text(
                   title,
+                  textAlign: TextAlign.center,
                   style: const TextStyle(
                       color: primaryColor,
                       fontSize: 20,

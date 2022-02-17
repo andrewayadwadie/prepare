@@ -1,0 +1,80 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
+import 'package:prepare/core/controller/current_location_controller.dart';
+import 'package:prepare/core/controller/epicenter/all_nearst_point_controllerd.dart';
+import 'package:prepare/core/controller/map/google_map_controller.dart';
+import 'package:prepare/core/controller/map/location_controller.dart';
+
+// ignore: must_be_immutable
+class BugDIscoverMapScreen extends StatelessWidget {
+  BugDIscoverMapScreen({Key? key}) : super(key: key);
+
+  CurrentLocationController currentLocation =
+      Get.put(CurrentLocationController());
+
+  @override
+  Widget build(BuildContext context) {
+    AllNearstPointsController pointController = Get.put(
+        AllNearstPointsController(currentLocation.currentLat ?? 0.0,
+            currentLocation.currentLat ?? 0.0));
+
+    return Scaffold(
+        body: SafeArea(
+            child: GetBuilder<MapCtrl>(
+                init: MapCtrl(),
+                builder: (mapCtrl) {
+                  List<LatLng> locations =
+                      List.generate(pointController.point.length, (index) {
+                    return LatLng(
+                        double.parse(pointController.point[index].lat),
+                        double.parse(pointController.point[index].long));
+                  });
+
+                  return Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      GoogleMap(
+                        initialCameraPosition: mapCtrl.initialCamPos,
+                        mapType: MapType.normal,
+                        onTap: mapCtrl.setMarker,
+                        markers: mapCtrl.marks,
+                        polylines: mapCtrl.polyline,
+                        myLocationEnabled: true,
+                        myLocationButtonEnabled: true,
+                        indoorViewEnabled: true,
+                        trafficEnabled: true,
+                        onMapCreated: (GoogleMapController controller) {
+                          mapCtrl.compeleteController.complete(controller);
+                          // mapCtrl.setMarkers(locations);
+                        },
+                        onCameraMove: (CameraPosition newPos) {
+                          mapCtrl.onCamMove(newPos.target);
+                          mapCtrl.setMarkers(locations);
+                        },
+                      ),
+                    ],
+                  );
+                })),
+
+        /// get my location
+        floatingActionButton: GetBuilder<LocationCtrl>(
+            init: LocationCtrl(),
+            builder: (locatioController) {
+              return GetBuilder<MapCtrl>(
+                  init: MapCtrl(),
+                  builder: (mapCtrll) {
+                    return FloatingActionButton(
+                      onPressed: () async {
+                        LocationData _myLocation =
+                            await locatioController.getLocation();
+                        mapCtrll.animateCamera(_myLocation);
+                        mapCtrll.setMarker(mapCtrll.currentLocation);
+                      },
+                      child: const Icon(Icons.gps_fixed),
+                    );
+                  });
+            }));
+  }
+}

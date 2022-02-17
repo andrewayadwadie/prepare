@@ -70,7 +70,7 @@ class AllProjectsScreen extends StatelessWidget {
                                           height: MediaQuery.of(context)
                                                   .size
                                                   .height /
-                                              15,
+                                              11,
                                           decoration: BoxDecoration(
                                             color: offwhiteColor,
                                             borderRadius:
@@ -133,7 +133,7 @@ class AllProjectsScreen extends StatelessWidget {
                                                     child: Padding(
                                                       padding: const EdgeInsets
                                                               .symmetric(
-                                                          vertical: 5),
+                                                          vertical: 10),
                                                       child: Container(
                                                         alignment:
                                                             Alignment.center,
@@ -141,7 +141,7 @@ class AllProjectsScreen extends StatelessWidget {
                                                                     context)
                                                                 .size
                                                                 .width /
-                                                            6,
+                                                            5,
                                                         height: MediaQuery.of(
                                                                     context)
                                                                 .size
