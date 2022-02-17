@@ -14,8 +14,8 @@ class HomeBodyWidget extends StatelessWidget {
   final List<String> titles = [
     "شاشة التحضير",
     "إستكشاف حشري ",
-    "بؤرة ذباب وبعوض",
-    "بؤرة كلاب ضالة ",
+    "قياس كثافة",
+    "كلاب ضالة ",
     "المهام اليومية"
     
   ];

@@ -56,7 +56,7 @@ class EpiCenterScreen extends StatelessWidget {
                 height: MediaQuery.of(context).size.height / 20,
               ),
               const AutoSizeText(
-                "إضافة بؤرة",
+                "إضافة قياس كثافة",
                 style: TextStyle(
                     color: lightPrimaryColor,
                     fontSize: 18,

@@ -36,4 +36,9 @@ class AnimalController extends GetxController {
     }
     return animal;
   }
+
+
 }
+
+
+

@@ -117,7 +117,40 @@ class BugDiscoverServices {
     }
     return 400;
   }
+//========================================================
 
+  static Future getBugDiscoverCode(int flyTypeId, int cityId) async {
+    String url = "${apiUrl}InsectExplorations/GetInsectExplorationCode/$cityId/$flyTypeId";
+
+    http.Response res = await http.get(
+      Uri.parse(url),
+      headers: <String, String>{
+        "Content-type": "application/json",
+        'Accept': 'application/json',
+        // 'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer ${TokenPref.getTokenValue()}',
+      },
+    );
+    log("status code is : ${res.statusCode}");
+    if (res.statusCode == 200 || res.statusCode == 201) {
+      var data = res.body;
+
+      return data;
+    } else if (res.statusCode == 401 || res.statusCode == 403) {
+      return "عير مصرح للمستخدم";
+    } else if (res.statusCode == 500 ||
+        res.statusCode == 501 ||
+        res.statusCode == 504 ||
+        res.statusCode == 502) {
+      return "يوجد مشكلة ";
+    } else if (res.statusCode == 400) {
+      var errorMsg = jsonDecode(res.body);
+
+      return errorMsg['errors'][0][0];
+    }
+  }
+
+//<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>//
 //===============================================
   static Future getAllFlySampleTypes() async {
     String url = "${apiUrl}FlySampleTypes/GetAllFlySampleTypes";
@@ -267,6 +300,7 @@ class BugDiscoverServices {
     required File imge2,
     required lat,
     required long,
+    required code,
   }) async {
     final Uri url =
         Uri.parse('${apiUrl}InsectExplorations/AddInsectExploration');
@@ -317,6 +351,7 @@ class BugDiscoverServices {
     request.fields["FlyTypeId"] = "$flyTypeId";
     request.fields["FlyNoteId"] = "$flyNoteId";
     request.fields["FlySampleTypeId"] = "$flySampleTypeId";
+    request.fields["Code"] = "$code";
 
     var response = await request.send();
 

@@ -19,6 +19,8 @@ class AnimalServices {
     required File imge2,
     required lat,
     required long,
+    required code,
+
   }) async {
     final Uri url = Uri.parse('${apiUrl}StrayDogs/AddStrayDog');
 
@@ -59,6 +61,7 @@ class AnimalServices {
     request.fields["Long"] = "$long";
     request.fields["Street"] = "$street";
     request.fields["DistrictId"] = "$districtId";
+    request.fields["Code"] = "$code";
 
     var response = await request.send();
 
@@ -70,7 +73,37 @@ class AnimalServices {
       return 200;
     }
   }
+  //=================================================================================
+static Future getAnimalCode( int cityId) async {
+    String url = "${apiUrl}StrayDogs/GetStrayDogCode/$cityId";
 
+    http.Response res = await http.get(
+      Uri.parse(url),
+      headers: <String, String>{
+        "Content-type": "application/json",
+        'Accept': 'application/json',
+        // 'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer ${TokenPref.getTokenValue()}',
+      },
+    );
+    
+    if (res.statusCode == 200 || res.statusCode == 201) {
+      var data = res.body;
+
+      return data;
+    } else if (res.statusCode == 401 || res.statusCode == 403) {
+      return "عير مصرح للمستخدم";
+    } else if (res.statusCode == 500 ||
+        res.statusCode == 501 ||
+        res.statusCode == 504 ||
+        res.statusCode == 502) {
+      return "يوجد مشكلة ";
+    } else if (res.statusCode == 400) {
+      var errorMsg = jsonDecode(res.body);
+
+      return errorMsg['errors'][0][0];
+    }
+  }
 //================================================================
 
   static Future getAnimal() async {

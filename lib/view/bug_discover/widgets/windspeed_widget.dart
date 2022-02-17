@@ -58,7 +58,7 @@ class WindspeedWidget extends StatelessWidget {
             }
             return null;
           },
-          onSaved: onSave,
+          onChanged: onSave,
         ),
       ),
     );

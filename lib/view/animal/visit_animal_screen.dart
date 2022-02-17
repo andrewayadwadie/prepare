@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hawk_fab_menu/hawk_fab_menu.dart';
 import 'package:overlay_support/overlay_support.dart';
-import 'package:prepare/core/controller/animal_controller.dart';
+import 'package:prepare/core/controller/animal_controller/animal_controller.dart';
 import 'package:prepare/core/controller/click_controller.dart';
 import 'package:prepare/core/controller/image_picker_controller.dart';
 import 'package:prepare/core/controller/internet_connectivity_controller.dart';

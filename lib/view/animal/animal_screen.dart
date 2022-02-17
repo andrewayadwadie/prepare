@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:auto_size_text/auto_size_text.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hawk_fab_menu/hawk_fab_menu.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:prepare/core/controller/animal_controller/animal_code_controller.dart';
 import 'package:prepare/core/controller/bug_dicover/all_cities_controller.dart';
 import 'package:prepare/core/controller/bug_dicover/all_district_controller.dart';
 import 'package:prepare/core/controller/click_controller.dart';
@@ -142,6 +144,70 @@ class AnimalScreen extends StatelessWidget {
                                     path2: imgCtrl.image2.path,
                                     file1: imgCtrl.image,
                                     file2: imgCtrl.image2),
+                                GetBuilder<AllCitiesController>(
+                                          init: AllCitiesController(),
+                                          builder: (cityCtrl) {
+                                            return GetBuilder<
+                                                    AnimaCodeController>(
+                                                init:
+                                                    AnimaCodeController(),
+                                                builder: (codeCtrl) {
+                                                  return Container(
+                                                    alignment: Alignment.center,
+                                                    margin:
+                                                        const EdgeInsets.only(
+                                                            right: 100,
+                                                            left: 100,
+                                                            top: 30,
+                                                            bottom: 30),
+                                                    //  width: MediaQuery.of(context).size.width/4,
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height /
+                                                            15,
+                                                    decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        // border: Border.all(width: 1, color: Colors.black),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                        boxShadow: [
+                                                          BoxShadow(
+                                                            color: Colors.grey
+                                                                .withOpacity(
+                                                                    0.5),
+                                                            spreadRadius: 5,
+                                                            blurRadius: 7,
+                                                            offset: const Offset(
+                                                                0,
+                                                                3), // changes position of shadow
+                                                          ),
+                                                        ]),
+                                                    child: 
+                                                               
+                                                            cityCtrl.cityId
+                                                                    .value ==
+                                                                0
+                                                        ? const SelectableText(
+                                                            "لا يوجد كود حالياً ",
+                                                            style: TextStyle(
+                                                                fontSize: 12),
+                                                          )
+                                                        : SelectableText(
+                                                            codeCtrl.getAnimalCode(cityCtrl.cityId
+                                                                    .value)
+                                                                
+                                                                .toString(),
+                                                            style:
+                                                                const TextStyle(
+                                                                    fontSize:
+                                                                        15),
+                                                          ),
+                                                  );
+                                                });
+                                          }) 
+                                    
                               ],
                             ),
                           ),
@@ -163,175 +229,190 @@ class AnimalScreen extends StatelessWidget {
                                                           ClickController>(
                                                       init: ClickController(),
                                                       builder: (clk) {
-                                                        return InkWell(
-                                                          onTap: () async {
-                                                            if (_animalFormKey
-                                                                .currentState!
-                                                                .validate()) {
-                                                              _animalFormKey
-                                                                  .currentState!
-                                                                  .save();
-                                                              if (clk.clicked ==
-                                                                  false) {
-                                                                if (locationCtrl
-                                                                            .currentLat ==
-                                                                        0 &&
-                                                                    locationCtrl
-                                                                            .currentLong ==
-                                                                        0) {
-                                                                  toast(
-                                                                      "please open Gps ",
-                                                                      duration:
-                                                                          const Duration(
-                                                                              seconds: 2));
-                                                                  clk.changeClick();
-                                                                } else if (street ==
-                                                                    "") {
-                                                                  toast(
-                                                                      "برجاء إدخال إسم الشارع",
-                                                                      duration:
-                                                                          const Duration(
-                                                                              seconds: 2));
-                                                                  clk.changeClick();
-                                                                } else if (cityCtrl
-                                                                        .cityText
-                                                                        .value ==
-                                                                    "إختر إسم البلدية") {
-                                                                  toast(
-                                                                      "برجاء اختيار إسم البلدية",
-                                                                      duration:
-                                                                          const Duration(
-                                                                              seconds: 2));
-                                                                  clk.changeClick();
-                                                                } else if (disCtrl
-                                                                        .districtText
-                                                                        .value ==
-                                                                    "إختر إسم الحي ") {
-                                                                  toast(
-                                                                      "برجاء اختيار إسم الحي",
-                                                                      duration:
-                                                                          const Duration(
-                                                                              seconds: 2));
-                                                                  clk.changeClick();
-                                                                } else {
-                                                                  net
-                                                                      .checkInternet()
-                                                                      .then(
-                                                                          (val) {
-                                                                    if (val) {
-                                                                      if (clk.clicked ==
-                                                                          false) {
-                                                                        // code here
-                                                                        AnimalServices.sendAnimalFormData(
-                                                                                street: street, // الشارع
-                                                                                districtId: disCtrl.districtId, // الحي
-                                                                                imge: imgCtrl.image, // صورة 1
-                                                                                imge2: imgCtrl.image2, // صورة 2
-                                                                                lat: locationCtrl.currentLat, // الطول
-                                                                                long: locationCtrl.currentLong // العرض
-
-                                                                                )
-                                                                            .then((value) {
-                                                                              log("token : ${TokenPref.getTokenValue()}");
-                                                                          if (value ==
-                                                                              400) {
-                                                                            toast("يوجد خطأ فى الإرسال ",
-                                                                                duration: const Duration(seconds: 2));
-                                                                            clk.changeClick();
-                                                                          } else if (value ==
-                                                                              401) {
-                                                                            Get.offAll(const LoginScreen());
-                                                                          } else if (value ==
-                                                                              200) {
-                                                                            Get.offAll(() =>
-                                                                                const HomeScreen());
-                                                                            CoolAlert.show(
-                                                                              barrierDismissible: false,
-                                                                              context: context,
-                                                                              type: CoolAlertType.success,
-                                                                              title: "تم الارسال بنجاح",
-                                                                              confirmBtnText: "حسناً",
-                                                                              confirmBtnColor: primaryColor,
-                                                                              backgroundColor: primaryColor,
-                                                                              onConfirmBtnTap: () {
-                                                                                Get.back();
-                                                                              },
-                                                                            );
-                                                                          }
-                                                                        });
-                                                                      }
+                                                        return GetBuilder<AnimaCodeController>(
+                                                          init: AnimaCodeController(),
+                                                          builder: (code) {
+                                                            return InkWell(
+                                                              onTap: () async {
+                                                                if (_animalFormKey
+                                                                    .currentState!
+                                                                    .validate()) {
+                                                                  _animalFormKey
+                                                                      .currentState!
+                                                                      .save();
+                                                                  if (clk.clicked ==
+                                                                      false) {
+                                                                    if (locationCtrl
+                                                                                .currentLat ==
+                                                                            0 &&
+                                                                        locationCtrl
+                                                                                .currentLong ==
+                                                                            0) {
+                                                                      toast(
+                                                                          "please open Gps ",
+                                                                          duration:
+                                                                              const Duration(
+                                                                                  seconds: 2));
                                                                       clk.changeClick();
+                                                                    } else if (street ==
+                                                                        "") {
+                                                                      toast(
+                                                                          "برجاء إدخال إسم الشارع",
+                                                                          duration:
+                                                                              const Duration(
+                                                                                  seconds: 2));
+                                                                      clk.changeClick();
+                                                                    } else if (cityCtrl
+                                                                            .cityText
+                                                                            .value ==
+                                                                        "إختر إسم البلدية") {
+                                                                      toast(
+                                                                          "برجاء اختيار إسم البلدية",
+                                                                          duration:
+                                                                              const Duration(
+                                                                                  seconds: 2));
+                                                                      clk.changeClick();
+                                                                    } else if (disCtrl
+                                                                            .districtText
+                                                                            .value ==
+                                                                        "إختر إسم الحي ") {
+                                                                      toast(
+                                                                          "برجاء اختيار إسم الحي",
+                                                                          duration:
+                                                                              const Duration(
+                                                                                  seconds: 2));
+                                                                      clk.changeClick();
+                                                                    }else if (code
+                                                                            .animalCode
+                                                                            .value ==
+                                                                        "") {
+                                                                      toast(
+                                                                          "عذراً لا يوجد كود",
+                                                                          duration:
+                                                                              const Duration(
+                                                                                  seconds: 2));
+                                                                      clk.changeClick();
+                                                                    } else {
+                                                                      net
+                                                                          .checkInternet()
+                                                                          .then(
+                                                                              (val) {
+                                                                        if (val) {
+                                                                          if (clk.clicked ==
+                                                                              false) {
+                                                                            // code here
+                                                                            AnimalServices.sendAnimalFormData(
+                                                                                    street: street, // الشارع
+                                                                                    districtId: disCtrl.districtId, // الحي
+                                                                                    imge: imgCtrl.image, // صورة 1
+                                                                                    imge2: imgCtrl.image2, // صورة 2
+                                                                                    lat: locationCtrl.currentLat, // الطول
+                                                                                    long: locationCtrl.currentLong, // العرض
+                                                                                    code:code.animalCode.value
+                                                                                    )
+                                                                                .then((value) {
+                                                                                  log("token : ${TokenPref.getTokenValue()}");
+                                                                              if (value ==
+                                                                                  400) {
+                                                                                toast("يوجد خطأ فى الإرسال ",
+                                                                                    duration: const Duration(seconds: 2));
+                                                                                clk.changeClick();
+                                                                              } else if (value ==
+                                                                                  401) {
+                                                                                Get.offAll(const LoginScreen());
+                                                                              } else if (value ==
+                                                                                  200) {
+                                                                                Get.offAll(() =>
+                                                                                    const HomeScreen());
+                                                                                CoolAlert.show(
+                                                                                  barrierDismissible: false,
+                                                                                  context: context,
+                                                                                  type: CoolAlertType.success,
+                                                                                  title: "تم الارسال بنجاح",
+                                                                                  confirmBtnText: "حسناً",
+                                                                                  confirmBtnColor: primaryColor,
+                                                                                  backgroundColor: primaryColor,
+                                                                                  onConfirmBtnTap: () {
+                                                                                    Get.back();
+                                                                                  },
+                                                                                );
+                                                                              }
+                                                                            });
+                                                                          }
+                                                                          clk.changeClick();
+                                                                        }
+                                                                      });
                                                                     }
-                                                                  });
+                                                                  }
                                                                 }
-                                                              }
-                                                            }
-                                                          },
-                                                          child: Container(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            height: MediaQuery.of(
-                                                                        context)
-                                                                    .size
-                                                                    .height /
-                                                                17,
-                                                            width: MediaQuery.of(
-                                                                        context)
-                                                                    .size
-                                                                    .width /
-                                                                2,
-                                                            decoration: clk
-                                                                        .clicked ==
-                                                                    false
-                                                                ? BoxDecoration(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            40),
-                                                                    gradient: const LinearGradient(
-                                                                        colors: [
-                                                                          lightPrimaryColor,
-                                                                          primaryColor,
-                                                                        ],
-                                                                        begin: FractionalOffset(0.0, 0.0),
-                                                                        end: FractionalOffset(1.0, 0.0),
-                                                                        stops: [0.0, 1.0],
-                                                                        tileMode: TileMode.clamp),
-                                                                  )
-                                                                : BoxDecoration(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            40),
-                                                                    gradient: LinearGradient(
-                                                                        colors: [
-                                                                          Colors
-                                                                              .grey
-                                                                              .shade300,
-                                                                          Colors
-                                                                              .grey,
-                                                                        ],
-                                                                        begin: const FractionalOffset(0.0, 0.0),
-                                                                        end: const FractionalOffset(1.0, 0.0),
-                                                                        stops: const [0.0, 1.0],
-                                                                        tileMode: TileMode.clamp),
-                                                                  ),
-                                                            child: clk.clicked ==
-                                                                    false
-                                                                ? const Text(
-                                                                    "إضافة كلاب ضالة ",
-                                                                    style: TextStyle(
+                                                              },
+                                                              child: Container(
+                                                                alignment: Alignment
+                                                                    .center,
+                                                                height: MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .height /
+                                                                    17,
+                                                                width: MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .width /
+                                                                    2,
+                                                                decoration: clk
+                                                                            .clicked ==
+                                                                        false
+                                                                    ? BoxDecoration(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(
+                                                                                40),
+                                                                        gradient: const LinearGradient(
+                                                                            colors: [
+                                                                              lightPrimaryColor,
+                                                                              primaryColor,
+                                                                            ],
+                                                                            begin: FractionalOffset(0.0, 0.0),
+                                                                            end: FractionalOffset(1.0, 0.0),
+                                                                            stops: [0.0, 1.0],
+                                                                            tileMode: TileMode.clamp),
+                                                                      )
+                                                                    : BoxDecoration(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(
+                                                                                40),
+                                                                        gradient: LinearGradient(
+                                                                            colors: [
+                                                                              Colors
+                                                                                  .grey
+                                                                                  .shade300,
+                                                                              Colors
+                                                                                  .grey,
+                                                                            ],
+                                                                            begin: const FractionalOffset(0.0, 0.0),
+                                                                            end: const FractionalOffset(1.0, 0.0),
+                                                                            stops: const [0.0, 1.0],
+                                                                            tileMode: TileMode.clamp),
+                                                                      ),
+                                                                child: clk.clicked ==
+                                                                        false
+                                                                    ? const Text(
+                                                                        "إضافة كلاب ضالة ",
+                                                                        style: TextStyle(
+                                                                            color: Colors
+                                                                                .white,
+                                                                            fontSize:
+                                                                                18),
+                                                                        textAlign:
+                                                                            TextAlign
+                                                                                .center,
+                                                                      )
+                                                                    : const CircularProgressIndicator(
                                                                         color: Colors
                                                                             .white,
-                                                                        fontSize:
-                                                                            18),
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .center,
-                                                                  )
-                                                                : const CircularProgressIndicator(
-                                                                    color: Colors
-                                                                        .white,
-                                                                  ),
-                                                          ),
+                                                                      ),
+                                                              ),
+                                                            );
+                                                          }
                                                         );
                                                       });
                                                 });
