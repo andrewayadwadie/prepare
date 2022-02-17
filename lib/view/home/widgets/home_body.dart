@@ -24,7 +24,7 @@ class HomeBodyWidget extends StatelessWidget {
     BugDiscoverMainScreen(),
     EpicCenterMainScreen(),
    AnimalMainScreen(),
-   DailyWorkScreen()
+   const DailyWorkScreen()
   ];
   @override
   Widget build(BuildContext context) {

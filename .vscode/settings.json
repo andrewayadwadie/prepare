@@ -5,6 +5,7 @@
         "geolocator",
         "hanimation",
         "pinput",
-        "polyline"
+        "polyline",
+        "polylines"
     ]
 }

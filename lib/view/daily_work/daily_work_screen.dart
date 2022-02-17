@@ -1,17 +1,12 @@
-import 'dart:async';
-import 'dart:convert';
-import 'dart:developer';
+ 
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart';
+ 
 import 'package:prepare/core/controller/current_location_controller.dart';
 import 'package:prepare/core/controller/daily_controller/daily_work_map_controller.dart';
-import 'package:prepare/core/controller/epicenter/all_nearst_point_controllerd.dart';
-import 'package:prepare/core/controller/map/google_map_controller.dart';
-import 'package:prepare/core/controller/map/location_controller.dart';
-import 'package:google_directions_api/google_directions_api.dart';
+ 
 
 // ignore: must_be_immutable
 class DailyWorkScreen extends StatefulWidget {

@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:math';
-import 'dart:developer' as dev;
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -144,7 +143,7 @@ class DailyWorkMapCtrl extends GetxController {
         consumeTapEvents: true,
         startCap: Cap.roundCap,
         endCap: Cap.roundCap,
-        points: carCurrentPath));
+        points: testPath));
     update();
   }
 
