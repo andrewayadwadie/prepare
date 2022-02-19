@@ -70,7 +70,7 @@ class AllProjectsScreen extends StatelessWidget {
                                           height: MediaQuery.of(context)
                                                   .size
                                                   .height /
-                                              11,
+                                              10,
                                           decoration: BoxDecoration(
                                             color: offwhiteColor,
                                             borderRadius:
@@ -105,12 +105,14 @@ class AllProjectsScreen extends StatelessWidget {
                                                     child: Text(
                                                       controller
                                                           .projects[index].name,
+                                                          // textAlign: TextAlign.center,
                                                       style: const TextStyle(
+                                                        height: 1.2,
                                                           color:
                                                               lightPrimaryColor,
                                                           fontFamily:
                                                               "hanimation",
-                                                          fontSize: 16),
+                                                          fontSize: 15),
                                                     ),
                                                   ),
                                                 ),
@@ -132,8 +134,10 @@ class AllProjectsScreen extends StatelessWidget {
                                                     },
                                                     child: Padding(
                                                       padding: const EdgeInsets
-                                                              .symmetric(
-                                                          vertical: 10),
+                                                              .only(
+                                                          top: 13,
+                                                          bottom: 13,
+                                                          right: 10),
                                                       child: Container(
                                                         alignment:
                                                             Alignment.center,
@@ -186,8 +190,10 @@ class AllProjectsScreen extends StatelessWidget {
                                                     },
                                                     child: Padding(
                                                       padding: const EdgeInsets
-                                                              .symmetric(
-                                                          vertical: 5),
+                                                              .only(
+                                                         top: 13,
+                                                          bottom: 13,
+                                                          right: 10),
                                                       child: Container(
                                                         alignment:
                                                             Alignment.center,
