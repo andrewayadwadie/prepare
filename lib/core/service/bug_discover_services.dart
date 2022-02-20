@@ -12,6 +12,7 @@ import 'package:prepare/model/bug_discover/insect_explorations_model.dart';
 // ignore: implementation_imports
 import 'package:async/src/delegate/stream.dart';
 import 'package:path/path.dart';
+import 'package:prepare/model/bug_discover/neast_point_model.dart';
 
 import 'package:prepare/utils/constants.dart';
 import 'package:http/http.dart' as http;
@@ -120,7 +121,8 @@ class BugDiscoverServices {
 //========================================================
 
   static Future getBugDiscoverCode(int flyTypeId, int cityId) async {
-    String url = "${apiUrl}InsectExplorations/GetInsectExplorationCode/$cityId/$flyTypeId";
+    String url =
+        "${apiUrl}InsectExplorations/GetInsectExplorationCode/$cityId/$flyTypeId";
 
     http.Response res = await http.get(
       Uri.parse(url),
@@ -434,5 +436,39 @@ class BugDiscoverServices {
     } else if (response.statusCode == 200 || response.statusCode == 201) {
       return 200;
     }
+  }
+
+//<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>//
+
+  static Future getNearstBugDiscoverVisit(double lat, double long) async {
+    String url =
+        "${apiUrl}InsectExplorations/GetClosestInsectExplorations/$lat/$long";
+    http.Response res = await http.get(
+      Uri.parse(url),
+      headers: <String, String>{
+        "Content-type": "application/json",
+        'Accept': 'application/json',
+        // 'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer ${TokenPref.getTokenValue()}',
+      },
+    );
+    //   log("token is : ${TokenPref.getTokenValue()}");
+    if (res.statusCode == 200) {
+      var jsonData = jsonDecode(res.body);
+
+      List closeBugDiscoverVisit = jsonData.map((element) {
+        return NearstBugDiscoverPointModel.fromJson(element);
+      }).toList();
+
+      return closeBugDiscoverVisit;
+    } else if (res.statusCode == 401) {
+      return 401;
+    } else if (res.statusCode == 500 ||
+        res.statusCode == 501 ||
+        res.statusCode == 504 ||
+        res.statusCode == 502) {
+      return 500;
+    }
+    return 400;
   }
 }

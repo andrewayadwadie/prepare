@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'dart:math';
-
+import 'dart:developer' as dev;
 import 'package:flutter/material.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:prepare/core/controller/daily_controller/daily_work_point_controller.dart';
+import 'package:prepare/utils/style.dart';
 
 import '../current_location_controller.dart';
 
@@ -22,6 +24,7 @@ class DailyWorkMapCtrl extends GetxController {
   DailyWorkPointController dailyWorkPoint = Get.put(DailyWorkPointController());
 
   //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
+
   //<<<<<<<<<<<<<<<<<<<<<<<<current path data>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
   Marker currentMark = Marker(
       markerId: const MarkerId("Mark1"),
@@ -32,9 +35,10 @@ class DailyWorkMapCtrl extends GetxController {
           title: "Info", snippet: "${30.0862704}, ${31.3415012}"),
       onTap: () {});
   Set<Polyline> allPolyLine = {};
+  Set<Polyline> googlePolyline = {};
   List<LatLng> carCurrentPath = [];
   List<LatLng> apiPoint = [];
-
+  List<LatLng> polylineCoordinates = [];
   get initialCamPos => initialCameraPosition;
 //<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
 
@@ -83,13 +87,50 @@ class DailyWorkMapCtrl extends GetxController {
 
     allPolyLine.add(Polyline(
         polylineId: PolylineId(currentLocation.latitude.toString()),
-        width: 5,
+        width: 6,
         visible: true,
-        color: Colors.green,
+        color: redColor,
         consumeTapEvents: true,
         startCap: Cap.roundCap,
         endCap: Cap.roundCap,
         points: apiPoint));
+    update();
+  }
+
+  void setGooglePolyLine() async {
+    for (var item in dailyWorkPoint.points) {
+      apiPoint.add(LatLng(double.parse(item.lat), double.parse(item.long)));
+    }
+    // List of coordinates to join
+    // Initializing PolylinePoints
+    PolylinePoints polylinePoints = PolylinePoints();
+
+    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
+      "AIzaSyBGOAVKbeA0MiN6NfGm8Z0y5LtE7cgdCo4",
+      PointLatLng(
+          apiPoint[1].latitude, apiPoint[1].longitude), // Google Maps API Key
+      PointLatLng(apiPoint.last.latitude, apiPoint.last.longitude),
+
+      travelMode: TravelMode.walking,
+    );
+
+    if (result.points.isNotEmpty) {
+      for (var point in result.points) {
+        polylineCoordinates.add(LatLng(point.latitude, point.longitude));
+      }
+    } else {
+      dev.log("failed");
+    }
+
+    googlePolyline.add(Polyline(
+        polylineId: PolylineId(apiPoint[0].latitude.toString()),
+        width: 5,
+        visible: true,
+        color: Colors.red,
+        consumeTapEvents: true,
+        startCap: Cap.roundCap,
+        endCap: Cap.roundCap,
+        points: polylineCoordinates));
     update();
   }
 
@@ -98,9 +139,6 @@ class DailyWorkMapCtrl extends GetxController {
     update();
   }
 }
-
-
-
 
 /*
 //<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//

@@ -36,7 +36,7 @@ class _DailyWorkScreenState extends State<DailyWorkScreen> {
                       mapType: MapType.normal,
                       //   onTap: mapCtrl.setMarker,
                       markers: <Marker>{mapCtrl.currentMark},
-                      polylines: mapCtrl.allPolyLine,
+                      polylines: mapCtrl.googlePolyline,
                       myLocationEnabled: true,
                       onMapCreated: (GoogleMapController controller) {
                         mapCtrl.compeleteController.complete(controller);
@@ -46,7 +46,7 @@ class _DailyWorkScreenState extends State<DailyWorkScreen> {
                         //mapCtrl.onCamMove(newPos.target);
                         //mapCtrl.setCurrentPath();
                         //mapCtrl.setOriginPath();
-                        mapCtrl.setCurrentPath();
+                        mapCtrl.setGooglePolyLine();
                       },
                     ),
                   ],
