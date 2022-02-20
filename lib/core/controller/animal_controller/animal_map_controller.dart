@@ -7,13 +7,13 @@ import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:prepare/core/controller/animal_controller/nearst_visit_animal_controller.dart';
 import 'package:prepare/utils/style.dart';
-import 'package:prepare/view/bug_discover/visit_bug_discover/visit_bug_discover_screen.dart';
-
+import 'package:prepare/view/animal/visit_animal_screen.dart';
 import '../current_location_controller.dart';
-import 'nearst_visit_controller.dart';
+ 
 
-class BugDiscoverMapCtrl extends GetxController {
+class AnimalMapCtrl extends GetxController {
   CurrentLocationController deviceCurrentLocation =
       Get.put(CurrentLocationController());
 
@@ -79,7 +79,7 @@ class BugDiscoverMapCtrl extends GetxController {
 
   void setMarkers(List<LatLng> locations) {
     dev.log("test location : ${locations.length}");
-    NearstBugDiscoverVisit nearstPoint = Get.put(NearstBugDiscoverVisit(
+    NearstVisitAnimalController nearstPoint = Get.put(NearstVisitAnimalController(
         deviceCurrentLocation.currentLat ?? 0.0,
         deviceCurrentLocation.currentLong ?? 0.0));
     dev.log("test point : ${nearstPoint.point.length}");
@@ -96,14 +96,14 @@ class BugDiscoverMapCtrl extends GetxController {
                     double.parse(nearstPoint.point[i].long)) <
                 200.0) {
               Get.defaultDialog(
-                title: "معلومات عن موقع الاإستكشاف الحشري  ",
+                title: " معلومات عن موقع الكلاب الضالة ",
                 titleStyle: const TextStyle(
                     color: primaryColor, fontWeight: FontWeight.bold),
                 middleText:
                     "انت على بعد مسافة ${calculateDistance(deviceCurrentLocation.currentLat, deviceCurrentLocation.currentLong, double.parse(nearstPoint.point[i].lat), double.parse(nearstPoint.point[i].long))} متر من البؤرة ",
                 cancel: InkWell(
                   onTap: () {
-                    Get.to(VisitBugDiscoverScreen());
+                    Get.to(VisitAnimalScreen());
                   },
                   child: Container(
                       alignment: Alignment.center,
@@ -122,27 +122,18 @@ class BugDiscoverMapCtrl extends GetxController {
               );
             } else {
               Get.defaultDialog(
-                title: "معلومات عن موقع الاإستكشاف الحشري  ",
+                title: "معلومات عن موقع الكلاب الضالة ",
                 titleStyle: const TextStyle(
                     color: primaryColor, fontWeight: FontWeight.bold),
                 middleText: """
   إسم البلدية :  ${nearstPoint.point[i].cityName}
   إسم الحي :  ${nearstPoint.point[i].districtName}
-  درجة الحرارة : ${nearstPoint.point[i].temperature}
-  سرعة الرياح : ${nearstPoint.point[i].windSpeed}
-  الرطوبة : ${nearstPoint.point[i].humidity}
-  درجة الملوحة : ${nearstPoint.point[i].waving}
-  ph : ${nearstPoint.point[i].ph}
-  نوع الاستكشاف : ${nearstPoint.point[i].flyTypeName}
-  نوع الملاحظة : ${nearstPoint.point[i].flyNoteName}
-  نوع الغينة : ${nearstPoint.point[i].flySampleTypeName}
   التاريخ : ${DateFormat('yyyy-MM-dd : kk:mm').format(DateTime.parse(nearstPoint.point[i].date))}
-  الملاحظات :  ${nearstPoint.point[i].recommendation}
  
                            """,
                 confirm: InkWell(
                   onTap: () {
-                    dev.log("hi");
+       
                     Get.back();
                     setPolyLine([
                       LatLng(double.parse(nearstPoint.point[i].lat),
@@ -170,7 +161,7 @@ class BugDiscoverMapCtrl extends GetxController {
                 ),
                 cancel: InkWell(
                   onTap: () {
-                    Get.to(VisitBugDiscoverScreen());
+                    Get.to(VisitAnimalScreen());
                   },
                   child: Container(
                       alignment: Alignment.center,

@@ -7,6 +7,7 @@ import 'package:prepare/core/db/auth_shared_preferences.dart';
 import 'package:async/src/delegate/stream.dart';
 import 'package:path/path.dart';
 import 'package:prepare/model/animal_model.dart';
+import 'package:prepare/model/animal_nearst_point_model.dart';
 
 import 'package:prepare/utils/constants.dart';
 import 'package:http/http.dart' as http;
@@ -20,7 +21,6 @@ class AnimalServices {
     required lat,
     required long,
     required code,
-
   }) async {
     final Uri url = Uri.parse('${apiUrl}StrayDogs/AddStrayDog');
 
@@ -73,8 +73,9 @@ class AnimalServices {
       return 200;
     }
   }
+
   //=================================================================================
-static Future getAnimalCode( int cityId) async {
+  static Future getAnimalCode(int cityId) async {
     String url = "${apiUrl}StrayDogs/GetStrayDogCode/$cityId";
 
     http.Response res = await http.get(
@@ -86,7 +87,7 @@ static Future getAnimalCode( int cityId) async {
         'Authorization': 'Bearer ${TokenPref.getTokenValue()}',
       },
     );
-    
+
     if (res.statusCode == 200 || res.statusCode == 201) {
       var data = res.body;
 
@@ -199,4 +200,36 @@ static Future getAnimalCode( int cityId) async {
 
 //================================================================
 
+//<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>//
+
+  static Future getNearstAnimalVisit(double lat, double long) async {
+    String url = "${apiUrl}StrayDogs/GetClosestStrayDogs/$lat/$long";
+    http.Response res = await http.get(
+      Uri.parse(url),
+      headers: <String, String>{
+        "Content-type": "application/json",
+        'Accept': 'application/json',
+        // 'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer ${TokenPref.getTokenValue()}',
+      },
+    );
+    //   log("token is : ${TokenPref.getTokenValue()}");
+    if (res.statusCode == 200) {
+      var jsonData = jsonDecode(res.body);
+
+      List closeAnimalVisit = jsonData.map((element) {
+        return NearstAnimalPointModel.fromJson(element);
+      }).toList();
+
+      return closeAnimalVisit;
+    } else if (res.statusCode == 401) {
+      return 401;
+    } else if (res.statusCode == 500 ||
+        res.statusCode == 501 ||
+        res.statusCode == 504 ||
+        res.statusCode == 502) {
+      return 500;
+    }
+    return 400;
+  }
 }

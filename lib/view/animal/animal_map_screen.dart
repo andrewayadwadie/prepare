@@ -2,28 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
-import 'package:prepare/core/controller/bug_dicover/bug_discover_map_controller.dart';
-import 'package:prepare/core/controller/bug_dicover/nearst_visit_controller.dart';
+import 'package:prepare/core/controller/animal_controller/animal_map_controller.dart';
+import 'package:prepare/core/controller/animal_controller/nearst_visit_animal_controller.dart';
 import 'package:prepare/core/controller/current_location_controller.dart';
 import 'package:prepare/core/controller/map/location_controller.dart';
 
 // ignore: must_be_immutable
-class BugDIscoverMapScreen extends StatelessWidget {
-  BugDIscoverMapScreen({Key? key}) : super(key: key);
+class AnimalMapScreen extends StatelessWidget {
+  AnimalMapScreen({Key? key}) : super(key: key);
 
   CurrentLocationController currentLocation =
       Get.put(CurrentLocationController());
 
   @override
   Widget build(BuildContext context) {
-    NearstBugDiscoverVisit pointController = Get.put(
-        NearstBugDiscoverVisit(currentLocation.currentLat ?? 0.0,
+    NearstVisitAnimalController pointController = Get.put(
+        NearstVisitAnimalController(currentLocation.currentLat ?? 0.0,
             currentLocation.currentLat ?? 0.0));
 
     return Scaffold(
         body: SafeArea(
-            child: GetBuilder<BugDiscoverMapCtrl>(
-                init: BugDiscoverMapCtrl(),
+            child: GetBuilder<AnimalMapCtrl>(
+                init: AnimalMapCtrl(),
                 builder: (mapCtrl) {
                   List<LatLng> locations =
                       List.generate(pointController.point.length, (index) {
@@ -62,8 +62,8 @@ class BugDIscoverMapScreen extends StatelessWidget {
         floatingActionButton: GetBuilder<LocationCtrl>(
             init: LocationCtrl(),
             builder: (locatioController) {
-              return GetBuilder<BugDiscoverMapCtrl>(
-                  init: BugDiscoverMapCtrl(),
+              return GetBuilder<AnimalMapCtrl>(
+                  init: AnimalMapCtrl(),
                   builder: (mapCtrll) {
                     return FloatingActionButton(
                       onPressed: () async {
