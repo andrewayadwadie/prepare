@@ -20,6 +20,10 @@ class EpicCenterMainScreen extends StatelessWidget {
     EpiCenterScreen(),
     //  VisitEpicenterScreen(),
     EpiCenterMapScreen()
+
+
+
+    
   ];
 
   @override

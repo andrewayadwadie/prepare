@@ -1,17 +1,17 @@
- 
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
- 
+
 import 'package:prepare/core/controller/current_location_controller.dart';
 import 'package:prepare/core/controller/daily_controller/daily_work_map_controller.dart';
- 
 
 // ignore: must_be_immutable
 class DailyWorkScreen extends StatefulWidget {
-  const DailyWorkScreen({Key? key}) : super(key: key);
+  const DailyWorkScreen({Key? key, }) : super(key: key);
 
+ 
   @override
   State<DailyWorkScreen> createState() => _DailyWorkScreenState();
 }
@@ -22,68 +22,43 @@ class _DailyWorkScreenState extends State<DailyWorkScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // AllNearstPointsController pointController = Get.put(
-    //     AllNearstPointsController(currentLocation.currentLat ?? 0.0,
-    //         currentLocation.currentLat ?? 0.0));
-
+  
     return Scaffold(
-        body: SafeArea(
-            child: GetBuilder<DailyWorkMapCtrl>(
-                init: DailyWorkMapCtrl(),
-                builder: (mapCtrl) {
-                  // List<LatLng> locations =
-                  //     List.generate(pointController.point.length, (index) {
-                  //   return LatLng(
-                  //       double.parse(pointController.point[index].lat),
-                  //       double.parse(pointController.point[index].long));
-                  // });
-
-                  return Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      GoogleMap(
-                        initialCameraPosition: mapCtrl.initialCamPos,
-                        mapType: MapType.normal,
-                        //   onTap: mapCtrl.setMarker,
-                        markers: <Marker>{mapCtrl.currentMark},
-                        polylines: mapCtrl.allPolyLine,
-                        myLocationEnabled: true,
-                        onMapCreated: (GoogleMapController controller) {
-                          mapCtrl.compeleteController.complete(controller);
-                        },
-                        onCameraMove: (CameraPosition newPos) {
-                          //    mapCtrl.onCamMove(newPos.target);
-                        //   mapCtrl.setCurrentPath();
-                      //    mapCtrl.setOriginPath();
-                       mapCtrl.  setCurrentPath();
-                        },
-                      ),
-                    ],
-                  );
-                })),
-
-        /// get my location
-      /*  floatingActionButton: GetBuilder<LocationCtrl>(
-            init: LocationCtrl(),
-            builder: (locatioController) {
-              return GetBuilder<MapCtrl>(
-                  init: MapCtrl(),
-                  builder: (mapCtrll) {
-                    return FloatingActionButton(
-                      onPressed: () async {
-                        LocationData _myLocation =
-                            await locatioController.getLocation();
-                        mapCtrll.animateCamera(_myLocation);
-                        mapCtrll.setMarker(mapCtrll.currentLocation);
+      body: SafeArea(
+          child: GetBuilder<DailyWorkMapCtrl>(
+              init: DailyWorkMapCtrl(),
+              builder: (mapCtrl) {
+                return Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    GoogleMap(
+                      initialCameraPosition: mapCtrl.initialCamPos,
+                      mapType: MapType.normal,
+                      //   onTap: mapCtrl.setMarker,
+                      markers: <Marker>{mapCtrl.currentMark},
+                      polylines: mapCtrl.allPolyLine,
+                      myLocationEnabled: true,
+                      onMapCreated: (GoogleMapController controller) {
+                        mapCtrl.compeleteController.complete(controller);
                       },
-                      child: const Icon(Icons.gps_fixed),
-                    );
-                  });
-            })
-            */
-            );
+                      onCameraMove: (CameraPosition newPos) {
+                        
+                        //mapCtrl.onCamMove(newPos.target);
+                        //mapCtrl.setCurrentPath();
+                        //mapCtrl.setOriginPath();
+                        mapCtrl.setCurrentPath();
+                      },
+                    ),
+                  ],
+                );
+              })),
+
+      /// get my location
+    );
   }
 }
+
+
 /*
 
 

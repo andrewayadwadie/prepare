@@ -6,7 +6,7 @@ import 'package:prepare/view/all_projects/all_projects_screen.dart';
 import 'package:prepare/view/animal/animal_main_screen.dart';
 
 import 'package:prepare/view/bug_discover/bug_discover_main_screen.dart';
-import 'package:prepare/view/daily_work/daily_work_screen.dart';
+import 'package:prepare/view/daily_work/daily_work_main_screen.dart';
 import 'package:prepare/view/epicenter/epicenter_main_screen.dart';
 
 class HomeBodyWidget extends StatelessWidget {
@@ -24,7 +24,7 @@ class HomeBodyWidget extends StatelessWidget {
     BugDiscoverMainScreen(),
     EpicCenterMainScreen(),
    AnimalMainScreen(),
-   const DailyWorkScreen()
+   const DailyWorkMainScreen()
   ];
   @override
   Widget build(BuildContext context) {

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:prepare/core/controller/daily_controller/daily_work_point_controller.dart';
 
 import '../current_location_controller.dart';
 
@@ -18,14 +19,8 @@ class DailyWorkMapCtrl extends GetxController {
   );
   Completer<GoogleMapController> compeleteController = Completer();
   LatLng currentLocation = initialCameraPosition.target;
-  //BitmapDescriptor? _locationIcon;
+  DailyWorkPointController dailyWorkPoint = Get.put(DailyWorkPointController());
 
-  //Marker? mark;
-
-  //Set<Marker> marks = {};
-  // Set<Polyline> polyline = {};
-  // List of coordinates to join
-  //List<LatLng> polylineCoordinates = [];
   //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
   //<<<<<<<<<<<<<<<<<<<<<<<<current path data>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
   Marker currentMark = Marker(
@@ -38,27 +33,7 @@ class DailyWorkMapCtrl extends GetxController {
       onTap: () {});
   Set<Polyline> allPolyLine = {};
   List<LatLng> carCurrentPath = [];
-  //<<<<<<<<<<<<<origin path >>>>>>>>>>//
-  List<LatLng> originPath = [
-    const LatLng(30.081654223476963, 31.35709440794601),
-    const LatLng(30.083733591782217, 31.32155963683227),
-    const LatLng(30.062862216334263, 31.285511581583222),
-    const LatLng(30.033366647389016, 31.26689507392588),
-    const LatLng(29.99217555011128, 31.282938583489916),
-    const LatLng(29.99141498222869, 31.233676507716712),
-    const LatLng(29.989934120992736, 31.149554373868867),
-    const LatLng(30.021756275326613, 31.165855640440057),
-    const LatLng(30.062250684916698, 31.174272633191723),
-    const LatLng(30.121661245415556, 31.14124346609501)
-  ];
-
-  List<LatLng> testPath = [
-    const LatLng(30.081654223476963, 31.35709440794601),
-    const LatLng(30.083733591782217, 31.32155963683227),
-    const LatLng(30.062862216334263, 31.285511581583222),
-    const LatLng(30.033366647389016, 31.26689507392588),
-    const LatLng(29.99217555011128, 31.282938583489916),
-  ];
+  List<LatLng> apiPoint = [];
 
   get initialCamPos => initialCameraPosition;
 //<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
@@ -87,40 +62,11 @@ class DailyWorkMapCtrl extends GetxController {
   }
 
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
-/*
-  void setMarker(LatLng _location) {
-    Marker newMarker = Marker(
-        markerId: MarkerId(_location.latitude.toString()),
-        icon: BitmapDescriptor.defaultMarker,
-        // icon: _locationIcon,
-        position: _location,
-        infoWindow: InfoWindow(
-            title: "Info",
-            snippet:
-                "${currentLocation.latitude}, ${currentLocation.longitude}"),
-        onTap: () {});
-
-    mark = newMarker;
-    update();
-  }
-*/
-  void setOriginPath() {
- 
-
-    allPolyLine.add(Polyline(
-        polylineId: PolylineId(currentLocation.latitude.toString()),
-        width: 5,
-        visible: true,
-        color: Colors.red,
-        consumeTapEvents: true,
-        startCap: Cap.roundCap,
-        endCap: Cap.roundCap,
-        points: originPath));
-
-    update();
-  }
 
   void setCurrentPath() {
+    for (var item in dailyWorkPoint.points) {
+      apiPoint.add(LatLng(double.parse(item.lat), double.parse(item.long)));
+    }
     Marker newMarker = Marker(
         markerId: MarkerId(currentLocation.latitude.toString()),
         icon: BitmapDescriptor.defaultMarker,
@@ -143,7 +89,7 @@ class DailyWorkMapCtrl extends GetxController {
         consumeTapEvents: true,
         startCap: Cap.roundCap,
         endCap: Cap.roundCap,
-        points: testPath));
+        points: apiPoint));
     update();
   }
 
