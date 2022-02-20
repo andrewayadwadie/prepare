@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:math';
-import 'dart:developer' as dev;
 import 'package:intl/intl.dart';
+import 'dart:developer' as dev;
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:get/get.dart';
@@ -9,11 +9,13 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:prepare/core/controller/epicenter/all_nearst_point_controllerd.dart';
 import 'package:prepare/utils/style.dart';
+import 'package:prepare/view/bug_discover/visit_bug_discover/visit_bug_discover_screen.dart';
 import 'package:prepare/view/epicenter/visit_epicenter/visit_epicenter_screen.dart';
 
 import '../current_location_controller.dart';
+import 'nearst_visit_controller.dart';
 
-class MapCtrl extends GetxController {
+class BugDiscoverMapCtrl extends GetxController {
   CurrentLocationController deviceCurrentLocation =
       Get.put(CurrentLocationController());
 
@@ -78,10 +80,11 @@ class MapCtrl extends GetxController {
 //<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
 
   void setMarkers(List<LatLng> locations) {
-    AllNearstPointsController nearstPoint = Get.put(AllNearstPointsController(
+    dev.log("test location : ${locations.length}");
+    NearstBugDiscoverVisit nearstPoint = Get.put(NearstBugDiscoverVisit(
         deviceCurrentLocation.currentLat ?? 0.0,
         deviceCurrentLocation.currentLong ?? 0.0));
-
+    dev.log("test point : ${nearstPoint.point.length}");
     for (var i = 0; i < locations.length; i++) {
       marks.add(Marker(
           markerId: MarkerId(locations[i].toString()),
@@ -95,14 +98,14 @@ class MapCtrl extends GetxController {
                     double.parse(nearstPoint.point[i].long)) <
                 200.0) {
               Get.defaultDialog(
-                title: "معلومات عن موقع الكثافة الحشرية  ",
+                title: "معلومات عن موقع الاإستكشاف الحشري  ",
                 titleStyle: const TextStyle(
                     color: primaryColor, fontWeight: FontWeight.bold),
                 middleText:
                     "انت على بعد مسافة ${calculateDistance(deviceCurrentLocation.currentLat, deviceCurrentLocation.currentLong, double.parse(nearstPoint.point[i].lat), double.parse(nearstPoint.point[i].long))} متر من البؤرة ",
                 cancel: InkWell(
                   onTap: () {
-                    Get.to(VisitEpicenterScreen());
+                    Get.to(VisitBugDiscoverScreen());
                   },
                   child: Container(
                       alignment: Alignment.center,
@@ -121,21 +124,27 @@ class MapCtrl extends GetxController {
               );
             } else {
               Get.defaultDialog(
-                title: "معلومات عن موقع الكثافة الحشرية  ",
+                title: "معلومات عن موقع الاإستكشاف الحشري  ",
                 titleStyle: const TextStyle(
                     color: primaryColor, fontWeight: FontWeight.bold),
                 middleText: """
-  اسم الموقع : ${nearstPoint.point[i].name}
-  نوع الحشرة :  ${nearstPoint.point[i].insectName}
-التاريخ : ${DateFormat('yyyy-MM-dd : kk:mm').format(DateTime .parse(nearstPoint.point[i].date)) }
-  إسم الحي :  ${nearstPoint.point[i].districtName}
   إسم البلدية :  ${nearstPoint.point[i].cityName}
+  إسم الحي :  ${nearstPoint.point[i].districtName}
+  درجة الحرارة : ${nearstPoint.point[i].temperature}
+  سرعة الرياح : ${nearstPoint.point[i].windSpeed}
+  الرطوبة : ${nearstPoint.point[i].humidity}
+  درجة الملوحة : ${nearstPoint.point[i].waving}
+  ph : ${nearstPoint.point[i].ph}
+  نوع الاستكشاف : ${nearstPoint.point[i].flyTypeName}
+  نوع الملاحظة : ${nearstPoint.point[i].flyNoteName}
+  نوع الغينة : ${nearstPoint.point[i].flySampleTypeName}
+  التاريخ : ${DateFormat('yyyy-MM-dd : kk:mm').format(DateTime.parse(nearstPoint.point[i].date))}
   الملاحظات :  ${nearstPoint.point[i].recommendation}
  
                            """,
                 confirm: InkWell(
                   onTap: () {
-                
+                    dev.log("hi");
                     Get.back();
                     setPolyLine([
                       LatLng(double.parse(nearstPoint.point[i].lat),
@@ -163,7 +172,7 @@ class MapCtrl extends GetxController {
                 ),
                 cancel: InkWell(
                   onTap: () {
-                    Get.to(VisitEpicenterScreen());
+                    Get.to(VisitBugDiscoverScreen());
                   },
                   child: Container(
                       alignment: Alignment.center,

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:prepare/core/controller/bug_dicover/bug_discover_map_controller.dart';
+import 'package:prepare/core/controller/bug_dicover/nearst_visit_controller.dart';
 import 'package:prepare/core/controller/current_location_controller.dart';
 import 'package:prepare/core/controller/epicenter/all_nearst_point_controllerd.dart';
 import 'package:prepare/core/controller/map/google_map_controller.dart';
@@ -16,14 +18,14 @@ class BugDIscoverMapScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AllNearstPointsController pointController = Get.put(
-        AllNearstPointsController(currentLocation.currentLat ?? 0.0,
+    NearstBugDiscoverVisit pointController = Get.put(
+        NearstBugDiscoverVisit(currentLocation.currentLat ?? 0.0,
             currentLocation.currentLat ?? 0.0));
 
     return Scaffold(
         body: SafeArea(
-            child: GetBuilder<MapCtrl>(
-                init: MapCtrl(),
+            child: GetBuilder<BugDiscoverMapCtrl>(
+                init: BugDiscoverMapCtrl(),
                 builder: (mapCtrl) {
                   List<LatLng> locations =
                       List.generate(pointController.point.length, (index) {
@@ -44,7 +46,7 @@ class BugDIscoverMapScreen extends StatelessWidget {
                         myLocationEnabled: true,
                         myLocationButtonEnabled: true,
                         indoorViewEnabled: true,
-                        trafficEnabled: true,
+                        // trafficEnabled: true,
                         onMapCreated: (GoogleMapController controller) {
                           mapCtrl.compeleteController.complete(controller);
                           // mapCtrl.setMarkers(locations);

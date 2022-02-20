@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prepare/core/controller/internet_connectivity_controller.dart';
 import 'package:prepare/utils/style.dart';
+import 'package:prepare/view/bug_discover/bug_discover_map/bug_discover_map.dart';
 import 'package:prepare/view/bug_discover/visit_bug_discover/visit_bug_discover_screen.dart';
 import 'package:prepare/view/shared_widgets/header_widget.dart';
 import 'package:prepare/view/shared_widgets/line_dot.dart';
@@ -17,7 +18,8 @@ class BugDiscoverMainScreen extends StatelessWidget {
   ];
   final List<Widget> screens = [
     BugDiscoverScreen(),
-    VisitBugDiscoverScreen(),
+    BugDIscoverMapScreen(),
+    //VisitBugDiscoverScreen(),
   ];
 
   @override
