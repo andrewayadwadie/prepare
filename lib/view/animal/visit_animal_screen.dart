@@ -4,26 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hawk_fab_menu/hawk_fab_menu.dart';
 import 'package:overlay_support/overlay_support.dart';
-import 'package:prepare/core/controller/animal_controller/animal_controller.dart';
 import 'package:prepare/core/controller/click_controller.dart';
 import 'package:prepare/core/controller/image_picker_controller.dart';
 import 'package:prepare/core/controller/internet_connectivity_controller.dart';
 import 'package:prepare/core/service/animal_services.dart';
-
 import 'package:prepare/utils/style.dart';
-import 'package:prepare/view/animal/widgets/all_animal_widget.dart';
 import 'package:prepare/view/auth/login_screen.dart';
 import 'package:prepare/view/home/home_screen.dart';
-
 import 'package:prepare/view/shared_widgets/header_widget.dart';
 import 'package:prepare/view/shared_widgets/images_widget.dart';
 import 'package:prepare/view/shared_widgets/line_dot.dart';
 
 // ignore: must_be_immutable
 class VisitAnimalScreen extends StatelessWidget {
-  VisitAnimalScreen({Key? key}) : super(key: key);
+  VisitAnimalScreen({Key? key, required this.id}) : super(key: key);
   final _visitAnimalFormKey = GlobalKey<FormState>();
-
+  final int id;
 ////////////////////////////////////////////
 
   @override
@@ -60,7 +56,7 @@ class VisitAnimalScreen extends StatelessWidget {
                                   padding: const EdgeInsets.all(5),
                                   child: ListView(
                                     children: [
-                                      const AllAnimalWidget(),
+                                      //       const AllAnimalWidget(),
                                       //<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
                                       ImagesWidget(
                                           path1: imgCtrl.image.path,
@@ -76,178 +72,149 @@ class VisitAnimalScreen extends StatelessWidget {
                                       return GetBuilder<ClickController>(
                                           init: ClickController(),
                                           builder: (clk) {
-                                            return GetBuilder<AnimalController>(
-                                                init: AnimalController(),
-                                                builder: (animalCtrl) {
-                                                  return InkWell(
-                                                    onTap: () async {
-                                                      if (_visitAnimalFormKey
-                                                          .currentState!
-                                                          .validate()) {
-                                                        _visitAnimalFormKey
-                                                            .currentState!
-                                                            .save();
-
-                                                        if (clk.clicked ==
-                                                            false) {
-                                                          if (animalCtrl
-                                                                  .animalText ==
-                                                              "إختر بؤرة الكلاب الضالة") {
+                                            return InkWell(
+                                              onTap: () async {
+                                                if (_visitAnimalFormKey
+                                                    .currentState!
+                                                    .validate()) {
+                                                  _visitAnimalFormKey
+                                                      .currentState!
+                                                      .save();
+                                                  net
+                                                      .checkInternet()
+                                                      .then((val) {
+                                                    if (val) {
+                                                      if (clk.clicked ==
+                                                          false) {
+                                                        // code here
+                                                        AnimalServices
+                                                            .sendVisitAnimalFormData(
+                                                          strayDogId: id,
+                                                          imge: imgCtrl
+                                                              .image, // صورة 1
+                                                          imge2: imgCtrl
+                                                              .image2, // صورة 2
+                                                        ).then((value) {
+                                                          if (value == 400) {
                                                             toast(
-                                                                "برجاء إختيار بؤرة كلاب ضالة  ",
+                                                                "يوجد خطأ فى الإرسال ",
                                                                 duration:
                                                                     const Duration(
                                                                         seconds:
                                                                             2));
                                                             clk.changeClick();
-                                                          } else {
-                                                            net
-                                                                .checkInternet()
-                                                                .then((val) {
-                                                              if (val) {
-                                                                if (clk.clicked ==
-                                                                    false) {
-                                                                  // code here
-                                                                  AnimalServices
-                                                                      .sendVisitAnimalFormData(
-                                                                    strayDogId:
-                                                                        animalCtrl
-                                                                            .animalId,
-                                                                    imge: imgCtrl
-                                                                        .image, // صورة 1
-                                                                    imge2: imgCtrl
-                                                                        .image2, // صورة 2
-                                                                  ).then(
-                                                                      (value) {
-                                                                    if (value ==
-                                                                        400) {
-                                                                      toast(
-                                                                          "يوجد خطأ فى الإرسال ",
-                                                                          duration:
-                                                                              const Duration(seconds: 2));
-                                                                      clk.changeClick();
-                                                                    } else if (value ==
-                                                                        401) {
-                                                                      Get.offAll(
-                                                                          const LoginScreen());
-                                                                    } else if (value ==
-                                                                        200) {
-                                                                      Get.offAll(
-                                                                          () =>
-                                                                              const HomeScreen());
-                                                                      CoolAlert
-                                                                          .show(
-                                                                        barrierDismissible:
-                                                                            false,
-                                                                        context:
-                                                                            context,
-                                                                        type: CoolAlertType
-                                                                            .success,
-                                                                        title:
-                                                                            "تم الارسال بنجاح",
-                                                                        confirmBtnText:
-                                                                            "حسناً",
-                                                                        confirmBtnColor:
-                                                                            primaryColor,
-                                                                        backgroundColor:
-                                                                            primaryColor,
-                                                                        onConfirmBtnTap:
-                                                                            () {
-                                                                          Get.back();
-                                                                        },
-                                                                      );
-                                                                    }
-                                                                  });
-                                                                }
-                                                                clk.changeClick();
-                                                              }
-                                                            });
+                                                          } else if (value ==
+                                                              401) {
+                                                            Get.offAll(
+                                                                const LoginScreen());
+                                                          } else if (value ==
+                                                              200) {
+                                                            Get.offAll(() =>
+                                                                const HomeScreen());
+                                                            CoolAlert.show(
+                                                              barrierDismissible:
+                                                                  false,
+                                                              context: context,
+                                                              type:
+                                                                  CoolAlertType
+                                                                      .success,
+                                                              title:
+                                                                  "تم الارسال بنجاح",
+                                                              confirmBtnText:
+                                                                  "حسناً",
+                                                              confirmBtnColor:
+                                                                  primaryColor,
+                                                              backgroundColor:
+                                                                  primaryColor,
+                                                              onConfirmBtnTap:
+                                                                  () {
+                                                                Get.back();
+                                                              },
+                                                            );
                                                           }
-                                                        }
+                                                        });
                                                       }
-                                                    },
-                                                    child: Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      height:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height /
-                                                              17,
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width /
-                                                              2,
-                                                      decoration:
-                                                          clk.clicked == false
-                                                              ? BoxDecoration(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              40),
-                                                                  gradient:
-                                                                      const LinearGradient(
-                                                                          colors: [
-                                                                            lightPrimaryColor,
-                                                                            primaryColor,
-                                                                          ],
-                                                                          begin: FractionalOffset(
-                                                                              0.0,
-                                                                              0.0),
-                                                                          end: FractionalOffset(
-                                                                              1.0,
-                                                                              0.0),
-                                                                          stops: [
-                                                                            0.0,
-                                                                            1.0
-                                                                          ],
-                                                                          tileMode:
-                                                                              TileMode.clamp),
-                                                                )
-                                                              : BoxDecoration(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              40),
-                                                                  gradient:
-                                                                      LinearGradient(
-                                                                          colors: [
-                                                                            Colors.grey.shade300,
-                                                                            Colors.grey,
-                                                                          ],
-                                                                          begin: const FractionalOffset(
-                                                                              0.0,
-                                                                              0.0),
-                                                                          end: const FractionalOffset(
-                                                                              1.0,
-                                                                              0.0),
-                                                                          stops: const [
-                                                                            0.0,
-                                                                            1.0
-                                                                          ],
-                                                                          tileMode:
-                                                                              TileMode.clamp),
-                                                                ),
-                                                      child: clk.clicked ==
-                                                              false
-                                                          ? const Text(
-                                                              "إضافة زيارة موقع كلاب ضالة  ",
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontSize: 18),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                            )
-                                                          : const CircularProgressIndicator(
-                                                              color:
-                                                                  Colors.white,
-                                                            ),
-                                                    ),
-                                                  );
-                                                });
+                                                      clk.changeClick();
+                                                    }
+                                                  });
+                                                }
+                                              },
+                                              child: Container(
+                                                alignment: Alignment.center,
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height /
+                                                    17,
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    2,
+                                                decoration: clk.clicked == false
+                                                    ? BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(40),
+                                                        gradient:
+                                                            const LinearGradient(
+                                                                colors: [
+                                                                  lightPrimaryColor,
+                                                                  primaryColor,
+                                                                ],
+                                                                begin:
+                                                                    FractionalOffset(
+                                                                        0.0,
+                                                                        0.0),
+                                                                end:
+                                                                    FractionalOffset(
+                                                                        1.0,
+                                                                        0.0),
+                                                                stops: [
+                                                                  0.0,
+                                                                  1.0
+                                                                ],
+                                                                tileMode:
+                                                                    TileMode
+                                                                        .clamp),
+                                                      )
+                                                    : BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(40),
+                                                        gradient:
+                                                            LinearGradient(
+                                                                colors: [
+                                                                  Colors.grey
+                                                                      .shade300,
+                                                                  Colors.grey,
+                                                                ],
+                                                                begin:
+                                                                    const FractionalOffset(
+                                                                        0.0,
+                                                                        0.0),
+                                                                end: const FractionalOffset(
+                                                                    1.0, 0.0),
+                                                                stops: const [
+                                                                  0.0,
+                                                                  1.0
+                                                                ],
+                                                                tileMode:
+                                                                    TileMode
+                                                                        .clamp),
+                                                      ),
+                                                child: clk.clicked == false
+                                                    ? const Text(
+                                                        "إضافة زيارة موقع كلاب ضالة  ",
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 18),
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                      )
+                                                    : const CircularProgressIndicator(
+                                                        color: Colors.white,
+                                                      ),
+                                              ),
+                                            );
                                           });
                                     })
                               ],

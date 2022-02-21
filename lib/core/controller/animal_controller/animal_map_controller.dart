@@ -103,7 +103,7 @@ class AnimalMapCtrl extends GetxController {
                     "انت على بعد مسافة ${calculateDistance(deviceCurrentLocation.currentLat, deviceCurrentLocation.currentLong, double.parse(nearstPoint.point[i].lat), double.parse(nearstPoint.point[i].long))} متر من البؤرة ",
                 cancel: InkWell(
                   onTap: () {
-                    Get.to(VisitAnimalScreen());
+                    Get.to(VisitAnimalScreen(id: nearstPoint.point[i].id,));
                   },
                   child: Container(
                       alignment: Alignment.center,
@@ -161,7 +161,7 @@ class AnimalMapCtrl extends GetxController {
                 ),
                 cancel: InkWell(
                   onTap: () {
-                    Get.to(VisitAnimalScreen());
+                    Get.to(VisitAnimalScreen(id: nearstPoint.point[i].id,));
                   },
                   child: Container(
                       alignment: Alignment.center,

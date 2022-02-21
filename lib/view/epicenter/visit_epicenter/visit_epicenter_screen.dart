@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:prepare/core/controller/click_controller.dart';
 
-import 'package:prepare/core/controller/epicenter/visit_epicenter_controller.dart';
 import 'package:prepare/core/controller/internet_connectivity_controller.dart';
 import 'package:prepare/core/service/all_epicenter_services.dart';
 import 'package:prepare/utils/style.dart';
@@ -20,12 +19,11 @@ import 'package:prepare/view/home/home_screen.dart';
 import 'package:prepare/view/shared_widgets/header_widget.dart';
 import 'package:prepare/view/shared_widgets/line_dot.dart';
 
-import 'widgets/all_epicenter_widget.dart';
- 
+  
 // ignore: must_be_immutable
 class VisitEpicenterScreen extends StatelessWidget {
-  VisitEpicenterScreen({Key? key}) : super(key: key);
-
+  VisitEpicenterScreen({Key? key,required this.id}) : super(key: key);
+final int id;
   final _visitEpicenterFormKey = GlobalKey<FormState>();
 
 ////////////////////////////////////////////
@@ -33,6 +31,7 @@ class VisitEpicenterScreen extends StatelessWidget {
   double? windspeed;
   double? temperature;
   double? humidity;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +47,7 @@ class VisitEpicenterScreen extends StatelessWidget {
                 height: MediaQuery.of(context).size.height / 20,
               ),
               const AutoSizeText(
-                "زيارة بؤرة",
+                "زيارة موقع قياس كثافة ",
                 style: TextStyle(
                     color: lightPrimaryColor,
                     fontSize: 18,
@@ -79,7 +78,7 @@ class VisitEpicenterScreen extends StatelessWidget {
                       recommendation = value;
                     }),
                     //====== AllEpicenterWidget  ==========
-                    const AllEpicenterWidget(),
+               
                   ],
                 ),
               ),
@@ -87,10 +86,7 @@ class VisitEpicenterScreen extends StatelessWidget {
               GetBuilder<InternetController>(
                   init: InternetController(),
                   builder: (net) {
-                    return GetBuilder<VisitEpicenterController>(
-                        init: VisitEpicenterController(),
-                        builder: (insectCtrl) {
-                          return GetBuilder<ClickController>(
+                    return GetBuilder<ClickController>(
                               init: ClickController(),
                               builder: (clk) {
                                 return InkWell(
@@ -121,12 +117,6 @@ class VisitEpicenterScreen extends StatelessWidget {
                                               duration:
                                                   const Duration(seconds: 2));
                                           clk.changeClick();
-                                        } else if (insectCtrl.epicenterText ==
-                                            "إختر البؤرة") {
-                                          toast("برجاء إختيار البؤرة ",
-                                              duration:
-                                                  const Duration(seconds: 2));
-                                          clk.changeClick();
                                         } else {
                                           net.checkInternet().then((val) {
                                             if (val) {
@@ -143,8 +133,7 @@ class VisitEpicenterScreen extends StatelessWidget {
                                                               recommendation ??
                                                                   "",
                                                           epicenterId:
-                                                              insectCtrl
-                                                                  .epicenterId)
+                                                              id)
                                                   .then((value) {
                                                 if (value == 200) {
                                                   Get.offAll(
@@ -231,7 +220,7 @@ class VisitEpicenterScreen extends StatelessWidget {
                                           ),
                                   ),
                                 );
-                              });
+                            
                         });
                   })
             ],

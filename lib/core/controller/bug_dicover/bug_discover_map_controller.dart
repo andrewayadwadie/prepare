@@ -103,7 +103,7 @@ class BugDiscoverMapCtrl extends GetxController {
                     "انت على بعد مسافة ${calculateDistance(deviceCurrentLocation.currentLat, deviceCurrentLocation.currentLong, double.parse(nearstPoint.point[i].lat), double.parse(nearstPoint.point[i].long))} متر من البؤرة ",
                 cancel: InkWell(
                   onTap: () {
-                    Get.to(VisitBugDiscoverScreen());
+                    Get.to(VisitBugDiscoverScreen(id:nearstPoint.point[i].id ));
                   },
                   child: Container(
                       alignment: Alignment.center,
@@ -170,7 +170,7 @@ class BugDiscoverMapCtrl extends GetxController {
                 ),
                 cancel: InkWell(
                   onTap: () {
-                    Get.to(VisitBugDiscoverScreen());
+                    Get.to(VisitBugDiscoverScreen(id:nearstPoint.point[i].id ,));
                   },
                   child: Container(
                       alignment: Alignment.center,
