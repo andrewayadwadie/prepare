@@ -69,15 +69,28 @@ class EpiCenterScreen extends StatelessWidget {
                     const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
                 padding: const EdgeInsets.all(5),
                 child: ListView(
-                  children: [
+                  children: [ 
+                    // ======= insects =================
+                    const InsectWidget(),
+                    //====== Cities  & District==========
+                    GetBuilder<AllCitiesController>(
+                        init: AllCitiesController(),
+                        builder: (controller) {
+                          return Column(
+                            children: [
+                              AllCitiesWidget(controller: controller),
+                              if (controller.cityId.value != 0)
+                                AllDistrictWidget(id: controller.cityId.value)
+                            ],
+                          );
+                        }),
+                     
+                  
                     //====== name ==========
                     NameWidget(onChange: (value) {
                       name = value;
                     }),
-                    //====== Recommendation  ==========
-                    RecommendationWidget(onChange: (value) {
-                      recommendation = value;
-                    }),
+                    
 
                     //====== windspeed  ==========
                     WindspeedWidget(onSave: (value) {
@@ -96,24 +109,11 @@ class EpiCenterScreen extends StatelessWidget {
                     NumberWidget(onChange: (value) {
                       number = value;
                     }),
-                    // ======= insects =================
-                    const InsectWidget(),
-                    //====== Cities  & District==========
-                    GetBuilder<AllCitiesController>(
-                        init: AllCitiesController(),
-                        builder: (controller) {
-                          return Column(
-                            children: [
-                              AllCitiesWidget(controller: controller),
-                              if (controller.cityId.value != 0)
-                                AllDistrictWidget(id: controller.cityId.value)
-                            ],
-                          );
-                        }),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height / 20,
-                    ),
-                  
+                    //====== Recommendation  ==========
+                    RecommendationWidget(onChange: (value) {
+                      recommendation = value;
+                    }),
+                   
                   //Generate Epicenter Code 
                     GetBuilder<AllInsectsController>(
                         init: AllInsectsController(),

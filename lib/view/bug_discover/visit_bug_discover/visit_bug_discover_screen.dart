@@ -84,10 +84,7 @@ class VisitBugDiscoverScreen extends StatelessWidget {
                                       HumidityWidget(onSave: (value) {
                                         humidity = value;
                                       }),
-                                      //====== Recommendation  ==========
-                                      RecommendationWidget(onChange: (value) {
-                                        recommendation = value;
-                                      }),
+
                                       //====== ph  ==========
                                       PhWidget(onChange: (value) {
                                         ph = value;
@@ -97,7 +94,10 @@ class VisitBugDiscoverScreen extends StatelessWidget {
                                         waving = value;
                                       }),
                                       //======== all Insect Exploration =================
-
+                                      //====== Recommendation  ==========
+                                      RecommendationWidget(onChange: (value) {
+                                        recommendation = value;
+                                      }),
                                       //====== Site Status  ==========
                                       SiteStatusWidget(),
 

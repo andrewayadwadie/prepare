@@ -133,39 +133,6 @@ class BugDiscoverScreen extends StatelessWidget {
                             padding: const EdgeInsets.all(5),
                             child: ListView(
                               children: [
-                                //<<<<<<<<<<<<<<<<<<String Type >>>>>>>>>>>>>>>>>>>>>>>>>>>
-                                //<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-                                //====== street ==========
-                                StreetWidget(onChange: (value) {
-                                  street = value;
-                                }),
-                                //====== ph ==========
-                                PhWidget(onChange: (value) {
-                                  ph = value;
-                                }),
-                                //====== Recommendation  ==========
-                                RecommendationWidget(onChange: (value) {
-                                  recommendation = value;
-                                }),
-                                //<<<<<<<<<<<<<<<<<<double Type >>>>>>>>>>>>>>>>>>>>>>>>>>>
-                                //<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-                                //====== windspeed  ==========
-                                WindspeedWidget(onSave: (value) {
-                                  windspeed = double.parse(value ?? "");
-                                }),
-                                //====== temperature  ==========
-                                TemperatureWidget(onSave: (value) {
-                                  temperature = double.parse(value ?? "");
-                                }),
-                                //====== humidity  ==========
-                                HumidityWidget(onSave: (value) {
-                                  humidity = double.parse(value ?? "");
-                                }),
-
-                                //====== waving  ==========
-                                WavingWidget(onSave: (value) {
-                                  waving = double.parse(value ?? "");
-                                }),
                                 //<<<<<<<<<<<<<<<<<<Dropdown Type >>>>>>>>>>>>>>>>>>>>>>>>>>>
                                 //<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
                                 //====== Cities  & District==========
@@ -192,7 +159,40 @@ class BugDiscoverScreen extends StatelessWidget {
                                 //====== flySampleTypeId  ==========
                                 const FlySampleWidget(),
                                 //<<<<<<<<<<<<<<<<<<Two Images >>>>>>>>>>>>>>>>>>>>>>>>>>>
+                                //<<<<<<<<<<<<<<<<<<String Type >>>>>>>>>>>>>>>>>>>>>>>>>>>
+                                //<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+                                //====== street ==========
+                                StreetWidget(onChange: (value) {
+                                  street = value;
+                                }),
+                                //====== ph ==========
+                                PhWidget(onChange: (value) {
+                                  ph = value;
+                                }),
+                               
+                                //<<<<<<<<<<<<<<<<<<double Type >>>>>>>>>>>>>>>>>>>>>>>>>>>
+                                //<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+                                //====== windspeed  ==========
+                                WindspeedWidget(onSave: (value) {
+                                  windspeed = double.parse(value ?? "");
+                                }),
+                                //====== temperature  ==========
+                                TemperatureWidget(onSave: (value) {
+                                  temperature = double.parse(value ?? "");
+                                }),
+                                //====== humidity  ==========
+                                HumidityWidget(onSave: (value) {
+                                  humidity = double.parse(value ?? "");
+                                }),
 
+                                //====== waving  ==========
+                                WavingWidget(onSave: (value) {
+                                  waving = double.parse(value ?? "");
+                                }),
+                                 //====== Recommendation  ==========
+                                RecommendationWidget(onChange: (value) {
+                                  recommendation = value;
+                                }),
                                 //<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
                                 ImagesWidget(
                                     path1: imgCtrl.image.path,
