@@ -4,10 +4,12 @@ import 'package:prepare/core/controller/prepareControllers/cars_controller.dart'
 import 'package:prepare/utils/style.dart';
 
 class SingleCarTextField extends StatelessWidget {
-  const SingleCarTextField({Key? key, required this.label,required this.title}) : super(key: key);
+  const SingleCarTextField({Key? key, required this.label,required this.title,required this.count,required this.id}) : super(key: key);
 
   final String label;
   final String title;
+  final int id;
+  final int count;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -54,6 +56,7 @@ class SingleCarTextField extends StatelessWidget {
                     ),
                 onSaved: (val) {
                   controller.getCarsCount(int.parse(val == "" || val ==null  ? "0":val));
+                  controller.addCarObject(id, int.parse(val??""));
                 },
                 // enabledBorder: InputBorder.none,
               ),

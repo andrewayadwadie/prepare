@@ -13,15 +13,17 @@ class DevicesDialogWidget extends StatelessWidget {
       {Key? key,
       required this.title,
       required this.label,
-      required this.emptyErrorText})
+      required this.emptyErrorText,
+      required this.devices})
       : super(key: key);
 
   final String title;
   final String label;
   final String emptyErrorText;
+  final List devices;
 
   final _devicesFormKey = GlobalKey<FormState>();
-  String? devices;
+ // String? devices;
 
   @override
   Widget build(BuildContext context) {
@@ -53,9 +55,14 @@ class DevicesDialogWidget extends StatelessWidget {
               init: DevicesCountController(),
               builder: (controller) {
                 return ListView.builder(
-                    itemCount: controller.devices.length,
+                    itemCount:  devices.length,
                     itemBuilder: (context, index) {
-                      return SingleDevicesTextField(label: label,title: controller.devices[index].name,);
+                      return SingleDevicesTextField(
+                        id: devices[index]['id'],
+                        count: devices[index]['count'],
+                        label: label,
+                        title: devices[index]['name'],
+                        );
                     });
               }
             )),

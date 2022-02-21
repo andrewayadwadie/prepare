@@ -11,7 +11,7 @@ import 'package:http/http.dart' as http;
 
 class PreprationServices {
   static Future getUserPrepration(int id) async {
-    String url = "${apiUrl}Preparations/GetUserPreparation/$id";
+    String url = "${apiUrl}Preparations/GetTodayProjectPreparation/$id";
 
     http.Response res = await http.get(
       Uri.parse(url),
@@ -174,11 +174,11 @@ class PreprationServices {
 
   static Future addPrepration({
     required int projectId,
-    required int numberOfEmployees,
-    required int numberOfTools,
-    required int numberOfVehicles,
-    required int numberOfDevices,
-    required int numberOfExterminators,
+    required List carObjectList,
+    required List devicesObjectList,
+    required List toolsObjectList,
+    required List pestsideObjectList,
+    required List teamsObjectList,
   }) async {
     var url = "${apiUrl}Preparations/AddPreparation";
 
@@ -191,11 +191,11 @@ class PreprationServices {
           },
           body: jsonEncode({
             "ProjectId": projectId,
-            "NumberOfEmployees": numberOfEmployees,
-            "NumberOfTools": numberOfTools,
-            "NumberOfVehicles": numberOfVehicles,
-            "NumberOfDevices": numberOfDevices,
-            "NumberOfExterminators": numberOfExterminators
+            "Devices": devicesObjectList,
+            "Teams": teamsObjectList,
+            "Tools": toolsObjectList,
+            "Vehicles": carObjectList,
+            "Exterminators": pestsideObjectList
           }));
 
       if (res.statusCode == 200 || res.statusCode == 201) {

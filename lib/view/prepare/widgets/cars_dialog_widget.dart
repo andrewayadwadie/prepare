@@ -1,10 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prepare/core/controller/prepareControllers/cars_controller.dart';
-import 'package:prepare/core/controller/prepareCountController/cars_count_controller.dart';
 import 'package:prepare/utils/style.dart';
 import 'package:prepare/view/prepare/widgets/single_car_textfield.dart';
-import 'package:prepare/view/shared_widgets/custom_loader.dart';
 import 'package:prepare/view/shared_widgets/line_dot.dart';
 
 // ignore: must_be_immutable
@@ -13,18 +13,19 @@ class CarsDialogWidget extends StatelessWidget {
       {Key? key,
       required this.title,
       required this.label,
-      required this.emptyErrorText})
+      required this.emptyErrorText,
+      required this.vehicalList})
       : super(key: key);
 
   final String title;
   final String label;
   final String emptyErrorText;
+  final List vehicalList;
 
   final _carsFormKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
- 
     return AlertDialog(
       title: Column(
         children: [
@@ -33,7 +34,7 @@ class CarsDialogWidget extends StatelessWidget {
               title,
               style: const TextStyle(
                   color: lightPrimaryColor,
-                  fontFamily: 'hanimation', 
+                  fontFamily: 'hanimation',
                   fontSize: 20,
                   fontWeight: FontWeight.w600),
             ),
@@ -49,19 +50,15 @@ class CarsDialogWidget extends StatelessWidget {
         child: SizedBox(
             height: MediaQuery.of(context).size.height / 4,
             width: 300,
-            child: GetBuilder<CarsCountController>(
-              init: CarsCountController(),
-              builder: (controller) {
-                return ListView.builder(
-                    itemCount: controller.cars.length,
-                    itemBuilder: (context, index) {
-                      return 
-                      controller.loading == true?
-                      const LoaderWidget():
-                      SingleCarTextField(label:label ,title:controller.cars[index].number);
-                    });
-              }
-            )),
+            child: ListView.builder(
+                itemCount: vehicalList.length,
+                itemBuilder: (context, index) {
+                  return SingleCarTextField(
+                      id: vehicalList[index]["id"],
+                      count: vehicalList[index]["count"],
+                      label: label,
+                      title: vehicalList[index]["number"]);
+                })),
       ),
       actions: [
         GetBuilder<CarsController>(
@@ -72,12 +69,12 @@ class CarsDialogWidget extends StatelessWidget {
                   if (_carsFormKey.currentState!.validate()) {
                     _carsFormKey.currentState!.save();
                     //  controller.getCarsCount(cars);
+                    log("length = ${controller.carObjectList.length}");
                     Get.back();
                   }
                 },
                 child: Container(
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 10 ),
+                  margin: const EdgeInsets.symmetric(horizontal: 10),
                   alignment: Alignment.center,
                   width: MediaQuery.of(context).size.width / 3,
                   height: MediaQuery.of(context).size.height / 16,
@@ -101,7 +98,7 @@ class CarsDialogWidget extends StatelessWidget {
             Get.back();
           },
           child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 10 ),
+            margin: const EdgeInsets.symmetric(horizontal: 10),
             alignment: Alignment.center,
             width: MediaQuery.of(context).size.width / 4.5,
             height: MediaQuery.of(context).size.height / 16,

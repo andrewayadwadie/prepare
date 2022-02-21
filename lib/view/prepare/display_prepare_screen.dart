@@ -82,7 +82,7 @@ class DisplayPrepareScreen extends StatelessWidget {
                           //==================================
                           //============== pesticides ==============
                           //==================================
-                          SingleListItem(title: "عدد المبيدات", count: "${ controller.data.numberOfExterminators}"),
+                          SingleListItem(title: "عدد المبيدات", count: "${ controller.data.quantityOfExterminator}"),
                           //==================================
                           //============== Team ==============
                           //==================================

@@ -1,126 +1,111 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prepare/core/controller/prepareControllers/team_controllers.dart';
+import 'package:prepare/core/controller/prepareControllers/pestsides_controllers.dart';
+import 'package:prepare/core/controller/prepareCountController/pestside_count_controller.dart';
 import 'package:prepare/utils/style.dart';
 import 'package:prepare/view/shared_widgets/line_dot.dart';
 
+import 'Single_team_textfield.dart';
+
 // ignore: must_be_immutable
 class TeamDialogWidget extends StatelessWidget {
-  TeamDialogWidget({Key? key, 
-  required this.title, 
-  required this.label, 
-  required this.emptyErrorText}) : super(key: key);
+  TeamDialogWidget(
+      {Key? key,
+      required this.title,
+      required this.label,
+      required this.emptyErrorText,
+      required this.teams})
+      : super(key: key);
 
   final String title;
   final String label;
   final String emptyErrorText;
+  final List teams;
 
-  final _teamFormKey = GlobalKey<FormState>();
-  String? team ;
-
+  final _pesticidesFormKey = GlobalKey<FormState>();
+  String? pesticides;
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      content: SizedBox(
-        height: MediaQuery.of(context).size.height / 2.5,
-        child: Column(
-          children: [
-             Center(
-              child: Text(
-               title,
-                style:const TextStyle(
-                    color: lightPrimaryColor,
-                    fontFamily: 'hanimation',
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600),
-              ),
+      title: Column(
+        children: [
+          Center(
+            child: Text(
+              title,
+              style: const TextStyle(
+                  color: lightPrimaryColor,
+                  fontFamily: 'hanimation',
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600),
             ),
-            const LineDots(),
-            const SizedBox(
-              height: 10,
-            ),
-            Form(
-              key: _teamFormKey,
-              child: Column(
-                children: [
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: 40, right: 40, top: 40),
-                    child: TextFormField(
-                      keyboardType: TextInputType.number,
-                      cursorColor: primaryColor,
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderSide:
-                                const BorderSide(width: 2, color: Colors.grey),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide:
-                                const BorderSide(width: 2, color: primaryColor),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          labelText: label,
-                          hintText: label,
-                          labelStyle: const TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold)
-                          //enabledBorder: InputBorder.none
-                          ),
-                      onSaved: (val) {
-                        team = val;
-                      },
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return emptyErrorText;
-                        } else {
-                          return null;
-                        }
-                      }, // enabledBorder: InputBorder.none,
-                    ),
+          ),
+          const LineDots(),
+          const SizedBox(
+            height: 10,
+          ),
+        ],
+      ),
+      content: Form(
+        key: _pesticidesFormKey,
+        child: SizedBox(
+            height: MediaQuery.of(context).size.height / 4,
+            width: 300,
+            child: GetBuilder<PestSideCountController>(
+                init: PestSideCountController(),
+                builder: (controller) {
+                  return ListView.builder(
+                      itemCount: teams.length,
+                      itemBuilder: (context, index) {
+                        return SingleTextFieldWidget(
+                          id: teams[index]["id"],
+                          label: label,
+                          title: teams[index]["name"],
+                        );
+                      });
+                })),
+      ),
+      actions: [
+        GetBuilder<PestsidesController>(
+            init: PestsidesController(),
+            builder: (controller) {
+              return GestureDetector(
+                onTap: () {
+                  if (_pesticidesFormKey.currentState!.validate()) {
+                    _pesticidesFormKey.currentState!.save();
+                    //  controller.getpestsidesCount(pesticides??"0");
+                    Get.back();
+                  }
+                },
+                child: Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 10),
+                  alignment: Alignment.center,
+                  width: MediaQuery.of(context).size.width / 3,
+                  height: MediaQuery.of(context).size.height / 16,
+                  decoration: BoxDecoration(
+                      color: lightPrimaryColor,
+                      borderRadius: BorderRadius.circular(10)),
+                  child: const Text(
+                    "تحضير ",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15,
+                        fontFamily: 'hanimation',
+                        fontWeight: FontWeight.w600),
+                    textAlign: TextAlign.center,
                   ),
-                  GetBuilder<TeamController>(
-                    init: TeamController(),
-                    builder: (controller) {
-                      return GestureDetector(
-                        onTap: () {
-                          if (_teamFormKey.currentState!.validate()) {
-                            _teamFormKey.currentState!.save();
-                            controller.getteamCount(team??'0');
-                            Get.back();
-                          }
-                        },
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 10),
-                          alignment: Alignment.center,
-                        //  width: MediaQuery.of(context).size.width / 4,
-                          height: MediaQuery.of(context).size.height / 18,
-                          decoration: BoxDecoration(
-                              color: lightPrimaryColor,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: const Text(
-                            "تحضير ",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 15,
-                                fontFamily: 'hanimation',
-                                fontWeight: FontWeight.w600),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      );
-                    }
-                  ),
+                ),
+              );
+            }),
         GestureDetector(
           onTap: () {
             Get.back();
           },
           child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 10,),
+            margin: const EdgeInsets.symmetric(horizontal: 10),
             alignment: Alignment.center,
-           // width: MediaQuery.of(context).size.width / 4.5,
-            height: MediaQuery.of(context).size.height / 18,
+            width: MediaQuery.of(context).size.width / 4.5,
+            height: MediaQuery.of(context).size.height / 16,
             decoration: BoxDecoration(
                 color: redColor, borderRadius: BorderRadius.circular(10)),
             child: const Text(
@@ -134,12 +119,7 @@ class TeamDialogWidget extends StatelessWidget {
             ),
           ),
         )
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
+      ],
     );
   }
 }

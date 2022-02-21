@@ -4,10 +4,12 @@ import 'package:prepare/core/controller/prepareControllers/tools_controller.dart
 import 'package:prepare/utils/style.dart';
 
 class SingleToolTextField extends StatelessWidget {
-  const SingleToolTextField({Key? key, required this.label,required this.title}) : super(key: key);
+  const SingleToolTextField({Key? key, required this.label,required this.title,required this.id,required this.count}) : super(key: key);
 
   final String label;
   final String title;
+  final int id ;
+  final int count;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -53,6 +55,7 @@ class SingleToolTextField extends StatelessWidget {
                       ),
                   onSaved: (val) {
                     controller.gettoolsCount(int.parse(val == "" || val ==null  ? "0":val));
+                    controller.addCarObject(id, int.parse(val??""));
                   },
                   // enabledBorder: InputBorder.none,
                 ),

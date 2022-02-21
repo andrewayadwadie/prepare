@@ -3,8 +3,16 @@ import 'package:get/get.dart';
 class PestsidesController extends GetxController {
   List pestsidesCount = [];
 
+  List<Map<String, dynamic>> pestSideObjectList = [];
+
+
   void getpestsidesCount(int count) {
     pestsidesCount.add(count);
+    update();
+  }
+
+   void addPestSideObject(int id, int count) {
+    pestSideObjectList.add({"ExterminatorId": id, "Quantity": count});
     update();
   }
 

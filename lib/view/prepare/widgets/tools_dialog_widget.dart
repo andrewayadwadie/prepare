@@ -12,15 +12,17 @@ class ToolsDialogWidget extends StatelessWidget {
       {Key? key,
       required this.title,
       required this.label,
-      required this.emptyErrorText})
+      required this.emptyErrorText,
+      required this.tools})
       : super(key: key);
 
   final String title;
   final String label;
   final String emptyErrorText;
+   final List tools;
 
   final _toolsFormKey = GlobalKey<FormState>();
-  String? tools;
+ // String? tools;
 
   @override
   Widget build(BuildContext context) {
@@ -52,9 +54,13 @@ class ToolsDialogWidget extends StatelessWidget {
               init: ToolsCountController(),
               builder: (controller) {
                 return ListView.builder(
-                    itemCount: controller.tools.length,
+                    itemCount: tools.length,
                     itemBuilder: (context, index) {
-                      return SingleToolTextField(label: label,title: controller.tools[index].name,);
+                      return SingleToolTextField(
+                        id: tools[index]["id"],
+                        count: tools[index]["count"],
+                        label: label,
+                        title: tools[index]["name"],);
                     });
               }
             )),

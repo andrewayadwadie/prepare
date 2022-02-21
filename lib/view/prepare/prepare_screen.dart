@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -23,11 +25,24 @@ import 'package:prepare/view/shared_widgets/line_dot.dart';
 
 // ignore: must_be_immutable
 class PrepareScreen extends StatelessWidget {
-  PrepareScreen({Key? key, required this.id, required this.title})
+  PrepareScreen(
+      {Key? key,
+      required this.id,
+      required this.title,
+      required this.tools,
+      required this.exterminators,
+      required this.devices,
+      required this.vehicles,
+      required this.teams})
       : super(key: key);
 
   final int id;
   final String title;
+  final List tools;
+  final List exterminators;
+  final List devices;
+  final List vehicles;
+  final List teams;
 
   int carCount = 0;
   int deviceCount = 0;
@@ -87,6 +102,7 @@ class PrepareScreen extends StatelessWidget {
                                         context: context,
                                         builder: (ctx) {
                                           return CarsDialogWidget(
+                                              vehicalList: vehicles,
                                               title: "إدخل عدد السيارات ",
                                               label: "عدد السيارات",
                                               emptyErrorText:
@@ -115,6 +131,7 @@ class PrepareScreen extends StatelessWidget {
                                           context: context,
                                           builder: (ctx) {
                                             return ToolsDialogWidget(
+                                                tools: tools,
                                                 title: "إدخل عدد الادوات",
                                                 label: "عدد الادوات",
                                                 emptyErrorText:
@@ -144,6 +161,7 @@ class PrepareScreen extends StatelessWidget {
                                           context: context,
                                           builder: (ctx) {
                                             return DevicesDialogWidget(
+                                                devices: devices,
                                                 title: "إدخل عدد الاجهزة",
                                                 label: "عدد الأجهزة",
                                                 emptyErrorText:
@@ -173,6 +191,7 @@ class PrepareScreen extends StatelessWidget {
                                           context: context,
                                           builder: (ctx) {
                                             return PesticidesDialogWidget(
+                                                exterminators: exterminators,
                                                 title:
                                                     'برجاء إدخال عدد المبيدات',
                                                 label: "عدد المبيدات",
@@ -203,6 +222,7 @@ class PrepareScreen extends StatelessWidget {
                                           context: context,
                                           builder: (ctx) {
                                             return TeamDialogWidget(
+                                                teams: teams,
                                                 title: "إدخل عدد العمال",
                                                 label: "عدد العمال",
                                                 emptyErrorText:
@@ -214,11 +234,13 @@ class PrepareScreen extends StatelessWidget {
                                 child: GetBuilder<TeamController>(
                                     init: TeamController(),
                                     builder: (controller) {
-                                      teamCount =
-                                          int.parse(controller.teamCount.value);
+                                      teamCount = controller
+                                          .getTeameSum(controller.teamCount);
+
                                       return SingleListItem(
                                           title: "عدد العمال ",
-                                          count: controller.teamCount.value);
+                                          count:
+                                              "${controller.getTeameSum(controller.teamCount)}");
                                     })),
                             //============== ************* ==============
                             SizedBox(
@@ -233,151 +255,128 @@ class PrepareScreen extends StatelessWidget {
                                   return GetBuilder<ClickController>(
                                       init: ClickController(),
                                       builder: (click) {
-                                        return InkWell(
-                                          onTap: () async {
-                                            net
-                                                .checkInternet()
-                                                .then((netVal) async {
-                                              if (netVal) {
-                                                if (click.clicked == false) {
-                                                  if (carCount == 0 ||
-                                                      toolCount == 0 ||
-                                                      deviceCount == 0 ||
-                                                      pestsideCount == 0 ||
-                                                      teamCount == 0) {
-                                                    CoolAlert.show(
-                                                      context: context,
-                                                      confirmBtnTextStyle:
-                                                          const TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontSize: 12),
-                                                      cancelBtnTextStyle:
-                                                          const TextStyle(
-                                                              color: redColor,
-                                                              fontSize: 22),
-                                                      type: CoolAlertType.error,
-                                                      title:
-                                                          " لم يتم ادخال كل البيانات المطلوبة للتحضير ",
-                                                      text: "هل انت متأكد ؟",
-                                                      showCancelBtn: true,
-                                                      onConfirmBtnTap:
-                                                          () async {
-                                                        var res = await PreprationServices
-                                                            .addPrepration(
-                                                                projectId: id,
-                                                                numberOfEmployees:
-                                                                    teamCount,
-                                                                numberOfTools:
-                                                                    toolCount,
-                                                                numberOfVehicles:
-                                                                    carCount,
-                                                                numberOfDevices:
-                                                                    deviceCount,
-                                                                numberOfExterminators:
-                                                                    pestsideCount);
-                                                        if (res == 200) {
-                                                          Get.offAll(
-                                                              const HomeScreen());
-                                                          CoolAlert.show(
-                                                            context: context,
-                                                            type: CoolAlertType
-                                                                .confirm,
-                                                            title:
-                                                                "تم إضافة تحضير للمشروع بنجاح",
-                                                            onConfirmBtnTap:
-                                                                () {},
-                                                            confirmBtnText:
-                                                                "حسناً ",
-                                                            confirmBtnColor:
-                                                                lightPrimaryColor,
-                                                            backgroundColor:
-                                                                lightPrimaryColor,
-                                                          );
-                                                        } else if (res == 401) {
-                                                          Get.offAll(
-                                                              const LoginScreen());
-                                                        }
-                                                      },
-                                                      onCancelBtnTap: () {
-                                                        Get.back();
-                                                        click.changeClick();
-                                                      },
-                                                      confirmBtnText: "نعم ",
-                                                      cancelBtnText: "لا",
-                                                      confirmBtnColor:
-                                                          lightPrimaryColor,
-                                                      backgroundColor: redColor,
-                                                    );
-                                                  } else {
-                                                    var res = await PreprationServices
-                                                        .addPrepration(
-                                                            projectId: id,
-                                                            numberOfEmployees:
-                                                                teamCount,
-                                                            numberOfTools:
-                                                                toolCount,
-                                                            numberOfVehicles:
-                                                                carCount,
-                                                            numberOfDevices:
-                                                                deviceCount,
-                                                            numberOfExterminators:
-                                                                pestsideCount);
-                                                    if (res == 200) {
-                                                      Get.offAll(
-                                                          const HomeScreen());
-                                                      CoolAlert.show(
-                                                        context: context,
-                                                        type: CoolAlertType
-                                                            .success,
-                                                        title:
-                                                            "تم إضافة تحضير للمشروع بنجاح",
-                                                        onConfirmBtnTap: () {
-                                                          Get.back();
-                                                        },
-                                                        confirmBtnText:
-                                                            "حسناً ",
-                                                        confirmBtnColor:
-                                                            lightPrimaryColor,
-                                                        backgroundColor:
-                                                            lightPrimaryColor,
-                                                      );
-                                                    } else if (res == 401) {
-                                                      Get.offAll(
-                                                          const LoginScreen());
-                                                    }
-                                                  }
-                                                  click.changeClick();
-                                                }
-                                              }
+                                        return GetBuilder<CarsController>(
+                                            init: CarsController(),
+                                            builder: (carsCtrl) {
+                                              return GetBuilder<
+                                                      ToolsController>(
+                                                  init: ToolsController(),
+                                                  builder: (toolsCtrl) {
+                                                    return GetBuilder<
+                                                            DevicesController>(
+                                                        init:
+                                                            DevicesController(),
+                                                        builder: (devicesCtrl) {
+                                                          return GetBuilder<
+                                                                  PestsidesController>(
+                                                              init:
+                                                                  PestsidesController(),
+                                                              builder:
+                                                                  (pestsidesCtrl) {
+                                                                return GetBuilder<
+                                                                        TeamController>(
+                                                                    init:
+                                                                        TeamController(),
+                                                                    builder:
+                                                                        (teamsCtrl) {
+                                                                      return InkWell(
+                                                                        onTap:
+                                                                            () async {
+                                                                          net.checkInternet().then(
+                                                                              (netVal) async {
+                                                                            if (netVal) {
+                                                                              if (click.clicked == false) {
+                                                                                if (carCount == 0 || toolCount == 0 || deviceCount == 0 || pestsideCount == 0 || teamCount == 0) {
+                                                                                  CoolAlert.show(
+                                                                                    context: context,
+                                                                                    confirmBtnTextStyle: const TextStyle(color: Colors.white, fontSize: 12),
+                                                                                    cancelBtnTextStyle: const TextStyle(color: redColor, fontSize: 22),
+                                                                                    type: CoolAlertType.error,
+                                                                                    title: " لم يتم ادخال كل البيانات المطلوبة للتحضير ",
+                                                                                    text: "هل انت متأكد ؟",
+                                                                                    showCancelBtn: true,
+                                                                                    onConfirmBtnTap: () async {
+                                                                                      var res = await PreprationServices.addPrepration(projectId: id, carObjectList: carsCtrl.carObjectList, toolsObjectList: toolsCtrl.toolsObjectList, devicesObjectList: devicesCtrl.devicesObjectList, pestsideObjectList: pestsidesCtrl.pestSideObjectList, teamsObjectList: teamsCtrl.teamObjectList);
+                                                                                      if (res == 200) {
+                                                                                        Get.offAll(const HomeScreen());
+                                                                                        CoolAlert.show(
+                                                                                          context: context,
+                                                                                          type: CoolAlertType.confirm,
+                                                                                          title: "تم إضافة تحضير للمشروع بنجاح",
+                                                                                          onConfirmBtnTap: () {},
+                                                                                          confirmBtnText: "حسناً ",
+                                                                                          confirmBtnColor: lightPrimaryColor,
+                                                                                          backgroundColor: lightPrimaryColor,
+                                                                                        );
+                                                                                      } else if (res == 401) {
+                                                                                        Get.offAll(const LoginScreen());
+                                                                                      }
+                                                                                    },
+                                                                                    onCancelBtnTap: () {
+                                                                                      Get.back();
+                                                                                      click.changeClick();
+                                                                                    },
+                                                                                    confirmBtnText: "نعم ",
+                                                                                    cancelBtnText: "لا",
+                                                                                    confirmBtnColor: lightPrimaryColor,
+                                                                                    backgroundColor: redColor,
+                                                                                  );
+                                                                                } else {
+                                                                                  log("cars length = ${carsCtrl.carObjectList.length}");
+                                                                                  log("devices length = ${devicesCtrl.devicesObjectList.length}");
+                                                                                  log("tools length = ${toolsCtrl.toolsObjectList.length}");
+                                                                                  log("teams length = ${teamsCtrl.teamObjectList.length}");
+                                                                                  log("pestsides length = ${pestsidesCtrl.pestSideObjectList.length}");
+                                                                                  var res = await PreprationServices.addPrepration(projectId: id, carObjectList: carsCtrl.carObjectList, toolsObjectList: toolsCtrl.toolsObjectList, devicesObjectList: devicesCtrl.devicesObjectList, pestsideObjectList: pestsidesCtrl.pestSideObjectList, teamsObjectList: teamsCtrl.teamObjectList);
+                                                                                  if (res == 200) {
+                                                                                    Get.offAll(const HomeScreen());
+                                                                                    CoolAlert.show(
+                                                                                      context: context,
+                                                                                      type: CoolAlertType.success,
+                                                                                      title: "تم إضافة تحضير للمشروع بنجاح",
+                                                                                      onConfirmBtnTap: () {
+                                                                                        Get.back();
+                                                                                      },
+                                                                                      confirmBtnText: "حسناً ",
+                                                                                      confirmBtnColor: lightPrimaryColor,
+                                                                                      backgroundColor: lightPrimaryColor,
+                                                                                    );
+                                                                                  } else if (res == 401) {
+                                                                                    Get.offAll(const LoginScreen());
+                                                                                  }
+                                                                                }
+                                                                                click.changeClick();
+                                                                              }
+                                                                            }
+                                                                          });
+                                                                        },
+                                                                        child:
+                                                                            Container(
+                                                                          margin:
+                                                                              const EdgeInsets.symmetric(horizontal: 10),
+                                                                          alignment:
+                                                                              Alignment.center,
+                                                                          height:
+                                                                              MediaQuery.of(context).size.height / 16,
+                                                                          decoration: BoxDecoration(
+                                                                              color: click.clicked == false ? lightPrimaryColor : Colors.grey,
+                                                                              borderRadius: BorderRadius.circular(10)),
+                                                                          child: click.clicked == false
+                                                                              ? const Text(
+                                                                                  "تحضير ",
+                                                                                  style: TextStyle(color: Colors.white, fontSize: 15, fontFamily: 'hanimation', fontWeight: FontWeight.w600),
+                                                                                  textAlign: TextAlign.center,
+                                                                                )
+                                                                              : const CircularProgressIndicator(
+                                                                                  color: Colors.white,
+                                                                                ),
+                                                                        ),
+                                                                      );
+                                                                    });
+                                                              });
+                                                        });
+                                                  });
                                             });
-                                          },
-                                          child: Container(
-                                            margin: const EdgeInsets.symmetric(
-                                                horizontal: 10),
-                                            alignment: Alignment.center,
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height /
-                                                16,
-                                            decoration: BoxDecoration(
-                                                color: click.clicked == false
-                                                    ? lightPrimaryColor
-                                                    : Colors.grey,
-                                                borderRadius:
-                                                    BorderRadius.circular(10)),
-                                            child:
-                                            click.clicked == false? const Text(
-                                              "تحضير ",
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 15,
-                                                  fontFamily: 'hanimation',
-                                                  fontWeight: FontWeight.w600),
-                                              textAlign: TextAlign.center,
-                                            ):const CircularProgressIndicator(color: Colors.white,),
-                                          ),
-                                        );
                                       });
                                 })
                           ],

@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prepare/core/controller/project_controller.dart';
@@ -105,9 +106,9 @@ class AllProjectsScreen extends StatelessWidget {
                                                     child: Text(
                                                       controller
                                                           .projects[index].name,
-                                                          // textAlign: TextAlign.center,
+                                                      // textAlign: TextAlign.center,
                                                       style: const TextStyle(
-                                                        height: 1.2,
+                                                          height: 1.2,
                                                           color:
                                                               lightPrimaryColor,
                                                           fontFamily:
@@ -123,21 +124,37 @@ class AllProjectsScreen extends StatelessWidget {
                                                     onTap: () {
                                                       Get.to(() =>
                                                           PrepareScreen(
-                                                              id: controller
-                                                                  .projects[
-                                                                      index]
-                                                                  .id,
-                                                              title: controller
-                                                                  .projects[
-                                                                      index]
-                                                                  .name));
+                                                            id: controller
+                                                                .projects[index]
+                                                                .id,
+                                                            title: controller
+                                                                .projects[index]
+                                                                .name,
+                                                            tools: controller
+                                                                .projects[index]
+                                                                .tools,
+                                                            exterminators:
+                                                                controller
+                                                                    .projects[
+                                                                        index]
+                                                                    .exterminators,
+                                                            devices: controller
+                                                                .projects[index]
+                                                                .devices,
+                                                            vehicles: controller
+                                                                .projects[index]
+                                                                .vehicles,
+                                                            teams: controller
+                                                                .projects[index]
+                                                                .teams,
+                                                          ));
                                                     },
                                                     child: Padding(
-                                                      padding: const EdgeInsets
-                                                              .only(
-                                                          top: 13,
-                                                          bottom: 13,
-                                                          right: 10),
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              top: 13,
+                                                              bottom: 13,
+                                                              right: 10),
                                                       child: Container(
                                                         alignment:
                                                             Alignment.center,
@@ -189,11 +206,11 @@ class AllProjectsScreen extends StatelessWidget {
                                                                   .name));
                                                     },
                                                     child: Padding(
-                                                      padding: const EdgeInsets
-                                                              .only(
-                                                         top: 13,
-                                                          bottom: 13,
-                                                          right: 10),
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              top: 13,
+                                                              bottom: 13,
+                                                              right: 10),
                                                       child: Container(
                                                         alignment:
                                                             Alignment.center,

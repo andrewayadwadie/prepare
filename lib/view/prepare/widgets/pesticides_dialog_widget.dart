@@ -12,12 +12,15 @@ class PesticidesDialogWidget extends StatelessWidget {
       {Key? key,
       required this.title,
       required this.label,
-      required this.emptyErrorText})
+      required this.emptyErrorText,
+      required this.exterminators
+      })
       : super(key: key);
 
   final String title;
   final String label;
   final String emptyErrorText;
+  final List exterminators;
 
   final _pesticidesFormKey = GlobalKey<FormState>();
   String? pesticides;
@@ -52,9 +55,14 @@ class PesticidesDialogWidget extends StatelessWidget {
               init: PestSideCountController(),
               builder: (controller) {
                 return ListView.builder(
-                    itemCount: controller.pestSide.length,
+                    itemCount:  exterminators.length,
                     itemBuilder: (context, index) {
-                      return SinglePestSideTextField(label: label,title: controller.pestSide[index].name,);
+                      return SinglePestSideTextField(
+                        id: exterminators[index]["id"],
+                        count: exterminators[index]["quantity"],
+                        label: label,
+                        title: exterminators[index]["name"],
+                        );
                     });
               }
             )),

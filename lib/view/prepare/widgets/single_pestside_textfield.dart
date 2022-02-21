@@ -4,10 +4,12 @@ import 'package:get/get.dart';
 import 'package:prepare/utils/style.dart';
 
 class SinglePestSideTextField extends StatelessWidget {
-  const SinglePestSideTextField({Key? key, required this.label, required this.title}) : super(key: key);
+  const SinglePestSideTextField({Key? key, required this.label, required this.title,required this.id , required this.count}) : super(key: key);
 
   final String label;
   final String title;
+  final int id;
+  final int count;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -53,6 +55,7 @@ class SinglePestSideTextField extends StatelessWidget {
                       ),
                   onSaved: (val) {
                     controller.getpestsidesCount(int.parse(val == "" || val ==null  ? "0":val));
+                    controller.addPestSideObject(id, int.parse(val??""));
                   },
                   // enabledBorder: InputBorder.none,
                 ),

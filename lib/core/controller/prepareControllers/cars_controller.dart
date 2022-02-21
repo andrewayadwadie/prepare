@@ -1,10 +1,18 @@
+
 import 'package:get/get.dart';
 
 class CarsController extends GetxController {
   List carsCount = [];
 
+  List<Map<String, dynamic>> carObjectList = [];
+
   void getCarsCount(int count) {
     carsCount.add(count);
+    update();
+  }
+
+  void addCarObject(int id, int count) {
+    carObjectList.add({"VehicleId": id, "Count": count});
     update();
   }
 

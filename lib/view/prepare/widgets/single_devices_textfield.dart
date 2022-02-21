@@ -4,10 +4,12 @@ import 'package:prepare/core/controller/prepareControllers/devices_controllers.d
 import 'package:prepare/utils/style.dart';
 
 class SingleDevicesTextField extends StatelessWidget {
-  const SingleDevicesTextField({Key? key, required this.label,required this.title}) : super(key: key);
+  const SingleDevicesTextField({Key? key, required this.label,required this.title,required this.id,required this.count}) : super(key: key);
 
   final String label;
   final String title;
+  final int id;
+  final int count;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -53,6 +55,7 @@ class SingleDevicesTextField extends StatelessWidget {
                       ),
                   onSaved: (val) {
                     controller.getdevicesCount(int.parse(val == "" || val ==null  ? "0":val));
+                    controller.addDevicesObject(id, int.parse(val??""));
                   },
                   // enabledBorder: InputBorder.none,
                 ),

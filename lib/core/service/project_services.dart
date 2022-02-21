@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 
 class ProjectServices {
   static Future getAllProjects() async {
-    String url = "${apiUrl}Preparations/GetProjectsWithUserPreparationStatus";
+    String url = "${apiUrl}Preparations/GetAllProjectsWithStatusPreparation";
 
     http.Response res = await http.get(
       Uri.parse(url),

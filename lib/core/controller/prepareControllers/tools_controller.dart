@@ -2,9 +2,15 @@ import 'package:get/get.dart';
 
 class ToolsController extends GetxController {
   List toolsCount = [];
-
+  List<Map<String,dynamic>> toolsObjectList = [];
   void gettoolsCount(int count) {
     toolsCount.add(count);
+    update();
+  }
+
+  
+  void addCarObject(int id, int count) {
+    toolsObjectList.add({"ToolId": id, "Count": count});
     update();
   }
 
