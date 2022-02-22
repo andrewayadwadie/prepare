@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:prepare/core/controller/daily_controller/daily_work_point_controller.dart';
-import 'package:prepare/utils/style.dart';
 
 import '../current_location_controller.dart';
 
