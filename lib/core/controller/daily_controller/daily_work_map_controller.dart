@@ -38,7 +38,30 @@ class DailyWorkMapCtrl extends GetxController {
   Set<Polyline> googlePolyline = {};
   List<LatLng> carCurrentPath = [];
   List<LatLng> apiPoint = [];
+  List<LatLng> test = const [
+    LatLng(30.087512, 31.341252),
+    LatLng(30.088060, 31.341348),
+    LatLng(30.088863, 31.341498),
+    LatLng(30.089698, 31.341606),
+    LatLng(30.090441, 31.341718),
+    LatLng(30.090139, 31.342260),
+    LatLng(30.089717, 31.342866),
+    LatLng(30.089234, 31.343489),
+    LatLng(30.088775, 31.344165),
+    LatLng(30.088287, 31.344765),
+    LatLng(30.087976, 31.345211),
+    LatLng(30.087786, 31.344862),
+    LatLng(30.087730, 31.344331),
+    LatLng(30.087702, 31.343762),
+    LatLng(30.087637, 31.342856),
+    LatLng(30.087577, 31.342089),
+    LatLng(30.087563, 31.341611),
+    LatLng(30.087563, 31.341279),
+  ];
   List<LatLng> polylineCoordinates = [];
+  var polyKey = Random().nextDouble();
+
+
   get initialCamPos => initialCameraPosition;
 //<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
 
@@ -89,7 +112,7 @@ class DailyWorkMapCtrl extends GetxController {
         polylineId: PolylineId(currentLocation.latitude.toString()),
         width: 6,
         visible: true,
-        color: redColor,
+        color: Colors.red,
         consumeTapEvents: true,
         startCap: Cap.roundCap,
         endCap: Cap.roundCap,
@@ -98,6 +121,8 @@ class DailyWorkMapCtrl extends GetxController {
   }
 
   void setGooglePolyLine() async {
+    
+     
     for (var item in dailyWorkPoint.points) {
       apiPoint.add(LatLng(double.parse(item.lat), double.parse(item.long)));
     }
@@ -107,10 +132,16 @@ class DailyWorkMapCtrl extends GetxController {
 
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
       "AIzaSyBGOAVKbeA0MiN6NfGm8Z0y5LtE7cgdCo4",
+      // Google Maps API Key
+      //origin
       PointLatLng(
-          apiPoint[1].latitude, apiPoint[1].longitude), // Google Maps API Key
+        deviceCurrentLocation.currentLat,
+        deviceCurrentLocation.currentLong,
+        
+      ),
+      //destination
       PointLatLng(apiPoint.last.latitude, apiPoint.last.longitude),
-
+      //travelMOde
       travelMode: TravelMode.walking,
     );
 
@@ -122,11 +153,11 @@ class DailyWorkMapCtrl extends GetxController {
       dev.log("failed");
     }
 
-    googlePolyline.add(Polyline(
-        polylineId: PolylineId(apiPoint[0].latitude.toString()),
+    allPolyLine.add(Polyline(
+        polylineId:   PolylineId(currentLocation.longitude.toString()),
         width: 5,
         visible: true,
-        color: Colors.red,
+        color: Colors.green,
         consumeTapEvents: true,
         startCap: Cap.roundCap,
         endCap: Cap.roundCap,

@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 
 class DailyWorkServices {
   static Future getAllPoint() async {
-    String url = "${apiUrl}VehiclesInfos/GetTodayVehicleInfos/7";
+    String url = "${apiUrl}VehiclesInfos/GetTodayVehicleInfos/1";
 
     http.Response res = await http.get(
       Uri.parse(url),

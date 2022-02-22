@@ -5,6 +5,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'package:prepare/core/controller/current_location_controller.dart';
 import 'package:prepare/core/controller/daily_controller/daily_work_map_controller.dart';
+import 'package:prepare/utils/style.dart';
 
 // ignore: must_be_immutable
 class DailyWorkScreen extends StatefulWidget {
@@ -33,27 +34,44 @@ class _DailyWorkScreenState extends State<DailyWorkScreen> {
                     GoogleMap(
                       initialCameraPosition: mapCtrl.initialCamPos,
                       mapType: MapType.normal,
-                      //   onTap: mapCtrl.setMarker,
+                      // onTap: (LatLng newPosition)=> mapCtrl.setGooglePolyLine(),
                       markers: <Marker>{mapCtrl.currentMark},
-                      polylines: mapCtrl.googlePolyline,
+                      polylines: mapCtrl.allPolyLine,
                       myLocationEnabled: true,
                       onMapCreated: (GoogleMapController controller) {
                         mapCtrl.compeleteController.complete(controller);
+                       //mapCtrl.setGooglePolyLine();
                       },
                       onCameraMove: (CameraPosition newPos) {
-                        
+                         //    mapCtrl.setCurrentPath();
+                 //   
                         //mapCtrl.onCamMove(newPos.target);
                         //mapCtrl.setCurrentPath();
                         //mapCtrl.setOriginPath();
-                        mapCtrl.setGooglePolyLine();
+                     
                       },
                     ),
                   ],
                 );
               })),
+              floatingActionButton: GetBuilder<DailyWorkMapCtrl>(
+                init: DailyWorkMapCtrl(),
+                builder: (mapCtrl) {
+                  return FloatingActionButton(
+                    onPressed: (){
+                  mapCtrl.setGooglePolyLine();
+                    },
+                    backgroundColor: primaryColor,
+                    child: const Icon(Icons.location_on,color: Colors.white,),
+                  );
+                }
+              ),
+
+
 
       /// get my location
     );
+    
   }
 }
 
