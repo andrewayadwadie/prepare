@@ -1,17 +1,16 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
 import 'package:prepare/core/controller/current_location_controller.dart';
 import 'package:prepare/core/controller/daily_controller/daily_work_map_controller.dart';
 import 'package:prepare/utils/style.dart';
 
 // ignore: must_be_immutable
 class DailyWorkScreen extends StatefulWidget {
-  const DailyWorkScreen({Key? key, }) : super(key: key);
+  const DailyWorkScreen({
+    Key? key,
+  }) : super(key: key);
 
- 
   @override
   State<DailyWorkScreen> createState() => _DailyWorkScreenState();
 }
@@ -22,7 +21,6 @@ class _DailyWorkScreenState extends State<DailyWorkScreen> {
 
   @override
   Widget build(BuildContext context) {
-  
     return Scaffold(
       body: SafeArea(
           child: GetBuilder<DailyWorkMapCtrl>(
@@ -40,41 +38,37 @@ class _DailyWorkScreenState extends State<DailyWorkScreen> {
                       myLocationEnabled: true,
                       onMapCreated: (GoogleMapController controller) {
                         mapCtrl.compeleteController.complete(controller);
-                       //mapCtrl.setGooglePolyLine();
+                        //mapCtrl.setGooglePolyLine();
                       },
                       onCameraMove: (CameraPosition newPos) {
-                         //    mapCtrl.setCurrentPath();
-                 //   
+                        //    mapCtrl.setCurrentPath();
                         //mapCtrl.onCamMove(newPos.target);
                         //mapCtrl.setCurrentPath();
                         //mapCtrl.setOriginPath();
-                     
                       },
                     ),
                   ],
                 );
               })),
-              floatingActionButton: GetBuilder<DailyWorkMapCtrl>(
-                init: DailyWorkMapCtrl(),
-                builder: (mapCtrl) {
-                  return FloatingActionButton(
-                    onPressed: (){
-                  mapCtrl.setGooglePolyLine();
-                    },
-                    backgroundColor: primaryColor,
-                    child: const Icon(Icons.location_on,color: Colors.white,),
-                  );
-                }
+      floatingActionButton: GetBuilder<DailyWorkMapCtrl>(
+          init: DailyWorkMapCtrl(),
+          builder: (mapCtrl) {
+            return FloatingActionButton(
+              onPressed: () {
+                mapCtrl.setGooglePolyLine();
+              },
+              backgroundColor: primaryColor,
+              child: const Icon(
+                Icons.location_on,
+                color: Colors.white,
               ),
-
-
+            );
+          }),
 
       /// get my location
     );
-    
   }
 }
-
 
 /*
 

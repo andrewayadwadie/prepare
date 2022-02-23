@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_mapbox_navigation/library.dart';
+import 'package:prepare/utils/style.dart';
 
 class MapBoxScreen extends StatefulWidget {
   const MapBoxScreen({Key? key}) : super(key: key);
@@ -38,7 +39,7 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
   MapBoxNavigation? _directions;
   MapBoxOptions? _options;
 
-  bool _isMultipleStop = false;
+  final bool _isMultipleStop = false;
   double? _distanceRemaining, _durationRemaining;
   MapBoxNavigationViewController? _controller;
   bool _routeBuilt = false;
@@ -93,208 +94,74 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
   Widget build(BuildContext context) {
     return 
       Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
+        // appBar: AppBar(
+        //   title: const Text('Plugin example app'),
+        // ),
         body: Center(
-          child: Column(children: <Widget>[
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text('Running on: $_platformVersion\n'),
-                    Container(
-                      color: Colors.grey,
-                      width: double.infinity,
-                      child: const Padding(
-                        padding: EdgeInsets.all(10),
-                        child: (Text(
-                          "Full Screen Navigation",
-                          style: TextStyle(color: Colors.white),
-                          textAlign: TextAlign.center,
-                        )),
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ElevatedButton(
-                          child: const Text("Start A to B"),
-                          onPressed: () async {
-                            var wayPoints = <WayPoint>[];
-                            wayPoints.add(_origin);
-                            wayPoints.add(_stop1);
+          child: SingleChildScrollView(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+               InkWell(
+                 onTap: () async {
+                    var wayPoints = <WayPoint>[];
+                    wayPoints.add(_origin);
+                    wayPoints.add(_stop1);
 
-                            await _directions!.startNavigation(
-                                wayPoints: wayPoints,
-                                options: MapBoxOptions(
-                                    mode:
-                                        MapBoxNavigationMode.drivingWithTraffic,
-                                    simulateRoute: false,
-                                    language: "en",
-                                    units: VoiceUnits.metric));
-                          },
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        ElevatedButton(
-                          child: const Text("Start Multi Stop"),
-                          onPressed: () async {
-                      //      _isMultipleStop = true;
-                            var wayPoints = <WayPoint>[];
-                            wayPoints.add(_origin);
-                            wayPoints.add(_stop1);
-                            wayPoints.add(_stop2);
-                            wayPoints.add(_stop3);
-                            wayPoints.add(_stop4);
-                            wayPoints.add(_origin);
-
-                            await _directions!.startNavigation(
-                                wayPoints: wayPoints,
-                                options: MapBoxOptions(
-                                    mode: MapBoxNavigationMode.walking,
-                                    simulateRoute: true,
-                                    language: "en",
-                                    allowsUTurnAtWayPoints: true,
-                                    units: VoiceUnits.metric));
-                          },
-                        )
-                      ],
-                    ),
-                    Container(
-                      color: Colors.grey,
-                      width: double.infinity,
-                      child: const Padding(
-                        padding: EdgeInsets.all(10),
-                        child: (Text(
-                          "Embedded Navigation",
-                          style: TextStyle(color: Colors.white),
-                          textAlign: TextAlign.center,
-                        )),
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ElevatedButton(
-                          child: Text(_routeBuilt && !_isNavigating
-                              ? "Clear Route"
-                              : "Build Route"),
-                          onPressed: _isNavigating
-                              ? null
-                              : () {
-                                  if (_routeBuilt) {
-                                    _controller!.clearRoute();
-                                  } else {
-                                    var wayPoints = <WayPoint>[];
-                                    wayPoints.add(_origin);
-                                    wayPoints.add(_stop1);
-                                    wayPoints.add(_stop2);
-                                    wayPoints.add(_stop3);
-                                    wayPoints.add(_stop4);
-                                    wayPoints.add(_origin);
-                                    _isMultipleStop = wayPoints.length > 2;
-                                    _controller!
-                                        .buildRoute(wayPoints: wayPoints);
-                                  }
-                                },
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        ElevatedButton(
-                          child: const Text("Start "),
-                          onPressed: _routeBuilt && !_isNavigating
-                              ? () {
-                                  _controller!.startNavigation();
-                                }
-                              : null,
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        ElevatedButton(
-                          child: const Text("Cancel "),
-                          onPressed: _isNavigating
-                              ? () {
-                                  _controller!.finishNavigation();
-                                }
-                              : null,
-                        )
-                      ],
-                    ),
-                    const Center(
-                      child: Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Text(
-                          "Long-Press Embedded Map to Set Destination",
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      color: Colors.grey,
-                      width: double.infinity,
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: (Text(
-                          _instruction.isEmpty
-                              ? "Banner Instruction Here"
-                              : _instruction,
-                          style: const TextStyle(color: Colors.white),
-                          textAlign: TextAlign.center,
-                        )),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          left: 20.0, right: 20, top: 20, bottom: 10),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Row(
-                            children: <Widget>[
-                              const Text("Duration Remaining: "),
-                              Text(_durationRemaining != null
-                                  ? "${(_durationRemaining! / 60).toStringAsFixed(0)} minutes"
-                                  : "---")
-                            ],
-                          ),
-                          Row(
-                            children: <Widget>[
-                              const Text("Distance Remaining: "),
-                              Text(_distanceRemaining != null
-                                  ? "${(_distanceRemaining! * 0.000621371).toStringAsFixed(1)} miles"
-                                  : "---")
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    const Divider()
-                  ],
+                    await _directions!.startNavigation(
+                        wayPoints: wayPoints,
+                        options: MapBoxOptions(
+                            mode:
+                                MapBoxNavigationMode.drivingWithTraffic,
+                            simulateRoute: false,
+                            language: "en",
+                            units: VoiceUnits.metric));
+                  },
+                 child: Container(
+                   alignment: Alignment.center,
+                   width: 230,
+                   height: 90,
+                   decoration: BoxDecoration(
+                     color: lightPrimaryColor,
+                     borderRadius: BorderRadius.circular(10)
+                   ),
+                   child: const Text("إبدأ الرحلة  ",
+                   style: TextStyle(
+                     fontSize: 30,
+                     color: Colors.white
+                   ),),
+                 ),
+                 
+               )
+               ,
+                const SizedBox(
+                  width: 10,
                 ),
-              ),
+              //   ElevatedButton(
+              //     child: const Text("Start Multi Stop"),
+              //     onPressed: () async {
+              // //      _isMultipleStop = true;
+              //       var wayPoints = <WayPoint>[];
+              //       wayPoints.add(_origin);
+              //       wayPoints.add(_stop1);
+              //       wayPoints.add(_stop2);
+              //       wayPoints.add(_stop3);
+              //       wayPoints.add(_stop4);
+              //       wayPoints.add(_origin);
+
+              //       await _directions!.startNavigation(
+              //           wayPoints: wayPoints,
+              //           options: MapBoxOptions(
+              //               mode: MapBoxNavigationMode.walking,
+              //               simulateRoute: true,
+              //               language: "en",
+              //               allowsUTurnAtWayPoints: true,
+              //               units: VoiceUnits.metric));
+              //     },
+              //   )
+              ],
             ),
-            Expanded(
-              flex: 1,
-              child: Container(
-                color: Colors.grey,
-                child: MapBoxNavigationView(
-                    options: _options,
-                    onRouteEvent: _onEmbeddedRouteEvent,
-                    onCreated:
-                        (MapBoxNavigationViewController controller) async {
-                      _controller = controller;
-                      controller.initialize();
-                    }),
-              ),
-            )
-          ]),
+          ),
         ),
       )
     ;
