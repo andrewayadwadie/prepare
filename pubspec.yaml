@@ -56,7 +56,7 @@ dependencies:
   geolocator: ^8.0.5
   hawk_fab_menu: ^1.1.1
   google_directions_api: ^0.9.0
-
+  flutter_mapbox_navigation: ^0.0.26
 
 dev_dependencies:
   flutter_test:

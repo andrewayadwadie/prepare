@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:prepare/core/controller/internet_connectivity_controller.dart';
 import 'package:prepare/utils/style.dart';
 import 'package:prepare/view/daily_work/daily_work_screen.dart';
+import 'package:prepare/view/mapbox/mapbox_screen.dart';
 import 'package:prepare/view/shared_widgets/header_widget.dart';
 import 'package:prepare/view/shared_widgets/line_dot.dart';
 
@@ -46,7 +47,7 @@ class DailyWorkMainScreen extends StatelessWidget {
                         topLeft: Radius.circular(20),
                       )),
                   child: ListView.builder(
-                      itemCount: 1,
+                      itemCount: 2,
                       itemBuilder: (context, index) {
                         return Container(
                           margin:
@@ -99,7 +100,8 @@ class DailyWorkMainScreen extends StatelessWidget {
                                         onTap: () {
                                           net.checkInternet().then((value) {
                                             if (value) {
-                                              Get.to(const DailyWorkScreen());
+                                             // Get.to(const MapBoxScreen());
+                                            Get.to(const DailyWorkScreen());
                                             }
                                           });
                                         },
