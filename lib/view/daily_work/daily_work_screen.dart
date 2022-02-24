@@ -29,23 +29,30 @@ class _DailyWorkScreenState extends State<DailyWorkScreen> {
                 return Stack(
                   alignment: Alignment.center,
                   children: [
-                    GoogleMap(
-                      initialCameraPosition: mapCtrl.initialCamPos,
-                      mapType: MapType.normal,
-                      // onTap: (LatLng newPosition)=> mapCtrl.setGooglePolyLine(),
-                      markers: mapCtrl.allMarkers,
-                      polylines: mapCtrl.allPolyLine,
-                      myLocationEnabled: true,
-                      onMapCreated: (GoogleMapController controller) {
-                        mapCtrl.compeleteController.complete(controller);
-                        //mapCtrl.setGooglePolyLine();
-                      },
-                      onCameraMove: (CameraPosition newPos) {
-                        //    mapCtrl.setCurrentPath();
-                        //mapCtrl.onCamMove(newPos.target);
-                        //mapCtrl.setCurrentPath();
-                        //mapCtrl.setOriginPath();
-                      },
+                    StreamBuilder<Set<Marker>>(
+                      stream: mapCtrl.isTaskDone(),
+                      builder: (context, snapshot) {
+                        return GoogleMap(
+                          initialCameraPosition: mapCtrl.initialCamPos,
+                          mapType: MapType.normal,
+                          // onTap: (LatLng newPosition)=> mapCtrl.setGooglePolyLine(),
+                          markers: snapshot.data??{},
+                          polylines: mapCtrl.allPolyLine,
+                          myLocationEnabled: true,
+                          onMapCreated: (GoogleMapController controller) {
+                            mapCtrl.compeleteController.complete(controller);
+                            //mapCtrl.setGooglePolyLine();
+                            Future.delayed(const Duration(seconds: 2))
+                                .then((value) => mapCtrl.setCurrentPath());
+                          },
+                          onCameraMove: (CameraPosition newPos) {
+                            // mapCtrl.setCurrentPath();
+                            //mapCtrl.onCamMove(newPos.target);
+                            //mapCtrl.setCurrentPath();
+                            //mapCtrl.setOriginPath();
+                          },
+                        );
+                      }
                     ),
                   ],
                 );
@@ -55,7 +62,7 @@ class _DailyWorkScreenState extends State<DailyWorkScreen> {
           builder: (mapCtrl) {
             return FloatingActionButton(
               onPressed: () {
-                mapCtrl.setCurrentPath();
+                mapCtrl.isTaskDone();
               },
               backgroundColor: primaryColor,
               child: const Icon(

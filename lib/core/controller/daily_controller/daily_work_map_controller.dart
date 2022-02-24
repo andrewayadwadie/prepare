@@ -38,7 +38,7 @@ class DailyWorkMapCtrl extends GetxController {
       onTap: () {});
   Set<Polyline> allPolyLine = {};
   Set<Polyline> googlePolyline = {};
-  Set<Marker> allMarkers = {};
+ 
   List<LatLng> carCurrentPath = [];
   List<LatLng> apiPoint = [];
   ///////////////////////////////
@@ -163,7 +163,26 @@ class DailyWorkMapCtrl extends GetxController {
   }
 
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
+ Set<Marker> allMarkers = {};
+Stream<Set<Marker>> isTaskDone()async*{
+  
+  for (var i = 0; i < positionOfMarkers.length; i++) {
+    if(calculateDistance(deviceCurrentLocation.lat, deviceCurrentLocation.long, positionOfMarkers[i].latitude, positionOfMarkers[i].longitude)<50.0){
+      Get.snackbar("ملحوظة ", "تم حل المشكلة الموجودة فى الموقع رقم $i");
 
+      allMarkers.removeWhere((element) => element.markerId.value == i.toString());
+      dev.log("help");
+      update();
+    
+     break;
+    }
+   
+      yield allMarkers;
+  
+    
+  }
+  Get.closeAllSnackbars();
+}
 
 Future<Uint8List> getBytesFromAsset(String path, int width) async {
   ByteData data = await rootBundle.load(path);
