@@ -1,7 +1,10 @@
 import 'dart:async';
 import 'dart:math';
 import 'dart:developer' as dev;
+import 'dart:typed_data';
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -35,31 +38,103 @@ class DailyWorkMapCtrl extends GetxController {
       onTap: () {});
   Set<Polyline> allPolyLine = {};
   Set<Polyline> googlePolyline = {};
+  Set<Marker> allMarkers = {};
   List<LatLng> carCurrentPath = [];
   List<LatLng> apiPoint = [];
+  ///////////////////////////////
   List<LatLng> test = const [
-    LatLng(30.087512, 31.341252),
-    LatLng(30.088060, 31.341348),
-    LatLng(30.088863, 31.341498),
-    LatLng(30.089698, 31.341606),
-    LatLng(30.090441, 31.341718),
-    LatLng(30.090139, 31.342260),
-    LatLng(30.089717, 31.342866),
-    LatLng(30.089234, 31.343489),
-    LatLng(30.088775, 31.344165),
-    LatLng(30.088287, 31.344765),
-    LatLng(30.087976, 31.345211),
-    LatLng(30.087786, 31.344862),
-    LatLng(30.087730, 31.344331),
-    LatLng(30.087702, 31.343762),
-    LatLng(30.087637, 31.342856),
-    LatLng(30.087577, 31.342089),
-    LatLng(30.087563, 31.341611),
-    LatLng(30.087563, 31.341279),
+    LatLng(
+      30.08560262076806,
+      31.340979738974635,
+    ),
+    LatLng(
+      30.084521095636315,
+      31.34061495633153,
+    ),
+    LatLng(
+      30.083801620013194,
+      31.34072760731564,
+    ),
+    LatLng(
+      30.08347205193825,
+      31.34139279645936,
+    ),
+    LatLng(
+      30.083267811489915,
+      31.34191314190976,
+    ),
+    LatLng(
+      30.08342098806933,
+      31.342315472797715,
+    ),
+    LatLng(
+      30.084813490925345,
+      31.34543225008741,
+    ),
+    LatLng(30.084901674688442, 31.345426856307533),
+    LatLng(
+      30.086368491073465,
+      31.34453102812847,
+    ),
+    LatLng(
+      30.086182823891193,
+      31.34384970777755,
+    ),
+    LatLng(30.085537635279746, 31.342492502237675),
+    LatLng(
+      30.08550514342343,
+      31.34233157011478,
+    ),
+    LatLng(30.086544884610458, 31.342519325832253),
+    LatLng(30.086544884610458, 31.342519325832253),
+    LatLng(30.086735194170917, 31.341982878915207),
+    LatLng(
+      30.08675839893869,
+      31.341237216370995,
+    ),
+    LatLng(30.086637713450653, 31.341097750269967),
+    LatLng(30.086219961655274, 31.34103338063571),
   ];
+  List<LatLng> test2 = [
+    const LatLng(
+      30.086763039458297,
+      31.34257833719442,
+    ),
+    const LatLng(
+      30.086753757295465,
+      31.3422564701627,
+    ),
+    const LatLng(
+      30.086739832567737,
+      31.341682474306445,
+    ),
+    const LatLng(
+      30.08676303975746,
+      31.34126941167389,
+    ),
+    const LatLng(
+      30.086744472249443,
+      31.341113842740604,
+    ),
+    const LatLng(
+      30.08664699687594,
+      31.341108479104008,
+    ),
+    const LatLng(30.086238528416267, 31.34103874491316),
+  ];
+  List<LatLng> positionOfMarkers = [
+      const LatLng(30.08578961496697, 31.340995544345827,),
+      const LatLng(30.084489871229206, 31.340843831398807,),
+      const LatLng(30.08371185116205, 31.340774089920778,),
+      const LatLng(30.084164628308102, 31.343895635323648,),
+      const LatLng(30.08468764451231, 31.345095556666184,),
+      const LatLng(30.086108449504934, 31.34373327100525,),
+      const LatLng(30.085819614967953, 31.342398012844708,),
+      const LatLng(30.08677200777047, 31.34136949633439,),
+  ];
+  ////////////////////////////////
   List<LatLng> polylineCoordinates = [];
   var polyKey = Random().nextDouble();
-
 
   get initialCamPos => initialCameraPosition;
 //<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
@@ -89,23 +164,49 @@ class DailyWorkMapCtrl extends GetxController {
 
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
 
-  void setCurrentPath() {
+
+Future<Uint8List> getBytesFromAsset(String path, int width) async {
+  ByteData data = await rootBundle.load(path);
+  ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(), targetWidth: width);
+  ui.FrameInfo fi = await codec.getNextFrame();
+  return (await fi.image.toByteData(format: ui.ImageByteFormat.png))!.buffer.asUint8List();
+}
+
+  void setCurrentPath() async{
+    final Uint8List markerIcon = await getBytesFromAsset('assets/images/b1.png', 100);
+ 
     for (var item in dailyWorkPoint.points) {
       apiPoint.add(LatLng(double.parse(item.lat), double.parse(item.long)));
     }
-    Marker newMarker = Marker(
-        markerId: MarkerId(currentLocation.latitude.toString()),
-        icon: BitmapDescriptor.defaultMarker,
-        // icon: _locationIcon,
-        position: currentLocation,
-        infoWindow: InfoWindow(
-            title: "Info",
-            snippet:
-                "${currentLocation.latitude}, ${currentLocation.longitude}"),
-        onTap: () {});
 
-    currentMark = newMarker;
-    carCurrentPath.add(currentMark.position);
+    for(var i = 0 ; i< positionOfMarkers.length;i++){
+      allMarkers.add(
+         Marker(
+        markerId: MarkerId(i.toString()),
+        icon:  BitmapDescriptor.fromBytes(markerIcon),
+        // icon: _locationIcon,
+        position: positionOfMarkers[i],
+        infoWindow: InfoWindow(
+            title: "معلومات عن الموقع ",
+            snippet:
+                " موقع رقم $i"),
+        onTap: () {})
+      );
+      update();
+    }
+    // Marker newMarker = Marker(
+    //     markerId: MarkerId(currentLocation.latitude.toString()),
+    //     icon: BitmapDescriptor.defaultMarker,
+    //     // icon: _locationIcon,
+    //     position: currentLocation,
+    //     infoWindow: InfoWindow(
+    //         title: "Info",
+    //         snippet:
+    //             "${currentLocation.latitude}, ${currentLocation.longitude}"),
+    //     onTap: () {});
+
+    // allMarkers.add(newMarker);
+  //  carCurrentPath.add(currentMark.position);
 
     allPolyLine.add(Polyline(
         polylineId: PolylineId(currentLocation.latitude.toString()),
@@ -115,13 +216,21 @@ class DailyWorkMapCtrl extends GetxController {
         consumeTapEvents: true,
         startCap: Cap.roundCap,
         endCap: Cap.roundCap,
-        points: apiPoint));
+        points: test));
+    update();
+    allPolyLine.add(Polyline(
+        polylineId: PolylineId(currentLocation.longitude.toString()),
+        width: 6,
+        visible: true,
+        color: Colors.green,
+        consumeTapEvents: true,
+        startCap: Cap.roundCap,
+        endCap: Cap.roundCap,
+        points: test2));
     update();
   }
 
   void setGooglePolyLine() async {
-    
-     
     for (var item in dailyWorkPoint.points) {
       apiPoint.add(LatLng(double.parse(item.lat), double.parse(item.long)));
     }
@@ -136,7 +245,6 @@ class DailyWorkMapCtrl extends GetxController {
       PointLatLng(
         deviceCurrentLocation.currentLat,
         deviceCurrentLocation.currentLong,
-        
       ),
       //destination
       PointLatLng(apiPoint.last.latitude, apiPoint.last.longitude),
@@ -153,7 +261,7 @@ class DailyWorkMapCtrl extends GetxController {
     }
 
     allPolyLine.add(Polyline(
-        polylineId:   PolylineId(currentLocation.longitude.toString()),
+        polylineId: PolylineId(currentLocation.longitude.toString()),
         width: 5,
         visible: true,
         color: Colors.green,

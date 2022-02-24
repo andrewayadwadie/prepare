@@ -100,7 +100,7 @@ class DailyWorkMainScreen extends StatelessWidget {
                                         onTap: () {
                                           net.checkInternet().then((value) {
                                             if (value) {
-                                            index ==0? Get.to(  MapBoxScreen()):
+                                            index ==0? Get.to(  const MapBoxScreen()):
                                              Get.to(const DailyWorkScreen());
                                             }
                                           });

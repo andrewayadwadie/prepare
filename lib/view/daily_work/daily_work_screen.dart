@@ -33,7 +33,7 @@ class _DailyWorkScreenState extends State<DailyWorkScreen> {
                       initialCameraPosition: mapCtrl.initialCamPos,
                       mapType: MapType.normal,
                       // onTap: (LatLng newPosition)=> mapCtrl.setGooglePolyLine(),
-                      markers: <Marker>{mapCtrl.currentMark},
+                      markers: mapCtrl.allMarkers,
                       polylines: mapCtrl.allPolyLine,
                       myLocationEnabled: true,
                       onMapCreated: (GoogleMapController controller) {
@@ -55,7 +55,7 @@ class _DailyWorkScreenState extends State<DailyWorkScreen> {
           builder: (mapCtrl) {
             return FloatingActionButton(
               onPressed: () {
-                mapCtrl.setGooglePolyLine();
+                mapCtrl.setCurrentPath();
               },
               backgroundColor: primaryColor,
               child: const Icon(
