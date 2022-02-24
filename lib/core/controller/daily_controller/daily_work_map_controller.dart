@@ -38,7 +38,7 @@ class DailyWorkMapCtrl extends GetxController {
       onTap: () {});
   Set<Polyline> allPolyLine = {};
   Set<Polyline> googlePolyline = {};
- 
+  Set<Marker> allMarkers = {};
   List<LatLng> carCurrentPath = [];
   List<LatLng> apiPoint = [];
   ///////////////////////////////
@@ -123,15 +123,40 @@ class DailyWorkMapCtrl extends GetxController {
     const LatLng(30.086238528416267, 31.34103874491316),
   ];
   List<LatLng> positionOfMarkers = [
-      const LatLng(30.08578961496697, 31.340995544345827,),
-      const LatLng(30.084489871229206, 31.340843831398807,),
-      const LatLng(30.08371185116205, 31.340774089920778,),
-      const LatLng(30.084164628308102, 31.343895635323648,),
-      const LatLng(30.08468764451231, 31.345095556666184,),
-      const LatLng(30.086108449504934, 31.34373327100525,),
-      const LatLng(30.085819614967953, 31.342398012844708,),
-      const LatLng(30.08677200777047, 31.34136949633439,),
+    const LatLng(
+      30.08578961496697,
+      31.340995544345827,
+    ),
+    const LatLng(
+      30.084489871229206,
+      31.340843831398807,
+    ),
+    const LatLng(
+      30.08371185116205,
+      31.340774089920778,
+    ),
+    const LatLng(
+      30.084164628308102,
+      31.343895635323648,
+    ),
+    const LatLng(
+      30.08468764451231,
+      31.345095556666184,
+    ),
+    const LatLng(
+      30.086108449504934,
+      31.34373327100525,
+    ),
+    const LatLng(
+      30.085819614967953,
+      31.342398012844708,
+    ),
+    const LatLng(
+      30.08677200777047,
+      31.34136949633439,
+    ),
   ];
+  List<LatLng> newPath = [];
   ////////////////////////////////
   List<LatLng> polylineCoordinates = [];
   var polyKey = Random().nextDouble();
@@ -163,54 +188,52 @@ class DailyWorkMapCtrl extends GetxController {
   }
 
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
- Set<Marker> allMarkers = {};
-Stream<Set<Marker>> isTaskDone()async*{
-  
-  for (var i = 0; i < positionOfMarkers.length; i++) {
-    if(calculateDistance(deviceCurrentLocation.lat, deviceCurrentLocation.long, positionOfMarkers[i].latitude, positionOfMarkers[i].longitude)<50.0){
-      Get.snackbar("ملحوظة ", "تم حل المشكلة الموجودة فى الموقع رقم $i");
 
-      allMarkers.removeWhere((element) => element.markerId.value == i.toString());
-      dev.log("help");
-      update();
-    
-     break;
+  isTaskDone() {
+    for (var i = 0; i < positionOfMarkers.length; i++) {
+      if (calculateDistance(
+              deviceCurrentLocation.lat,
+              deviceCurrentLocation.long,
+              positionOfMarkers[i].latitude,
+              positionOfMarkers[i].longitude) <
+          100.0) {
+        Get.snackbar("ملحوظة ", "تم حل المشكلة الموجودة فى الموقع رقم $i");
+        allMarkers
+            .removeWhere((element) => element.markerId.value == i.toString());
+        update();
+      } else {
+        continue;
+      }
     }
-   
-      yield allMarkers;
-  
-    
   }
-  Get.closeAllSnackbars();
-}
 
-Future<Uint8List> getBytesFromAsset(String path, int width) async {
-  ByteData data = await rootBundle.load(path);
-  ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(), targetWidth: width);
-  ui.FrameInfo fi = await codec.getNextFrame();
-  return (await fi.image.toByteData(format: ui.ImageByteFormat.png))!.buffer.asUint8List();
-}
+  Future<Uint8List> getBytesFromAsset(String path, int width) async {
+    ByteData data = await rootBundle.load(path);
+    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
+        targetWidth: width);
+    ui.FrameInfo fi = await codec.getNextFrame();
+    return (await fi.image.toByteData(format: ui.ImageByteFormat.png))!
+        .buffer
+        .asUint8List();
+  }
 
-  void setCurrentPath() async{
-    final Uint8List markerIcon = await getBytesFromAsset('assets/images/b1.png', 100);
- 
+  void setCurrentPath() async {
+    final Uint8List markerIcon =
+        await getBytesFromAsset('assets/images/b1.png', 100);
+
     for (var item in dailyWorkPoint.points) {
       apiPoint.add(LatLng(double.parse(item.lat), double.parse(item.long)));
     }
 
-    for(var i = 0 ; i< positionOfMarkers.length;i++){
-      allMarkers.add(
-         Marker(
-        markerId: MarkerId(i.toString()),
-        icon:  BitmapDescriptor.fromBytes(markerIcon),
-        // icon: _locationIcon,
-        position: positionOfMarkers[i],
-        infoWindow: InfoWindow(
-            title: "معلومات عن الموقع ",
-            snippet:
-                " موقع رقم $i"),
-        onTap: () {})
-      );
+    for (var i = 0; i < positionOfMarkers.length; i++) {
+      allMarkers.add(Marker(
+          markerId: MarkerId(i.toString()),
+          icon: BitmapDescriptor.fromBytes(markerIcon),
+          // icon: _locationIcon,
+          position: positionOfMarkers[i],
+          infoWindow:
+              InfoWindow(title: "معلومات عن الموقع ", snippet: " موقع رقم $i"),
+          onTap: () {}));
       update();
     }
     // Marker newMarker = Marker(
@@ -225,7 +248,7 @@ Future<Uint8List> getBytesFromAsset(String path, int width) async {
     //     onTap: () {});
 
     // allMarkers.add(newMarker);
-  //  carCurrentPath.add(currentMark.position);
+    //  carCurrentPath.add(currentMark.position);
 
     allPolyLine.add(Polyline(
         polylineId: PolylineId(currentLocation.latitude.toString()),
@@ -237,15 +260,33 @@ Future<Uint8List> getBytesFromAsset(String path, int width) async {
         endCap: Cap.roundCap,
         points: test));
     update();
+    // allPolyLine.add(Polyline(
+    //     polylineId: PolylineId(currentLocation.longitude.toString()),
+    //     width: 6,
+    //     visible: true,
+    //     color: Colors.green,
+    //     consumeTapEvents: true,
+    //     startCap: Cap.roundCap,
+    //     endCap: Cap.roundCap,
+    //     points: test2));
+    // update();
+  }
+
+  void setnewPath(LatLng oldPoint, LatLng newPoint) async {
     allPolyLine.add(Polyline(
-        polylineId: PolylineId(currentLocation.longitude.toString()),
+        polylineId: PolylineId(
+            "${oldPoint.latitude}${oldPoint.longitude}${newPoint.latitude}${newPoint.longitude}"),
         width: 6,
         visible: true,
         color: Colors.green,
         consumeTapEvents: true,
         startCap: Cap.roundCap,
         endCap: Cap.roundCap,
-        points: test2));
+        points: [oldPoint, newPoint]));
+
+    update();
+    newPath.add(oldPoint);
+    newPath.add(newPoint);
     update();
   }
 

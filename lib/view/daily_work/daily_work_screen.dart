@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -29,30 +31,48 @@ class _DailyWorkScreenState extends State<DailyWorkScreen> {
                 return Stack(
                   alignment: Alignment.center,
                   children: [
-                    StreamBuilder<Set<Marker>>(
-                      stream: mapCtrl.isTaskDone(),
-                      builder: (context, snapshot) {
-                        return GoogleMap(
-                          initialCameraPosition: mapCtrl.initialCamPos,
-                          mapType: MapType.normal,
-                          // onTap: (LatLng newPosition)=> mapCtrl.setGooglePolyLine(),
-                          markers: snapshot.data??{},
-                          polylines: mapCtrl.allPolyLine,
-                          myLocationEnabled: true,
-                          onMapCreated: (GoogleMapController controller) {
-                            mapCtrl.compeleteController.complete(controller);
-                            //mapCtrl.setGooglePolyLine();
-                            Future.delayed(const Duration(seconds: 2))
-                                .then((value) => mapCtrl.setCurrentPath());
-                          },
-                          onCameraMove: (CameraPosition newPos) {
-                            // mapCtrl.setCurrentPath();
-                            //mapCtrl.onCamMove(newPos.target);
-                            //mapCtrl.setCurrentPath();
-                            //mapCtrl.setOriginPath();
-                          },
-                        );
-                      }
+                    GoogleMap(
+                      initialCameraPosition: mapCtrl.initialCamPos,
+                      mapType: MapType.normal,
+                      // onTap: (LatLng newPosition)=> mapCtrl.setGooglePolyLine(),
+                      markers: mapCtrl.allMarkers,
+                      polylines: mapCtrl.allPolyLine,
+                      myLocationEnabled: true,
+                      onMapCreated: (GoogleMapController controller) {
+                        mapCtrl.compeleteController.complete(controller);
+                        //mapCtrl.setGooglePolyLine();
+                        Future.delayed(const Duration(seconds: 2))
+                            .then((value) => mapCtrl.setCurrentPath());
+                        currentLocation.location.onLocationChanged
+                            .listen((event) {
+                          currentLocation.location.getLocation().then((curent) {
+                            if (mapCtrl.calculateDistance(
+                                    curent.latitude,
+                                    curent.longitude,
+                                    event.latitude,
+                                    event.longitude) >
+                                5.0) {
+                              mapCtrl.isTaskDone();
+                              mapCtrl.setnewPath(
+                                  LatLng(
+                                    curent.latitude ?? 0.0,
+                                    curent.longitude ?? 0.0,
+                                  ),
+                                  LatLng(event.latitude ?? 0.0,
+                                      event.longitude ?? 0.0));
+                              log("current = ${curent.latitude},${curent.longitude}");
+                              log("event = ${event.latitude},${event.longitude}");
+                              log("distance = ${mapCtrl.calculateDistance(curent.latitude, curent.longitude, event.latitude, event.longitude)}");
+                            }
+                          });
+                        });
+                      },
+                      onCameraMove: (CameraPosition newPos) {
+                        // mapCtrl.setCurrentPath();
+                        //mapCtrl.onCamMove(newPos.target);
+                        //mapCtrl.setCurrentPath();
+                        //mapCtrl.setOriginPath();
+                      },
                     ),
                   ],
                 );

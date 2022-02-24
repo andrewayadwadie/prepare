@@ -7,7 +7,7 @@ class CurrentLocationController extends GetxController {
     getLocationByLocation();
     super.onInit();
   }
-
+ 
   final Location location = Location();
 
   bool serviceEnabled = false;
