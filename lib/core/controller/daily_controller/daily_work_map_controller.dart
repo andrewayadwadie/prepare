@@ -189,7 +189,7 @@ class DailyWorkMapCtrl extends GetxController {
 
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
 
-  isTaskDone() {
+ void isTaskDone() {
     for (var i = 0; i < positionOfMarkers.length; i++) {
       if (calculateDistance(
               deviceCurrentLocation.lat,
