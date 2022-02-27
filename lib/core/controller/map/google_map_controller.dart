@@ -127,11 +127,11 @@ class MapCtrl extends GetxController {
                 titleStyle: const TextStyle(
                     color: primaryColor, fontWeight: FontWeight.bold),
                 middleText: """
-  اسم الموقع : ${nearstPoint.point[i].name}
+ الموقع : ${nearstPoint.point[i].name}
   نوع الحشرة :  ${nearstPoint.point[i].insectName}
 التاريخ : ${DateFormat('yyyy-MM-dd : kk:mm').format(DateTime.parse(nearstPoint.point[i].date))}
-  إسم الحي :  ${nearstPoint.point[i].districtName}
-  إسم البلدية :  ${nearstPoint.point[i].cityName}
+ الحي :  ${nearstPoint.point[i].districtName}
+ البلدية :  ${nearstPoint.point[i].cityName}
   الملاحظات :  ${nearstPoint.point[i].recommendation}
  
                            """,

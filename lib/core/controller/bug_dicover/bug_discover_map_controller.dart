@@ -126,8 +126,8 @@ class BugDiscoverMapCtrl extends GetxController {
                 titleStyle: const TextStyle(
                     color: primaryColor, fontWeight: FontWeight.bold),
                 middleText: """
-  إسم البلدية :  ${nearstPoint.point[i].cityName}
-  إسم الحي :  ${nearstPoint.point[i].districtName}
+  البلدية :  ${nearstPoint.point[i].cityName}
+  الحي :  ${nearstPoint.point[i].districtName}
   درجة الحرارة : ${nearstPoint.point[i].temperature}
   سرعة الرياح : ${nearstPoint.point[i].windSpeed}
   الرطوبة : ${nearstPoint.point[i].humidity}

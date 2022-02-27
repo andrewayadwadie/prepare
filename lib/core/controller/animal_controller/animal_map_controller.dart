@@ -126,8 +126,8 @@ class AnimalMapCtrl extends GetxController {
                 titleStyle: const TextStyle(
                     color: primaryColor, fontWeight: FontWeight.bold),
                 middleText: """
-  إسم البلدية :  ${nearstPoint.point[i].cityName}
-  إسم الحي :  ${nearstPoint.point[i].districtName}
+ البلدية :  ${nearstPoint.point[i].cityName}
+ الحي :  ${nearstPoint.point[i].districtName}
   التاريخ : ${DateFormat('yyyy-MM-dd : kk:mm').format(DateTime.parse(nearstPoint.point[i].date))}
  
                            """,

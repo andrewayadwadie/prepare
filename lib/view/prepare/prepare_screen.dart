@@ -193,10 +193,10 @@ class PrepareScreen extends StatelessWidget {
                                             return PesticidesDialogWidget(
                                                 exterminators: exterminators,
                                                 title:
-                                                    'برجاء إدخال عدد المبيدات',
-                                                label: "عدد المبيدات",
+                                                    'برجاء إدخال كمية المبيدات',
+                                                label: "كمية المبيدات",
                                                 emptyErrorText:
-                                                    'برجاء إدخال عدد المبيدات');
+                                                    'برجاء إدخال كمية المبيدات');
                                           });
                                     }
                                   });
@@ -207,7 +207,7 @@ class PrepareScreen extends StatelessWidget {
                                       pestsideCount = controller.getPestSideSum(
                                           controller.pestsidesCount);
                                       return SingleListItem(
-                                          title: "عدد المبيدات",
+                                          title: "كمية المبيدات",
                                           count:
                                               "${controller.getPestSideSum(controller.pestsidesCount)}");
                                     })),
