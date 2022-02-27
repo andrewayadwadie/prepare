@@ -208,6 +208,9 @@ class MapCtrl extends GetxController {
         "locations[1].latitude = ${locations[1].latitude} || locations[1].longitude = ${locations[1].longitude} ");
     dev.log("result error = ${result.errorMessage}");
     dev.log("result status = ${result.status}");
+    if(result.status=="ZERO_RESULTS"){
+      Get.snackbar("يوجد مشكلة ", "لا يوجد طريق مناسب لهذا الموقع ");
+    }
     if (result.points.isNotEmpty) {
       for (var point in result.points) {
         polylineCoordinates.add(LatLng(point.latitude, point.longitude));

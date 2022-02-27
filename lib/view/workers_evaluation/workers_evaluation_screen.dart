@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -5,16 +7,14 @@ import 'package:prepare/core/controller/evaluation_controller/evaluation_control
 import 'package:prepare/utils/style.dart';
 import 'package:prepare/view/shared_widgets/header_widget.dart';
 import 'package:prepare/view/shared_widgets/line_dot.dart';
-import 'package:prepare/view/workers_evaluation/widgets/item_widget.dart';
-import 'package:prepare/view/workers_evaluation/widgets/recommendation_widget.dart';
+import 'package:prepare/view/workers_evaluation/widgets/list_item_widget.dart';
 
 // ignore: must_be_immutable
 class WorkersEvaluation extends StatelessWidget {
-  WorkersEvaluation({Key? key}) : super(key: key);
+  const WorkersEvaluation({Key? key}) : super(key: key);
   //final _itemForm = GlobalKey<FormState>();
 //  final List<GlobalKey<FormState>> itemFormKey = [];
-  List<String> item = [];
-  List<String> recommendation = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,19 +49,9 @@ class WorkersEvaluation extends StatelessWidget {
                       builder: (evaCtrl) {
                         return InkWell(
                           onTap: () {
-                            if (evaCtrl.evaluateList.length != item.length) {
-                              Get.snackbar("يوجد خطأ",
-                                  "برجاء إدخال بند اولاً قبل الاضافة");
-                            } else if (evaCtrl.evaluateList.length !=
-                                recommendation.length) {
-                              Get.snackbar("يوجد خطأ",
-                                  "برجاء إدخال وصف اولاً قبل الاضافة");
-                            } else {
-                              evaCtrl.increaseList();
-                            }
-                            // if (itemFormKey.last.currentState!.validate()) {
-
-                            //}
+                            evaCtrl.increaseList();
+                         //   evaCtrl.data.length++;
+                          log("data : ${evaCtrl.data}");
                           },
                           child: Container(
                             alignment: Alignment.center,
@@ -98,6 +88,7 @@ class WorkersEvaluation extends StatelessWidget {
                           ),
                         );
                       }),
+                  /*
                   GetBuilder<Evaluate>(
                       init: Evaluate(),
                       builder: (evaCtrl) {
@@ -110,7 +101,7 @@ class WorkersEvaluation extends StatelessWidget {
                                 recommendation.length) {
                               Get.snackbar("يوجد خطأ",
                                   "برجاء إدخال وصف اولاً قبل الاضافة");
-                            } else {
+                             } else {
                                       evaCtrl.decreaseList();
                             item.removeLast();
                             recommendation.removeLast();
@@ -154,6 +145,7 @@ class WorkersEvaluation extends StatelessWidget {
                           ),
                         );
                       }),
+                      */
                   GetBuilder<Evaluate>(
                       init: Evaluate(),
                       builder: (evaCtrl) {
@@ -214,40 +206,7 @@ class WorkersEvaluation extends StatelessWidget {
                       return ListView.builder(
                           itemCount: ctrl.evaluateList.length,
                           itemBuilder: (context, index) {
-                            //       itemFormKey.length == ctrl.evaluateList.length;
-                            return Container(
-                              margin: const EdgeInsets.symmetric(vertical: 12),
-                              width: MediaQuery.of(context).size.width / 1.2,
-                              height: MediaQuery.of(context).size.height / 4.2,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(
-                                    width: 2, color: lightPrimaryColor),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.6),
-                                    spreadRadius: 2,
-                                    blurRadius: 4,
-                                    offset: const Offset(
-                                        0, 2), // changes position of shadow
-                                  ),
-                                ],
-                              ),
-                              child: Form(
-                                //   key: itemFormKey[index],
-                                child: Column(
-                                  children: [
-                                    ItemWidget(onChange: (value) {
-                                      item.add(value ?? "");
-                                    }),
-                                    WorkRecommendationWidget(onChange: (val) {
-                                      recommendation.add(val);
-                                    }),
-                                  ],
-                                ),
-                              ),
-                            );
+                            return ListItemWidget(index: index);
                           });
                     }),
               )

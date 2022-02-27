@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 
 class Evaluate extends GetxController {
@@ -8,13 +10,28 @@ class Evaluate extends GetxController {
   // }
 
   List evaluateList = [].obs;
+  // List<String> item = [];
+  // List<String> recommendation = [];
 
-  void increaseList( ) {
-    evaluateList.length=evaluateList.length+1;
+  List<dynamic> data = [];
+ 
+
+  void addData( { String description ="",String item=""}) {
+    
+    data .add({
+      "Item":item,
+      "Description": description});
     update();
   }
-  void decreaseList( ) {
-    evaluateList.length=evaluateList.length-1;
+
+  void increaseList() {
+    evaluateList.length++;
+    update();
+  }
+
+  void decreaseList(index) {
+    log("index from controller $index");
+    evaluateList.removeAt(index);
     update();
   }
 }
