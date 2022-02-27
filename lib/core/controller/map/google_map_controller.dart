@@ -102,7 +102,9 @@ class MapCtrl extends GetxController {
                     "انت على بعد مسافة ${calculateDistance(deviceCurrentLocation.currentLat, deviceCurrentLocation.currentLong, double.parse(nearstPoint.point[i].lat), double.parse(nearstPoint.point[i].long))} متر من البؤرة ",
                 cancel: InkWell(
                   onTap: () {
-                    Get.to(VisitEpicenterScreen(id: nearstPoint.point[i].id,));
+                    Get.to(VisitEpicenterScreen(
+                      id: nearstPoint.point[i].id,
+                    ));
                   },
                   child: Container(
                       alignment: Alignment.center,
@@ -127,7 +129,7 @@ class MapCtrl extends GetxController {
                 middleText: """
   اسم الموقع : ${nearstPoint.point[i].name}
   نوع الحشرة :  ${nearstPoint.point[i].insectName}
-التاريخ : ${DateFormat('yyyy-MM-dd : kk:mm').format(DateTime .parse(nearstPoint.point[i].date)) }
+التاريخ : ${DateFormat('yyyy-MM-dd : kk:mm').format(DateTime.parse(nearstPoint.point[i].date))}
   إسم الحي :  ${nearstPoint.point[i].districtName}
   إسم البلدية :  ${nearstPoint.point[i].cityName}
   الملاحظات :  ${nearstPoint.point[i].recommendation}
@@ -135,7 +137,6 @@ class MapCtrl extends GetxController {
                            """,
                 confirm: InkWell(
                   onTap: () {
-                
                     Get.back();
                     setPolyLine([
                       LatLng(double.parse(nearstPoint.point[i].lat),
@@ -208,7 +209,7 @@ class MapCtrl extends GetxController {
         "locations[1].latitude = ${locations[1].latitude} || locations[1].longitude = ${locations[1].longitude} ");
     dev.log("result error = ${result.errorMessage}");
     dev.log("result status = ${result.status}");
-    if(result.status=="ZERO_RESULTS"){
+    if (result.status == "ZERO_RESULTS") {
       Get.snackbar("يوجد مشكلة ", "لا يوجد طريق مناسب لهذا الموقع ");
     }
     if (result.points.isNotEmpty) {
@@ -216,6 +217,8 @@ class MapCtrl extends GetxController {
         polylineCoordinates.add(LatLng(point.latitude, point.longitude));
       }
     } else {
+      Get.snackbar("يوجد مشكلة ", "يوجد مشكلة فى تحديد الموقع");
+
       dev.log("result failed ");
     }
 

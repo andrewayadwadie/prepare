@@ -47,6 +47,9 @@ class EpiCenterMapScreen extends StatelessWidget {
                         //     trafficEnabled: true,
                         onMapCreated: (GoogleMapController controller) {
                           mapCtrl.compeleteController.complete(controller);
+                          // Future.delayed(const Duration(seconds: 3),).then((value) {
+                          //   mapCtrl.setMarkers(locations);
+                          // });
                           // mapCtrl.setMarkers(locations);
                         },
                         onCameraMove: (CameraPosition newPos) {
