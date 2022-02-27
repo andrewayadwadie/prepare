@@ -41,11 +41,11 @@ class ListItemWidget extends StatelessWidget {
               child: Column(
                 children: [
                   ItemWidget(onChange: (value) {
-                 
+                    ctrl.data.clear();
                     ctrl.addData( item: value ?? "");
                   }),
                   WorkRecommendationWidget(onChange: (val) {
- 
+                    ctrl.data.clear();
                     ctrl.addData( description: val);
                   }),
                   GetBuilder<Evaluate>(

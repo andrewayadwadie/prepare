@@ -14,13 +14,9 @@ class Evaluate extends GetxController {
   // List<String> recommendation = [];
 
   List<dynamic> data = [];
- 
 
-  void addData( { String description ="",String item=""}) {
-    
-    data .add({
-      "Item":item,
-      "Description": description});
+  void addData({String description = "", String item = ""}) {
+    data.add({"Item": item, "Description": description});
     update();
   }
 
