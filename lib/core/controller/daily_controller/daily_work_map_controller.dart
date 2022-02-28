@@ -22,11 +22,12 @@ class DailyWorkMapCtrl extends GetxController {
     zoom: 14.4746,
   );
   Completer<GoogleMapController> compeleteController = Completer();
+
+  
   LatLng currentLocation = initialCameraPosition.target;
   DailyWorkPointController dailyWorkPoint = Get.put(DailyWorkPointController());
 
   //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
-
   //<<<<<<<<<<<<<<<<<<<<<<<<current path data>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
   Marker currentMark = Marker(
       markerId: const MarkerId("Mark1"),
