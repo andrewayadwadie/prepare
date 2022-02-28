@@ -49,6 +49,7 @@ class _DailyWorkScreenState extends State<DailyWorkScreen> {
                               //mapCtrl.setGooglePolyLine();
                               Future.delayed(const Duration(seconds: 2))
                                   .then((value) => mapCtrl.setCurrentPath());
+                            ///////////////////////////////////////////////////////
                               currentLocation.location.onLocationChanged
                                   .listen((event) {
                                 currentLocation.location

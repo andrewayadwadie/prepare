@@ -19,15 +19,14 @@ class HomeBodyWidget extends StatelessWidget {
     "كلاب ضالة ",
     "المهام اليومية",
     "تقييم المقاول"
-    
   ];
   final List<Widget> screens = [
     const AllProjectsScreen(),
     BugDiscoverMainScreen(),
     EpicCenterMainScreen(),
-   AnimalMainScreen(),
-   const DailyWorkMainScreen(),
-     WorkersEvaluation()
+    AnimalMainScreen(),
+    const DailyWorkMainScreen(),
+    const WorkersEvaluation()
   ];
   @override
   Widget build(BuildContext context) {
@@ -43,11 +42,11 @@ class HomeBodyWidget extends StatelessWidget {
           shrinkWrap: true,
           physics: const BouncingScrollPhysics(),
           scrollDirection: Axis.vertical,
-          gridDelegate:const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 20.0,
-                mainAxisSpacing: 20.0,
-              ),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 20.0,
+            mainAxisSpacing: 20.0,
+          ),
           itemCount: 6,
           itemBuilder: (BuildContext ctx, index) {
             return InkWell(
