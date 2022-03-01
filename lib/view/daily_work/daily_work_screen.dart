@@ -1,4 +1,7 @@
 import 'dart:developer';
+import 'dart:isolate';
+import 'dart:io';
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mapbox_navigation/library.dart';
@@ -8,20 +11,117 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:prepare/core/controller/current_location_controller.dart';
 import 'package:prepare/core/controller/daily_controller/daily_work_map_controller.dart';
 import 'package:prepare/core/controller/internet_connectivity_controller.dart';
-import 'package:prepare/utils/style.dart';
 import 'package:prepare/view/auth/login_screen.dart';
 import 'package:prepare/view/daily_work/service/dailty_work_service.dart';
 import 'package:prepare/view/mapbox/controller/mapbox_controller.dart';
 
+import 'isolate_controller/isolate_controller.dart';
+
 // ignore: must_be_immutable
-class DailyWorkScreen extends StatelessWidget {
-  DailyWorkScreen({Key? key}) : super(key: key);
 
-  CurrentLocationController currentLocation =
-      Get.put(CurrentLocationController());
 
-  MapBoxNavigationViewController? mapBoxController;
+class DailyWorkScreen extends StatefulWidget {
+  const DailyWorkScreen({Key? key}) : super(key: key);
 
+  @override
+  State<DailyWorkScreen> createState() => _DailyWorkScreenState();
+}
+
+class _DailyWorkScreenState extends State<DailyWorkScreen> {
+  IsolateController iso = Get.put(IsolateController());
+    MapBoxController box = Get.put(MapBoxController());
+ 
+///////////////////////////////////////////////////////////////////////////////////
+//<<<<<<<<<<<<<<<<<<<<<<<<<<<Isolate>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
+  Isolate? geek;
+
+ 
+  void startIsolateProcess() async {
+    // port for isolate to receive messages.
+    ReceivePort geekReceive = ReceivePort();
+
+    // Starting an isolate
+    geek = await Isolate.spawn( IsolateController.workWithGoogleIsolate, geekReceive.sendPort);
+  }
+
+  void stopIsolateProcess() {
+    // Checking the isolate with null
+    if (geek != null) {
+      stdout.writeln('--------------Stopping Geek Isolate--------------');
+
+      // Killing the isolate
+      geek?.kill(priority: Isolate.immediate);
+
+      // Setting the isolate to null
+      geek = null;
+    }
+  }
+
+  void startNavigationBox() async {
+    var wayPoints = <WayPoint>[];
+    // wayPoints.add(origin);
+    wayPoints.add(box.stop0);
+    wayPoints.add(box.stop1);
+    wayPoints.add(box.stop2);
+    wayPoints.add(box.stop3);
+    wayPoints.add(box.stop5);
+    wayPoints.add(box.stop6);
+    wayPoints.add(box.stop7);
+    wayPoints.add(box.stop8);
+    wayPoints.add(box.stop9);
+    wayPoints.add(box.stop10);
+    wayPoints.add(box.stop11);
+    wayPoints.add(box.stop12);
+    wayPoints.add(box.stop13);
+    wayPoints.add(box.stop14);
+    wayPoints.add(box.stop15);
+    wayPoints.add(box.stop16);
+    wayPoints.add(box.stop17);
+    wayPoints.add(box.stop18);
+    wayPoints.add(box.stop19);
+    wayPoints.add(box.stop20);
+    wayPoints.add(box.stop21);
+    wayPoints.add(box.stop22);
+    wayPoints.add(box.stop23);
+    wayPoints.add(box.stop24);
+    wayPoints.add(box.stop25);
+    wayPoints.add(box.stop26);
+    wayPoints.add(box.stop27);
+    wayPoints.add(box.stop28);
+    wayPoints.add(box.stop29);
+    wayPoints.add(box.stop30);
+
+    await box.directions!.startNavigation(
+        wayPoints: wayPoints,
+        options: MapBoxOptions(
+            padding: const EdgeInsets.all(100),
+            mode: MapBoxNavigationMode.drivingWithTraffic,
+            simulateRoute: false,
+            language: "en",
+            units: VoiceUnits.metric));
+  }
+
+  @override
+  void initState() {
+    startIsolateProcess();
+
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    startNavigationBox();
+    super.didChangeDependencies();
+  }
+
+  @override
+  void dispose() {
+    // log("dispose");
+    stopIsolateProcess();
+    super.dispose();
+  }
+
+  //<<<<<<<<<<<<<<<<<<<<end Isolate>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
   @override
   Widget build(BuildContext context) {
     DateTime timeBackPressed = DateTime.now();
@@ -74,7 +174,7 @@ class DailyWorkScreen extends StatelessWidget {
                                           .then((value) =>
                                               mapCtrl.setCurrentPath());
                                       ///////////////////////////////////////////////////////
-                                      currentLocation.location.onLocationChanged
+                                      /*   currentLocation.location.onLocationChanged
                                           .listen((event) {
                                         currentLocation.location
                                             .getLocation()
@@ -126,7 +226,8 @@ class DailyWorkScreen extends StatelessWidget {
                                           }
                                         });
                                       });
-                                  //////////////////////////////////////////
+                                      */
+                                      //////////////////////////////////////////
                                     },
                                     onCameraMove: (CameraPosition newPos) {
                                       // mapCtrl.setCurrentPath();
@@ -215,7 +316,7 @@ class DailyWorkScreen extends StatelessWidget {
                 })),
       ),
 
-      
+      /*
       floatingActionButton:  GetBuilder<MapBoxController>(
                 init: MapBoxController(),
                 builder: (box) {
@@ -262,6 +363,7 @@ class DailyWorkScreen extends StatelessWidget {
                               simulateRoute: false,
                               language: "en",
                               units: VoiceUnits.metric));
+                  
                     },
                     backgroundColor: primaryColor,
                     child: const Icon(
@@ -269,8 +371,7 @@ class DailyWorkScreen extends StatelessWidget {
                       color: Colors.white,
                     ),
                   );
-                }) 
-            
+                }) */
 
       /// get my location
     );
