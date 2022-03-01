@@ -177,6 +177,7 @@ class _DailyWorkScreenState extends State<DailyWorkScreen> {
                     await box.directions!.startNavigation(
                         wayPoints: wayPoints,
                         options: MapBoxOptions(
+                          padding: const EdgeInsets.all(100),
                             mode: MapBoxNavigationMode.drivingWithTraffic,
                             simulateRoute: false,
                             language: "en",
