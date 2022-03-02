@@ -5,6 +5,13 @@ import 'package:get/get.dart';
 class MapBoxController extends GetxController {
   String platformVersion = 'Unknown';
   String instruction = "";
+   MapBoxNavigation? directions;
+  MapBoxOptions? options;
+  final bool isMultipleStop = false;
+  double? distanceRemaining, durationRemaining;
+  MapBoxNavigationViewController? controller;
+  bool routeBuilt = false;
+  bool isNavigating = false;
   final origin = WayPoint(
       name: "Way Point 1",
       latitude: 30.08618747574932,
@@ -163,15 +170,7 @@ class MapBoxController extends GetxController {
       latitude: 30.08558808515157,
       longitude: 31.3409405640069);
 
-  MapBoxNavigation? directions;
-  MapBoxOptions? options;
-
-  final bool isMultipleStop = false;
-  double? distanceRemaining, durationRemaining;
-  MapBoxNavigationViewController? controller;
-  bool routeBuilt = false;
-  bool isNavigating = false;
-
+ 
   @override
   void onInit() {
     super.onInit();
