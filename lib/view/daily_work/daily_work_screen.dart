@@ -6,6 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:prepare/core/controller/current_location_controller.dart';
+import 'package:prepare/core/controller/daily_controller/daily_work_audio_controller.dart';
 import 'package:prepare/core/controller/daily_controller/daily_work_map_controller.dart';
 import 'package:prepare/core/controller/internet_connectivity_controller.dart';
 import 'package:prepare/utils/style.dart';
@@ -14,16 +15,11 @@ import 'package:prepare/view/daily_work/service/dailty_work_service.dart';
 import 'package:prepare/view/mapbox/controller/mapbox_controller.dart';
 
 // ignore: must_be_immutable
-class DailyWorkScreen extends StatefulWidget {
-  const DailyWorkScreen({
+class DailyWorkScreen extends StatelessWidget {
+  DailyWorkScreen({
     Key? key,
   }) : super(key: key);
 
-  @override
-  State<DailyWorkScreen> createState() => _DailyWorkScreenState();
-}
-
-class _DailyWorkScreenState extends State<DailyWorkScreen> {
   CurrentLocationController currentLocation =
       Get.put(CurrentLocationController());
 
@@ -32,7 +28,7 @@ class _DailyWorkScreenState extends State<DailyWorkScreen> {
     DateTime timeBackPressed = DateTime.now();
     return Scaffold(
       body: WillPopScope(
-         onWillPop: () async {
+        onWillPop: () async {
           final diffrence = DateTime.now().difference(timeBackPressed);
           final isExitWarning = diffrence >= const Duration(seconds: 2);
           timeBackPressed = DateTime.now();
@@ -67,11 +63,12 @@ class _DailyWorkScreenState extends State<DailyWorkScreen> {
                               polylines: mapCtrl.allPolyLine,
                               myLocationEnabled: true,
                               onMapCreated: (GoogleMapController controller) {
-                                mapCtrl.compeleteController.complete(controller);
+                                mapCtrl.compeleteController
+                                    .complete(controller);
                                 //mapCtrl.setGooglePolyLine();
                                 Future.delayed(const Duration(seconds: 2))
                                     .then((value) => mapCtrl.setCurrentPath());
-                              ///////////////////////////////////////////////////////
+                                ///////////////////////////////////////////////////////
                                 currentLocation.location.onLocationChanged
                                     .listen((event) {
                                   currentLocation.location
@@ -99,10 +96,12 @@ class _DailyWorkScreenState extends State<DailyWorkScreen> {
                                       net.checkInternet().then((val) {
                                         if (val) {
                                           DailyWorkService.addLine(
-                                                  date: DateTime.now().toString(),
-                                                  lat: event.latitude.toString(),
-                                                  long:
-                                                      curent.longitude.toString(),
+                                                  date:
+                                                      DateTime.now().toString(),
+                                                  lat:
+                                                      event.latitude.toString(),
+                                                  long: curent.longitude
+                                                      .toString(),
                                                   speed: event.speed.toString())
                                               .then((value) {
                                             if (value == 401) {
@@ -128,6 +127,93 @@ class _DailyWorkScreenState extends State<DailyWorkScreen> {
                                 //mapCtrl.setOriginPath();
                               },
                             ),
+                            GetBuilder<DailyWorkAudioController>(
+                                init: DailyWorkAudioController(),
+                                builder: (audio) {
+                                  return Positioned(
+                                      right: MediaQuery.of(context).size.width /
+                                          4.5,
+                                      top: MediaQuery.of(context).size.height /
+                                          30,
+                                      child: InkWell(
+                                        splashColor: primaryColor,
+                                        onTap: () async {
+                                          
+                                          if (mapCtrl.calculateDistance(
+                                                  mapCtrl.test3[0].latitude,
+                                                  mapCtrl.test3[0].longitude,
+                                                  currentLocation.lat,
+                                                  currentLocation.long) >
+                                              10.0) {
+                                            Get.defaultDialog(
+                                              title: "ملحوظة",
+                                              content: const Text(
+                                                "لا يمكن بدء المهمة لانك بعيد عن المسار ",
+                                              ),
+                                              confirm: InkWell(
+                                                onTap: (){
+                                                  
+                                                  mapCtrl.setGooglePolyLine([LatLng(currentLocation.lat??0.0,currentLocation.long??0.0),LatLng(  mapCtrl.test3[0].latitude,mapCtrl.test3[0].longitude,)]);
+                                                  Get.back();
+                                                  
+                                                },
+                                                child: Container(
+                                                    decoration: BoxDecoration(
+                                                        color: lightPrimaryColor,
+                                                        borderRadius: BorderRadius.circular(10)
+                                                    ),
+                                                    alignment: Alignment.center,
+                                                  
+                                                    width: MediaQuery.of(context)
+                                                            .size
+                                                            .width /
+                                                        2.5,
+                                                    height: MediaQuery.of(context)
+                                                            .size
+                                                            .height /
+                                                        20,
+                                                    child: const Text(
+                                                      "إذهب الى بداية المسار",
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 17),
+                                                    )),
+                                              ),
+                                            );
+                                          }
+                                          await mapCtrl.animateCamera(
+                                              await currentLocation.location
+                                                  .getLocation());
+                                          await audio.playAudioStraight();
+                                          // .zoom(20.0, currentLocation.lat??0.0,currentLocation.long??0.0);
+                                          //     mapCtrl.initialCameraPosition.zoom==20.0;
+                                        },
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              2,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              15,
+                                          decoration: BoxDecoration(
+                                            color: lightPrimaryColor,
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                          child: const Text(
+                                            "إبدأ الرحلة !",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 20,
+                                            ),
+                                          ),
+                                        ),
+                                      ));
+                                }),
                           ],
                         );
                       });
@@ -137,61 +223,59 @@ class _DailyWorkScreenState extends State<DailyWorkScreen> {
           init: DailyWorkMapCtrl(),
           builder: (mapCtrl) {
             return GetBuilder<MapBoxController>(
-              init: MapBoxController(),
-              builder: (box) {
-                return FloatingActionButton(
-                  onPressed: () async {
-                    var wayPoints = <WayPoint>[];
-                    // wayPoints.add(origin);
-                    wayPoints.add(box.stop0);
-                    wayPoints.add(box.stop1);
-                    wayPoints.add(box.stop2);
-                    wayPoints.add(box.stop3);
-                    wayPoints.add(box.stop5);
-                    wayPoints.add(box.stop6);
-                    wayPoints.add(box.stop7);
-                    wayPoints.add(box.stop8);
-                    wayPoints.add(box.stop9);
-                    wayPoints.add(box.stop10);
-                    wayPoints.add(box.stop11);
-                    wayPoints.add(box.stop12);
-                    wayPoints.add(box.stop13);
-                    wayPoints.add(box.stop14);
-                    wayPoints.add(box.stop15);
-                    wayPoints.add(box.stop16);
-                    wayPoints.add(box.stop17);
-                    wayPoints.add(box.stop18);
-                    wayPoints.add(box.stop19);
-                    wayPoints.add(box.stop20);
-                    wayPoints.add(box.stop21);
-                    wayPoints.add(box.stop22);
-                    wayPoints.add(box.stop23);
-                    wayPoints.add(box.stop24);
-                    wayPoints.add(box.stop25);
-                    wayPoints.add(box.stop26);
-                    wayPoints.add(box.stop27);
-                    wayPoints.add(box.stop28);
-                    wayPoints.add(box.stop29);
-                    wayPoints.add(box.stop30);
+                init: MapBoxController(),
+                builder: (box) {
+                  return FloatingActionButton(
+                    onPressed: () async {
+                      var wayPoints = <WayPoint>[];
+                      // wayPoints.add(origin);
+                      wayPoints.add(box.stop0);
+                      wayPoints.add(box.stop1);
+                      wayPoints.add(box.stop2);
+                      wayPoints.add(box.stop3);
+                      wayPoints.add(box.stop5);
+                      wayPoints.add(box.stop6);
+                      wayPoints.add(box.stop7);
+                      wayPoints.add(box.stop8);
+                      wayPoints.add(box.stop9);
+                      wayPoints.add(box.stop10);
+                      wayPoints.add(box.stop11);
+                      wayPoints.add(box.stop12);
+                      wayPoints.add(box.stop13);
+                      wayPoints.add(box.stop14);
+                      wayPoints.add(box.stop15);
+                      wayPoints.add(box.stop16);
+                      wayPoints.add(box.stop17);
+                      wayPoints.add(box.stop18);
+                      wayPoints.add(box.stop19);
+                      wayPoints.add(box.stop20);
+                      wayPoints.add(box.stop21);
+                      wayPoints.add(box.stop22);
+                      wayPoints.add(box.stop23);
+                      wayPoints.add(box.stop24);
+                      wayPoints.add(box.stop25);
+                      wayPoints.add(box.stop26);
+                      wayPoints.add(box.stop27);
+                      wayPoints.add(box.stop28);
+                      wayPoints.add(box.stop29);
+                      wayPoints.add(box.stop30);
 
-                    await box.directions!.startNavigation(
-                        wayPoints: wayPoints,
-                        options: MapBoxOptions(
-                          padding: const EdgeInsets.all(100),
-                            mode: MapBoxNavigationMode.drivingWithTraffic,
-                            simulateRoute: false,
-                            language: "en",
-                            units: VoiceUnits.metric));
-
-                  },
-                  backgroundColor: primaryColor,
-                  child: const Icon(
-                    Icons.location_on,
-                    color: Colors.white,
-                  ),
-                );
-              }
-            );
+                      await box.directions!.startNavigation(
+                          wayPoints: wayPoints,
+                          options: MapBoxOptions(
+                              padding: const EdgeInsets.all(100),
+                              mode: MapBoxNavigationMode.drivingWithTraffic,
+                              simulateRoute: false,
+                              language: "en",
+                              units: VoiceUnits.metric));
+                    },
+                    backgroundColor: primaryColor,
+                    child: const Icon(
+                      Icons.location_on,
+                      color: Colors.white,
+                    ),
+                  );
+                });
           }),
 
       /// get my location

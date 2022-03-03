@@ -14,6 +14,12 @@ import 'package:prepare/core/controller/daily_controller/daily_work_point_contro
 import '../current_location_controller.dart';
 
 class DailyWorkMapCtrl extends GetxController {
+  @override
+  void onInit() {
+    super.onInit();
+    insertDataToList();
+  }
+
   CurrentLocationController deviceCurrentLocation =
       Get.put(CurrentLocationController());
 
@@ -23,7 +29,6 @@ class DailyWorkMapCtrl extends GetxController {
   );
   Completer<GoogleMapController> compeleteController = Completer();
 
-  
   LatLng currentLocation = initialCameraPosition.target;
   DailyWorkPointController dailyWorkPoint = Get.put(DailyWorkPointController());
 
@@ -96,6 +101,35 @@ class DailyWorkMapCtrl extends GetxController {
     LatLng(30.086637713450653, 31.341097750269967),
     LatLng(30.086219961655274, 31.34103338063571),
   ];
+
+  List<Map<String, dynamic>> magdyPoints = [
+    {"lat": 30.087396, "long": 31.341235, "disc": "خط مستقيم"},
+    {"lat": 30.087948, "long": 31.341331, "disc": "خط مستقيم"},
+    {"lat": 30.088524, "long": 31.341417, "disc": "خط مستقيم"},
+    {"lat": 30.089429, "long": 31.341535, "disc": "خط مستقيم"},
+    {"lat": 30.089884, "long": 31.341605, "disc": "خط مستقيم"},
+    {"lat": 30.090338, "long": 31.341701, "disc": "اليمين"},
+    {"lat": 30.090431, "long": 31.341782, "disc": "اليمين"},
+    {"lat": 30.090427, "long": 31.341878, "disc": "اليمين"},
+    {"lat": 30.090385, "long": 31.341948, "disc": "خط مستقيم"},
+    {"lat": 30.089703, "long": 31.342854, "disc": "خط مستقيم"},
+    {"lat": 30.088970, "long": 31.343836, "disc": "اليمين"},
+    {"lat": 30.088826, "long": 31.343906, "disc": "اليمين "},
+    {"lat": 30.088584, "long": 31.343707, "disc": "خط مستقيم"},
+    {"lat": 30.088343, "long": 31.343579, "disc": "اليمين "},
+    {"lat": 30.088450, "long": 31.343316, "disc": "خط مستقيم"},
+    {"lat": 30.089414, "long": 31.342037, "disc": "خط مستقيم"},
+    {"lat": 30.089718, "long": 31.341641, "disc": "الوجهه"},
+  ];
+
+  List<LatLng> test3 = [];
+
+  void insertDataToList() {
+    for (var item in magdyPoints) {
+      test3.add(LatLng(item['lat'], item['long']));
+    }
+  }
+
   List<LatLng> test2 = [
     const LatLng(
       30.086763039458297,
@@ -123,7 +157,17 @@ class DailyWorkMapCtrl extends GetxController {
     ),
     const LatLng(30.086238528416267, 31.34103874491316),
   ];
+
   List<LatLng> positionOfMarkers = [
+    const LatLng(30.088524, 31.341417),
+    const LatLng(30.090338, 31.341701),
+    const LatLng(30.090385, 31.341948),
+    const LatLng(30.088970, 31.343836),
+    const LatLng(30.088343, 31.343579),
+    const LatLng(30.089414, 31.342037),
+  ];
+  /*
+    List<LatLng> positionOfMarkers = [
     const LatLng(
       30.08578961496697,
       31.340995544345827,
@@ -157,6 +201,7 @@ class DailyWorkMapCtrl extends GetxController {
       31.34136949633439,
     ),
   ];
+   */
   List<LatLng> newPath = [];
   ////////////////////////////////
   List<LatLng> polylineCoordinates = [];
@@ -168,12 +213,12 @@ class DailyWorkMapCtrl extends GetxController {
   Future<void> animateCamera(LocationData _location) async {
     final GoogleMapController controller = await compeleteController.future;
     CameraPosition _cameraPostion = CameraPosition(
-        bearing: 192.8334901395799,
+        bearing: 0.0,
         target: LatLng(
           _location.latitude!,
           _location.longitude!,
         ),
-        zoom: 16.4746);
+        zoom: 19.0);
 
     controller.animateCamera(CameraUpdate.newCameraPosition(_cameraPostion));
   }
@@ -190,7 +235,7 @@ class DailyWorkMapCtrl extends GetxController {
 
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
 
- void isTaskDone() {
+  void isTaskDone() {
     for (var i = 0; i < positionOfMarkers.length; i++) {
       if (calculateDistance(
               deviceCurrentLocation.lat,
@@ -252,14 +297,14 @@ class DailyWorkMapCtrl extends GetxController {
     //  carCurrentPath.add(currentMark.position);
 
     allPolyLine.add(Polyline(
-        polylineId: PolylineId(currentLocation.latitude.toString()),
+        polylineId: PolylineId(deviceCurrentLocation.lat.toString()),
         width: 6,
         visible: true,
         color: Colors.red,
         consumeTapEvents: true,
         startCap: Cap.roundCap,
         endCap: Cap.roundCap,
-        points: test));
+        points: test3));
     update();
     // allPolyLine.add(Polyline(
     //     polylineId: PolylineId(currentLocation.longitude.toString()),
@@ -290,7 +335,7 @@ class DailyWorkMapCtrl extends GetxController {
     newPath.add(newPoint);
     update();
   }
-
+/*
   void setGooglePolyLine() async {
     for (var item in dailyWorkPoint.points) {
       apiPoint.add(LatLng(double.parse(item.lat), double.parse(item.long)));
@@ -322,7 +367,7 @@ class DailyWorkMapCtrl extends GetxController {
     }
 
     allPolyLine.add(Polyline(
-        polylineId: PolylineId(currentLocation.longitude.toString()),
+        polylineId: PolylineId(deviceCurrentLocation.long.toString()),
         width: 5,
         visible: true,
         color: Colors.green,
@@ -332,11 +377,46 @@ class DailyWorkMapCtrl extends GetxController {
         points: polylineCoordinates));
     update();
   }
+*/
+  // void onCamMove(LatLng newPos) {
+  //   currentLocation = newPos;
+  //   update();
+  // }
 
-  void onCamMove(LatLng newPos) {
-    currentLocation = newPos;
+  void setGooglePolyLine(List<LatLng> locations) async {
+    // List of coordinates to join
+    // Initializing PolylinePoints
+    PolylinePoints polylinePoints = PolylinePoints();
+
+    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
+      "AIzaSyBGOAVKbeA0MiN6NfGm8Z0y5LtE7cgdCo4",
+      PointLatLng(
+          locations[0].latitude, locations[0].longitude), // Google Maps API Key
+      PointLatLng(locations[1].latitude, locations[1].longitude),
+
+      travelMode: TravelMode.walking,
+    );
+  
+    if (result.points.isNotEmpty) {
+      for (var point in result.points) {
+        polylineCoordinates.add(LatLng(point.latitude, point.longitude));
+      }
+    } else {
+      dev.log("result failed ");
+    }
+
+    allPolyLine.add(Polyline(
+        polylineId: PolylineId(locations[0].latitude.toString()),
+        width:10,
+        visible: true,
+        color: Colors.yellow,
+        consumeTapEvents: true,
+        startCap: Cap.roundCap,
+        endCap: Cap.roundCap,
+        points: polylineCoordinates));
     update();
   }
+
 }
 
 /*
