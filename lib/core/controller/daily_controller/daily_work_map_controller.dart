@@ -403,11 +403,13 @@ class DailyWorkMapCtrl extends GetxController {
     update();
   }
 
-  void setMark(double lat,double long){
+  void setMark(double lat,double long)async{
+    final Uint8List currentIcon =
+        await getBytesFromAsset('assets/images/car.png', 100);
     allMarkers.remove(allMarkers.last);
      allMarkers.add(Marker(
       markerId: MarkerId("$lat$long"),
-      icon: BitmapDescriptor.defaultMarker,
+      icon: BitmapDescriptor.fromBytes(currentIcon),
       
       // icon: _locationIcon,
       position : LatLng(lat, long),
