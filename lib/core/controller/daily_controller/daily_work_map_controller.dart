@@ -103,6 +103,7 @@ class DailyWorkMapCtrl extends GetxController {
   ];
 
   List<Map<String, dynamic>> magdyPoints = [
+    {"lat":30.08621996021523,"long": 31.341046513569676,"disc": "بداية الرحلة"},
     {"lat": 30.087396, "long": 31.341235, "disc": "خط مستقيم"},
     {"lat": 30.087948, "long": 31.341331, "disc": "خط مستقيم"},
     {"lat": 30.088524, "long": 31.341417, "disc": "خط مستقيم"},
@@ -123,10 +124,11 @@ class DailyWorkMapCtrl extends GetxController {
   ];
 
   List<LatLng> test3 = [];
-
+  List<String> voices = [];
   void insertDataToList() {
     for (var item in magdyPoints) {
       test3.add(LatLng(item['lat'], item['long']));
+      voices.add(item['disc']);
     }
   }
 
@@ -227,9 +229,7 @@ class DailyWorkMapCtrl extends GetxController {
 // calculate distance function
   double calculateDistance(lat1, lon1, lat2, lon2) {
     var p = 0.017453292519943295;
-    var a = 0.5 -
-        cos((lat2 - lat1) * p) / 2 +
-        cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2;
+    var a = 0.5 -cos((lat2 - lat1) * p) / 2 + cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2;
     return 12742 * asin(sqrt(a)) * 1000;
   }
 
@@ -282,19 +282,14 @@ class DailyWorkMapCtrl extends GetxController {
           onTap: () {}));
       update();
     }
-    // Marker newMarker = Marker(
-    //     markerId: MarkerId(currentLocation.latitude.toString()),
-    //     icon: BitmapDescriptor.defaultMarker,
-    //     // icon: _locationIcon,
-    //     position: currentLocation,
-    //     infoWindow: InfoWindow(
-    //         title: "Info",
-    //         snippet:
-    //             "${currentLocation.latitude}, ${currentLocation.longitude}"),
-    //     onTap: () {});
-
-    // allMarkers.add(newMarker);
-    //  carCurrentPath.add(currentMark.position);
+       allMarkers.add(Marker(
+          markerId: const MarkerId("test mark"),
+          icon: BitmapDescriptor.fromBytes(markerIcon),
+          // icon: _locationIcon,
+          position: positionOfMarkers[0],
+       ));
+          update();
+  
 
     allPolyLine.add(Polyline(
         polylineId: PolylineId(deviceCurrentLocation.lat.toString()),
@@ -306,16 +301,7 @@ class DailyWorkMapCtrl extends GetxController {
         endCap: Cap.roundCap,
         points: test3));
     update();
-    // allPolyLine.add(Polyline(
-    //     polylineId: PolylineId(currentLocation.longitude.toString()),
-    //     width: 6,
-    //     visible: true,
-    //     color: Colors.green,
-    //     consumeTapEvents: true,
-    //     startCap: Cap.roundCap,
-    //     endCap: Cap.roundCap,
-    //     points: test2));
-    // update();
+
   }
 
   void setnewPath(LatLng oldPoint, LatLng newPoint) async {
@@ -417,6 +403,20 @@ class DailyWorkMapCtrl extends GetxController {
     update();
   }
 
+  void setMark(double lat,double long){
+    allMarkers.remove(allMarkers.last);
+     allMarkers.add(Marker(
+      markerId: MarkerId("$lat$long"),
+      icon: BitmapDescriptor.defaultMarker,
+      
+      // icon: _locationIcon,
+      position : LatLng(lat, long),
+      infoWindow: InfoWindow(
+          title: "Info", snippet: "$lat , $long"),
+     ));
+   
+
+  }
 }
 
 /*

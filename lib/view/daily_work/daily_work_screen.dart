@@ -62,10 +62,12 @@ class DailyWorkScreen extends StatelessWidget {
                               markers: mapCtrl.allMarkers,
                               polylines: mapCtrl.allPolyLine,
                               myLocationEnabled: true,
+                              myLocationButtonEnabled: true,
                               onMapCreated: (GoogleMapController controller) {
                                 mapCtrl.compeleteController
                                     .complete(controller);
-                                //mapCtrl.setGooglePolyLine();
+
+                                //<<<<<<<<<<<<<<<<Draw Line from Gis >>>>>>>>>>>>>>
                                 Future.delayed(const Duration(seconds: 2))
                                     .then((value) => mapCtrl.setCurrentPath());
                                 ///////////////////////////////////////////////////////
@@ -80,12 +82,9 @@ class DailyWorkScreen extends StatelessWidget {
                                             event.latitude,
                                             event.longitude) >
                                         5.0) {
+                                      //<<<<<<<<<<check if problem is solved will popup with message and remove marker from Markers List>>>>>>>>>//
                                       mapCtrl.isTaskDone();
-                                      log(" speed = ${event.speed}");
-                                      log("Date = ${DateTime.now()}");
-                                      log("current = ${curent.latitude},${curent.longitude}");
-                                      log("event = ${event.latitude},${event.longitude}");
-                                      log("distance = ${mapCtrl.calculateDistance(curent.latitude, curent.longitude, event.latitude, event.longitude)}");
+
                                       mapCtrl.setnewPath(
                                           LatLng(
                                             curent.latitude ?? 0.0,
@@ -93,6 +92,8 @@ class DailyWorkScreen extends StatelessWidget {
                                           ),
                                           LatLng(event.latitude ?? 0.0,
                                               event.longitude ?? 0.0));
+
+                                      //<<<<<<<<< send path to backend >>>>>>>>>>>
                                       net.checkInternet().then((val) {
                                         if (val) {
                                           DailyWorkService.addLine(
@@ -120,12 +121,7 @@ class DailyWorkScreen extends StatelessWidget {
                                   });
                                 });
                               },
-                              onCameraMove: (CameraPosition newPos) {
-                                // mapCtrl.setCurrentPath();
-                                //mapCtrl.onCamMove(newPos.target);
-                                //mapCtrl.setCurrentPath();
-                                //mapCtrl.setOriginPath();
-                              },
+                              onCameraMove: (CameraPosition newPos) {},
                             ),
                             GetBuilder<DailyWorkAudioController>(
                                 init: DailyWorkAudioController(),
@@ -138,40 +134,46 @@ class DailyWorkScreen extends StatelessWidget {
                                       child: InkWell(
                                         splashColor: primaryColor,
                                         onTap: () async {
-                                          
+                                          //<<<<<<<<<<<<< check if car in Start or not >>>>>>>>>>>>
+                                          //<<<<<<<<<<<< if true draw google direction to Start point >>>>>>>>>>>>>>>>
                                           if (mapCtrl.calculateDistance(
                                                   mapCtrl.test3[0].latitude,
                                                   mapCtrl.test3[0].longitude,
                                                   currentLocation.lat,
                                                   currentLocation.long) >
-                                              10.0) {
+                                              50.0) {
                                             Get.defaultDialog(
                                               title: "ملحوظة",
                                               content: const Text(
                                                 "لا يمكن بدء المهمة لانك بعيد عن المسار ",
                                               ),
                                               confirm: InkWell(
-                                                onTap: (){
-                                                  
-                                                  mapCtrl.setGooglePolyLine([LatLng(currentLocation.lat??0.0,currentLocation.long??0.0),LatLng(  mapCtrl.test3[0].latitude,mapCtrl.test3[0].longitude,)]);
+                                                onTap: () {
+                                                  mapCtrl.setGooglePolyLine([LatLng(currentLocation.lat ?? 0.0,currentLocation.long ??0.0),LatLng(mapCtrl.test3[0].latitude,mapCtrl.test3[0].longitude,)]);
                                                   Get.back();
-                                                  
+                                                   currentLocation
+                                                .location.onLocationChanged.listen((event) {
+                                                  mapCtrl.setMark(event.latitude??0.0, event.longitude??0.0);
+                                                 });
                                                 },
                                                 child: Container(
                                                     decoration: BoxDecoration(
-                                                        color: lightPrimaryColor,
-                                                        borderRadius: BorderRadius.circular(10)
-                                                    ),
+                                                        color:
+                                                            lightPrimaryColor,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10)),
                                                     alignment: Alignment.center,
-                                                  
-                                                    width: MediaQuery.of(context)
-                                                            .size
-                                                            .width /
-                                                        2.5,
-                                                    height: MediaQuery.of(context)
-                                                            .size
-                                                            .height /
-                                                        20,
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width /
+                                                            2.5,
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height /
+                                                            20,
                                                     child: const Text(
                                                       "إذهب الى بداية المسار",
                                                       style: TextStyle(
@@ -180,13 +182,44 @@ class DailyWorkScreen extends StatelessWidget {
                                                     )),
                                               ),
                                             );
+                                            //<<<<<<<<<<<< if false start Gis Directions with voices >>>>>>>>>>>>>>>>
+                                          } else {
+                                            await mapCtrl.animateCamera(
+                                                await currentLocation.location
+                                                    .getLocation());
+
+                                            currentLocation
+                                                .location.onLocationChanged
+                                                .listen((event) {
+                                                  mapCtrl.setMark(event.latitude??0.0, event.longitude??0.0);
+                                              for (var i = 0;
+                                                  i < mapCtrl.test3.length;
+                                                  i++) {
+                                                if (mapCtrl.test3[i].latitude ==
+                                                        event.latitude &&
+                                                    mapCtrl.test3[i]
+                                                            .longitude ==
+                                                        event.longitude) {
+                                                  if (mapCtrl.voices[i] ==
+                                                      "بداية الرحلة") {
+                                                    audio.playAudioStart();
+                                                  } else if (mapCtrl
+                                                          .voices[i] ==
+                                                      "خط مستقيم") {
+                                                    audio.playAudioStraight();
+                                                  } else if (mapCtrl
+                                                          .voices[i] ==
+                                                      "اليمين") {
+                                                    audio.playerAudioRight();
+                                                  } else if (mapCtrl
+                                                          .voices[i] ==
+                                                      "الوجهه") {
+                                                    audio.playerAudioStopHere();
+                                                  }
+                                                }
+                                              }
+                                            });
                                           }
-                                          await mapCtrl.animateCamera(
-                                              await currentLocation.location
-                                                  .getLocation());
-                                          await audio.playAudioStraight();
-                                          // .zoom(20.0, currentLocation.lat??0.0,currentLocation.long??0.0);
-                                          //     mapCtrl.initialCameraPosition.zoom==20.0;
                                         },
                                         child: Container(
                                           alignment: Alignment.center,

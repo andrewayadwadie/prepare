@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 
 class DailyWorkAudioController extends GetxController {
+  AudioPlayer playStart = AudioPlayer();
   AudioPlayer playerStrsight = AudioPlayer();
   AudioPlayer playerBeforeRight = AudioPlayer();
   AudioPlayer playerRight = AudioPlayer();
@@ -13,7 +14,9 @@ class DailyWorkAudioController extends GetxController {
   AudioPlayer playerStopHere = AudioPlayer();
   AudioPlayer playerwillArrive = AudioPlayer();
   @override
+  
   void onClose() {
+    playStart.dispose();
     playerStrsight.dispose();
     playerBeforeRight.dispose();
     playerRight.dispose();
@@ -25,6 +28,16 @@ class DailyWorkAudioController extends GetxController {
 
     super.onClose();
   }
+
+Future<void> playAudioStart() async {
+    try {
+      await playStart.setAsset('assets/audio/start_your_mission.mp3');
+      playStart.play();
+    } catch (e) {
+      log("can not play Audio Straight cause : $e ");
+    }
+  }
+
 
   Future<void> playAudioStraight() async {
     try {

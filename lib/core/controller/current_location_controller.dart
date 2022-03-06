@@ -37,12 +37,14 @@ class CurrentLocationController extends GetxController {
           return;
         }
       }
-      location.onLocationChanged.listen((LocationData currentLocation) {
+      location.getLocation().then((currentLocation){
         lat = currentLocation.latitude;
         long = currentLocation.longitude;
         update();
-        // Use current location
       });
+        
+        // Use current location
+      
      
     }
   }
