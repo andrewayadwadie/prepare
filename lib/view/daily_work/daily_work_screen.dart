@@ -22,7 +22,7 @@ class DailyWorkScreen extends StatelessWidget {
 
   CurrentLocationController currentLocation =
       Get.put(CurrentLocationController());
-
+ DailyWorkAudioController audio = Get.put(DailyWorkAudioController());
   @override
   Widget build(BuildContext context) {
     DateTime timeBackPressed = DateTime.now();
@@ -59,9 +59,10 @@ class DailyWorkScreen extends StatelessWidget {
                               initialCameraPosition: mapCtrl.initialCamPos,
                               mapType: MapType.normal,
                               // onTap: (LatLng newPosition)=> mapCtrl.setGooglePolyLine(),
+
                               markers: mapCtrl.allMarkers,
                               polylines: mapCtrl.allPolyLine,
-                              myLocationEnabled: false,
+                              myLocationEnabled: true,
                               myLocationButtonEnabled: true,
                               onMapCreated: (GoogleMapController controller) {
                                 mapCtrl.compeleteController
@@ -129,6 +130,7 @@ class DailyWorkScreen extends StatelessWidget {
                                   splashColor: primaryColor,
                                   onTap: () {
                                     mapCtrl.startMission(context);
+                                    audio.playAudioStart();
                                   },
                                   child: Container(
                                     alignment: Alignment.center,
@@ -196,7 +198,7 @@ class DailyWorkScreen extends StatelessWidget {
                       wayPoints.add(box.stop29);
                       wayPoints.add(box.stop30);
 
-                      await box.directions!.startNavigation(
+                      await box.directions.startNavigation(
                           wayPoints: wayPoints,
                           options: MapBoxOptions(
                               padding: const EdgeInsets.all(100),

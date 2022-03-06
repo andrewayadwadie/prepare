@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 class MapBoxController extends GetxController {
   String platformVersion = 'Unknown';
   String instruction = "";
-   MapBoxNavigation? directions;
+   MapBoxNavigation  directions = MapBoxNavigation();
   MapBoxOptions? options;
   final bool isMultipleStop = false;
   double? distanceRemaining, durationRemaining;
@@ -199,7 +199,7 @@ class MapBoxController extends GetxController {
     String platformVersion;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
-      platformVersion = await directions!.platformVersion;
+      platformVersion = await directions.platformVersion;
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
@@ -208,8 +208,8 @@ class MapBoxController extends GetxController {
   }
 
   Future<void> onEmbeddedRouteEvent(e) async {
-    distanceRemaining = await directions!.distanceRemaining;
-    durationRemaining = await directions!.durationRemaining;
+    distanceRemaining = await directions.distanceRemaining;
+    durationRemaining = await directions.durationRemaining;
 
     switch (e.eventType) {
       case MapBoxEvent.progress_change:

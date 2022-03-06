@@ -58,7 +58,7 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
                     wayPoints.add(box.stop29);
                     wayPoints.add(box.stop30);
 
-                    await box.directions!.startNavigation(
+                    await box.directions.startNavigation(
                         wayPoints: wayPoints,
                         options: MapBoxOptions(
                             mode: MapBoxNavigationMode.drivingWithTraffic,
