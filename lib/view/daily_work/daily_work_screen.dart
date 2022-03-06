@@ -61,7 +61,7 @@ class DailyWorkScreen extends StatelessWidget {
                               // onTap: (LatLng newPosition)=> mapCtrl.setGooglePolyLine(),
                               markers: mapCtrl.allMarkers,
                               polylines: mapCtrl.allPolyLine,
-                              myLocationEnabled: true,
+                              myLocationEnabled: false,
                               myLocationButtonEnabled: true,
                               onMapCreated: (GoogleMapController controller) {
                                 mapCtrl.compeleteController
@@ -81,10 +81,10 @@ class DailyWorkScreen extends StatelessWidget {
                                             curent.longitude,
                                             event.latitude,
                                             event.longitude) >
-                                        5.0) {
+                                        0.1) {
                                       //<<<<<<<<<<check if problem is solved will popup with message and remove marker from Markers List>>>>>>>>>//
                                       mapCtrl.isTaskDone();
-
+                                      //<<<<<<<<<<<<<<<< green path that belongs to car>>>>>>>>>>>>>>>>>>>>
                                       mapCtrl.setnewPath(
                                           LatLng(
                                             curent.latitude ?? 0.0,
@@ -92,7 +92,6 @@ class DailyWorkScreen extends StatelessWidget {
                                           ),
                                           LatLng(event.latitude ?? 0.0,
                                               event.longitude ?? 0.0));
-
                                       //<<<<<<<<< send path to backend >>>>>>>>>>>
                                       net.checkInternet().then((val) {
                                         if (val) {
@@ -123,130 +122,34 @@ class DailyWorkScreen extends StatelessWidget {
                               },
                               onCameraMove: (CameraPosition newPos) {},
                             ),
-                            GetBuilder<DailyWorkAudioController>(
-                                init: DailyWorkAudioController(),
-                                builder: (audio) {
-                                  return Positioned(
-                                      right: MediaQuery.of(context).size.width /
-                                          4.5,
-                                      top: MediaQuery.of(context).size.height /
-                                          30,
-                                      child: InkWell(
-                                        splashColor: primaryColor,
-                                        onTap: () async {
-                                          //<<<<<<<<<<<<< check if car in Start or not >>>>>>>>>>>>
-                                          //<<<<<<<<<<<< if true draw google direction to Start point >>>>>>>>>>>>>>>>
-                                          if (mapCtrl.calculateDistance(
-                                                  mapCtrl.test3[0].latitude,
-                                                  mapCtrl.test3[0].longitude,
-                                                  currentLocation.lat,
-                                                  currentLocation.long) >
-                                              50.0) {
-                                            Get.defaultDialog(
-                                              title: "ملحوظة",
-                                              content: const Text(
-                                                "لا يمكن بدء المهمة لانك بعيد عن المسار ",
-                                              ),
-                                              confirm: InkWell(
-                                                onTap: () {
-                                                  mapCtrl.setGooglePolyLine([LatLng(currentLocation.lat ?? 0.0,currentLocation.long ??0.0),LatLng(mapCtrl.test3[0].latitude,mapCtrl.test3[0].longitude,)]);
-                                                  Get.back();
-                                                   currentLocation
-                                                .location.onLocationChanged.listen((event) {
-                                                  mapCtrl.setMark(event.latitude??0.0, event.longitude??0.0);
-                                                 });
-                                                },
-                                                child: Container(
-                                                    decoration: BoxDecoration(
-                                                        color:
-                                                            lightPrimaryColor,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10)),
-                                                    alignment: Alignment.center,
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            2.5,
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .height /
-                                                            20,
-                                                    child: const Text(
-                                                      "إذهب الى بداية المسار",
-                                                      style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 17),
-                                                    )),
-                                              ),
-                                            );
-                                            //<<<<<<<<<<<< if false start Gis Directions with voices >>>>>>>>>>>>>>>>
-                                          } else {
-                                            await mapCtrl.animateCamera(
-                                                await currentLocation.location
-                                                    .getLocation());
-
-                                            currentLocation
-                                                .location.onLocationChanged
-                                                .listen((event) {
-                                                  mapCtrl.setMark(event.latitude??0.0, event.longitude??0.0);
-                                              for (var i = 0;
-                                                  i < mapCtrl.test3.length;
-                                                  i++) {
-                                                if (mapCtrl.test3[i].latitude ==
-                                                        event.latitude &&
-                                                    mapCtrl.test3[i]
-                                                            .longitude ==
-                                                        event.longitude) {
-                                                  if (mapCtrl.voices[i] ==
-                                                      "بداية الرحلة") {
-                                                    audio.playAudioStart();
-                                                  } else if (mapCtrl
-                                                          .voices[i] ==
-                                                      "خط مستقيم") {
-                                                    audio.playAudioStraight();
-                                                  } else if (mapCtrl
-                                                          .voices[i] ==
-                                                      "اليمين") {
-                                                    audio.playerAudioRight();
-                                                  } else if (mapCtrl
-                                                          .voices[i] ==
-                                                      "الوجهه") {
-                                                    audio.playerAudioStopHere();
-                                                  }
-                                                }
-                                              }
-                                            });
-                                          }
-                                        },
-                                        child: Container(
-                                          alignment: Alignment.center,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              2,
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height /
-                                              15,
-                                          decoration: BoxDecoration(
-                                            color: lightPrimaryColor,
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                          ),
-                                          child: const Text(
-                                            "إبدأ الرحلة !",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 20,
-                                            ),
-                                          ),
-                                        ),
-                                      ));
-                                }),
+                            Positioned(
+                                right: MediaQuery.of(context).size.width / 4.5,
+                                top: MediaQuery.of(context).size.height / 30,
+                                child: InkWell(
+                                  splashColor: primaryColor,
+                                  onTap: () {
+                                    mapCtrl.startMission(context);
+                                  },
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    width:
+                                        MediaQuery.of(context).size.width / 2,
+                                    height:
+                                        MediaQuery.of(context).size.height / 15,
+                                    decoration: BoxDecoration(
+                                      color: lightPrimaryColor,
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: const Text(
+                                      "إبدأ الرحلة !",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                  ),
+                                ))
                           ],
                         );
                       });

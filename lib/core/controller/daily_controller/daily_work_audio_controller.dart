@@ -14,7 +14,6 @@ class DailyWorkAudioController extends GetxController {
   AudioPlayer playerStopHere = AudioPlayer();
   AudioPlayer playerwillArrive = AudioPlayer();
   @override
-  
   void onClose() {
     playStart.dispose();
     playerStrsight.dispose();
@@ -29,7 +28,7 @@ class DailyWorkAudioController extends GetxController {
     super.onClose();
   }
 
-Future<void> playAudioStart() async {
+  Future<void> playAudioStart() async {
     try {
       await playStart.setAsset('assets/audio/start_your_mission.mp3');
       playStart.play();
@@ -37,7 +36,6 @@ Future<void> playAudioStart() async {
       log("can not play Audio Straight cause : $e ");
     }
   }
-
 
   Future<void> playAudioStraight() async {
     try {
@@ -50,7 +48,8 @@ Future<void> playAudioStart() async {
 
   Future<void> playerAudioBeforeRight() async {
     try {
-      await playerBeforeRight.setAsset('assets/audio/Turn_right_after_fifty_meters.mp3');
+      await playerBeforeRight
+          .setAsset('assets/audio/Turn_right_after_fifty_meters.mp3');
       playerBeforeRight.play();
     } catch (e) {
       log("can not play Audio Straight cause : $e ");
@@ -68,7 +67,8 @@ Future<void> playAudioStart() async {
 
   Future<void> playerAudioBeforeLeft() async {
     try {
-      await playerBeforeLeft.setAsset('assets/audio/Turn_left_after_fifty_meters.mp3');
+      await playerBeforeLeft
+          .setAsset('assets/audio/Turn_left_after_fifty_meters.mp3');
       playerBeforeLeft.play();
     } catch (e) {
       log("can not play Audio Straight cause : $e ");
@@ -95,7 +95,8 @@ Future<void> playAudioStart() async {
 
   Future<void> playerAudioWillArrive() async {
     try {
-      await playerwillArrive.setAsset('assets/audio/you_will_finish_your_trip_after_fifty_meters.mp3');
+      await playerwillArrive.setAsset(
+          'assets/audio/you_will_finish_your_trip_after_fifty_meters.mp3');
       playerwillArrive.play();
     } catch (e) {
       log("can not play Audio Straight cause : $e ");
@@ -104,7 +105,8 @@ Future<void> playAudioStart() async {
 
   Future<void> playerAudioStopHere() async {
     try {
-      await playerStopHere.setAsset('assets/audio/stop_here_you_finished_your_trip.mp3');
+      await playerStopHere
+          .setAsset('assets/audio/stop_here_you_finished_your_trip.mp3');
       playerStopHere.play();
     } catch (e) {
       log("can not play Audio Straight cause : $e ");

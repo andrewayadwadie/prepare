@@ -9,7 +9,9 @@ import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:prepare/core/controller/daily_controller/daily_work_audio_controller.dart';
 import 'package:prepare/core/controller/daily_controller/daily_work_point_controller.dart';
+import 'package:prepare/utils/style.dart';
 
 import '../current_location_controller.dart';
 
@@ -22,6 +24,8 @@ class DailyWorkMapCtrl extends GetxController {
 
   CurrentLocationController deviceCurrentLocation =
       Get.put(CurrentLocationController());
+
+  DailyWorkAudioController audio = Get.put(DailyWorkAudioController());
 
   static const CameraPosition initialCameraPosition = CameraPosition(
     target: LatLng(30.0862704, 31.3415012),
@@ -103,7 +107,11 @@ class DailyWorkMapCtrl extends GetxController {
   ];
 
   List<Map<String, dynamic>> magdyPoints = [
-    {"lat":30.08621996021523,"long": 31.341046513569676,"disc": "بداية الرحلة"},
+    {
+      "lat": 30.08621996021523,
+      "long": 31.341046513569676,
+      "disc": "بداية الرحلة"
+    },
     {"lat": 30.087396, "long": 31.341235, "disc": "خط مستقيم"},
     {"lat": 30.087948, "long": 31.341331, "disc": "خط مستقيم"},
     {"lat": 30.088524, "long": 31.341417, "disc": "خط مستقيم"},
@@ -167,43 +175,9 @@ class DailyWorkMapCtrl extends GetxController {
     const LatLng(30.088970, 31.343836),
     const LatLng(30.088343, 31.343579),
     const LatLng(30.089414, 31.342037),
+    const LatLng(30.086264419385355, 31.341032372089625)
   ];
-  /*
-    List<LatLng> positionOfMarkers = [
-    const LatLng(
-      30.08578961496697,
-      31.340995544345827,
-    ),
-    const LatLng(
-      30.084489871229206,
-      31.340843831398807,
-    ),
-    const LatLng(
-      30.08371185116205,
-      31.340774089920778,
-    ),
-    const LatLng(
-      30.084164628308102,
-      31.343895635323648,
-    ),
-    const LatLng(
-      30.08468764451231,
-      31.345095556666184,
-    ),
-    const LatLng(
-      30.086108449504934,
-      31.34373327100525,
-    ),
-    const LatLng(
-      30.085819614967953,
-      31.342398012844708,
-    ),
-    const LatLng(
-      30.08677200777047,
-      31.34136949633439,
-    ),
-  ];
-   */
+
   List<LatLng> newPath = [];
   ////////////////////////////////
   List<LatLng> polylineCoordinates = [];
@@ -229,7 +203,9 @@ class DailyWorkMapCtrl extends GetxController {
 // calculate distance function
   double calculateDistance(lat1, lon1, lat2, lon2) {
     var p = 0.017453292519943295;
-    var a = 0.5 -cos((lat2 - lat1) * p) / 2 + cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2;
+    var a = 0.5 -
+        cos((lat2 - lat1) * p) / 2 +
+        cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2;
     return 12742 * asin(sqrt(a)) * 1000;
   }
 
@@ -242,7 +218,7 @@ class DailyWorkMapCtrl extends GetxController {
               deviceCurrentLocation.long,
               positionOfMarkers[i].latitude,
               positionOfMarkers[i].longitude) <
-          100.0) {
+          50.0) {
         Get.snackbar("ملحوظة ", "تم حل المشكلة الموجودة فى الموقع رقم $i");
         allMarkers
             .removeWhere((element) => element.markerId.value == i.toString());
@@ -282,14 +258,13 @@ class DailyWorkMapCtrl extends GetxController {
           onTap: () {}));
       update();
     }
-       allMarkers.add(Marker(
-          markerId: const MarkerId("test mark"),
-          icon: BitmapDescriptor.fromBytes(markerIcon),
-          // icon: _locationIcon,
-          position: positionOfMarkers[0],
-       ));
-          update();
-  
+    allMarkers.add(Marker(
+      markerId: const MarkerId("test mark"),
+      icon: BitmapDescriptor.fromBytes(markerIcon),
+      // icon: _locationIcon,
+      position: positionOfMarkers[0],
+    ));
+    update();
 
     allPolyLine.add(Polyline(
         polylineId: PolylineId(deviceCurrentLocation.lat.toString()),
@@ -301,7 +276,6 @@ class DailyWorkMapCtrl extends GetxController {
         endCap: Cap.roundCap,
         points: test3));
     update();
-
   }
 
   void setnewPath(LatLng oldPoint, LatLng newPoint) async {
@@ -321,53 +295,6 @@ class DailyWorkMapCtrl extends GetxController {
     newPath.add(newPoint);
     update();
   }
-/*
-  void setGooglePolyLine() async {
-    for (var item in dailyWorkPoint.points) {
-      apiPoint.add(LatLng(double.parse(item.lat), double.parse(item.long)));
-    }
-    // List of coordinates to join
-    // Initializing PolylinePoints
-    PolylinePoints polylinePoints = PolylinePoints();
-
-    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-      "AIzaSyBGOAVKbeA0MiN6NfGm8Z0y5LtE7cgdCo4",
-      // Google Maps API Key
-      //origin
-      PointLatLng(
-        deviceCurrentLocation.currentLat,
-        deviceCurrentLocation.currentLong,
-      ),
-      //destination
-      PointLatLng(apiPoint.last.latitude, apiPoint.last.longitude),
-      //travelMOde
-      travelMode: TravelMode.walking,
-    );
-
-    if (result.points.isNotEmpty) {
-      for (var point in result.points) {
-        polylineCoordinates.add(LatLng(point.latitude, point.longitude));
-      }
-    } else {
-      dev.log("failed");
-    }
-
-    allPolyLine.add(Polyline(
-        polylineId: PolylineId(deviceCurrentLocation.long.toString()),
-        width: 5,
-        visible: true,
-        color: Colors.green,
-        consumeTapEvents: true,
-        startCap: Cap.roundCap,
-        endCap: Cap.roundCap,
-        points: polylineCoordinates));
-    update();
-  }
-*/
-  // void onCamMove(LatLng newPos) {
-  //   currentLocation = newPos;
-  //   update();
-  // }
 
   void setGooglePolyLine(List<LatLng> locations) async {
     // List of coordinates to join
@@ -382,7 +309,7 @@ class DailyWorkMapCtrl extends GetxController {
 
       travelMode: TravelMode.walking,
     );
-  
+
     if (result.points.isNotEmpty) {
       for (var point in result.points) {
         polylineCoordinates.add(LatLng(point.latitude, point.longitude));
@@ -393,7 +320,7 @@ class DailyWorkMapCtrl extends GetxController {
 
     allPolyLine.add(Polyline(
         polylineId: PolylineId(locations[0].latitude.toString()),
-        width:10,
+        width: 10,
         visible: true,
         color: Colors.yellow,
         consumeTapEvents: true,
@@ -403,183 +330,82 @@ class DailyWorkMapCtrl extends GetxController {
     update();
   }
 
-  void setMark(double lat,double long)async{
+  void setMark(double lat, double long) async {
     final Uint8List currentIcon =
-        await getBytesFromAsset('assets/images/car.png', 100);
+        await getBytesFromAsset('assets/images/car.png', 160);
     allMarkers.remove(allMarkers.last);
-     allMarkers.add(Marker(
+    allMarkers.add(Marker(
       markerId: MarkerId("$lat$long"),
       icon: BitmapDescriptor.fromBytes(currentIcon),
-      
-      // icon: _locationIcon,
-      position : LatLng(lat, long),
-      infoWindow: InfoWindow(
-          title: "Info", snippet: "$lat , $long"),
-     ));
-   
 
+      // icon: _locationIcon,
+      position: LatLng(lat, long),
+      infoWindow: InfoWindow(title: "Info", snippet: "$lat , $long"),
+    ));
+  }
+
+  void startMission(BuildContext context) async {
+    //<<<<<<<<<<<<< check if car in Start or not >>>>>>>>>>>>
+    //<<<<<<<<<<<< if true draw google direction to Start point >>>>>>>>>>>>>>>>
+    if (calculateDistance(test3[0].latitude, test3[0].longitude,
+            deviceCurrentLocation.lat, deviceCurrentLocation.long) >
+        50.0) {
+      Get.defaultDialog(
+        title: "ملحوظة",
+        content: const Text(
+          "لا يمكن بدء المهمة لانك بعيد عن المسار ",
+        ),
+        confirm: InkWell(
+          onTap: () {
+            setGooglePolyLine([
+              LatLng(deviceCurrentLocation.lat ?? 0.0,
+                  deviceCurrentLocation.long ?? 0.0),
+              LatLng(
+                test3[0].latitude,
+                test3[0].longitude,
+              )
+            ]);
+            Get.back();
+            deviceCurrentLocation.location.onLocationChanged.listen((event) {
+              setMark(event.latitude ?? 0.0, event.longitude ?? 0.0);
+            });
+          },
+          child: Container(
+              decoration: BoxDecoration(
+                  color: lightPrimaryColor,
+                  borderRadius: BorderRadius.circular(10)),
+              alignment: Alignment.center,
+              width: MediaQuery.of(context).size.width / 2.5,
+              height: MediaQuery.of(context).size.height / 20,
+              child: const Text(
+                "إذهب الى بداية المسار",
+                style: TextStyle(color: Colors.white, fontSize: 17),
+              )),
+        ),
+      );
+      //<<<<<<<<<<<< if false start Gis Directions with voices >>>>>>>>>>>>>>>>
+    } else {
+      await animateCamera(await deviceCurrentLocation.location.getLocation());
+
+      deviceCurrentLocation.location.onLocationChanged.listen((event) {
+        setMark(event.latitude ?? 0.0, event.longitude ?? 0.0);
+        for (var i = 0; i < test3.length; i++) {
+          if ((event.speed ?? 0.0) > 2000.0) {
+            audio.playerAudioSlowSpeed();
+          } else if (test3[i].latitude == event.latitude &&
+              test3[i].longitude == event.longitude) {
+            if (voices[i] == "بداية الرحلة") {
+              audio.playAudioStart();
+            } else if (voices[i] == "خط مستقيم") {
+              audio.playAudioStraight();
+            } else if (voices[i] == "اليمين") {
+              audio.playerAudioRight();
+            } else if (voices[i] == "الوجهه") {
+              audio.playerAudioStopHere();
+            }
+          }
+        }
+      });
+    }
   }
 }
-
-/*
-//<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
-
-
-
-
-
-
-  void setMarkers(List<LatLng> locations) {
-    AllNearstPointsController nearstPoint = Get.put(AllNearstPointsController(
-        deviceCurrentLocation.currentLat ?? 0.0,
-        deviceCurrentLocation.currentLong ?? 0.0));
-
-    for (var i = 0; i < locations.length; i++) {
-      marks.add(Marker(
-          markerId: MarkerId(locations[i].toString()),
-          icon: BitmapDescriptor.defaultMarkerWithHue(10),
-          position: locations[i],
-          onTap: () {
-            if (calculateDistance(
-                    deviceCurrentLocation.currentLat,
-                    deviceCurrentLocation.currentLong,
-                    double.parse(nearstPoint.point[i].lat),
-                    double.parse(nearstPoint.point[i].long)) <
-                200.0) {
-              Get.defaultDialog(
-                title: "معلومات عن البؤرة ",
-                titleStyle: const TextStyle(
-                    color: primaryColor, fontWeight: FontWeight.bold),
-                middleText:
-                    "انت على بعد مسافة ${calculateDistance(deviceCurrentLocation.currentLat, deviceCurrentLocation.currentLong, double.parse(nearstPoint.point[i].lat), double.parse(nearstPoint.point[i].long))} متر من البؤرة ",
-                cancel: InkWell(
-                  onTap: () {
-                    Get.to(VisitEpicenterScreen());
-                  },
-                  child: Container(
-                      alignment: Alignment.center,
-                      width: 135,
-                      height: 40,
-                      decoration: BoxDecoration(
-                          color: lightPrimaryColor,
-                          borderRadius: BorderRadius.circular(30)),
-                      child: const Text(
-                        "إضافة زيارة بؤرة ",
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      )),
-                ),
-              );
-            } else {
-              Get.defaultDialog(
-                title: "معلومات عن البؤرة ",
-                titleStyle: const TextStyle(
-                    color: primaryColor, fontWeight: FontWeight.bold),
-                middleText: """
-  اسم البؤرة : ${nearstPoint.point[i].name}
-  نوع الحشرة :  ${nearstPoint.point[i].insectName}
-  التاريخ : ${DateTime.parse(nearstPoint.point[i].date)}
-  إسم الحي :  ${nearstPoint.point[i].districtName}
-  إسم البلدية :  ${nearstPoint.point[i].cityName}
-  الملاحظات :  ${nearstPoint.point[i].recommendation}
- 
-                           """,
-                confirm: InkWell(
-                  onTap: () {
-                    dev.log("hi");
-                    Get.back();
-                    setPolyLine([
-                      LatLng(double.parse(nearstPoint.point[i].lat),
-                          double.parse(nearstPoint.point[i].long)),
-                      LatLng(
-                        deviceCurrentLocation.currentLat,
-                        deviceCurrentLocation.currentLong,
-                      )
-                    ]);
-                  },
-                  child: Container(
-                      alignment: Alignment.center,
-                      width: 95,
-                      height: 40,
-                      decoration: BoxDecoration(
-                          color: primaryColor,
-                          borderRadius: BorderRadius.circular(30)),
-                      child: const Text(
-                        " الذهاب إلى الموقع  ",
-                        style: TextStyle(
-                          fontSize: 11,
-                          color: Colors.white,
-                        ),
-                      )),
-                ),
-                cancel: InkWell(
-                  onTap: () {
-                    Get.to(VisitEpicenterScreen());
-                  },
-                  child: Container(
-                      alignment: Alignment.center,
-                      width: 90,
-                      height: 40,
-                      decoration: BoxDecoration(
-                          color: lightPrimaryColor,
-                          borderRadius: BorderRadius.circular(30)),
-                      child: const Text(
-                        "إضافة زيارة للبؤرة ",
-                        style: TextStyle(
-                          fontSize: 11,
-                          color: Colors.white,
-                        ),
-                      )),
-                ),
-
-                // confirm:
-              );
-            }
-          }));
-      update();
-    }
-  }
-
-  void setPolyLine(List<LatLng> locations) async {
-    // List of coordinates to join
-    // Initializing PolylinePoints
-    PolylinePoints polylinePoints = PolylinePoints();
-
-    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-      "AIzaSyBGOAVKbeA0MiN6NfGm8Z0y5LtE7cgdCo4",
-      PointLatLng(
-          locations[1].latitude, locations[1].longitude), // Google Maps API Key
-      PointLatLng(locations[0].latitude, locations[0].longitude),
-
-      travelMode: TravelMode.walking,
-    );
-  
-    if (result.points.isNotEmpty) {
-      for (var point in result.points) {
-        polylineCoordinates.add(LatLng(point.latitude, point.longitude));
-      }
-    } else {
-      dev.log("result failed ");
-    }
-
-    polyline.add(Polyline(
-        polylineId: PolylineId(locations[0].latitude.toString()),
-        width: 5,
-        visible: true,
-        color: Colors.red,
-        consumeTapEvents: true,
-        startCap: Cap.roundCap,
-        endCap: Cap.roundCap,
-        points: polylineCoordinates));
-    update();
-  }
-
-
-
-
-
-//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
-
-
- */
