@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:get/get.dart';
+//import 'package:google_directions_api/google_directions_api.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:prepare/core/controller/daily_controller/daily_work_audio_controller.dart';
@@ -107,28 +108,24 @@ class DailyWorkMapCtrl extends GetxController {
   ];
 
   List<Map<String, dynamic>> magdyPoints = [
-    {
-      "lat": 30.08621996021523,
-      "long": 31.341046513569676,
-      "disc": "بداية الرحلة"
-    },
-    {"lat": 30.087396, "long": 31.341235, "disc": "خط مستقيم"},
-    {"lat": 30.087948, "long": 31.341331, "disc": "خط مستقيم"},
-    {"lat": 30.088524, "long": 31.341417, "disc": "خط مستقيم"},
-    {"lat": 30.089429, "long": 31.341535, "disc": "خط مستقيم"},
-    {"lat": 30.089884, "long": 31.341605, "disc": "خط مستقيم"},
-    {"lat": 30.090338, "long": 31.341701, "disc": "اليمين"},
-    {"lat": 30.090431, "long": 31.341782, "disc": "اليمين"},
-    {"lat": 30.090427, "long": 31.341878, "disc": "اليمين"},
-    {"lat": 30.090385, "long": 31.341948, "disc": "خط مستقيم"},
-    {"lat": 30.089703, "long": 31.342854, "disc": "خط مستقيم"},
-    {"lat": 30.088970, "long": 31.343836, "disc": "اليمين"},
-    {"lat": 30.088826, "long": 31.343906, "disc": "اليمين "},
-    {"lat": 30.088584, "long": 31.343707, "disc": "خط مستقيم"},
-    {"lat": 30.088343, "long": 31.343579, "disc": "اليمين "},
-    {"lat": 30.088450, "long": 31.343316, "disc": "خط مستقيم"},
-    {"lat": 30.089414, "long": 31.342037, "disc": "خط مستقيم"},
-    {"lat": 30.089718, "long": 31.341641, "disc": "الوجهه"},
+    {"lat": 30.08621996021523,"long": 31.341046513569676,"disc": "start mission"},
+    {"lat": 30.087396, "long": 31.341235, "disc": "straight"},
+    {"lat": 30.087948, "long": 31.341331, "disc": "straight"},
+    {"lat": 30.088524, "long": 31.341417, "disc": "straight"},
+    {"lat": 30.089429, "long": 31.341535, "disc": "straight"},
+    {"lat": 30.089884, "long": 31.341605, "disc": "straight"},
+    {"lat": 30.090338, "long": 31.341701, "disc": "right"},
+    {"lat": 30.090431, "long": 31.341782, "disc": "right"},
+    {"lat": 30.090427, "long": 31.341878, "disc": "right"},
+    {"lat": 30.090385, "long": 31.341948, "disc": "straight"},
+    {"lat": 30.089703, "long": 31.342854, "disc": "straight"},
+    {"lat": 30.088970, "long": 31.343836, "disc": "right"},
+    {"lat": 30.088826, "long": 31.343906, "disc": "right "},
+    {"lat": 30.088584, "long": 31.343707, "disc": "straight"},
+    {"lat": 30.088343, "long": 31.343579, "disc": "right "},
+    {"lat": 30.088450, "long": 31.343316, "disc": "straight"},
+    {"lat": 30.089414, "long": 31.342037, "disc": "straight"},
+    {"lat": 30.089718, "long": 31.341641, "disc": "distenation"},
   ];
 
   List<LatLng> test3 = [];
@@ -212,21 +209,29 @@ class DailyWorkMapCtrl extends GetxController {
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
 
   void isTaskDone() {
-    for (var i = 0; i < positionOfMarkers.length; i++) {
+    deviceCurrentLocation.location.onLocationChanged.listen((event) { 
+       for (var i = 0; i < positionOfMarkers.length; i++) {
       if (calculateDistance(
-              deviceCurrentLocation.lat,
-              deviceCurrentLocation.long,
+              event.latitude,
+              event.longitude,
               positionOfMarkers[i].latitude,
               positionOfMarkers[i].longitude) <
-          50.0) {
-        Get.snackbar("ملحوظة ", "تم حل المشكلة الموجودة فى الموقع رقم $i");
-        allMarkers
-            .removeWhere((element) => element.markerId.value == i.toString());
+          250.0) {
+            for (var element in allMarkers) {
+              if(element.markerId.value == i.toString()){
+                 Get.snackbar("ملحوظة ", "تم حل المشكلة الموجودة فى الموقع رقم $i",backgroundColor: Colors.white);
+              }
+             }
+        
+
+        allMarkers.removeWhere((element) => element.markerId.value == i.toString());
         update();
       } else {
         continue;
       }
     }
+    });
+   
   }
 
   Future<Uint8List> getBytesFromAsset(String path, int width) async {
@@ -267,7 +272,7 @@ class DailyWorkMapCtrl extends GetxController {
     update();
 
     allPolyLine.add(Polyline(
-        polylineId: PolylineId(deviceCurrentLocation.lat.toString()),
+        polylineId: PolylineId("${deviceCurrentLocation.lat}${deviceCurrentLocation.long}"),
         width: 6,
         visible: true,
         color: Colors.red,
@@ -320,7 +325,7 @@ class DailyWorkMapCtrl extends GetxController {
 
     allPolyLine.add(Polyline(
         polylineId: PolylineId(locations[0].latitude.toString()),
-        width: 10,
+        width: 6,
         visible: true,
         color: Colors.yellow,
         consumeTapEvents: true,
@@ -332,7 +337,7 @@ class DailyWorkMapCtrl extends GetxController {
 
   void setMark(double lat, double long) async {
     final Uint8List currentIcon =
-        await getBytesFromAsset('assets/images/car.png', 160);
+        await getBytesFromAsset('assets/images/car.png', 100);
     allMarkers.remove(allMarkers.last);
     allMarkers.add(Marker(
       markerId: MarkerId("$lat$long"),
@@ -349,7 +354,7 @@ class DailyWorkMapCtrl extends GetxController {
     //<<<<<<<<<<<< if true draw google direction to Start point >>>>>>>>>>>>>>>>
     if (calculateDistance(test3[0].latitude, test3[0].longitude,
             deviceCurrentLocation.lat, deviceCurrentLocation.long) >
-        50.0) {
+        5000.0) {
       Get.defaultDialog(
         title: "ملحوظة",
         content: const Text(
@@ -387,21 +392,28 @@ class DailyWorkMapCtrl extends GetxController {
     } else {
       await animateCamera(await deviceCurrentLocation.location.getLocation());
 
-      deviceCurrentLocation.location.onLocationChanged.listen((event) {
+      deviceCurrentLocation.location.onLocationChanged.listen((event) async {
         setMark(event.latitude ?? 0.0, event.longitude ?? 0.0);
+        animateCamera(event);
         for (var i = 0; i < test3.length; i++) {
-          if ((event.speed ?? 0.0) > 2000.0) {
-            audio.playerAudioSlowSpeed();
-          } else if (test3[i].latitude == event.latitude &&
-              test3[i].longitude == event.longitude) {
-            if (voices[i] == "بداية الرحلة") {
-              audio.playAudioStart();
-            } else if (voices[i] == "خط مستقيم") {
-              audio.playAudioStraight();
-            } else if (voices[i] == "اليمين") {
-              audio.playerAudioRight();
-            } else if (voices[i] == "الوجهه") {
-              audio.playerAudioStopHere();
+          if ((event.speed ?? 0.0) > 10.0) {
+            await audio.playerAudioSlowSpeed();
+            dev.log("slow speed");
+          } else if (
+            calculateDistance(test3[i].latitude, test3[i].longitude,  event.latitude , event.longitude)<=20.0
+           ) {
+            if (voices[i] == "start mission") {
+               dev.log("start mission");
+              await audio.playAudioStart();
+            } else if (voices[i] == "straight") {
+               dev.log("straight");
+              await audio.playAudioStraight();
+            } else if (voices[i] == "right") {
+               dev.log("right");
+              await audio.playerAudioRight();
+            } else if (voices[i] == "distenation") {
+               dev.log("distenation");
+              await audio.playerAudioStopHere();
             }
           }
         }

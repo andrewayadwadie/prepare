@@ -58,11 +58,9 @@ class DailyWorkScreen extends StatelessWidget {
                             GoogleMap(
                               initialCameraPosition: mapCtrl.initialCamPos,
                               mapType: MapType.normal,
-                              // onTap: (LatLng newPosition)=> mapCtrl.setGooglePolyLine(),
-
                               markers: mapCtrl.allMarkers,
                               polylines: mapCtrl.allPolyLine,
-                              myLocationEnabled: true,
+                              myLocationEnabled: false,
                               myLocationButtonEnabled: true,
                               onMapCreated: (GoogleMapController controller) {
                                 mapCtrl.compeleteController
@@ -118,14 +116,25 @@ class DailyWorkScreen extends StatelessWidget {
                                         }
                                       });
                                     }
+                                    // else if(mapCtrl.calculateDistance(
+                                    //        mapCtrl.test3[0].latitude,mapCtrl. test3[0].longitude,
+                                    //         event.latitude,
+                                    //         event.longitude) >
+                                    //    200){
+                                    //      mapCtrl.startMission(context);
+                                    //      log("start mission ");
+                                    // }
                                   });
                                 });
                               },
-                              onCameraMove: (CameraPosition newPos) {},
+                              
+                              onCameraMove: (CameraPosition newPos) {
+                
+                              },
                             ),
                             Positioned(
                                 right: MediaQuery.of(context).size.width / 4.5,
-                                top: MediaQuery.of(context).size.height / 30,
+                                bottom: MediaQuery.of(context).size.height / 30,
                                 child: InkWell(
                                   splashColor: primaryColor,
                                   onTap: () {
@@ -143,7 +152,7 @@ class DailyWorkScreen extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     child: const Text(
-                                      "إبدأ الرحلة !",
+                                      "إبدأ المهمة !",
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: Colors.white,
@@ -151,12 +160,35 @@ class DailyWorkScreen extends StatelessWidget {
                                       ),
                                     ),
                                   ),
+                                )),
+                            Positioned(
+                                right: MediaQuery.of(context).size.width /1.3,
+                                bottom: MediaQuery.of(context).size.height / 30,
+                                child: InkWell(
+                                  splashColor: primaryColor,
+                                  onTap: () {
+                                Get.back();
+                                     
+                                  },
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    width:
+                                        MediaQuery.of(context).size.width /6,
+                                    height:
+                                        MediaQuery.of(context).size.height / 15,
+                                    decoration: BoxDecoration(
+                                      color: lightPrimaryColor,
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child:const Icon(Icons.arrow_forward_ios,color: Colors.white,size: 30,)
+                                  ),
                                 ))
                           ],
                         );
                       });
                 })),
       ),
+     /* 
       floatingActionButton: GetBuilder<DailyWorkMapCtrl>(
           init: DailyWorkMapCtrl(),
           builder: (mapCtrl) {
@@ -215,7 +247,7 @@ class DailyWorkScreen extends StatelessWidget {
                   );
                 });
           }),
-
+*/
       /// get my location
     );
   }
