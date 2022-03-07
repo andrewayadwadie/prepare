@@ -337,7 +337,7 @@ class DailyWorkMapCtrl extends GetxController {
 
   void setMark(double lat, double long) async {
     final Uint8List currentIcon =
-        await getBytesFromAsset('assets/images/car.png', 100);
+        await getBytesFromAsset('assets/images/circle.png', 120);
     allMarkers.remove(allMarkers.last);
     allMarkers.add(Marker(
       markerId: MarkerId("$lat$long"),
