@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_mapbox_navigation/library.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -12,7 +11,6 @@ import 'package:prepare/core/controller/internet_connectivity_controller.dart';
 import 'package:prepare/utils/style.dart';
 import 'package:prepare/view/auth/login_screen.dart';
 import 'package:prepare/view/daily_work/service/dailty_work_service.dart';
-import 'package:prepare/view/mapbox/controller/mapbox_controller.dart';
 
 // ignore: must_be_immutable
 class DailyWorkScreen extends StatelessWidget {
@@ -132,6 +130,7 @@ class DailyWorkScreen extends StatelessWidget {
                 
                               },
                             ),
+                          if(mapCtrl.testButtom)
                             Positioned(
                                 right: MediaQuery.of(context).size.width / 4.5,
                                 bottom: MediaQuery.of(context).size.height / 30,
@@ -139,7 +138,7 @@ class DailyWorkScreen extends StatelessWidget {
                                   splashColor: primaryColor,
                                   onTap: () {
                                     mapCtrl.startMission(context);
-                                    audio.playAudioStart();
+                                  //  audio.playAudioStart();
                                   },
                                   child: Container(
                                     alignment: Alignment.center,
@@ -161,6 +160,7 @@ class DailyWorkScreen extends StatelessWidget {
                                     ),
                                   ),
                                 )),
+                           /*
                             Positioned(
                                 right: MediaQuery.of(context).size.width /1.3,
                                 bottom: MediaQuery.of(context).size.height / 30,
@@ -183,6 +183,7 @@ class DailyWorkScreen extends StatelessWidget {
                                     child:const Icon(Icons.arrow_forward_ios,color: Colors.white,size: 30,)
                                   ),
                                 ))
+                            */
                           ],
                         );
                       });

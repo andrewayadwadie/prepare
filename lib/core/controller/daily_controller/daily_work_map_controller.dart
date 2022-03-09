@@ -106,9 +106,13 @@ class DailyWorkMapCtrl extends GetxController {
     LatLng(30.086637713450653, 31.341097750269967),
     LatLng(30.086219961655274, 31.34103338063571),
   ];
-
+  bool testButtom = true;
   List<Map<String, dynamic>> magdyPoints = [
-    {"lat": 30.08621996021523,"long": 31.341046513569676,"disc": "start mission"},
+    {
+      "lat": 30.08621996021523,
+      "long": 31.341046513569676,
+      "disc": "start mission"
+    },
     {"lat": 30.087396, "long": 31.341235, "disc": "straight"},
     {"lat": 30.087948, "long": 31.341331, "disc": "straight"},
     {"lat": 30.088524, "long": 31.341417, "disc": "straight"},
@@ -209,29 +213,26 @@ class DailyWorkMapCtrl extends GetxController {
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
 
   void isTaskDone() {
-    deviceCurrentLocation.location.onLocationChanged.listen((event) { 
-       for (var i = 0; i < positionOfMarkers.length; i++) {
-      if (calculateDistance(
-              event.latitude,
-              event.longitude,
-              positionOfMarkers[i].latitude,
-              positionOfMarkers[i].longitude) <
-          250.0) {
-            for (var element in allMarkers) {
-              if(element.markerId.value == i.toString()){
-                 Get.snackbar("ملحوظة ", "تم حل المشكلة الموجودة فى الموقع رقم $i",backgroundColor: Colors.white);
-              }
-             }
-        
+    deviceCurrentLocation.location.onLocationChanged.listen((event) {
+      for (var i = 0; i < positionOfMarkers.length; i++) {
+        if (calculateDistance(event.latitude, event.longitude,
+                positionOfMarkers[i].latitude, positionOfMarkers[i].longitude) <
+            50.0) {
+          for (var element in allMarkers) {
+            if (element.markerId.value == i.toString()) {
+              Get.snackbar("ملحوظة ", "تم حل المشكلة الموجودة فى الموقع رقم $i",
+                  backgroundColor: Colors.white);
+            }
+          }
 
-        allMarkers.removeWhere((element) => element.markerId.value == i.toString());
-        update();
-      } else {
-        continue;
+          allMarkers
+              .removeWhere((element) => element.markerId.value == i.toString());
+          update();
+        } else {
+          continue;
+        }
       }
-    }
     });
-   
   }
 
   Future<Uint8List> getBytesFromAsset(String path, int width) async {
@@ -272,7 +273,8 @@ class DailyWorkMapCtrl extends GetxController {
     update();
 
     allPolyLine.add(Polyline(
-        polylineId: PolylineId("${deviceCurrentLocation.lat}${deviceCurrentLocation.long}"),
+        polylineId: PolylineId(
+            "${deviceCurrentLocation.lat}${deviceCurrentLocation.long}"),
         width: 6,
         visible: true,
         color: Colors.red,
@@ -390,31 +392,32 @@ class DailyWorkMapCtrl extends GetxController {
       );
       //<<<<<<<<<<<< if false start Gis Directions with voices >>>>>>>>>>>>>>>>
     } else {
+      testButtom = false;
       await animateCamera(await deviceCurrentLocation.location.getLocation());
-
-      deviceCurrentLocation.location.onLocationChanged.listen((event) async {
+      deviceCurrentLocation.location.onLocationChanged.listen((event) {
         setMark(event.latitude ?? 0.0, event.longitude ?? 0.0);
         animateCamera(event);
         for (var i = 0; i < test3.length; i++) {
           if ((event.speed ?? 0.0) > 10.0) {
-            await audio.playerAudioSlowSpeed();
+            audio.playerAudioSlowSpeed();
             dev.log("slow speed");
-          } else if (
-            calculateDistance(test3[i].latitude, test3[i].longitude,  event.latitude , event.longitude)<=20.0
-           ) {
+          } else if (calculateDistance(test3[i].latitude, test3[i].longitude,
+                  event.latitude, event.longitude) <=
+              20.0) {
             if (voices[i] == "start mission") {
-               dev.log("start mission");
-              await audio.playAudioStart();
+              dev.log("start mission");
+              audio.playAudioStart();
             } else if (voices[i] == "straight") {
-               dev.log("straight");
-              await audio.playAudioStraight();
+              dev.log("straight");
+              audio.playAudioStraight();
             } else if (voices[i] == "right") {
-               dev.log("right");
-              await audio.playerAudioRight();
-            } else if (voices[i] == "distenation") {
-               dev.log("distenation");
-              await audio.playerAudioStopHere();
+              dev.log("right");
+              audio.playerAudioRight();
             }
+            //  else if (voices[i] == "distenation") {
+            //   await audio.playerAudioStopHere();
+            //   break;
+            // }
           }
         }
       });

@@ -3,12 +3,13 @@ import 'dart:developer';
 import 'package:get/get.dart';
 
 class Evaluate extends GetxController {
-  // @override
-  // void onInit() {
-  //   super.onInit();
-  //   evaluateList.length = evaluateList.length + 1;
-  // }
-
+  /*
+  @override
+  void onInit() {
+    super.onInit();
+    evaluateList.length = evaluateList.length + 1;
+  }
+*/
   List evaluateList = [].obs;
   // List<String> item = [];
   // List<String> recommendation = [];
@@ -27,7 +28,9 @@ class Evaluate extends GetxController {
 
   void decreaseList(index) {
     log("index from controller $index");
-    evaluateList.removeAt(index);
+ 
+
+    evaluateList.removeWhere((element) => element==index+1);
     update();
   }
 }
