@@ -228,8 +228,8 @@ class EpiCenterScreen extends StatelessWidget {
                                                               } else if (cityCtrl
                                                                       .cityText
                                                                       .value ==
-                                                                  "إختر إسم البلدية ") {
-                                                                toast("برجاء اختيار إسم البلدية",
+                                                                  "البلدية") {
+                                                                toast("برجاء اختيار البلدية",
                                                                     duration: const Duration(
                                                                         seconds:
                                                                             2));
@@ -237,15 +237,15 @@ class EpiCenterScreen extends StatelessWidget {
                                                               } else if (disCtrl
                                                                       .districtText
                                                                       .value ==
-                                                                  "إختر إسم الحي ") {
-                                                                toast("برجاء اختيار إسم الحي",
+                                                                  "الحي") {
+                                                                toast("برجاء اختيار الحي",
                                                                     duration: const Duration(
                                                                         seconds:
                                                                             2));
                                                                 clk.changeClick();
                                                               } else if (insectCtrl
                                                                       .insectsText ==
-                                                                  "إختر نوع الحشرة") {
+                                                                  "نوع الحشرة") {
                                                                 toast("برجاء اختيار  نوع الحشرة ",
                                                                     duration: const Duration(
                                                                         seconds:

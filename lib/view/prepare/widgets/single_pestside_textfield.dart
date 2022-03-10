@@ -55,7 +55,7 @@ class SinglePestSideTextField extends StatelessWidget {
                       ),
                   onSaved: (val) {
                     controller.getpestsidesCount(int.parse(val == "" || val ==null  ? "0":val));
-                    controller.addPestSideObject(id, int.parse(val??""));
+                    controller.addPestSideObject(id, int.parse(val == "" || val ==null  ? "0":val));
                   },
                   // enabledBorder: InputBorder.none,
                 ),

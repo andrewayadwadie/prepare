@@ -249,18 +249,18 @@ class AnimalScreen extends StatelessWidget {
                                                                       } else if (cityCtrl
                                                                               .cityText
                                                                               .value ==
-                                                                          "إختر إسم البلدية") {
+                                                                          "البلدية") {
                                                                         toast(
-                                                                            "برجاء اختيار إسم البلدية",
+                                                                            "برجاء اختيار البلدية",
                                                                             duration:
                                                                                 const Duration(seconds: 2));
                                                                         clk.changeClick();
                                                                       } else if (disCtrl
                                                                               .districtText
                                                                               .value ==
-                                                                          "إختر إسم الحي ") {
+                                                                          "الحي") {
                                                                         toast(
-                                                                            "برجاء اختيار إسم الحي",
+                                                                            "برجاء اختيار الحي",
                                                                             duration:
                                                                                 const Duration(seconds: 2));
                                                                         clk.changeClick();

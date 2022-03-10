@@ -12,7 +12,7 @@ class RecommendationWidget extends StatelessWidget {
         height: MediaQuery.of(context).size.height / 13,
         child: TextFormField(
           cursorHeight: 20,
-          maxLines: 3,
+          maxLines: 4,
           keyboardType: TextInputType.text,
           decoration: InputDecoration(
             //========error================

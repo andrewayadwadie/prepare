@@ -12,7 +12,7 @@ class AllFlyTypeController extends GetxController {
     super.onInit();
   }
 
-  String flyTypeText = "إختر نوع الموقع";
+  String flyTypeText = "نوع الموقع";
 
   int flyTypeId = 0;
 

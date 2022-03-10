@@ -78,11 +78,10 @@ class BugDiscoverMapCtrl extends GetxController {
 //<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
 
   void setMarkers(List<LatLng> locations) {
-    dev.log("test location : ${locations.length}");
     NearstBugDiscoverVisit nearstPoint = Get.put(NearstBugDiscoverVisit(
         deviceCurrentLocation.currentLat ?? 0.0,
         deviceCurrentLocation.currentLong ?? 0.0));
-    dev.log("test point : ${nearstPoint.point.length}");
+
     for (var i = 0; i < locations.length; i++) {
       marks.add(Marker(
           markerId: MarkerId(locations[i].toString()),
@@ -103,7 +102,7 @@ class BugDiscoverMapCtrl extends GetxController {
                     "انت على بعد مسافة ${calculateDistance(deviceCurrentLocation.currentLat, deviceCurrentLocation.currentLong, double.parse(nearstPoint.point[i].lat), double.parse(nearstPoint.point[i].long))} متر من البؤرة ",
                 cancel: InkWell(
                   onTap: () {
-                    Get.to(VisitBugDiscoverScreen(id:nearstPoint.point[i].id ));
+                    Get.to(VisitBugDiscoverScreen(id: nearstPoint.point[i].id));
                   },
                   child: Container(
                       alignment: Alignment.center,
@@ -135,14 +134,13 @@ class BugDiscoverMapCtrl extends GetxController {
   ph : ${nearstPoint.point[i].ph}
   نوع الاستكشاف : ${nearstPoint.point[i].flyTypeName}
   نوع الملاحظة : ${nearstPoint.point[i].flyNoteName}
-  نوع الغينة : ${nearstPoint.point[i].flySampleTypeName}
+  نوع العينة : ${nearstPoint.point[i].flySampleTypeName}
   التاريخ : ${DateFormat('yyyy-MM-dd : kk:mm').format(DateTime.parse(nearstPoint.point[i].date))}
   الملاحظات :  ${nearstPoint.point[i].recommendation}
  
                            """,
                 confirm: InkWell(
                   onTap: () {
-                    dev.log("hi");
                     Get.back();
                     setPolyLine([
                       LatLng(double.parse(nearstPoint.point[i].lat),
@@ -170,7 +168,9 @@ class BugDiscoverMapCtrl extends GetxController {
                 ),
                 cancel: InkWell(
                   onTap: () {
-                    Get.to(VisitBugDiscoverScreen(id:nearstPoint.point[i].id ,));
+                    Get.to(VisitBugDiscoverScreen(
+                      id: nearstPoint.point[i].id,
+                    ));
                   },
                   child: Container(
                       alignment: Alignment.center,

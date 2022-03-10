@@ -12,7 +12,7 @@ class AllFlyNoteController extends GetxController {
     super.onInit();
   }
 
-  String flyNoteText = "إختر نوع الملاحظة";
+  String flyNoteText = "نوع الملاحظة";
 
   int flyNoteId = 0;
 

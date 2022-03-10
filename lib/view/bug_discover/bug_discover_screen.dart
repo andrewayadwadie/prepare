@@ -331,17 +331,17 @@ class BugDiscoverScreen extends StatelessWidget {
                                                                                         } else if (recommendation == "") {
                                                                                           toast("برجاء إدخال ملاحظات", duration: const Duration(seconds: 2));
                                                                                           clk.changeClick();
-                                                                                        } else if (flyType.flyTypeText == "إختر نوع الموقع") {
+                                                                                        } else if (flyType.flyTypeText == "نوع الموقع") {
                                                                                           toast("برجاء اختيار نوع الموقع", duration: const Duration(seconds: 2));
                                                                                           clk.changeClick();
-                                                                                        } else if (flyNoteCtrl.flyNoteText == "إختر نوع الملاحظة") {
+                                                                                        } else if (flyNoteCtrl.flyNoteText == "نوع الملاحظة") {
                                                                                           toast("برجاء اختيار نوع الملاحظة", duration: const Duration(seconds: 2));
                                                                                           clk.changeClick();
-                                                                                        } else if (sampleCtrl.flySampleText == "إختر نوع العينة ") {
+                                                                                        } else if (sampleCtrl.flySampleText == "نوع العينة") {
                                                                                           toast("برجاء اختيار نوع العينة", duration: const Duration(seconds: 2));
                                                                                           clk.changeClick();
-                                                                                        } else if (cityCtrl.cityText.value == "إختر إسم البلدية ") {
-                                                                                          toast("برجاء اختيار إسم البلدية", duration: const Duration(seconds: 2));
+                                                                                        } else if (cityCtrl.cityText.value == "البلدية") {
+                                                                                          toast("برجاء اختيار البلدية", duration: const Duration(seconds: 2));
                                                                                           clk.changeClick();
                                                                                         } else if (code.bugDiscoverCode.value == "") {
                                                                                           toast("عذراً لا يوجد كود ", duration: const Duration(seconds: 2));
@@ -349,23 +349,7 @@ class BugDiscoverScreen extends StatelessWidget {
                                                                                         } else {
                                                                                           net.checkInternet().then((val) {
                                                                                             if (val) {
-                                                                                              log("districtId: ${disCtrl.districtId}");
-                                                                                              log("flyNoteId: ${flyNoteCtrl.flyNoteId}");
-                                                                                              log("flySampleTypeId: ${sampleCtrl.flySampleId}");
-                                                                                              log(" flyTypeId:${flyType.flyTypeId}");
-                                                                                              log("  humidity:$humidity");
-                                                                                              log(" imge:${imgCtrl.image}");
-                                                                                              log(" imge2: ${imgCtrl.image2}");
-                                                                                              log("lat: ${locationCtrl.currentLat}");
-                                                                                              log("long:${locationCtrl.currentLong}");
-                                                                                              log(" ph:$ph");
-                                                                                              log(" recommendation: $recommendation");
-                                                                                              log("street: $street");
-                                                                                              log(" temperature: $temperature");
-                                                                                              log("waving: $waving");
-                                                                                              log(" windSpeed: $windspeed");
-                                                                                              log("code: ${code.bugDiscoverCode}");
-
+                                                                                  
                                                                                               BugDiscoverServices.sendFormData(
                                                                                                       districtId: disCtrl.districtId, // district
                                                                                                       flyNoteId: flyNoteCtrl.flyNoteId, // type of recommendation

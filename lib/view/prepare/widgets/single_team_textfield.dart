@@ -66,7 +66,7 @@ class SingleTextFieldWidget extends StatelessWidget {
                     onSaved: (val) {
                       controller.getteamCount(
                           int.parse(val == "" || val == null ? "0" : val));
-                      controller.addTeamObject(id, int.parse(val ?? ""));
+                      controller.addTeamObject(id, int.parse(val == "" || val ==null  ? "0":val));
                     },
                     // enabledBorder: InputBorder.none,
                   ),

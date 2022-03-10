@@ -55,7 +55,7 @@ class SingleDevicesTextField extends StatelessWidget {
                       ),
                   onSaved: (val) {
                     controller.getdevicesCount(int.parse(val == "" || val ==null  ? "0":val));
-                    controller.addDevicesObject(id, int.parse(val??""));
+                    controller.addDevicesObject(id, int.parse(val == "" || val ==null  ? "0":val));
                   },
                   // enabledBorder: InputBorder.none,
                 ),

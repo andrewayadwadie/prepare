@@ -17,7 +17,7 @@ class AllDistrictController extends GetxController {
   //   super.onInit();
   // }
 
-  RxString districtText = "إختر إسم الحي ".obs;
+  RxString districtText = "الحي".obs;
   RxInt districtId = 0.obs;
 
   void onTapSelected(BuildContext con, int id, index) async {
@@ -34,7 +34,6 @@ class AllDistrictController extends GetxController {
     log("disId : $disId");
     BugDiscoverServices.getAllDistrict(disId).then((value) {
       district = value;
-      log("district return value is : $value");
       // _loading.value = false;
       update();
     });

@@ -37,7 +37,7 @@ final Function(String)? onChange;
             // =========label ===================================
             floatingLabelBehavior: FloatingLabelBehavior.auto,
             floatingLabelStyle: const TextStyle(fontSize: 11),
-            labelText: "إسم الشارع  ",
+            labelText: "الشارع",
             labelStyle: const TextStyle(
                 height: 1.1,
                 color: blackColor,

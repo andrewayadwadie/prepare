@@ -14,7 +14,7 @@ class AllInsectsController extends GetxController {
     super.onInit();
   }
 
-  String insectsText = "إختر نوع الحشرة";
+  String insectsText = "نوع الحشرة";
 
   int insectsId = 0;
 
