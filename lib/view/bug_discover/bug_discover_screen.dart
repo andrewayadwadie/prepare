@@ -1,4 +1,4 @@
-import 'dart:developer';
+ 
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cool_alert/cool_alert.dart';
@@ -72,7 +72,7 @@ class BugDiscoverScreen extends StatelessWidget {
                 
                 items: [
                   HawkFabMenuItem(
-                      label: 'إضافة الصورة الأولى',
+                      label: 'add first picture'.tr,
                       ontap: () {
                         imgCtrl.pickImageFromGallrey();
                       },
@@ -81,7 +81,7 @@ class BugDiscoverScreen extends StatelessWidget {
                       labelColor: lightPrimaryColor,
                       labelBackgroundColor: Colors.white),
                   HawkFabMenuItem(
-                      label: 'إلتقط الصورة الأولى ',
+                      label:'pick first picture'.tr,
                       ontap: () {
                         imgCtrl.pickImageFromCam();
                       },
@@ -90,7 +90,7 @@ class BugDiscoverScreen extends StatelessWidget {
                       labelColor: lightPrimaryColor,
                       labelBackgroundColor: Colors.white),
                   HawkFabMenuItem(
-                      label: 'إضافة الصورة الثانية',
+                      label:   'add second picture'.tr,
                       ontap: () {
                         imgCtrl.pickImageFromGallrey2();
                       },
@@ -99,7 +99,7 @@ class BugDiscoverScreen extends StatelessWidget {
                       labelColor: lightPrimaryColor,
                       labelBackgroundColor: Colors.white),
                   HawkFabMenuItem(
-                      label: 'إلتقط الصورة الثانية',
+                      label: 'pick second picture'.tr,
                       ontap: () {
                         imgCtrl.pickImageFromCam2();
                       },
@@ -119,9 +119,9 @@ class BugDiscoverScreen extends StatelessWidget {
                           SizedBox(
                             height: MediaQuery.of(context).size.height / 20,
                           ),
-                          const AutoSizeText(
-                            "الإستكشاف الحشري ",
-                            style: TextStyle(
+                           AutoSizeText(
+                           'Insect Exploration'.tr,
+                            style:const TextStyle(
                                 color: lightPrimaryColor,
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600),
@@ -141,7 +141,7 @@ class BugDiscoverScreen extends StatelessWidget {
                                 GetX<AllCitiesController>(
                                     init: AllCitiesController(),
                                     builder: (controller) {
-                                      log("controller.cityId.value : ${controller.cityId.value}");
+                                      
                                       return Column(
                                         children: [
                                           AllCitiesWidget(

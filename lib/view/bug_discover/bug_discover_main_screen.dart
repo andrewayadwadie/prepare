@@ -12,8 +12,8 @@ import 'bug_discover_screen.dart';
 class BugDiscoverMainScreen extends StatelessWidget {
   BugDiscoverMainScreen({Key? key}) : super(key: key);
   final List<String> titles = [
-    "إستكشاف حشري ",
-    "زيارة إستكشاف حشري",
+    'Add Insect Exploration'.tr,
+    'visit Insect Exploration'.tr,
   ];
   final List<Widget> screens = [
     BugDiscoverScreen(),
@@ -32,9 +32,9 @@ class BugDiscoverMainScreen extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height / 20,
             ),
-            const AutoSizeText(
-              "الإستكشاف الحشري ",
-              style: TextStyle(
+             AutoSizeText(
+              'Insect Exploration'.tr,
+              style:const TextStyle(
                   color: lightPrimaryColor,
                   fontSize: 18,
                   fontWeight: FontWeight.w600),

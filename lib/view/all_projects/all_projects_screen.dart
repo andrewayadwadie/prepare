@@ -28,9 +28,9 @@ class AllProjectsScreen extends StatelessWidget {
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 20,
                 ),
-                const Text(
-                  "قائمة المشاريع ",
-                  style: TextStyle(
+                  Text(
+                  'projects list'.tr,
+                  style:const TextStyle(
                       color: primaryColor,
                       fontSize: 20,
                       fontFamily: 'hanimation'),
@@ -175,11 +175,11 @@ class AllProjectsScreen extends StatelessWidget {
                                                                 BorderRadius
                                                                     .circular(
                                                                         9)),
-                                                        child: const Text(
-                                                          "تحضير",
+                                                        child:  Text(
+                                                          'prepare'.tr,
                                                           textAlign:
                                                               TextAlign.center,
-                                                          style: TextStyle(
+                                                          style:const TextStyle(
                                                               color:
                                                                   Colors.white,
                                                               fontFamily:
@@ -230,11 +230,11 @@ class AllProjectsScreen extends StatelessWidget {
                                                                 BorderRadius
                                                                     .circular(
                                                                         9)),
-                                                        child: const Text(
-                                                          "عرض التحضير",
+                                                        child:  Text(
+                                                          'display preparation'.tr,
                                                           textAlign:
                                                               TextAlign.center,
-                                                          style: TextStyle(
+                                                          style: const TextStyle(
                                                               color:
                                                                   Colors.white,
                                                               fontFamily:

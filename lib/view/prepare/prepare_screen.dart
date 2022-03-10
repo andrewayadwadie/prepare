@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
@@ -103,10 +102,10 @@ class PrepareScreen extends StatelessWidget {
                                         builder: (ctx) {
                                           return CarsDialogWidget(
                                               vehicalList: vehicles,
-                                              title: "إدخل عدد السيارات ",
-                                              label: "عدد السيارات",
+                                              title: 'enter vehicles count'.tr,
+                                              label: 'vehicles count'.tr,
                                               emptyErrorText:
-                                                  "برجاء إدخال عدد السيارات");
+                                                  'please enter vehicles count'.tr);
                                         });
                                   });
                                 },
@@ -116,7 +115,7 @@ class PrepareScreen extends StatelessWidget {
                                       carCount = controller
                                           .getCarsSum(controller.carsCount);
                                       return SingleListItem(
-                                          title: "عدد السيارات",
+                                          title:'vehicles count'.tr,
                                           count:
                                               "${controller.getCarsSum(controller.carsCount)}");
                                     })),
@@ -132,10 +131,10 @@ class PrepareScreen extends StatelessWidget {
                                           builder: (ctx) {
                                             return ToolsDialogWidget(
                                                 tools: tools,
-                                                title: "إدخل عدد الادوات",
-                                                label: "عدد الادوات",
+                                                title:'enter tools count'.tr,
+                                                label: 'tools count'.tr,
                                                 emptyErrorText:
-                                                    'برجاء إدخال عدد الادوات');
+                                                    'please enter tools count'.tr);
                                           });
                                     }
                                   });
@@ -146,7 +145,7 @@ class PrepareScreen extends StatelessWidget {
                                       toolCount = controller
                                           .getToolsSum(controller.toolsCount);
                                       return SingleListItem(
-                                          title: "عدد الأداوات",
+                                          title: 'tools count'.tr,
                                           count:
                                               "${controller.getToolsSum(controller.toolsCount)}");
                                     })),
@@ -162,10 +161,10 @@ class PrepareScreen extends StatelessWidget {
                                           builder: (ctx) {
                                             return DevicesDialogWidget(
                                                 devices: devices,
-                                                title: "إدخل عدد الاجهزة",
-                                                label: "عدد الأجهزة",
+                                                title: 'enter devices count'.tr,
+                                                label: 'devices count'.tr,
                                                 emptyErrorText:
-                                                    'برجاء إدخال عدد الأجهزة');
+                                                    'please enter devices count'.tr);
                                           });
                                     }
                                   });
@@ -176,7 +175,7 @@ class PrepareScreen extends StatelessWidget {
                                       deviceCount = controller.getDeviceSum(
                                           controller.devicesCount);
                                       return SingleListItem(
-                                          title: "عدد الأجهزة ",
+                                          title: 'devices count'.tr,
                                           count:
                                               "${controller.getDeviceSum(controller.devicesCount)}");
                                     })),
@@ -193,10 +192,10 @@ class PrepareScreen extends StatelessWidget {
                                             return PesticidesDialogWidget(
                                                 exterminators: exterminators,
                                                 title:
-                                                    'برجاء إدخال كمية المبيدات',
-                                                label: "كمية المبيدات",
+                                                    'enter pesticide quantity'.tr,
+                                                label: 'pesticide quantity'.tr,
                                                 emptyErrorText:
-                                                    'برجاء إدخال كمية المبيدات');
+                                                    'enter pesticide quantity'.tr);
                                           });
                                     }
                                   });
@@ -207,7 +206,7 @@ class PrepareScreen extends StatelessWidget {
                                       pestsideCount = controller.getPestSideSum(
                                           controller.pestsidesCount);
                                       return SingleListItem(
-                                          title: "كمية المبيدات",
+                                          title:'pesticide quantity'.tr,
                                           count:
                                               "${controller.getPestSideSum(controller.pestsidesCount)}");
                                     })),
@@ -223,10 +222,10 @@ class PrepareScreen extends StatelessWidget {
                                           builder: (ctx) {
                                             return TeamDialogWidget(
                                                 teams: teams,
-                                                title: "إدخل عدد العمال",
-                                                label: "عدد العمال",
+                                                title: 'enter team count'.tr,
+                                                label: 'team count'.tr,
                                                 emptyErrorText:
-                                                    'برجاء إدخال عدد العمال');
+                                                    'please enter team count'.tr);
                                           });
                                     }
                                   });
@@ -238,7 +237,7 @@ class PrepareScreen extends StatelessWidget {
                                           .getTeameSum(controller.teamCount);
 
                                       return SingleListItem(
-                                          title: "عدد العمال ",
+                                          title: 'team count'.tr,
                                           count:
                                               "${controller.getTeameSum(controller.teamCount)}");
                                     })),
@@ -292,8 +291,8 @@ class PrepareScreen extends StatelessWidget {
                                                                                     confirmBtnTextStyle: const TextStyle(color: Colors.white, fontSize: 12),
                                                                                     cancelBtnTextStyle: const TextStyle(color: redColor, fontSize: 22),
                                                                                     type: CoolAlertType.error,
-                                                                                    title: " لم يتم ادخال كل البيانات المطلوبة للتحضير ",
-                                                                                    text: "هل انت متأكد ؟",
+                                                                                    title:'Not all information required for preparation has been entered'.tr,
+                                                                                    text: 'are you sure ?'.tr,
                                                                                     showCancelBtn: true,
                                                                                     onConfirmBtnTap: () async {
                                                                                       var res = await PreprationServices.addPrepration(projectId: id, carObjectList: carsCtrl.carObjectList, toolsObjectList: toolsCtrl.toolsObjectList, devicesObjectList: devicesCtrl.devicesObjectList, pestsideObjectList: pestsidesCtrl.pestSideObjectList, teamsObjectList: teamsCtrl.teamObjectList);
@@ -302,9 +301,9 @@ class PrepareScreen extends StatelessWidget {
                                                                                         CoolAlert.show(
                                                                                           context: context,
                                                                                           type: CoolAlertType.confirm,
-                                                                                          title: "تم إضافة تحضير للمشروع بنجاح",
+                                                                                          title: 'Project preparation has been successfully added'.tr,
                                                                                           onConfirmBtnTap: () {},
-                                                                                          confirmBtnText: "حسناً ",
+                                                                                          confirmBtnText: "ok".tr,
                                                                                           confirmBtnColor: lightPrimaryColor,
                                                                                           backgroundColor: lightPrimaryColor,
                                                                                         );
@@ -316,28 +315,23 @@ class PrepareScreen extends StatelessWidget {
                                                                                       Get.back();
                                                                                       click.changeClick();
                                                                                     },
-                                                                                    confirmBtnText: "نعم ",
-                                                                                    cancelBtnText: "لا",
+                                                                                    confirmBtnText: "yes ".tr,
+                                                                                    cancelBtnText: "no".tr,
                                                                                     confirmBtnColor: lightPrimaryColor,
                                                                                     backgroundColor: redColor,
                                                                                   );
                                                                                 } else {
-                                                                                  log("cars length = ${carsCtrl.carObjectList.length}");
-                                                                                  log("devices length = ${devicesCtrl.devicesObjectList.length}");
-                                                                                  log("tools length = ${toolsCtrl.toolsObjectList.length}");
-                                                                                  log("teams length = ${teamsCtrl.teamObjectList.length}");
-                                                                                  log("pestsides length = ${pestsidesCtrl.pestSideObjectList.length}");
                                                                                   var res = await PreprationServices.addPrepration(projectId: id, carObjectList: carsCtrl.carObjectList, toolsObjectList: toolsCtrl.toolsObjectList, devicesObjectList: devicesCtrl.devicesObjectList, pestsideObjectList: pestsidesCtrl.pestSideObjectList, teamsObjectList: teamsCtrl.teamObjectList);
                                                                                   if (res == 200) {
                                                                                     Get.offAll(const HomeScreen());
                                                                                     CoolAlert.show(
                                                                                       context: context,
                                                                                       type: CoolAlertType.success,
-                                                                                      title: "تم إضافة تحضير للمشروع بنجاح",
+                                                                                      title: 'Project preparation has been successfully added'.tr,
                                                                                       onConfirmBtnTap: () {
                                                                                         Get.back();
                                                                                       },
-                                                                                      confirmBtnText: "حسناً ",
+                                                                                      confirmBtnText: "ok".tr,
                                                                                       confirmBtnColor: lightPrimaryColor,
                                                                                       backgroundColor: lightPrimaryColor,
                                                                                     );
@@ -362,9 +356,9 @@ class PrepareScreen extends StatelessWidget {
                                                                               color: click.clicked == false ? lightPrimaryColor : Colors.grey,
                                                                               borderRadius: BorderRadius.circular(10)),
                                                                           child: click.clicked == false
-                                                                              ? const Text(
-                                                                                  "تحضير ",
-                                                                                  style: TextStyle(color: Colors.white, fontSize: 15, fontFamily: 'hanimation', fontWeight: FontWeight.w600),
+                                                                              ?     Text(
+                                                                                  'prepare'.tr,
+                                                                                  style:const TextStyle(color: Colors.white, fontSize: 15, fontFamily: 'hanimation', fontWeight: FontWeight.w600),
                                                                                   textAlign: TextAlign.center,
                                                                                 )
                                                                               : const CircularProgressIndicator(

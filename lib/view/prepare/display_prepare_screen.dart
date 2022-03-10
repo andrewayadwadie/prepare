@@ -69,24 +69,24 @@ class DisplayPrepareScreen extends StatelessWidget {
                           //============== cars ==============
                           //==================================
 
-                          SingleListItem(title: "عدد السيارات", count:"${ controller.data.numberOfVehicles}"),
+                          SingleListItem(title: 'vehicles count'.tr, count:"${ controller.data.numberOfVehicles}"),
 
                           //==================================
                           //============== tools ==============
                           //==================================
-                          SingleListItem(title: "عدد الأداوات", count: "${ controller.data.numberOfTools}"),
+                          SingleListItem(title: 'tools count'.tr, count: "${ controller.data.numberOfTools}"),
                           //==================================
                           //============== devices ==============
                           //==================================
-                          SingleListItem(title: "عدد الأجهزة ", count: "${ controller.data.numberOfDevices}"),
+                          SingleListItem(title: 'devices count'.tr, count: "${ controller.data.numberOfDevices}"),
                           //==================================
                           //============== pesticides ==============
                           //==================================
-                          SingleListItem(title: "عدد المبيدات", count: "${ controller.data.quantityOfExterminator}"),
+                          SingleListItem(title: 'pesticide quantity'.tr, count: "${ controller.data.quantityOfExterminator}"),
                           //==================================
                           //============== Team ==============
                           //==================================
-                          SingleListItem(title: "عدد العمال ", count: "${ controller.data.numberOfEmployees}"),
+                          SingleListItem(title: 'team count'.tr, count: "${ controller.data.numberOfEmployees}"),
                           //============== ************* ==============
                           SizedBox(
                             height: MediaQuery.of(context).size.height / 20,
@@ -99,12 +99,12 @@ class DisplayPrepareScreen extends StatelessWidget {
                               CoolAlert.show(
                                 context: context,
                                 type: CoolAlertType.error,
-                                title: "تم تحضير المشروع من قبل ",
-                                text: "لايمكن تحضير المشروع مرة اخري !",
+                                title: 'The project has been prepared'.tr,
+                                text: 'The project cannot be prepared again'.tr,
                                 onConfirmBtnTap: () {
                                   Get.back();
                                 },
-                                confirmBtnText: "حسناً ",
+                                confirmBtnText: 'ok'.tr,
                                 confirmBtnColor: lightPrimaryColor,
                                 backgroundColor: lightPrimaryColor,
                               );
@@ -116,9 +116,9 @@ class DisplayPrepareScreen extends StatelessWidget {
                               decoration: BoxDecoration(
                                   color: Colors.grey,
                                   borderRadius: BorderRadius.circular(10)),
-                              child: const Text(
-                                "تحضير ",
-                                style: TextStyle(
+                              child:   Text(
+                                'prepare'.tr,
+                                style:const TextStyle(
                                     color: Colors.white,
                                     fontSize: 15,
                                     fontFamily: 'hanimation',

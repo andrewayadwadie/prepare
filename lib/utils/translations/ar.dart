@@ -1,6 +1,9 @@
 const Map<String, String> ar = {
   'arabic language':'اللغة العربية',
   'english language':'اللغة الانجليزية ',
+  'yes':'نعم',
+  'no':'لا',
+  'ok':'حسناً',
   //Auth
   'login': 'تسجيل الدخول',
   'user name': 'إسم المستخدم ',
@@ -12,7 +15,37 @@ const Map<String, String> ar = {
   'density measurement':'قياس كثافة',
   'stray dogs':'كلاب ضالة ',
   'daily tasks':'المهام اليومية',
-  'contractor evaluation':'تقييم المقاول'
+  'contractor evaluation':'تقييم المقاول',
   //prepare Scren 
-  
+  'projects list': 'قائمة المشاريع',
+  'display preparation':'عرض التحضير',
+  'prepare':'تحضير ',
+  'vehicles count':'عدد السيارات',
+  'tools count':'عدد الأدوات',
+  'devices count':'عدد الأجهزة',
+  'pesticide quantity':'كمية المبيدات',
+  'team count':'عدد العمال',
+  'enter vehicles count':'إدخل عدد السيارات',
+  'please enter vehicles count':'برجاء إدخال عدد السيارات',
+  'enter tools count':'إدخل عدد الأدوات',
+  'please enter tools count':'برجاء إدخال عدد الأدوات',
+  'enter devices count':'إدخل عدد الأجهزة',
+  'please enter devices count':'برجاء إدخال عدد الأجهزة ',
+  'enter pesticide quantity':'إدخل كمية المبيدات',
+  'please enter pesticide quantity':'برجاء إدخال كمية المبيدات',
+  'enter team count':'إدخل عدد العمال',
+  'please enter team count':'برجاء إدخال عدد العمال',
+  'Not all information required for preparation has been entered':' لم يتم ادخال كل البيانات المطلوبة للتحضير ',
+  'are you sure ?':'هل أنت متأكد؟',
+  'Project preparation has been successfully added':'تم إضافة تحضير للمشروع بنجاح',
+  'The project has been prepared':'تم تحضير المشروع من قبل ',
+  'The project cannot be prepare d again':'لايمكن تحضير المشروع مرة اخري',
+  //bug discover
+  'Insect Exploration':'الإستكشاف الحشري',
+  'Add Insect Exploration':'إضافة إستكشاف حشري',
+  'visit Insect Exploration':'زيارة إستكشاف حشري ',
+  'pick first picture':'إلتقط الصورة الأولى',
+  'pick second picture':'إلتقط الصورة الثانية',
+  'add first picture':'إضافة الصورة الأولى',
+  'add second picture':'إضافة الصورة الثانية'
 };
