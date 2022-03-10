@@ -81,9 +81,9 @@ class CarsDialogWidget extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: lightPrimaryColor,
                       borderRadius: BorderRadius.circular(10)),
-                  child: const Text(
-                    "تحضير ",
-                    style: TextStyle(
+                  child:  Text(
+                    'prepare'.tr,
+                    style:const TextStyle(
                         color: Colors.white,
                         fontSize: 15,
                         fontFamily: 'hanimation',
@@ -104,9 +104,9 @@ class CarsDialogWidget extends StatelessWidget {
             height: MediaQuery.of(context).size.height / 16,
             decoration: BoxDecoration(
                 color: redColor, borderRadius: BorderRadius.circular(10)),
-            child: const Text(
-              "إلغاء ",
-              style: TextStyle(
+            child:  Text(
+              "cancel".tr,
+              style:const TextStyle(
                   color: Colors.white,
                   fontSize: 15,
                   fontFamily: 'hanimation',

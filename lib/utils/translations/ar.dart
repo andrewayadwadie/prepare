@@ -4,6 +4,7 @@ const Map<String, String> ar = {
   'yes':'نعم',
   'no':'لا',
   'ok':'حسناً',
+  'cancel':'إلغاء',
   //Auth
   'login': 'تسجيل الدخول',
   'user name': 'إسم المستخدم ',

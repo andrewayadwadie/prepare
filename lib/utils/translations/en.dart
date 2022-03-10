@@ -4,6 +4,7 @@ const Map<String, String> en = {
   'yes':'yes',
   'no':'no',
   'ok':'ok',
+  'cancel':'cancel',
   //Auth
   'login': 'login',
   'user name': 'user name',
