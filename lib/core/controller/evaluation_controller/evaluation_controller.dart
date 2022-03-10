@@ -28,9 +28,7 @@ class Evaluate extends GetxController {
 
   void decreaseList(index) {
     log("index from controller $index");
- 
-
-    evaluateList.removeWhere((element) => element==index+1);
+    evaluateList.removeAt(index);
     update();
   }
 }

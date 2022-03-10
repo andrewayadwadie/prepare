@@ -385,7 +385,7 @@ class VisitBugDiscoverScreen extends StatelessWidget {
                       labelColor: lightPrimaryColor,
                       labelBackgroundColor: Colors.white),
                 ],
-                openIcon: Icons.add,
+                openIcon: Icons.add_photo_alternate,
                 blur: 0.5,
                 fabColor: Colors.yellow,
                 iconColor: primaryColor,

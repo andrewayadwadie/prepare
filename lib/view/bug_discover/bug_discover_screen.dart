@@ -64,11 +64,12 @@ class BugDiscoverScreen extends StatelessWidget {
             init: ImagePickerController(),
             builder: (imgCtrl) {
               return HawkFabMenu(
-                openIcon: Icons.add,
+                openIcon: Icons.add_photo_alternate,
                 blur: 0.5,
                 fabColor: Colors.yellow,
                 iconColor: primaryColor,
                 closeIcon: Icons.close,
+                
                 items: [
                   HawkFabMenuItem(
                       label: 'إضافة الصورة الأولى',
