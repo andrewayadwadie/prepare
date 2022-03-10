@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:prepare/utils/style.dart';
 
 class HeaderWidget extends StatelessWidget {
@@ -56,7 +57,7 @@ class HeaderWidget extends StatelessWidget {
           child: InkWell(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-           //   decoration: BoxDecoration(border: Border.all(width: 2,color: Colors.red)),
+              //   decoration: BoxDecoration(border: Border.all(width: 2,color: Colors.red)),
               width: MediaQuery.of(context).size.width / 7,
               height: MediaQuery.of(context).size.height / 15,
               child: const Icon(

@@ -13,12 +13,12 @@ import 'package:prepare/view/workers_evaluation/workers_evaluation_screen.dart';
 class HomeBodyWidget extends StatelessWidget {
   HomeBodyWidget({Key? key}) : super(key: key);
   final List<String> titles = [
-    "شاشة التحضير",
-    "إستكشاف حشري ",
-    "قياس كثافة",
-    "كلاب ضالة ",
-    "المهام اليومية",
-    "تقييم المقاول"
+    'preparation screen'.tr,
+    'insect exploration'.tr,
+    'density measurement'.tr,
+    'stray dogs'.tr,
+    'daily tasks'.tr,
+    'contractor evaluation'.tr
   ];
   final List<Widget> screens = [
     const AllProjectsScreen(),
