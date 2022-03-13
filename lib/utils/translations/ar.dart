@@ -107,4 +107,8 @@ const Map<String, String> ar = {
   'There is a problem' : 'يوجد مشكلة',
   'There is no way suitable for this site' : 'لا يوجد طريق مناسب لهذا الموقع',
   'There is a problem in locating' : 'يوجد مشكلة فى تحديد الموقع',
+  //animal
+  'Visit stray dog ​​site' : 'زيارة موقع كلاب ضالة ',
+  'Add stray dogs' : 'إضافة كلاب ضالة',
+  'Stray Dogs' : ' الكلاب ضالة',
 };

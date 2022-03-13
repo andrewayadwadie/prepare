@@ -49,7 +49,7 @@ class AnimalScreen extends StatelessWidget {
                 closeIcon: Icons.close,
                 items: [
                   HawkFabMenuItem(
-                      label: 'إضافة الصورة الأولى',
+                      label: 'add first picture'.tr,
                       ontap: () {
                         imgCtrl.pickImageFromGallrey();
                       },
@@ -58,7 +58,7 @@ class AnimalScreen extends StatelessWidget {
                       labelColor: lightPrimaryColor,
                       labelBackgroundColor: Colors.white),
                   HawkFabMenuItem(
-                      label: 'إلتقط الصورة الأولى ',
+                      label: 'pick first picture'.tr,
                       ontap: () {
                         imgCtrl.pickImageFromCam();
                       },
@@ -67,7 +67,7 @@ class AnimalScreen extends StatelessWidget {
                       labelColor: lightPrimaryColor,
                       labelBackgroundColor: Colors.white),
                   HawkFabMenuItem(
-                      label: 'إضافة الصورة الثانية',
+                      label: 'add second picture'.tr,
                       ontap: () {
                         imgCtrl.pickImageFromGallrey2();
                       },
@@ -76,7 +76,7 @@ class AnimalScreen extends StatelessWidget {
                       labelColor: lightPrimaryColor,
                       labelBackgroundColor: Colors.white),
                   HawkFabMenuItem(
-                      label: 'إلتقط الصورة الثانية',
+                      label: 'pick second picture'.tr,
                       ontap: () {
                         imgCtrl.pickImageFromCam2();
                       },
@@ -96,9 +96,9 @@ class AnimalScreen extends StatelessWidget {
                           SizedBox(
                             height: MediaQuery.of(context).size.height / 20,
                           ),
-                          const AutoSizeText(
-                            "إضافة كلاب ضالة ",
-                            style: TextStyle(
+                           AutoSizeText(
+                            'Add stray dogs'.tr,
+                            style:const TextStyle(
                                 color: lightPrimaryColor,
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600),
@@ -176,9 +176,9 @@ class AnimalScreen extends StatelessWidget {
                                                     ),
                                                   ]),
                                               child: cityCtrl.cityId.value == 0
-                                                  ? const SelectableText(
-                                                      "لا يوجد كود حالياً ",
-                                                      style: TextStyle(
+                                                  ?  SelectableText(
+                                                      'no code found'.tr,
+                                                      style:const TextStyle(
                                                           fontSize: 12),
                                                     )
                                                   : SelectableText(
@@ -242,25 +242,25 @@ class AnimalScreen extends StatelessWidget {
                                                                       } else if (street ==
                                                                           "") {
                                                                         toast(
-                                                                            "برجاء إدخال إسم الشارع",
+                                                                           'please enter street name '.tr,
                                                                             duration:
                                                                                 const Duration(seconds: 2));
                                                                         clk.changeClick();
                                                                       } else if (cityCtrl
                                                                               .cityText
                                                                               .value ==
-                                                                          "البلدية") {
+                                                                          'Baladya'.tr) {
                                                                         toast(
-                                                                            "برجاء اختيار البلدية",
+                                                                           'Please choose the baladya'.tr,
                                                                             duration:
                                                                                 const Duration(seconds: 2));
                                                                         clk.changeClick();
                                                                       } else if (disCtrl
                                                                               .districtText
                                                                               .value ==
-                                                                          "الحي") {
+                                                                         'District'.tr) {
                                                                         toast(
-                                                                            "برجاء اختيار الحي",
+                                                                           'Please select the district' .tr,
                                                                             duration:
                                                                                 const Duration(seconds: 2));
                                                                         clk.changeClick();
@@ -269,7 +269,7 @@ class AnimalScreen extends StatelessWidget {
                                                                               .value ==
                                                                           "") {
                                                                         toast(
-                                                                            "عذراً لا يوجد كود",
+                                                                            'sorry there is no code '.tr,
                                                                             duration:
                                                                                 const Duration(seconds: 2));
                                                                         clk.changeClick();
@@ -291,7 +291,7 @@ class AnimalScreen extends StatelessWidget {
                                                                                   .then((value) {
                                                                                 log("token : ${TokenPref.getTokenValue()}");
                                                                                 if (value == 400) {
-                                                                                  toast("يوجد خطأ فى الإرسال ", duration: const Duration(seconds: 2));
+                                                                                  toast('there is an error in sending'.tr, duration: const Duration(seconds: 2));
                                                                                   clk.changeClick();
                                                                                 } else if (value == 401) {
                                                                                   Get.offAll(const LoginScreen());
@@ -301,8 +301,8 @@ class AnimalScreen extends StatelessWidget {
                                                                                     barrierDismissible: false,
                                                                                     context: context,
                                                                                     type: CoolAlertType.success,
-                                                                                    title: "تم الارسال بنجاح",
-                                                                                    confirmBtnText: "حسناً",
+                                                                                    title: 'sent succesfully'.tr,
+                                                                                    confirmBtnText: 'ok'.tr,
                                                                                     confirmBtnColor: primaryColor,
                                                                                     backgroundColor: primaryColor,
                                                                                     onConfirmBtnTap: () {
@@ -365,9 +365,9 @@ class AnimalScreen extends StatelessWidget {
                                                                         ),
                                                                   child: clk.clicked ==
                                                                           false
-                                                                      ? const Text(
-                                                                          "إضافة كلاب ضالة ",
-                                                                          style: TextStyle(
+                                                                      ?  Text(
+                                                                          'Add stray dogs' .tr,
+                                                                          style:const TextStyle(
                                                                               color: Colors.white,
                                                                               fontSize: 18),
                                                                           textAlign:

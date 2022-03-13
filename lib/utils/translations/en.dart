@@ -107,4 +107,8 @@ const Map<String, String> en = {
   'There is a problem' : 'There is a problem',
   'There is no way suitable for this site' : 'There is no way suitable for this site',
   'There is a problem in locating' : 'There is a problem in locating' ,
+  //animal
+  'Visit stray dog ​​site' : 'Visit stray dog ​​site',
+  'Add stray dogs' : 'Add stray dogs' ,
+  'Stray Dogs' : 'Stray Dogs',
 };

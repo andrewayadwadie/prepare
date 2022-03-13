@@ -11,7 +11,9 @@ import 'animal_screen.dart';
 
 class AnimalMainScreen extends StatelessWidget {
   AnimalMainScreen({Key? key}) : super(key: key);
-  final List<String> titles = ["إضافة كلاب ضالة ", "زيارة موقع كلاب ضالة "];
+  final List<String> titles = [
+    'Add stray dogs'.tr
+  , 'Visit stray dog ​​site'.tr];
   final List<Widget> screens = [AnimalScreen(), AnimalMapScreen()];
 
   @override
@@ -25,9 +27,9 @@ class AnimalMainScreen extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height / 20,
             ),
-            const AutoSizeText(
-              " الكلاب ضالة ",
-              style: TextStyle(
+             AutoSizeText(
+             'Stray Dogs'.tr,
+              style:const TextStyle(
                   color: lightPrimaryColor,
                   fontSize: 18,
                   fontWeight: FontWeight.w600),
