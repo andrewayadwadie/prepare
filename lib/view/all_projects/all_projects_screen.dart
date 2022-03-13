@@ -130,9 +130,9 @@ class AllProjectsScreen extends StatelessWidget {
                                                             title: controller
                                                                 .projects[index]
                                                                 .name,
-                                                            tools: controller
-                                                                .projects[index]
-                                                                .tools,
+                                                            // tools: controller
+                                                            //     .projects[index]
+                                                            //     .tools,
                                                             exterminators:
                                                                 controller
                                                                     .projects[

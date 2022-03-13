@@ -28,7 +28,7 @@ class PrepareScreen extends StatelessWidget {
       {Key? key,
       required this.id,
       required this.title,
-      required this.tools,
+     // required this.tools,
       required this.exterminators,
       required this.devices,
       required this.vehicles,
@@ -37,7 +37,7 @@ class PrepareScreen extends StatelessWidget {
 
   final int id;
   final String title;
-  final List tools;
+ // final List tools;
   final List exterminators;
   final List devices;
   final List vehicles;
@@ -122,6 +122,7 @@ class PrepareScreen extends StatelessWidget {
                             //==================================
                             //============== tools ==============
                             //==================================
+                            /*
                             InkWell(
                                 onTap: () {
                                   net.checkInternet().then((val) {
@@ -149,6 +150,7 @@ class PrepareScreen extends StatelessWidget {
                                           count:
                                               "${controller.getToolsSum(controller.toolsCount)}");
                                     })),
+                            */
                             //==================================
                             //============== devices ==============
                             //==================================

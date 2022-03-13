@@ -74,7 +74,7 @@ class DisplayPrepareScreen extends StatelessWidget {
                           //==================================
                           //============== tools ==============
                           //==================================
-                          SingleListItem(title: 'tools count'.tr, count: "${ controller.data.numberOfTools}"),
+                     //     SingleListItem(title: 'tools count'.tr, count: "${ controller.data.numberOfTools}"),
                           //==================================
                           //============== devices ==============
                           //==================================

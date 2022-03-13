@@ -55,7 +55,7 @@ class WorkersEvaluation extends StatelessWidget {
                           },
                           child: Container(
                             alignment: Alignment.center,
-                            width: MediaQuery.of(context).size.width / 4,
+                            width: MediaQuery.of(context).size.width / 3,
                             height: MediaQuery.of(context).size.height / 20,
                             decoration: BoxDecoration(
                               color: yellowColor,
@@ -153,7 +153,7 @@ class WorkersEvaluation extends StatelessWidget {
                           onTap: () {},
                           child: Container(
                             alignment: Alignment.center,
-                            width: MediaQuery.of(context).size.width / 4,
+                            width: MediaQuery.of(context).size.width / 3,
                             height: MediaQuery.of(context).size.height / 20,
                             decoration: BoxDecoration(
                               color: lightPrimaryColor,
