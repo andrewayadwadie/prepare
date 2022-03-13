@@ -25,9 +25,9 @@ class DailyWorkMainScreen extends StatelessWidget {
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 20,
                 ),
-                const Text(
-                  "المهام اليومية ",
-                  style: TextStyle(
+                 Text(
+                 'daily tasks'.tr,
+                  style:const TextStyle(
                       color: primaryColor,
                       fontSize: 20,
                       fontFamily: 'hanimation'),
@@ -121,10 +121,10 @@ class DailyWorkMainScreen extends StatelessWidget {
                                                 color: lightPrimaryColor,
                                                 borderRadius:
                                                     BorderRadius.circular(9)),
-                                            child: const Text(
-                                              "بدء المسار",
+                                            child:  Text(
+                                             'Start the path'.tr,
                                               textAlign: TextAlign.center,
-                                              style: TextStyle(
+                                              style:const TextStyle(
                                                   color: Colors.white,
                                                   fontFamily: 'hanimation',
                                                   fontSize: 12),

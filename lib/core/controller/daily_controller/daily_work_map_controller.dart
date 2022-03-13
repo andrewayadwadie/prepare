@@ -220,7 +220,7 @@ class DailyWorkMapCtrl extends GetxController {
             50.0) {
           for (var element in allMarkers) {
             if (element.markerId.value == i.toString()) {
-              Get.snackbar("ملحوظة ", "تم حل المشكلة الموجودة فى الموقع رقم $i",
+              Get.snackbar('The problem has been resolved'.tr,"${'The problem is resolved at the site number'.tr} $i",
                   backgroundColor: Colors.white);
             }
           }
@@ -260,7 +260,7 @@ class DailyWorkMapCtrl extends GetxController {
           // icon: _locationIcon,
           position: positionOfMarkers[i],
           infoWindow:
-              InfoWindow(title: "معلومات عن الموقع ", snippet: " موقع رقم $i"),
+              InfoWindow(title: 'Site Information'.tr, snippet: " ${'site No.'.tr} $i"),
           onTap: () {}));
       update();
     }
@@ -358,9 +358,9 @@ class DailyWorkMapCtrl extends GetxController {
             deviceCurrentLocation.lat, deviceCurrentLocation.long) >
         5000.0) {
       Get.defaultDialog(
-        title: "ملحوظة",
-        content: const Text(
-          "لا يمكن بدء المهمة لانك بعيد عن المسار ",
+        title: 'There is a problem'.tr,
+        content:  Text(
+         'The task can not be started because you are far from the path' .tr,
         ),
         confirm: InkWell(
           onTap: () {
@@ -384,9 +384,9 @@ class DailyWorkMapCtrl extends GetxController {
               alignment: Alignment.center,
               width: MediaQuery.of(context).size.width / 2.5,
               height: MediaQuery.of(context).size.height / 20,
-              child: const Text(
-                "إذهب الى بداية المسار",
-                style: TextStyle(color: Colors.white, fontSize: 17),
+              child:  Text(
+                'Go to the beginning of the track'.tr,
+                style: const TextStyle(color: Colors.white, fontSize: 17),
               )),
         ),
       );

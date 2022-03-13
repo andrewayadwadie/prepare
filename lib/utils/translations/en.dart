@@ -118,5 +118,16 @@ const Map<String, String> en = {
   'Add stray dogs' : 'Add stray dogs' ,
   'Stray Dogs' : 'Stray Dogs',
   'Information about the location of stray dogs' : 'Information about the location of stray dogs',
-
+  // daily tasks 
+  'Start the path' : 'Start the path',
+  'Click again to Exit' : 'Click again to Exit', 
+  'Exit from the map' : 'Exit from the map',
+  'There is a problem sending data' : 'There is a problem sending data',
+  'Start the task' : 'Start the task',
+  'The problem has been resolved' : 'The problem has been resolved',
+  'The problem is resolved at the site number' :'The problem is resolved at the site number',
+  'Site Information' : 'Site Information' ,
+  'site No.' :'site No.', 
+  'The task can not be started because you are far from the path' : 'The task can not be started because you are far from the path',
+  'Go to the beginning of the track' :'Go to the beginning of the track',
 };

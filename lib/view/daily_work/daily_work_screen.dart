@@ -32,8 +32,8 @@ class DailyWorkScreen extends StatelessWidget {
           timeBackPressed = DateTime.now();
 
           if (isExitWarning) {
-            const message = "إضغط مرة أخري للرجوع";
-            Get.snackbar("خروج من الخريطة", message,
+             String message = 'Click again to Exit'.tr;
+            Get.snackbar('Exit from the map'.tr, message,
                 snackPosition: SnackPosition.BOTTOM,
                 animationDuration: const Duration(milliseconds: 500));
 
@@ -104,8 +104,8 @@ class DailyWorkScreen extends StatelessWidget {
                                             if (value == 401) {
                                               Get.offAll(const LoginScreen());
                                             } else if (value == 400) {
-                                              Get.snackbar("مشكلة",
-                                                  "يوجد مشكلة فى ارسال البيانات ");
+                                              Get.snackbar('There is a problem'.tr,
+                                                  'There is a problem sending data'.tr);
                                             } else if (value == 200) {
                                               log("status = 200");
                                               return;
@@ -150,10 +150,10 @@ class DailyWorkScreen extends StatelessWidget {
                                       color: lightPrimaryColor,
                                       borderRadius: BorderRadius.circular(10),
                                     ),
-                                    child: const Text(
-                                      "إبدأ المهمة !",
+                                    child:  Text(
+                                      'Start the task'.tr,
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(
+                                      style:const TextStyle(
                                         color: Colors.white,
                                         fontSize: 20,
                                       ),

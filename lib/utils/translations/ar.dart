@@ -118,4 +118,17 @@ const Map<String, String> ar = {
   'Add stray dogs' : 'إضافة كلاب ضالة',
   'Stray Dogs' : ' الكلاب ضالة',
   'Information about the location of stray dogs' : 'معلومات عن موقع الكلاب الضالة ',
+  // daily tasks 
+  'Start the path' : 'بدء المسار',
+  'Click again to Exit' : 'إضغط مرة أخري للرجوع', 
+  'Exit from the map' : 'خروج من الخريطة',
+  'There is a problem sending data' : 'يوجد مشكلة فى ارسال البيانات',
+  'Start the task' : 'إبدأ المهمة',
+  'The problem has been resolved' : 'تم حل المشكلة',
+  'The problem is resolved at the site number' : 'تم حل المشكلة الموجودة فى الموقع رقم',
+  'Site Information' : 'معلومات عن الموقع',
+  'site No.' : 'موقع رقم', 
+  'The task can not be started because you are far from the path' : 'لا يمكن بدء المهمة لانك بعيد عن المسار ',
+  'Go to the beginning of the track' : 'إذهب الى بداية المسار',
+
 };
