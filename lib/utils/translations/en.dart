@@ -11,6 +11,12 @@ const Map<String, String> en = {
   'user name': 'user name',
   'password': 'password',
   'enter': 'enter',
+  'E-mail' : 'E-mail',
+  'Please enter e-mail' : 'Please enter e-mail',
+  'Please enter a valid email' : 'Please enter a valid email', 
+  'Please enter your password' :'Please enter your password' ,
+  'The password must be more than 8 characters' :'The password must be more than 8 characters',
+
   //home screen
   'preparation screen': 'preparation screen',
   'insect exploration': 'insect exploration',

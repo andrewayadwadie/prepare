@@ -9,8 +9,14 @@ const Map<String, String> ar = {
   //Auth
   'login': 'تسجيل الدخول',
   'user name': 'إسم المستخدم ',
-  'password': 'الرقم السري',
+  'password': 'كلمة المرور',
   'enter': 'الدخول',
+  'E-mail' : 'البريد الإلكتروني',
+  'Please enter e-mail' : 'برجاء إدخال البريد الإلكتروني ',
+  'Please enter a valid email' : 'برجاء إدخال بريد إلكتروني صحيح', 
+  'Please enter your password' : 'برجاء إدخال كلمة المرور',
+  'The password must be more than 8 characters' : 'يجب ان تكون كلمة المرور اكثر من 8 حروف',
+
   //home screen
   'preparation screen': 'شاشة التحضير',
   'insect exploration': 'إستكشاف حشري ',
@@ -139,5 +145,6 @@ const Map<String, String> ar = {
   'Delete evaluation' : 'حذف تقييم',
   'describtion' : 'وصف',
   'Please enter a description' : 'برجاء إدخال وصف ',
+  
 
 };

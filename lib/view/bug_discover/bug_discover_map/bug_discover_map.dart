@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart';
 import 'package:prepare/core/controller/bug_dicover/bug_discover_map_controller.dart';
 import 'package:prepare/core/controller/bug_dicover/nearst_visit_controller.dart';
 import 'package:prepare/core/controller/current_location_controller.dart';
-import 'package:prepare/core/controller/map/location_controller.dart';
 
 // ignore: must_be_immutable
 class BugDIscoverMapScreen extends StatelessWidget {

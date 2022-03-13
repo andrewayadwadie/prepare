@@ -68,9 +68,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         Container(
                           margin: const EdgeInsets.only(right: 20, top: 20),
                           alignment: Alignment.bottomRight,
-                          child: const Text(
-                            "تسجيل الدخول ",
-                            style: TextStyle(fontSize: 20, color: Colors.white),
+                          child:  Text(
+                            'login'.tr,
+                            style:const TextStyle(fontSize: 20, color: Colors.white),
                           ),
                         )
                       ],
@@ -101,8 +101,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                     Icons.email,
                                     color: primaryColor,
                                   ),
-                                  labelText: "البريد الإلكتروني ",
-                                  hintText: "البريد الإلكتروني ",
+                                  labelText: 'E-mail'.tr,
+                                  hintText: 'E-mail'.tr,
                                   labelStyle: const TextStyle(
                                       fontSize: 16, fontWeight: FontWeight.bold)
                                   //enabledBorder: InputBorder.none
@@ -112,9 +112,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               },
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'برجاء إدخال البريد الإلكتروني  ';
+                                  return 'Please enter e-mail'.tr;
                                 } else if (!value.contains("@")) {
-                                  return 'برجاء إدخال بريد إلكتروني صحيح  ';
+                                  return  'Please enter a valid email'.tr;
                                 } else {
                                   return null;
                                 }
@@ -144,8 +144,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                       Icons.vpn_key,
                                       color: primaryColor,
                                     ),
-                                    labelText: "كلمة المرور",
-                                    hintText: "كلمة المرور",
+                                    labelText: 'password'.tr,
+                                    hintText: 'password'.tr,
                                     labelStyle: const TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold),
@@ -169,9 +169,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 },
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'برجاء إدخال كلمة المرور ';
+                                    return  'Please enter your password'.tr;
                                   } else if (value.length < 8) {
-                                    return 'يجب ان تكون كلمة المرور اكثر من 8 حروف';
+                                    return 'The password must be more than 8 characters'.tr;
                                   } else {
                                     return null;
                                   }
@@ -208,7 +208,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       Navigator.pop(context);
                                     },
                                     confirmBtnColor: redColor,
-                                    confirmBtnText: "حسناً",
+                                    confirmBtnText: "ok".tr,
                                     confirmBtnTextStyle: const TextStyle(),
                                     backgroundColor: redColor,
                                   );
@@ -237,9 +237,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                       color: Color(0xffEEEEEE)),
                                 ],
                               ),
-                              child: const Text(
-                                "تسجيل الدخول",
-                                style: TextStyle(color: Colors.white),
+                              child:  Text(
+                                'login'.tr,
+                                style:const TextStyle(color: Colors.white),
                               ),
                             ),
                           ),
