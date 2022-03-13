@@ -250,9 +250,9 @@ class BugDiscoverScreen extends StatelessWidget {
                                                             cityCtrl.cityId
                                                                     .value ==
                                                                 0
-                                                        ? const SelectableText(
-                                                            "لا يوجد كود حالياً ",
-                                                            style: TextStyle(
+                                                        ?   SelectableText(
+                                                            'no code found'.tr,
+                                                            style:const TextStyle(
                                                                 fontSize: 12),
                                                           )
                                                         : SelectableText(
@@ -324,28 +324,28 @@ class BugDiscoverScreen extends StatelessWidget {
                                                                                           toast("please open Gps ", duration: const Duration(seconds: 2));
                                                                                           clk.changeClick();
                                                                                         } else if (street == "") {
-                                                                                          toast("برجاء إدخال إسم الشارع", duration: const Duration(seconds: 2));
+                                                                                          toast('please enter the street name'.tr, duration: const Duration(seconds: 2));
                                                                                           clk.changeClick();
                                                                                         } else if (ph == "") {
-                                                                                          toast("برجاء إدخال ph", duration: const Duration(seconds: 2));
+                                                                                          toast('please enter ph'.tr, duration: const Duration(seconds: 2));
                                                                                           clk.changeClick();
                                                                                         } else if (recommendation == "") {
-                                                                                          toast("برجاء إدخال ملاحظات", duration: const Duration(seconds: 2));
+                                                                                          toast('please enter notes'.tr, duration: const Duration(seconds: 2));
                                                                                           clk.changeClick();
-                                                                                        } else if (flyType.flyTypeText == "نوع الموقع") {
-                                                                                          toast("برجاء اختيار نوع الموقع", duration: const Duration(seconds: 2));
+                                                                                        } else if (flyType.flyTypeText == 'Site type'.tr) {
+                                                                                          toast('Please choose the type of site'.tr, duration: const Duration(seconds: 2));
                                                                                           clk.changeClick();
-                                                                                        } else if (flyNoteCtrl.flyNoteText == "نوع الملاحظة") {
-                                                                                          toast("برجاء اختيار نوع الملاحظة", duration: const Duration(seconds: 2));
+                                                                                        } else if (flyNoteCtrl.flyNoteText == 'note type'.tr) {
+                                                                                          toast('Please choose the type of note'.tr, duration: const Duration(seconds: 2));
                                                                                           clk.changeClick();
-                                                                                        } else if (sampleCtrl.flySampleText == "نوع العينة") {
-                                                                                          toast("برجاء اختيار نوع العينة", duration: const Duration(seconds: 2));
+                                                                                        } else if (sampleCtrl.flySampleText == 'sample type'.tr) {
+                                                                                          toast('Please choose the type of sample'.tr, duration: const Duration(seconds: 2));
                                                                                           clk.changeClick();
-                                                                                        } else if (cityCtrl.cityText.value == "البلدية") {
-                                                                                          toast("برجاء اختيار البلدية", duration: const Duration(seconds: 2));
+                                                                                        } else if (cityCtrl.cityText.value == 'Baladya'.tr) {
+                                                                                          toast('Please choose the baladya'.tr, duration: const Duration(seconds: 2));
                                                                                           clk.changeClick();
                                                                                         } else if (code.bugDiscoverCode.value == "") {
-                                                                                          toast("عذراً لا يوجد كود ", duration: const Duration(seconds: 2));
+                                                                                          toast('sorry there is no code '.tr, duration: const Duration(seconds: 2));
                                                                                           clk.changeClick();
                                                                                         } else {
                                                                                           net.checkInternet().then((val) {
@@ -370,7 +370,7 @@ class BugDiscoverScreen extends StatelessWidget {
                                                                                                       code: code.bugDiscoverCode)
                                                                                                   .then((value) {
                                                                                                 if (value == 400) {
-                                                                                                  toast("يوجد خطأ فى الإرسال ", duration: const Duration(seconds: 2));
+                                                                                                  toast('there is an error in sending'.tr, duration: const Duration(seconds: 2));
                                                                                                   clk.changeClick();
                                                                                                 } else if (value == 401) {
                                                                                                   Get.offAll(const LoginScreen());
@@ -380,8 +380,8 @@ class BugDiscoverScreen extends StatelessWidget {
                                                                                                     barrierDismissible: false,
                                                                                                     context: context,
                                                                                                     type: CoolAlertType.success,
-                                                                                                    title: "تم الارسال بنجاح",
-                                                                                                    confirmBtnText: "حسناً",
+                                                                                                    title: 'sent succesfully'.tr,
+                                                                                                    confirmBtnText: 'ok'.tr,
                                                                                                     confirmBtnColor: primaryColor,
                                                                                                     backgroundColor: primaryColor,
                                                                                                     onConfirmBtnTap: () {
@@ -427,9 +427,9 @@ class BugDiscoverScreen extends StatelessWidget {
                                                                                                 tileMode: TileMode.clamp),
                                                                                           ),
                                                                                     child: clk.clicked == false
-                                                                                        ? const Text(
-                                                                                            "إرسال الإستكشاف ",
-                                                                                            style: TextStyle(color: Colors.white, fontSize: 18),
+                                                                                        ?  Text(
+                                                                                            'send exploration'.tr,
+                                                                                            style:const TextStyle(color: Colors.white, fontSize: 18),
                                                                                             textAlign: TextAlign.center,
                                                                                           )
                                                                                         : const CircularProgressIndicator(

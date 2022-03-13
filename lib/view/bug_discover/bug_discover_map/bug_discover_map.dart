@@ -59,6 +59,7 @@ class BugDIscoverMapScreen extends StatelessWidget {
                 })),
 
         /// get my location
+       /*
         floatingActionButton: GetBuilder<LocationCtrl>(
             init: LocationCtrl(),
             builder: (locatioController) {
@@ -75,6 +76,8 @@ class BugDIscoverMapScreen extends StatelessWidget {
                       child: const Icon(Icons.gps_fixed),
                     );
                   });
-            }));
+            })
+            */
+            );
   }
 }

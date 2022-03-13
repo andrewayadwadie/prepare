@@ -14,13 +14,13 @@ class SiteStatusWidget extends StatelessWidget {
           return Column(
             children: <Widget>[
               RadioListTile<bool>(
-                title: const Text('الموقع إيجابي'),
+                title:  Text('site is positive'.tr),
                 value: true,
                 groupValue: controller.isNegative,
                 onChanged: (bool? value) => controller.onChanged(value),
               ),
               RadioListTile<bool>(
-                title: const Text('الموقع سلبي'),
+                title:  Text('site is negative'.tr),
                 value: false,
                 groupValue: controller.isNegative,
                 onChanged: (bool? value) => controller.onChanged(value),

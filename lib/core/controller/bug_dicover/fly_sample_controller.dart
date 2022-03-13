@@ -13,7 +13,7 @@ class AllFlySampleController extends GetxController {
   }
 
 
-  String flySampleText = "نوع العينة";
+  String flySampleText = 'sample type'.tr;
 
   int flySampleId = 0;
 

@@ -2,22 +2,22 @@
   final int id;
   final String name;
 
-  final dynamic country;
-  final dynamic effectiveMaterial;
+ // final dynamic country;
+ // final dynamic effectiveMaterial;
 
   PestSideModel({
-    required this.effectiveMaterial,
+  //  required this.effectiveMaterial,
     required this.id,
     required this.name,
-    required this.country,
+   // required this.country,
   });
 
   factory PestSideModel.fromJson(Map<String, dynamic> jsonData) {
     return PestSideModel(
       id: jsonData['id'],
       name: jsonData['name'],
-      country: jsonData['country'],
-      effectiveMaterial: jsonData['effectiveMaterial'],
+      // country: jsonData['country'],
+      // effectiveMaterial: jsonData['effectiveMaterial'],
     );
   }
 }

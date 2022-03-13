@@ -8,6 +8,6 @@ class LocaleStorage {
 
   /// read
   Future<String> get langSelected async {
-    return await GetStorage().read('lang');
+    return await GetStorage().read('lang')??'ar';
   }
 }

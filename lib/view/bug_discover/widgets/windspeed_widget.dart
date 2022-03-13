@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prepare/utils/style.dart';
-
+import 'package:get/get.dart';
 class WindspeedWidget extends StatelessWidget {
   const WindspeedWidget({
     Key? key,
@@ -38,7 +38,7 @@ class WindspeedWidget extends StatelessWidget {
             // =========label ===================================
             floatingLabelBehavior: FloatingLabelBehavior.auto,
             floatingLabelStyle: const TextStyle(fontSize: 11),
-            labelText: "سرعة الرياح",
+            labelText: 'Wind speed'.tr,
             labelStyle: const TextStyle(
                 height: 1.1,
                 color: blackColor,
@@ -54,7 +54,7 @@ class WindspeedWidget extends StatelessWidget {
           // The validator receives the text that the user has entered.
           validator: (value) {
             if (value == null || value.isEmpty) {
-              return 'برجاء إدخال سرعة الرياح ';
+              return 'please enter wind speed'.tr;
             }
             return null;
           },

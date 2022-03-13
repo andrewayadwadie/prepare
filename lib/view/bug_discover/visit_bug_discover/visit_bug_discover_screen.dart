@@ -56,9 +56,9 @@ class VisitBugDiscoverScreen extends StatelessWidget {
                                   height:
                                       MediaQuery.of(context).size.height / 20,
                                 ),
-                                const AutoSizeText(
-                                  "زيارة إستكشاف حشري ",
-                                  style: TextStyle(
+                                 AutoSizeText(
+                                  'visit Insect Exploration'.tr,
+                                  style:const TextStyle(
                                       color: lightPrimaryColor,
                                       fontSize: 18,
                                       fontWeight: FontWeight.w600),
@@ -134,7 +134,7 @@ class VisitBugDiscoverScreen extends StatelessWidget {
                                                           if (recommendation ==
                                                               "") {
                                                             toast(
-                                                                "برجاء إدخال  ملاحظات",
+                                                                'please enter notes'.tr,
                                                                 duration:
                                                                     const Duration(
                                                                         seconds:
@@ -143,7 +143,7 @@ class VisitBugDiscoverScreen extends StatelessWidget {
                                                           } else if (humidity ==
                                                               "") {
                                                             toast(
-                                                                "برجاء إدخال  قيمة الرطوبة",
+                                                                'please enter humidity'.tr,
                                                                 duration:
                                                                     const Duration(
                                                                         seconds:
@@ -152,7 +152,7 @@ class VisitBugDiscoverScreen extends StatelessWidget {
                                                           } else if (windspeed ==
                                                               "") {
                                                             toast(
-                                                                "برجاء إدخال  سرعة الرياح ",
+                                                                'please enter wind speed'.tr,
                                                                 duration:
                                                                     const Duration(
                                                                         seconds:
@@ -161,7 +161,7 @@ class VisitBugDiscoverScreen extends StatelessWidget {
                                                           } else if (temperature ==
                                                               "") {
                                                             toast(
-                                                                "برجاء إدخال  درجة الحرارة ",
+                                                                'please enter the temperature'.tr,
                                                                 duration:
                                                                     const Duration(
                                                                         seconds:
@@ -169,7 +169,7 @@ class VisitBugDiscoverScreen extends StatelessWidget {
                                                             clk.changeClick();
                                                           } else if (ph == "") {
                                                             toast(
-                                                                "برجاء إدخال  درجة ph ",
+                                                                'please enter ph'.tr,
                                                                 duration:
                                                                     const Duration(
                                                                         seconds:
@@ -178,7 +178,7 @@ class VisitBugDiscoverScreen extends StatelessWidget {
                                                           } else if (waving ==
                                                               "") {
                                                             toast(
-                                                                "برجاء إدخال  درجة الملوحة  ",
+                                                               'please enter salinity'.tr,
                                                                 duration:
                                                                     const Duration(
                                                                         seconds:
@@ -217,7 +217,7 @@ class VisitBugDiscoverScreen extends StatelessWidget {
                                                                     if (value ==
                                                                         400) {
                                                                       toast(
-                                                                          "يوجد خطأ فى الإرسال ",
+                                                                          'there is an error in sending'.tr,
                                                                           duration:
                                                                               const Duration(seconds: 2));
                                                                       clk.changeClick();
@@ -239,9 +239,9 @@ class VisitBugDiscoverScreen extends StatelessWidget {
                                                                         type: CoolAlertType
                                                                             .success,
                                                                         title:
-                                                                            "تم الارسال بنجاح",
+                                                                            'sent succesfully'.tr,
                                                                         confirmBtnText:
-                                                                            "حسناً",
+                                                                           'ok'.tr,
                                                                         confirmBtnColor:
                                                                             primaryColor,
                                                                         backgroundColor:
@@ -326,9 +326,9 @@ class VisitBugDiscoverScreen extends StatelessWidget {
                                                                 ),
                                                       child: clk.clicked ==
                                                               false
-                                                          ? const Text(
-                                                              "إضافة زيارة إستكشاف ",
-                                                              style: TextStyle(
+                                                          ?  Text(
+                                                              "Add visit Insect Exploration".tr,
+                                                              style:const TextStyle(
                                                                   color: Colors
                                                                       .white,
                                                                   fontSize: 18),
@@ -349,7 +349,7 @@ class VisitBugDiscoverScreen extends StatelessWidget {
                             )))),
                 items: [
                   HawkFabMenuItem(
-                      label: 'إضافة الصورة الأولى',
+                      label:'add first picture'.tr,
                       ontap: () {
                         imgCtrl.pickImageFromGallrey();
                       },
@@ -358,7 +358,7 @@ class VisitBugDiscoverScreen extends StatelessWidget {
                       labelColor: lightPrimaryColor,
                       labelBackgroundColor: Colors.white),
                   HawkFabMenuItem(
-                      label: 'إلتقط الصورة الأولى ',
+                      label: 'pick first picture'.tr,
                       ontap: () {
                         imgCtrl.pickImageFromCam();
                       },
@@ -367,7 +367,7 @@ class VisitBugDiscoverScreen extends StatelessWidget {
                       labelColor: lightPrimaryColor,
                       labelBackgroundColor: Colors.white),
                   HawkFabMenuItem(
-                      label: 'إضافة الصورة الثانية',
+                      label: 'add second picture'.tr,
                       ontap: () {
                         imgCtrl.pickImageFromGallrey2();
                       },
@@ -376,7 +376,7 @@ class VisitBugDiscoverScreen extends StatelessWidget {
                       labelColor: lightPrimaryColor,
                       labelBackgroundColor: Colors.white),
                   HawkFabMenuItem(
-                      label: 'إلتقط الصورة الثانية',
+                      label: 'pick second picture'.tr,
                       ontap: () {
                         imgCtrl.pickImageFromCam2();
                       },

@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 import 'package:prepare/utils/style.dart';
-
+import 'package:get/get.dart';
 class ImagesWidget extends StatelessWidget {
   const ImagesWidget({
     Key? key,
@@ -25,7 +25,7 @@ class ImagesWidget extends StatelessWidget {
         path1 != ""
             ? Container(
                 width: MediaQuery.of(context).size.width / 3,
-                height: MediaQuery.of(context).size.height / 10,
+                height: MediaQuery.of(context).size.height / 7.5,
                 padding: const EdgeInsets.all(5),
                 decoration: BoxDecoration(
                     border: Border.all(width: 2, color: lightPrimaryColor),
@@ -40,7 +40,7 @@ class ImagesWidget extends StatelessWidget {
             : Container(
                 alignment: Alignment.center,
                 width: MediaQuery.of(context).size.width / 3,
-                height: MediaQuery.of(context).size.height / 10,
+                height: MediaQuery.of(context).size.height /7.5,
                 decoration: BoxDecoration(
                   color: redColor,
                   borderRadius: BorderRadius.circular(10),
@@ -53,10 +53,11 @@ class ImagesWidget extends StatelessWidget {
                       width: 45,
                       height: 45,
                     ),
-                    const Text(
-                      'برجاء إرفاق صورة البلاغ الاولى ',
+                     Text(
+                      'please attach a first photo of exploration'.tr,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style:const TextStyle(
+                        height: 1.1,
                           color: Colors.white,
                           fontSize: 12,
                           fontFamily: 'hanimation',
@@ -68,7 +69,7 @@ class ImagesWidget extends StatelessWidget {
         path2 != ""
             ? Container(
                 width: MediaQuery.of(context).size.width / 3,
-                height: MediaQuery.of(context).size.height / 10,
+                height: MediaQuery.of(context).size.height / 7.5,
                 padding: const EdgeInsets.all(5),
                 decoration: BoxDecoration(
                     border: Border.all(width: 2, color: lightPrimaryColor),
@@ -83,7 +84,7 @@ class ImagesWidget extends StatelessWidget {
             : Container(
                 alignment: Alignment.center,
                 width: MediaQuery.of(context).size.width / 3,
-                height: MediaQuery.of(context).size.height / 10,
+                height: MediaQuery.of(context).size.height / 7.5,
                 decoration: BoxDecoration(
                   color: redColor,
                   borderRadius: BorderRadius.circular(10),
@@ -96,11 +97,12 @@ class ImagesWidget extends StatelessWidget {
                       width: 45,
                       height: 45,
                     ),
-                    const Text(
-                      'برجاء إرفاق صورة البلاغ الثانية',
+                     Text(
+                      'please attach a second photo of exploration'.tr,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style:const TextStyle(
                           color: Colors.white,
+                          height: 1.1,
                           fontSize: 12,
                           fontFamily: 'hanimation',
                           fontWeight: FontWeight.w400),

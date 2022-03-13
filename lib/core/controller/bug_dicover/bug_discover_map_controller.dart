@@ -95,11 +95,11 @@ class BugDiscoverMapCtrl extends GetxController {
                     double.parse(nearstPoint.point[i].long)) <
                 200.0) {
               Get.defaultDialog(
-                title: "معلومات عن موقع الاإستكشاف الحشري  ",
+                title: 'info about Insect Exploration Site'.tr,
                 titleStyle: const TextStyle(
                     color: primaryColor, fontWeight: FontWeight.bold),
                 middleText:
-                    "انت على بعد مسافة ${calculateDistance(deviceCurrentLocation.currentLat, deviceCurrentLocation.currentLong, double.parse(nearstPoint.point[i].lat), double.parse(nearstPoint.point[i].long))} متر من البؤرة ",
+                    "${"You are within distance".tr} ${(calculateDistance(deviceCurrentLocation.currentLat, deviceCurrentLocation.currentLong, double.parse(nearstPoint.point[i].lat), double.parse(nearstPoint.point[i].long))).toStringAsFixed(3)} ${"meter".tr} ",
                 cancel: InkWell(
                   onTap: () {
                     Get.to(VisitBugDiscoverScreen(id: nearstPoint.point[i].id));
@@ -111,9 +111,9 @@ class BugDiscoverMapCtrl extends GetxController {
                       decoration: BoxDecoration(
                           color: lightPrimaryColor,
                           borderRadius: BorderRadius.circular(30)),
-                      child: const Text(
-                        "إضافة زيارة ",
-                        style: TextStyle(
+                      child:  Text(
+                        'Add a visit'.tr,
+                        style:const TextStyle(
                           color: Colors.white,
                         ),
                       )),
@@ -121,22 +121,22 @@ class BugDiscoverMapCtrl extends GetxController {
               );
             } else {
               Get.defaultDialog(
-                title: "معلومات عن موقع الاإستكشاف الحشري  ",
+                title: 'info about Insect Exploration Site'.tr,
                 titleStyle: const TextStyle(
                     color: primaryColor, fontWeight: FontWeight.bold),
                 middleText: """
-  البلدية :  ${nearstPoint.point[i].cityName}
-  الحي :  ${nearstPoint.point[i].districtName}
-  درجة الحرارة : ${nearstPoint.point[i].temperature}
-  سرعة الرياح : ${nearstPoint.point[i].windSpeed}
-  الرطوبة : ${nearstPoint.point[i].humidity}
-  درجة الملوحة : ${nearstPoint.point[i].waving}
+  ${"Baladya".tr} :  ${nearstPoint.point[i].cityName}
+  ${"District".tr} :  ${nearstPoint.point[i].districtName}
+  ${'temperature'.tr} : ${nearstPoint.point[i].temperature}
+  ${'Wind speed'.tr} : ${nearstPoint.point[i].windSpeed}
+  ${'humidity'.tr} : ${nearstPoint.point[i].humidity}
+  ${'salinity'.tr} : ${nearstPoint.point[i].waving}
   ph : ${nearstPoint.point[i].ph}
-  نوع الاستكشاف : ${nearstPoint.point[i].flyTypeName}
-  نوع الملاحظة : ${nearstPoint.point[i].flyNoteName}
-  نوع العينة : ${nearstPoint.point[i].flySampleTypeName}
-  التاريخ : ${DateFormat('yyyy-MM-dd : kk:mm').format(DateTime.parse(nearstPoint.point[i].date))}
-  الملاحظات :  ${nearstPoint.point[i].recommendation}
+  ${'Type of exploration'.tr} : ${nearstPoint.point[i].flyTypeName}
+  ${'note type'.tr}: ${nearstPoint.point[i].flyNotBaladyaeName}
+  ${'sample type'.tr} : ${nearstPoint.point[i].flySampleTypeName}
+  ${'Date'.tr} : ${DateFormat('yyyy-MM-dd : kk:mm').format(DateTime.parse(nearstPoint.point[i].date))}
+  ${'notes'.tr} :  ${nearstPoint.point[i].recommendation}
  
                            """,
                 confirm: InkWell(
@@ -158,9 +158,9 @@ class BugDiscoverMapCtrl extends GetxController {
                       decoration: BoxDecoration(
                           color: primaryColor,
                           borderRadius: BorderRadius.circular(30)),
-                      child: const Text(
-                        " الذهاب إلى الموقع  ",
-                        style: TextStyle(
+                      child:  Text(
+                        'Go to the site'.tr,
+                        style:const TextStyle(
                           fontSize: 11,
                           color: Colors.white,
                         ),
@@ -179,9 +179,9 @@ class BugDiscoverMapCtrl extends GetxController {
                       decoration: BoxDecoration(
                           color: lightPrimaryColor,
                           borderRadius: BorderRadius.circular(30)),
-                      child: const Text(
-                        "إضافة زيارة   ",
-                        style: TextStyle(
+                      child:  Text(
+                        'Add a visit'.tr,
+                        style:const TextStyle(
                           fontSize: 11,
                           color: Colors.white,
                         ),

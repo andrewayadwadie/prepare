@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prepare/utils/style.dart';
-
+import 'package:get/get.dart';
 class StreetWidget extends StatelessWidget {
   const StreetWidget({Key? key,  required this.onChange}) : super(key: key);
  
@@ -37,7 +37,7 @@ final Function(String)? onChange;
             // =========label ===================================
             floatingLabelBehavior: FloatingLabelBehavior.auto,
             floatingLabelStyle: const TextStyle(fontSize: 11),
-            labelText: "الشارع",
+            labelText: 'street'.tr,
             labelStyle: const TextStyle(
                 height: 1.1,
                 color: blackColor,
@@ -53,7 +53,7 @@ final Function(String)? onChange;
           // The validator receives the text that the user has entered.
           validator: (value) {
             if (value == null || value.isEmpty) {
-              return 'برجاء إدخال إسم الشارع   ';
+              return 'please enter street name '.tr;
             }
             return null;
           },

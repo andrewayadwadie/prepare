@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prepare/utils/style.dart';
-
+import 'package:get/get.dart';
 class HumidityWidget extends StatelessWidget {
   const HumidityWidget({
     Key? key,
@@ -38,7 +38,7 @@ class HumidityWidget extends StatelessWidget {
             // =========label ===================================
             floatingLabelBehavior: FloatingLabelBehavior.auto,
             floatingLabelStyle: const TextStyle(fontSize: 11),
-            labelText: "الرطوبة",
+            labelText: 'humidity'.tr,
             labelStyle: const TextStyle(
                 height: 1.1,
                 color: blackColor,
@@ -54,7 +54,7 @@ class HumidityWidget extends StatelessWidget {
           // The validator receives the text that the user has entered.
           validator: (value) {
             if (value == null || value.isEmpty) {
-              return 'برجاء إدخال الرطوبة ';
+              return 'please enter humidity'.tr;
             }
             return null;
           },
