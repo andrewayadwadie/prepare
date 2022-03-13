@@ -130,5 +130,14 @@ const Map<String, String> ar = {
   'site No.' : 'موقع رقم', 
   'The task can not be started because you are far from the path' : 'لا يمكن بدء المهمة لانك بعيد عن المسار ',
   'Go to the beginning of the track' : 'إذهب الى بداية المسار',
+  // evaluation
+  'Contractors evaluation' : 'تقييم المقاولين',
+  'Add an assessment' : 'إضافة تقييم', 
+  'Send evaluations' : 'إرسال التقييمات',
+  'item' : 'بند',
+  'Please enter an item' : 'برجاء إدخال بند ',
+  'Delete evaluation' : 'حذف تقييم',
+  'describtion' : 'وصف',
+  'Please enter a description' : 'برجاء إدخال وصف ',
 
 };

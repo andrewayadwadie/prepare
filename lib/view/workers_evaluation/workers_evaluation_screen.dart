@@ -31,9 +31,9 @@ class WorkersEvaluation extends StatelessWidget {
               SizedBox(
                 height: MediaQuery.of(context).size.height / 50,
               ),
-              const AutoSizeText(
-                "تقييم المقاول",
-                style: TextStyle(
+               AutoSizeText(
+                'Contractors evaluation'.tr,
+                style:const TextStyle(
                     color: primaryColor,
                     fontSize: 20,
                     fontFamily: 'hanimation'),
@@ -73,14 +73,14 @@ class WorkersEvaluation extends StatelessWidget {
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
-                                Icon(
+                              children:  [
+                                const Icon(
                                   Icons.add,
                                   color: lightPrimaryColor,
                                 ),
                                 Text(
-                                  "إضافة تقييم",
-                                  style: TextStyle(
+                                  'Add an assessment'.tr,
+                                  style:const TextStyle(
                                       color: lightPrimaryColor, fontSize: 11),
                                 ),
                               ],
@@ -171,13 +171,13 @@ class WorkersEvaluation extends StatelessWidget {
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
+                              children:  [
                                 Text(
-                                  "إرسال التقييمات",
-                                  style: TextStyle(
+                                  'Send evaluations'.tr,
+                                  style:const TextStyle(
                                       color: Colors.white, fontSize: 11),
                                 ),
-                                Icon(
+                                const Icon(
                                   Icons.send,
                                   color: Colors.white,
                                 ),

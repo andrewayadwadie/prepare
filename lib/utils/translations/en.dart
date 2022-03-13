@@ -130,4 +130,13 @@ const Map<String, String> en = {
   'site No.' :'site No.', 
   'The task can not be started because you are far from the path' : 'The task can not be started because you are far from the path',
   'Go to the beginning of the track' :'Go to the beginning of the track',
+   // evaluation
+  'Contractors evaluation' : 'Contractors evaluation',
+  'Add an assessment' : 'Add an assessment', 
+  'Send evaluations' : 'Send evaluations',
+  'item' : 'item' ,
+  'Please enter an item' : 'Please enter an item',
+  'Delete evaluation' : 'Delete evaluation' ,
+  'describtion' :'describtion',
+  'Please enter a description' :'Please enter a description',
 };

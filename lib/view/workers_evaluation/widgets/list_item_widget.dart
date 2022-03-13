@@ -77,14 +77,14 @@ class ListItemWidget extends StatelessWidget {
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
-                                Icon(
+                              children:  [
+                                const Icon(
                                   Icons.delete_forever,
                                   color: Colors.white,
                                 ),
                                 Text(
-                                  "حذف تقييم",
-                                  style: TextStyle(
+                                  'Delete evaluation'.tr,
+                                  style:const TextStyle(
                                       color: Colors.white, fontSize: 15),
                                 ),
                               ],

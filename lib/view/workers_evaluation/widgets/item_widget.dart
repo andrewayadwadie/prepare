@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prepare/utils/style.dart';
+import 'package:get/get.dart';
 
 class ItemWidget extends StatelessWidget {
   const ItemWidget({
@@ -38,7 +39,7 @@ class ItemWidget extends StatelessWidget {
             // =========label ===================================
             floatingLabelBehavior: FloatingLabelBehavior.auto,
             floatingLabelStyle: const TextStyle(fontSize: 11),
-            labelText: "بند",
+            labelText: 'item'.tr,
             labelStyle: const TextStyle(
                 height: 1.1,
                 color: blackColor,
@@ -54,7 +55,7 @@ class ItemWidget extends StatelessWidget {
           // The validator receives the text that the user has entered.
           validator: (value) {
             if (value == null || value.isEmpty) {
-              return 'برجاء إدخال بند  ';
+              return 'Please enter an item' .tr;
             }
             return null;
           },

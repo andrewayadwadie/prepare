@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prepare/utils/style.dart';
+import 'package:get/get.dart';
 
 class WorkRecommendationWidget extends StatelessWidget {
   const WorkRecommendationWidget({Key? key,required this.onChange}) : super(key: key);
@@ -37,7 +38,7 @@ class WorkRecommendationWidget extends StatelessWidget {
             floatingLabelBehavior: FloatingLabelBehavior.auto,
             floatingLabelStyle: const TextStyle(fontSize: 11),
 
-            labelText: "وصف",
+            labelText:'describtion' .tr,
             labelStyle: const TextStyle(
                 height: 1.1,
                 color: blackColor,
@@ -53,7 +54,7 @@ class WorkRecommendationWidget extends StatelessWidget {
           // The validator receives the text that the user has entered.
           validator: (value) {
             if (value == null || value.isEmpty) {
-              return 'برجاء إدخال وصف  ';
+              return 'Please enter a description'.tr;
             }
             return null;
           },
