@@ -36,11 +36,9 @@ const Map<String, String> ar = {
   'please enter pesticide quantity': 'برجاء إدخال كمية المبيدات',
   'enter team count': 'إدخل عدد العمال',
   'please enter team count': 'برجاء إدخال عدد العمال',
-  'Not all information required for preparation has been entered':
-      ' لم يتم ادخال كل البيانات المطلوبة للتحضير ',
+  'Not all information required for preparation has been entered':' لم يتم ادخال كل البيانات المطلوبة للتحضير ',
   'are you sure ?': 'هل أنت متأكد؟',
-  'Project preparation has been successfully added':
-      'تم إضافة تحضير للمشروع بنجاح',
+  'Project preparation has been successfully added':'تم إضافة تحضير للمشروع بنجاح',
   'The project has been prepared': 'تم تحضير المشروع من قبل ',
   'The project cannot be prepare d again': 'لايمكن تحضير المشروع مرة اخري',
   //bug discover
@@ -52,7 +50,6 @@ const Map<String, String> ar = {
   'pick second picture': 'إلتقط الصورة الثانية',
   'add first picture': 'إضافة الصورة الأولى',
   'add second picture': 'إضافة الصورة الثانية',
-
   'no code found': 'لا يوجد كود حالياً ',
   'please enter the street name': 'برجاء إدخال إسم الشارع',
   'please enter ph': 'برجاء إدخال ph',
@@ -84,7 +81,6 @@ const Map<String, String> ar = {
   'please attach a second photo of exploration':'برجاء إرفاق صورة الإستكشاف الثانية',
   'site is positive': 'الموقع إيجابي',
   'site is negative': 'الموقع سلبي',
-
   'info about Insect Exploration Site': 'معلومات عن موقع الاإستكشاف الحشري ',
   'You are within distance': 'انت على بعد مسافة',
   'meter': 'متر',
@@ -93,4 +89,22 @@ const Map<String, String> ar = {
   'Type of exploration': 'نوع الاستكشاف',
   'Date': 'التاريخ',
   'Go to the site': 'الذهاب إلى الموقع',
+  //Epicenter
+  'Add density measurement' : 'إضافة قياس كثافة', 
+  'Visit a density measurement' : 'زيارة قياس كثافة', 
+  'Density measurement' : 'قياس الكثافة ' ,
+  'Please enter the name' : 'برجاء إدخال  الاسم',
+  'Please select the district' : 'برجاء اختيار الحي',
+  'Type of insect' : 'نوع الحشرة',
+  'Please choose the insect type' : 'برجاء اختيار  نوع الحشرة',
+  'Added successfully' : 'تم الإضافة بنجاح',
+  'Add a epicenter' : 'إضافة بؤرة',
+  'Visit a density measurement site' : 'زيارة موقع قياس كثافة',
+  'A visit was successfully added' : 'تم إضافة زيارة بنجاح ',
+  'Add an epicenter visit' : 'إضافة زيارة بؤرة',
+  'Information about insect density measurement site' : 'معلومات عن موقع قياس الكثافة الحشرية' ,
+  'Location' : 'الموقع',
+  'There is a problem' : 'يوجد مشكلة',
+  'There is no way suitable for this site' : 'لا يوجد طريق مناسب لهذا الموقع',
+  'There is a problem in locating' : 'يوجد مشكلة فى تحديد الموقع',
 };

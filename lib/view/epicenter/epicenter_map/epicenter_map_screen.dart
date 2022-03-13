@@ -122,7 +122,7 @@ class EpiCenterMapScreen extends StatelessWidget {
                     ],
                   );
                 })),
-
+/*
         /// get my location
         floatingActionButton: GetBuilder<LocationCtrl>(
             init: LocationCtrl(),
@@ -140,6 +140,8 @@ class EpiCenterMapScreen extends StatelessWidget {
                       child: const Icon(Icons.gps_fixed),
                     );
                   });
-            }));
+            })
+            */
+            );
   }
 }

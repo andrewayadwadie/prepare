@@ -12,9 +12,9 @@ import 'epicenter_screen.dart';
 class EpicCenterMainScreen extends StatelessWidget {
   EpicCenterMainScreen({Key? key}) : super(key: key);
   final List<String> titles = [
-    "إضافة قياس كثافة",
+    'Add density measurement'.tr,
     //  "زيارة بؤرة",
-    "زيارة قياس كثافة"
+    'Visit a density measurement'.tr
   ];
   final List<Widget> screens = [
     EpiCenterScreen(),
@@ -37,9 +37,9 @@ class EpicCenterMainScreen extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height / 20,
             ),
-            const AutoSizeText(
-              "قياس الكثافة ",
-              style: TextStyle(
+             AutoSizeText(
+              'Density measurement'.tr,
+              style:const TextStyle(
                   color: lightPrimaryColor,
                   fontSize: 18,
                   fontWeight: FontWeight.w600),

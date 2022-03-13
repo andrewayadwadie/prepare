@@ -46,9 +46,9 @@ final int id;
               SizedBox(
                 height: MediaQuery.of(context).size.height / 20,
               ),
-              const AutoSizeText(
-                "زيارة موقع قياس كثافة ",
-                style: TextStyle(
+               AutoSizeText(
+                'Visit a density measurement site'.tr,
+                style:const TextStyle(
                     color: lightPrimaryColor,
                     fontSize: 18,
                     fontWeight: FontWeight.w600),
@@ -98,22 +98,22 @@ final int id;
 
                                       if (clk.clicked == false) {
                                         if (recommendation == "") {
-                                          toast("برجاء إدخال  ملاحظات",
+                                          toast('please enter notes'.tr,
                                               duration:
                                                   const Duration(seconds: 2));
                                           clk.changeClick();
                                         } else if (humidity == 0.0) {
-                                          toast("برجاء إدخال  قيمة الرطوبة",
+                                          toast('please enter humidity'.tr,
                                               duration:
                                                   const Duration(seconds: 2));
                                           clk.changeClick();
                                         } else if (windspeed == 0.0) {
-                                          toast("برجاء إدخال  سرعة الرياح ",
+                                          toast('please enter wind speed'.tr,
                                               duration:
                                                   const Duration(seconds: 2));
                                           clk.changeClick();
                                         } else if (temperature == 0.0) {
-                                          toast("برجاء إدخال  درجة الحرارة ",
+                                          toast('please enter the temperature'.tr,
                                               duration:
                                                   const Duration(seconds: 2));
                                           clk.changeClick();
@@ -143,8 +143,8 @@ final int id;
                                                     context: context,
                                                     type: CoolAlertType.success,
                                                     title:
-                                                        "تم إضافة زيارة بنجاح بنجاح",
-                                                    confirmBtnText: "حسناً",
+                                                       'A visit was successfully added'.tr,
+                                                    confirmBtnText: 'ok'.tr,
                                                     confirmBtnColor:
                                                         primaryColor,
                                                     backgroundColor:
@@ -208,9 +208,9 @@ final int id;
                                                 tileMode: TileMode.clamp),
                                           ),
                                     child: clk.clicked == false
-                                        ? const Text(
-                                            "إضافة زيارة بؤرة ",
-                                            style: TextStyle(
+                                        ?  Text(
+                                           'Add an epicenter visit'.tr,
+                                            style:const TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 18),
                                             textAlign: TextAlign.center,

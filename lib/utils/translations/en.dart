@@ -50,7 +50,6 @@ const Map<String, String> en = {
   'pick second picture':'pick second picture',
   'add first picture':'add first picture',
   'add second picture':'add second picture',
-
   'no code found':'no code found',
   'please enter the street name':'please enter the street name',
   'please enter ph':'please enter ph',
@@ -90,5 +89,22 @@ const Map<String, String> en = {
   'Type of exploration': 'Type of exploration',
   'Date': 'Date',
   'Go to the site': 'Go to the site',
-
+  //Epicenter
+  'Add density measurement' : 'Add density measurement', 
+  'Visit a density measurement' : 'Visit a density measurement', 
+  'Density measurement' : 'Density measurement' ,
+  'Please enter the name' : 'Please enter the name',
+  'Please select the district' : 'Please select the district ',
+  'Type of insect' : 'Type of insect',
+  'Please choose the insect type' : 'Please choose the insect type',
+  'Added successfully' : 'Added successfully' ,
+  'Add a epicenter' : 'Add a epicenter',
+  'Visit a density measurement site' : 'Visit a density measurement site',
+  'A visit was successfully added' : 'A visit was successfully added',
+  'Add an epicenter visit' : 'Add an epicenter visit',
+  'Information about insect density measurement site' : 'Information about insect density measurement site' ,
+  'Location' : 'Location',
+  'There is a problem' : 'There is a problem',
+  'There is no way suitable for this site' : 'There is no way suitable for this site',
+  'There is a problem in locating' : 'There is a problem in locating' ,
 };

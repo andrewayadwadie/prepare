@@ -17,7 +17,7 @@ class AllDistrictController extends GetxController {
   //   super.onInit();
   // }
 
-  RxString districtText = "الحي".obs;
+  RxString districtText = 'District'.tr.obs;
   RxInt districtId = 0.obs;
 
   void onTapSelected(BuildContext con, int id, index) async {

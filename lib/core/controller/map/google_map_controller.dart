@@ -95,11 +95,11 @@ class MapCtrl extends GetxController {
                     double.parse(nearstPoint.point[i].long)) <
                 200.0) {
               Get.defaultDialog(
-                title: "معلومات عن موقع الكثافة الحشرية  ",
+                title: 'Information about insect density measurement site'.tr,
                 titleStyle: const TextStyle(
                     color: primaryColor, fontWeight: FontWeight.bold),
                 middleText:
-                    "انت على بعد مسافة ${calculateDistance(deviceCurrentLocation.currentLat, deviceCurrentLocation.currentLong, double.parse(nearstPoint.point[i].lat), double.parse(nearstPoint.point[i].long))} متر من البؤرة ",
+                    "${'You are within distance'.tr} ${(calculateDistance(deviceCurrentLocation.currentLat, deviceCurrentLocation.currentLong, double.parse(nearstPoint.point[i].lat), double.parse(nearstPoint.point[i].long))).toStringAsFixed(3)} ${'meter'.tr} ",
                 cancel: InkWell(
                   onTap: () {
                     Get.to(VisitEpicenterScreen(
@@ -113,9 +113,9 @@ class MapCtrl extends GetxController {
                       decoration: BoxDecoration(
                           color: lightPrimaryColor,
                           borderRadius: BorderRadius.circular(30)),
-                      child: const Text(
-                        "إضافة زيارة ",
-                        style: TextStyle(
+                      child:  Text(
+                        'Add a visit'.tr,
+                        style:const TextStyle(
                           color: Colors.white,
                         ),
                       )),
@@ -123,16 +123,16 @@ class MapCtrl extends GetxController {
               );
             } else {
               Get.defaultDialog(
-                title: "معلومات عن موقع الكثافة الحشرية  ",
+                title: 'Information about insect density measurement site'.tr,
                 titleStyle: const TextStyle(
                     color: primaryColor, fontWeight: FontWeight.bold),
                 middleText: """
- الموقع : ${nearstPoint.point[i].name}
-  نوع الحشرة :  ${nearstPoint.point[i].insectName}
-التاريخ : ${DateFormat('yyyy-MM-dd : kk:mm').format(DateTime.parse(nearstPoint.point[i].date))}
- الحي :  ${nearstPoint.point[i].districtName}
- البلدية :  ${nearstPoint.point[i].cityName}
-  الملاحظات :  ${nearstPoint.point[i].recommendation}
+ ${'Location'.tr} : ${nearstPoint.point[i].name}
+  ${'Type of insect'.tr}:  ${nearstPoint.point[i].insectName}
+ ${'Date'.tr} : ${DateFormat('yyyy-MM-dd : kk:mm').format(DateTime.parse(nearstPoint.point[i].date))}
+ ${'District'.tr} :  ${nearstPoint.point[i].districtName}
+ ${'Baladya'.tr} :  ${nearstPoint.point[i].cityName}
+  ${'notes'.tr} :  ${nearstPoint.point[i].recommendation}
  
                            """,
                 confirm: InkWell(
@@ -154,9 +154,9 @@ class MapCtrl extends GetxController {
                       decoration: BoxDecoration(
                           color: primaryColor,
                           borderRadius: BorderRadius.circular(30)),
-                      child: const Text(
-                        " الذهاب إلى الموقع  ",
-                        style: TextStyle(
+                      child:  Text(
+                        'Go to the site'.tr,
+                        style:const TextStyle(
                           fontSize: 11,
                           color: Colors.white,
                         ),
@@ -173,9 +173,9 @@ class MapCtrl extends GetxController {
                       decoration: BoxDecoration(
                           color: lightPrimaryColor,
                           borderRadius: BorderRadius.circular(30)),
-                      child: const Text(
-                        "إضافة زيارة   ",
-                        style: TextStyle(
+                      child:  Text(
+                        'Add a visit'.tr,
+                        style:const TextStyle(
                           fontSize: 11,
                           color: Colors.white,
                         ),
@@ -210,14 +210,14 @@ class MapCtrl extends GetxController {
     dev.log("result error = ${result.errorMessage}");
     dev.log("result status = ${result.status}");
     if (result.status == "ZERO_RESULTS") {
-      Get.snackbar("يوجد مشكلة ", "لا يوجد طريق مناسب لهذا الموقع ");
+      Get.snackbar('There is a problem'.tr, 'There is no way suitable for this site'.tr);
     }
     if (result.points.isNotEmpty) {
       for (var point in result.points) {
         polylineCoordinates.add(LatLng(point.latitude, point.longitude));
       }
     } else {
-      Get.snackbar("يوجد مشكلة ", "يوجد مشكلة فى تحديد الموقع");
+      Get.snackbar('There is a problem'.tr, 'There is a problem in locating'.tr);
 
       dev.log("result failed ");
     }

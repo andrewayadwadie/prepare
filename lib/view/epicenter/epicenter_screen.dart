@@ -55,9 +55,9 @@ class EpiCenterScreen extends StatelessWidget {
               SizedBox(
                 height: MediaQuery.of(context).size.height / 20,
               ),
-              const AutoSizeText(
-                "إضافة قياس كثافة",
-                style: TextStyle(
+               AutoSizeText(
+                'Add density measurement' .tr,
+                style:const TextStyle(
                     color: lightPrimaryColor,
                     fontSize: 18,
                     fontWeight: FontWeight.w600),
@@ -149,9 +149,9 @@ class EpiCenterScreen extends StatelessWidget {
                                             ]),
                                         child: insect.insectsId == 0 ||
                                                 cityCtrl.cityId.value == 0
-                                            ? const SelectableText(
-                                                "لا يوجد كود حالياً ",
-                                                style: TextStyle(fontSize: 12),
+                                            ?  SelectableText(
+                                                'no code found'.tr,
+                                                style:const TextStyle(fontSize: 12),
                                               )
                                             : SelectableText(
                                                 codeCtrl
@@ -213,14 +213,14 @@ class EpiCenterScreen extends StatelessWidget {
                                                                 clk.changeClick();
                                                               } else if (recommendation ==
                                                                   "") {
-                                                                toast("برجاء إدخال ملاحظات",
+                                                                toast('please enter notes'.tr,
                                                                     duration: const Duration(
                                                                         seconds:
                                                                             2));
                                                                 clk.changeClick();
                                                               } else if (name ==
                                                                   "") {
-                                                                toast("برجاء إدخال  الاسم",
+                                                                toast('Please enter the name'.tr,
                                                                     duration: const Duration(
                                                                         seconds:
                                                                             2));
@@ -228,8 +228,8 @@ class EpiCenterScreen extends StatelessWidget {
                                                               } else if (cityCtrl
                                                                       .cityText
                                                                       .value ==
-                                                                  "البلدية") {
-                                                                toast("برجاء اختيار البلدية",
+                                                                  'Baladya'.tr) {
+                                                                toast('Please choose the baladya'.tr,
                                                                     duration: const Duration(
                                                                         seconds:
                                                                             2));
@@ -237,16 +237,16 @@ class EpiCenterScreen extends StatelessWidget {
                                                               } else if (disCtrl
                                                                       .districtText
                                                                       .value ==
-                                                                  "الحي") {
-                                                                toast("برجاء اختيار الحي",
+                                                                  'District'.tr) {
+                                                                toast('Please select the district'.tr,
                                                                     duration: const Duration(
                                                                         seconds:
                                                                             2));
                                                                 clk.changeClick();
                                                               } else if (insectCtrl
                                                                       .insectsText ==
-                                                                  "نوع الحشرة") {
-                                                                toast("برجاء اختيار  نوع الحشرة ",
+                                                                  'Type of insect'.tr) {
+                                                                toast( 'Please choose the insect type'.tr,
                                                                     duration: const Duration(
                                                                         seconds:
                                                                             2));
@@ -311,9 +311,9 @@ class EpiCenterScreen extends StatelessWidget {
                                                                           type:
                                                                               CoolAlertType.success,
                                                                           title:
-                                                                              "تم الإضافة بنجاح",
+                                                                              'Added successfully' .tr,
                                                                           confirmBtnText:
-                                                                              "حسناً",
+                                                                              'ok'.tr,
                                                                           confirmBtnColor:
                                                                               primaryColor,
                                                                           backgroundColor:
@@ -381,9 +381,9 @@ class EpiCenterScreen extends StatelessWidget {
                                                                   ),
                                                             child: clk.clicked ==
                                                                     false
-                                                                ? const Text(
-                                                                    "إضافة بؤرة ",
-                                                                    style: TextStyle(
+                                                                ?  Text(
+                                                                    'Add a epicenter' .tr,
+                                                                    style:const TextStyle(
                                                                         color: Colors
                                                                             .white,
                                                                         fontSize:
