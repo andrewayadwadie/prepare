@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prepare/utils/style.dart';
+import 'package:get/get.dart';
 
 class NumberWidget extends StatelessWidget {
   const NumberWidget({Key? key,  required this.onChange}) : super(key: key);
@@ -37,7 +38,7 @@ final Function(String)? onChange;
             // =========label ===================================
             floatingLabelBehavior: FloatingLabelBehavior.auto,
             floatingLabelStyle: const TextStyle(fontSize: 11),
-            labelText: "عدد الحشرات  :  ",
+            labelText: "${'number of Insects'.tr} :  ",
             labelStyle: const TextStyle(
                 height: 1.1,
                 color: blackColor,
@@ -53,7 +54,7 @@ final Function(String)? onChange;
           // The validator receives the text that the user has entered.
           validator: (value) {
             if (value == null || value.isEmpty) {
-              return 'برجاء إدخال عدد الحشرات ';
+              return 'please enter number of Insects'.tr;
             }
             return null;
           },

@@ -5,6 +5,7 @@ const Map<String, String> ar = {
   'no': 'لا',
   'ok': 'حسناً',
   'cancel': 'إلغاء',
+
   //Auth
   'login': 'تسجيل الدخول',
   'user name': 'إسم المستخدم ',
@@ -97,6 +98,10 @@ const Map<String, String> ar = {
   'Please select the district' : 'برجاء اختيار الحي',
   'Type of insect' : 'نوع الحشرة',
   'Please choose the insect type' : 'برجاء اختيار  نوع الحشرة',
+  'name':'الإسم',
+  'please enter name ':'برجاء إدخال الإسم',
+  'number of Insects':'عدد الحشرات ',
+  'please enter number of Insects':'برجاء إدخال عدد الحشرات ',
   'Added successfully' : 'تم الإضافة بنجاح',
   'Add a epicenter' : 'إضافة بؤرة',
   'Visit a density measurement site' : 'زيارة موقع قياس كثافة',

@@ -5,6 +5,7 @@ const Map<String, String> en = {
   'no':'no',
   'ok':'ok',
   'cancel':'cancel',
+ 
   //Auth
   'login': 'login',
   'user name': 'user name',
@@ -97,6 +98,10 @@ const Map<String, String> en = {
   'Please select the district' : 'Please select the district ',
   'Type of insect' : 'Type of insect',
   'Please choose the insect type' : 'Please choose the insect type',
+  'name':'name',
+  'please enter name ':'please enter name ',
+  'number of Insects':'number of Insects',
+  'please enter number of Insects':'please enter number of Insects',
   'Added successfully' : 'Added successfully' ,
   'Add a epicenter' : 'Add a epicenter',
   'Visit a density measurement site' : 'Visit a density measurement site',
