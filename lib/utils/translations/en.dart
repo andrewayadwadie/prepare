@@ -109,6 +109,9 @@ const Map<String, String> en = {
   'There is a problem in locating' : 'There is a problem in locating' ,
   //animal
   'Visit stray dog ​​site' : 'Visit stray dog ​​site',
+  'Add Visit stray dog ​​site' : 'Add Visit stray dog ​​site',
   'Add stray dogs' : 'Add stray dogs' ,
   'Stray Dogs' : 'Stray Dogs',
+  'Information about the location of stray dogs' : 'Information about the location of stray dogs',
+
 };

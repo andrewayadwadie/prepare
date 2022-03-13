@@ -40,9 +40,9 @@ class VisitAnimalScreen extends StatelessWidget {
                                   height:
                                       MediaQuery.of(context).size.height / 20,
                                 ),
-                                const AutoSizeText(
-                                  "زيارة موقع كلاب ضالة  ",
-                                  style: TextStyle(
+                                 AutoSizeText(
+                                  'Visit stray dog ​​site' .tr,
+                                  style:const TextStyle(
                                       color: lightPrimaryColor,
                                       fontSize: 18,
                                       fontWeight: FontWeight.w600),
@@ -97,7 +97,7 @@ class VisitAnimalScreen extends StatelessWidget {
                                                         ).then((value) {
                                                           if (value == 400) {
                                                             toast(
-                                                                "يوجد خطأ فى الإرسال ",
+                                                               'there is an error in sending'.tr,
                                                                 duration:
                                                                     const Duration(
                                                                         seconds:
@@ -119,9 +119,9 @@ class VisitAnimalScreen extends StatelessWidget {
                                                                   CoolAlertType
                                                                       .success,
                                                               title:
-                                                                  "تم الارسال بنجاح",
+                                                                  'sent succesfully'.tr,
                                                               confirmBtnText:
-                                                                  "حسناً",
+                                                                  "ok".tr,
                                                               confirmBtnColor:
                                                                   primaryColor,
                                                               backgroundColor:
@@ -202,9 +202,9 @@ class VisitAnimalScreen extends StatelessWidget {
                                                                         .clamp),
                                                       ),
                                                 child: clk.clicked == false
-                                                    ? const Text(
-                                                        "إضافة زيارة موقع كلاب ضالة  ",
-                                                        style: TextStyle(
+                                                    ?  Text(
+                                                       'Add Visit stray dog ​​site'.tr,
+                                                        style:const TextStyle(
                                                             color: Colors.white,
                                                             fontSize: 18),
                                                         textAlign:
@@ -221,7 +221,7 @@ class VisitAnimalScreen extends StatelessWidget {
                             )))),
                 items: [
                   HawkFabMenuItem(
-                      label: 'إضافة الصورة الأولى',
+                      label: 'add first picture'.tr,
                       ontap: () {
                         imgCtrl.pickImageFromGallrey();
                       },
@@ -230,7 +230,7 @@ class VisitAnimalScreen extends StatelessWidget {
                       labelColor: lightPrimaryColor,
                       labelBackgroundColor: Colors.white),
                   HawkFabMenuItem(
-                      label: 'إلتقط الصورة الأولى ',
+                      label: 'pick first picture'.tr,
                       ontap: () {
                         imgCtrl.pickImageFromCam();
                       },
@@ -239,7 +239,7 @@ class VisitAnimalScreen extends StatelessWidget {
                       labelColor: lightPrimaryColor,
                       labelBackgroundColor: Colors.white),
                   HawkFabMenuItem(
-                      label: 'إضافة الصورة الثانية',
+                      label: 'add second picture'.tr,
                       ontap: () {
                         imgCtrl.pickImageFromGallrey2();
                       },
@@ -248,7 +248,7 @@ class VisitAnimalScreen extends StatelessWidget {
                       labelColor: lightPrimaryColor,
                       labelBackgroundColor: Colors.white),
                   HawkFabMenuItem(
-                      label: 'إلتقط الصورة الثانية',
+                      label: 'pick second picture'.tr,
                       ontap: () {
                         imgCtrl.pickImageFromCam2();
                       },

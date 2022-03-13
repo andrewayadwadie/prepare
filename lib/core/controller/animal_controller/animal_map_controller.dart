@@ -96,11 +96,11 @@ class AnimalMapCtrl extends GetxController {
                     double.parse(nearstPoint.point[i].long)) <
                 200.0) {
               Get.defaultDialog(
-                title: " معلومات عن موقع الكلاب الضالة ",
+                title: 'Information about the location of stray dogs' .tr,
                 titleStyle: const TextStyle(
                     color: primaryColor, fontWeight: FontWeight.bold),
                 middleText:
-                    "انت على بعد مسافة ${calculateDistance(deviceCurrentLocation.currentLat, deviceCurrentLocation.currentLong, double.parse(nearstPoint.point[i].lat), double.parse(nearstPoint.point[i].long))} متر من البؤرة ",
+                    "${'You are within distance'.tr} ${(calculateDistance(deviceCurrentLocation.currentLat, deviceCurrentLocation.currentLong, double.parse(nearstPoint.point[i].lat), double.parse(nearstPoint.point[i].long))).toStringAsFixed(3)} ${'meter'.tr} ",
                 cancel: InkWell(
                   onTap: () {
                     Get.to(VisitAnimalScreen(id: nearstPoint.point[i].id,));
@@ -112,9 +112,9 @@ class AnimalMapCtrl extends GetxController {
                       decoration: BoxDecoration(
                           color: lightPrimaryColor,
                           borderRadius: BorderRadius.circular(30)),
-                      child: const Text(
-                        "إضافة زيارة ",
-                        style: TextStyle(
+                      child:  Text(
+                       'Add a visit'.tr,
+                        style:const TextStyle(
                           color: Colors.white,
                         ),
                       )),
@@ -122,13 +122,13 @@ class AnimalMapCtrl extends GetxController {
               );
             } else {
               Get.defaultDialog(
-                title: "معلومات عن موقع الكلاب الضالة ",
+                title: 'Information about the location of stray dogs' .tr,
                 titleStyle: const TextStyle(
                     color: primaryColor, fontWeight: FontWeight.bold),
                 middleText: """
- البلدية :  ${nearstPoint.point[i].cityName}
- الحي :  ${nearstPoint.point[i].districtName}
-  التاريخ : ${DateFormat('yyyy-MM-dd : kk:mm').format(DateTime.parse(nearstPoint.point[i].date))}
+ ${'Baladya'.tr} :  ${nearstPoint.point[i].cityName}
+ ${'District'.tr} :  ${nearstPoint.point[i].districtName}
+  ${'Date'.tr} : ${DateFormat('yyyy-MM-dd : kk:mm').format(DateTime.parse(nearstPoint.point[i].date))}
  
                            """,
                 confirm: InkWell(
@@ -151,9 +151,9 @@ class AnimalMapCtrl extends GetxController {
                       decoration: BoxDecoration(
                           color: primaryColor,
                           borderRadius: BorderRadius.circular(30)),
-                      child: const Text(
-                        " الذهاب إلى الموقع  ",
-                        style: TextStyle(
+                      child:  Text(
+                        'Go to the site'.tr,
+                        style:const TextStyle(
                           fontSize: 11,
                           color: Colors.white,
                         ),
@@ -170,9 +170,9 @@ class AnimalMapCtrl extends GetxController {
                       decoration: BoxDecoration(
                           color: lightPrimaryColor,
                           borderRadius: BorderRadius.circular(30)),
-                      child: const Text(
-                        "إضافة زيارة   ",
-                        style: TextStyle(
+                      child:  Text(
+                        'Add a visit'.tr,
+                        style:const TextStyle(
                           fontSize: 11,
                           color: Colors.white,
                         ),

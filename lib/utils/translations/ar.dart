@@ -109,6 +109,8 @@ const Map<String, String> ar = {
   'There is a problem in locating' : 'يوجد مشكلة فى تحديد الموقع',
   //animal
   'Visit stray dog ​​site' : 'زيارة موقع كلاب ضالة ',
+  'Add Visit stray dog ​​site' : 'إضافة زيارة موقع كلاب ضالة ',
   'Add stray dogs' : 'إضافة كلاب ضالة',
   'Stray Dogs' : ' الكلاب ضالة',
+  'Information about the location of stray dogs' : 'معلومات عن موقع الكلاب الضالة ',
 };
