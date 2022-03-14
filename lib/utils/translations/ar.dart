@@ -145,6 +145,9 @@ const Map<String, String> ar = {
   'Delete evaluation' : 'حذف تقييم',
   'describtion' : 'وصف',
   'Please enter a description' : 'برجاء إدخال وصف ',
+  'evaluate contractor' : 'تقييم المقاول',
+  'Contractors List':'قائمة المقاولين',
+  'Evaluations has been successfully sended':'تم إرسال التقييمات بنجاح',
   
 
 };

@@ -1,34 +1,37 @@
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class Evaluate extends GetxController {
-  /*
-  @override
-  void onInit() {
-    super.onInit();
-    evaluateList.length = evaluateList.length + 1;
-  }
-*/
   List evaluateList = [].obs;
-  // List<String> item = [];
-  // List<String> recommendation = [];
+  late List<TextEditingController> textEditItemList = <TextEditingController>[];
+  late List<TextEditingController> textEditDisList = <TextEditingController>[];
 
-  List<dynamic> data = [];
+  void addItem(int index, {String? item}) {
+    evaluateList[index]["Item"] = item;
+    textEditItemList[index].value.text == item;
+    update();
+  }
 
-  void addData({String description = "", String item = ""}) {
-    data.add({"Item": item, "Description": description});
+  void addDescription(int index, {String? dis}) {
+    evaluateList[index]["Description"] = dis;
+    textEditDisList[index].value.text == dis;
     update();
   }
 
   void increaseList() {
-    evaluateList.length++;
+    evaluateList.add({"Item": "", "Description": ""});
+    textEditItemList.add(TextEditingController());
+    textEditDisList.add(TextEditingController());
     update();
   }
 
   void decreaseList(index) {
     log("index from controller $index");
     evaluateList.removeAt(index);
+    textEditItemList.removeAt(index);
+    textEditDisList.removeAt(index);
     update();
   }
 }

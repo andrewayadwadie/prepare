@@ -145,4 +145,8 @@ const Map<String, String> en = {
   'Delete evaluation' : 'Delete evaluation' ,
   'describtion' :'describtion',
   'Please enter a description' :'Please enter a description',
+  'evaluate contractor' : 'evaluate contractor' ,
+  'Contractors List':'Contractors List',
+  'Evaluations has been successfully sended':'Evaluations has been successfully sended',
+
 };

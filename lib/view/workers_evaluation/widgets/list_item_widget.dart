@@ -12,8 +12,12 @@ class ListItemWidget extends StatelessWidget {
   const ListItemWidget({
     Key? key,
     required this.index,
+    required this.itemController,
+    required this.disController
   }) : super(key: key);
   final int index;
+  final TextEditingController itemController ;
+  final TextEditingController disController ;
   @override
   Widget build(BuildContext context) {
     return GetBuilder<Evaluate>(
@@ -40,13 +44,20 @@ class ListItemWidget extends StatelessWidget {
               //   key: itemFormKey[index],
               child: Column(
                 children: [
-                  ItemWidget(onChange: (value) {
-                    ctrl.data.clear();
-                    ctrl.addData( item: value ?? "");
+                  ItemWidget(
+                    controller: itemController,
+                    onChange: (value) {
+                 //   ctrl.data.clear();
+                // ctrl.addData(index,item: value??"");
+
+                    ctrl.addItem(index,item: value??"");
                   }),
-                  WorkRecommendationWidget(onChange: (val) {
-                    ctrl.data.clear();
-                    ctrl.addData( description: val);
+                  WorkRecommendationWidget(
+                    controller: disController,
+                    onChange: (val) {
+                  //  ctrl.data.clear();
+               //    ctrl.addData(index,description: val);
+                   ctrl.addDescription(index,dis: val);
                   }),
                   GetBuilder<Evaluate>(
                       init: Evaluate(),

@@ -8,7 +8,7 @@ import 'package:prepare/view/animal/animal_main_screen.dart';
 import 'package:prepare/view/bug_discover/bug_discover_main_screen.dart';
 import 'package:prepare/view/daily_work/daily_work_main_screen.dart';
 import 'package:prepare/view/epicenter/epicenter_main_screen.dart';
-import 'package:prepare/view/workers_evaluation/workers_evaluation_screen.dart';
+ import 'package:prepare/view/workers_evaluation/contractors_list_screen.dart';
 
 class HomeBodyWidget extends StatelessWidget {
   HomeBodyWidget({Key? key}) : super(key: key);
@@ -26,7 +26,7 @@ class HomeBodyWidget extends StatelessWidget {
     EpicCenterMainScreen(),
     AnimalMainScreen(),
     const DailyWorkMainScreen(),
-    const WorkersEvaluation()
+    const ContractorsListScreen()
   ];
   @override
   Widget build(BuildContext context) {

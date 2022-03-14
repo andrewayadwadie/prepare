@@ -3,8 +3,9 @@ import 'package:prepare/utils/style.dart';
 import 'package:get/get.dart';
 
 class WorkRecommendationWidget extends StatelessWidget {
-  const WorkRecommendationWidget({Key? key,required this.onChange}) : super(key: key);
+  const WorkRecommendationWidget({Key? key,required this.onChange,required this.controller,}) : super(key: key);
  final Function(String)? onChange;
+ final TextEditingController controller;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -12,6 +13,7 @@ class WorkRecommendationWidget extends StatelessWidget {
       child: SizedBox(
         height: MediaQuery.of(context).size.height / 13,
         child: TextFormField(
+          controller: controller,
           cursorHeight: 20,
           maxLines: 3,
           keyboardType: TextInputType.text,

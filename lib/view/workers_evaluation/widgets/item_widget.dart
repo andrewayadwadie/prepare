@@ -5,9 +5,11 @@ import 'package:get/get.dart';
 class ItemWidget extends StatelessWidget {
   const ItemWidget({
     Key? key,
-    required this.onChange,
+    required this.onChange,required this.controller,
+
   }) : super(key: key);
   final Function(String?)? onChange;
+  final TextEditingController controller;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -15,6 +17,7 @@ class ItemWidget extends StatelessWidget {
       child: SizedBox(
         height: MediaQuery.of(context).size.height / 13,
         child: TextFormField(
+          controller: controller,
           cursorHeight: 20,
           keyboardType: TextInputType.name,
           decoration: InputDecoration(

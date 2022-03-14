@@ -202,7 +202,6 @@ class PreprationServices {
         return 200;
       } else if (res.statusCode == 400) {
         var registerDataJson = jsonDecode(res.body);
-
         return registerDataJson['errors'][0][0];
       } else if (res.statusCode == 401) {
         return 401;
