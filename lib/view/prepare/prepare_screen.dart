@@ -18,7 +18,6 @@ import 'package:prepare/view/prepare/widgets/devices_dialog_widget.dart';
 import 'package:prepare/view/prepare/widgets/pesticides_dialog_widget.dart';
 import 'package:prepare/view/prepare/widgets/single_list_item_widget.dart';
 import 'package:prepare/view/prepare/widgets/team_dialog_widget.dart';
-import 'package:prepare/view/prepare/widgets/tools_dialog_widget.dart';
 import 'package:prepare/view/shared_widgets/header_widget.dart';
 import 'package:prepare/view/shared_widgets/line_dot.dart';
 
@@ -296,6 +295,7 @@ class PrepareScreen extends StatelessWidget {
                                                                                     title:'Not all information required for preparation has been entered'.tr,
                                                                                     text: 'are you sure ?'.tr,
                                                                                     showCancelBtn: true,
+                                                                                    
                                                                                     onConfirmBtnTap: () async {
                                                                                       var res = await PreprationServices.addPrepration(projectId: id, carObjectList: carsCtrl.carObjectList, toolsObjectList: toolsCtrl.toolsObjectList, devicesObjectList: devicesCtrl.devicesObjectList, pestsideObjectList: pestsidesCtrl.pestSideObjectList, teamsObjectList: teamsCtrl.teamObjectList);
                                                                                       if (res == 200) {
@@ -317,8 +317,8 @@ class PrepareScreen extends StatelessWidget {
                                                                                       Get.back();
                                                                                       click.changeClick();
                                                                                     },
-                                                                                    confirmBtnText: "yes ".tr,
-                                                                                    cancelBtnText: "no".tr,
+                                                                                    confirmBtnText: 'yes'.tr,
+                                                                                    cancelBtnText: 'no'.tr,
                                                                                     confirmBtnColor: lightPrimaryColor,
                                                                                     backgroundColor: redColor,
                                                                                   );
