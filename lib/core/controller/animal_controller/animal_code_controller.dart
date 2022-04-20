@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:prepare/core/service/animal_services.dart';
+import '../../service/animal_services.dart';
 
 class AnimaCodeController extends GetxController {
   RxString animalCode = "".obs;

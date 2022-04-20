@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -28,7 +26,6 @@ class Evaluate extends GetxController {
   }
 
   void decreaseList(index) {
-    log("index from controller $index");
     evaluateList.removeAt(index);
     textEditItemList.removeAt(index);
     textEditDisList.removeAt(index);

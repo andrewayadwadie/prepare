@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hawk_fab_menu/hawk_fab_menu.dart';
 import 'package:overlay_support/overlay_support.dart';
-import 'package:prepare/core/controller/click_controller.dart';
-import 'package:prepare/core/controller/image_picker_controller.dart';
-import 'package:prepare/core/controller/internet_connectivity_controller.dart';
-import 'package:prepare/core/service/animal_services.dart';
-import 'package:prepare/utils/style.dart';
-import 'package:prepare/view/auth/login_screen.dart';
-import 'package:prepare/view/home/home_screen.dart';
-import 'package:prepare/view/shared_widgets/header_widget.dart';
-import 'package:prepare/view/shared_widgets/images_widget.dart';
-import 'package:prepare/view/shared_widgets/line_dot.dart';
+import '../../core/controller/click_controller.dart';
+import '../../core/controller/image_picker_controller.dart';
+import '../../core/controller/internet_connectivity_controller.dart';
+import '../../core/service/animal_services.dart';
+import '../../utils/style.dart';
+import '../auth/login_screen.dart';
+import '../home/home_screen.dart';
+import '../shared_widgets/header_widget.dart';
+import '../shared_widgets/images_widget.dart';
+import '../shared_widgets/line_dot.dart';
 
 // ignore: must_be_immutable
 class VisitAnimalScreen extends StatelessWidget {

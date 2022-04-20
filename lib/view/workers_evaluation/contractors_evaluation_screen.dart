@@ -4,17 +4,17 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prepare/core/controller/click_controller.dart';
+import '../../core/controller/click_controller.dart';
 
-import 'package:prepare/core/controller/evaluation_controller/evaluation_controller.dart';
-import 'package:prepare/core/controller/internet_connectivity_controller.dart';
-import 'package:prepare/core/service/contractors_services.dart';
-import 'package:prepare/utils/style.dart';
-import 'package:prepare/view/auth/login_screen.dart';
-import 'package:prepare/view/home/home_screen.dart';
-import 'package:prepare/view/shared_widgets/header_widget.dart';
-import 'package:prepare/view/shared_widgets/line_dot.dart';
-import 'package:prepare/view/workers_evaluation/widgets/list_item_widget.dart';
+import '../../core/controller/evaluation_controller/evaluation_controller.dart';
+import '../../core/controller/internet_connectivity_controller.dart';
+import '../../core/service/contractors_services.dart';
+import '../../utils/style.dart';
+import '../auth/login_screen.dart';
+import '../home/home_screen.dart';
+import '../shared_widgets/header_widget.dart';
+import '../shared_widgets/line_dot.dart';
+import 'widgets/list_item_widget.dart';
 
 // ignore: must_be_immutable
 class WorkersEvaluation extends StatelessWidget {

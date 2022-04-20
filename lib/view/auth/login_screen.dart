@@ -1,10 +1,10 @@
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prepare/core/db/auth_shared_preferences.dart';
-import 'package:prepare/core/service/auth_services.dart';
-import 'package:prepare/utils/style.dart';
- import 'package:prepare/view/home/home_screen.dart';
+import '../../core/db/auth_shared_preferences.dart';
+import '../../core/service/auth_services.dart';
+import '../../utils/style.dart';
+import '../home/home_screen.dart';
  
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);

@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:prepare/core/db/auth_shared_preferences.dart';
-import 'package:prepare/model/project_model.dart';
-import 'package:prepare/utils/constants.dart';
+import '../db/auth_shared_preferences.dart';
+import '../../model/project_model.dart';
+import '../../utils/constants.dart';
 import 'package:http/http.dart' as http;
 
 class ProjectServices {

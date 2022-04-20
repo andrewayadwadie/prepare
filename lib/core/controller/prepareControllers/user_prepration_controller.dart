@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import 'package:prepare/core/service/prepration_services.dart';
+import '../../service/prepration_services.dart';
 
 class UserPreprationController extends GetxController {
   UserPreprationController(

@@ -1,7 +1,7 @@
  
 import 'package:get/get.dart';
-import 'package:prepare/core/service/contractors_services.dart';
-import 'package:prepare/view/auth/login_screen.dart';
+import '../../service/contractors_services.dart';
+import '../../../view/auth/login_screen.dart';
 
 class ContractorsListController extends GetxController {
   List<dynamic> contractors = [];

@@ -1,15 +1,15 @@
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prepare/core/controller/prepareControllers/user_prepration_controller.dart';
+import '../../core/controller/prepareControllers/user_prepration_controller.dart';
  
-import 'package:prepare/utils/style.dart';
+import '../../utils/style.dart';
  
-import 'package:prepare/view/prepare/widgets/single_list_item_widget.dart';
-import 'package:prepare/view/shared_widgets/custom_loader.dart';
+import 'widgets/single_list_item_widget.dart';
+import '../shared_widgets/custom_loader.dart';
  
-import 'package:prepare/view/shared_widgets/header_widget.dart';
-import 'package:prepare/view/shared_widgets/line_dot.dart';
+import '../shared_widgets/header_widget.dart';
+import '../shared_widgets/line_dot.dart';
 
 // ignore: must_be_immutable
 class DisplayPrepareScreen extends StatelessWidget {

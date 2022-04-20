@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:overlay_support/overlay_support.dart';
-import 'package:prepare/utils/style.dart';
+
+import '../../utils/style.dart';
 
 class InternetController extends GetxController{
 

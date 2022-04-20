@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prepare/core/controller/prepareControllers/pestsides_controllers.dart';
-import 'package:prepare/core/controller/prepareCountController/pestside_count_controller.dart';
-import 'package:prepare/utils/style.dart';
-import 'package:prepare/view/prepare/widgets/single_pestside_textfield.dart';
-import 'package:prepare/view/shared_widgets/line_dot.dart';
+import '../../../core/controller/prepareControllers/pestsides_controllers.dart';
+import '../../../core/controller/prepareCountController/pestside_count_controller.dart';
+import '../../../utils/style.dart';
+import 'single_pestside_textfield.dart';
+import '../../shared_widgets/line_dot.dart';
 
 // ignore: must_be_immutable
 class PesticidesDialogWidget extends StatelessWidget {

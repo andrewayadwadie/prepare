@@ -7,9 +7,9 @@ import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
-import 'package:prepare/core/controller/epicenter/all_nearst_point_controllerd.dart';
-import 'package:prepare/utils/style.dart';
-import 'package:prepare/view/epicenter/visit_epicenter/visit_epicenter_screen.dart';
+import '../epicenter/all_nearst_point_controllerd.dart';
+import '../../../utils/style.dart';
+import '../../../view/epicenter/visit_epicenter/visit_epicenter_screen.dart';
 
 import '../current_location_controller.dart';
 

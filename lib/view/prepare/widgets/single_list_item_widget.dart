@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:prepare/utils/style.dart';
+import '../../../utils/style.dart';
 
 // ignore: must_be_immutable
 class SingleListItem extends StatelessWidget {

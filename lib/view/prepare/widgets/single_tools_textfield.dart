@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prepare/core/controller/prepareControllers/tools_controller.dart';
-import 'package:prepare/utils/style.dart';
+import '../../../core/controller/prepareControllers/tools_controller.dart';
+import '../../../utils/style.dart';
 
 class SingleToolTextField extends StatelessWidget {
   const SingleToolTextField({Key? key, required this.label,required this.title,required this.id,required this.count}) : super(key: key);

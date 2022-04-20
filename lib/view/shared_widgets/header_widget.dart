@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:prepare/utils/style.dart';
+import '../../utils/style.dart';
 
 class HeaderWidget extends StatelessWidget {
   const HeaderWidget({Key? key, required this.arrow}) : super(key: key);

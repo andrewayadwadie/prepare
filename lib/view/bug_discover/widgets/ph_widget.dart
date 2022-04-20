@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:prepare/utils/style.dart';
 import 'package:get/get.dart';
+
+import '../../../utils/style.dart';
 class PhWidget extends StatelessWidget {
   const PhWidget({Key? key, required this.onChange}) : super(key: key);
   final Function(String)? onChange;

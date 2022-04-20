@@ -2,7 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prepare/core/service/epicenter_services.dart';
+
+import '../../service/epicenter_services.dart';
 
 class AllInsectsController extends GetxController {
   List<dynamic> insects = [].obs;

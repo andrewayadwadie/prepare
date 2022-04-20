@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:prepare/core/db/auth_shared_preferences.dart';
-import 'package:prepare/model/epicenter/all_epicenter_model.dart';
+import '../db/auth_shared_preferences.dart';
+import '../../model/epicenter/all_epicenter_model.dart';
 
 // ignore: implementation_imports
 

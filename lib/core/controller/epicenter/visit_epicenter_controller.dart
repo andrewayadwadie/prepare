@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prepare/core/service/all_epicenter_services.dart';
+
+import '../../service/all_epicenter_services.dart';
  
 class VisitEpicenterController extends GetxController {
   List<dynamic> epicenter = [].obs;

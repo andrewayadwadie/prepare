@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
-import 'package:prepare/utils/style.dart';
+import '../../utils/style.dart';
 
 class LoaderWidget extends StatelessWidget {
   const LoaderWidget({ Key? key }) : super(key: key);

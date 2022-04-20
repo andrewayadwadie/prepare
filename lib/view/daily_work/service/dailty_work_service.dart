@@ -1,8 +1,9 @@
 import 'dart:convert';
 
-import 'package:prepare/core/db/auth_shared_preferences.dart';
-import 'package:prepare/utils/constants.dart';
 import 'package:http/http.dart' as http;
+
+import '../../../core/db/auth_shared_preferences.dart';
+import '../../../utils/constants.dart';
 
 class DailyWorkService {
   static Future addLine({

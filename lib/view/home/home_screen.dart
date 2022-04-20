@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hawk_fab_menu/hawk_fab_menu.dart';
-import 'package:prepare/core/controller/app_lang_controller.dart';
-import 'package:prepare/utils/style.dart';
-import 'package:prepare/view/home/widgets/home_body.dart';
-import 'package:prepare/view/shared_widgets/header_widget.dart';
+import '../../core/controller/app_lang_controller.dart';
+import '../../utils/style.dart';
+import 'widgets/home_body.dart';
+import '../shared_widgets/header_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);

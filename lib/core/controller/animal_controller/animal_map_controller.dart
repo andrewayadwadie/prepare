@@ -7,9 +7,9 @@ import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
-import 'package:prepare/core/controller/animal_controller/nearst_visit_animal_controller.dart';
-import 'package:prepare/utils/style.dart';
-import 'package:prepare/view/animal/visit_animal_screen.dart';
+import 'nearst_visit_animal_controller.dart';
+import '../../../utils/style.dart';
+import '../../../view/animal/visit_animal_screen.dart';
 import '../current_location_controller.dart';
  
 

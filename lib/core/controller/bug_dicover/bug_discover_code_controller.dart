@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:prepare/core/service/bug_discover_services.dart';
+import '../../service/bug_discover_services.dart';
 
 class BugDiscoverCodeController extends GetxController {
   RxString bugDiscoverCode = "".obs;

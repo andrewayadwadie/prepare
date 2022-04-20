@@ -392,6 +392,7 @@ class DailyWorkMapCtrl extends GetxController {
       );
       //<<<<<<<<<<<< if false start Gis Directions with voices >>>>>>>>>>>>>>>>
     } else {
+      dev.log("staaaaaaaaaaart");
       testButtom = false;
       await animateCamera(await deviceCurrentLocation.location.getLocation());
       deviceCurrentLocation.location.onLocationChanged.listen((event) {

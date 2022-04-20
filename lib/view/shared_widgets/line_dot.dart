@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:prepare/utils/style.dart';
+import '../../utils/style.dart';
 
 class LineDots extends StatelessWidget {
   const LineDots({ Key? key }) : super(key: key);

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:prepare/utils/style.dart';
+import '../../../utils/style.dart';
 import 'package:get/get.dart';
 
 class RecommendationWidget extends StatelessWidget {

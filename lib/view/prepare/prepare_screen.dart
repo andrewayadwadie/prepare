@@ -2,24 +2,24 @@
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prepare/core/controller/click_controller.dart';
-import 'package:prepare/core/controller/internet_connectivity_controller.dart';
-import 'package:prepare/core/controller/prepareControllers/cars_controller.dart';
-import 'package:prepare/core/controller/prepareControllers/devices_controllers.dart';
-import 'package:prepare/core/controller/prepareControllers/pestsides_controllers.dart';
-import 'package:prepare/core/controller/prepareControllers/team_controllers.dart';
-import 'package:prepare/core/controller/prepareControllers/tools_controller.dart';
-import 'package:prepare/core/service/prepration_services.dart';
-import 'package:prepare/utils/style.dart';
-import 'package:prepare/view/auth/login_screen.dart';
-import 'package:prepare/view/home/home_screen.dart';
-import 'package:prepare/view/prepare/widgets/cars_dialog_widget.dart';
-import 'package:prepare/view/prepare/widgets/devices_dialog_widget.dart';
-import 'package:prepare/view/prepare/widgets/pesticides_dialog_widget.dart';
-import 'package:prepare/view/prepare/widgets/single_list_item_widget.dart';
-import 'package:prepare/view/prepare/widgets/team_dialog_widget.dart';
-import 'package:prepare/view/shared_widgets/header_widget.dart';
-import 'package:prepare/view/shared_widgets/line_dot.dart';
+import '../../core/controller/click_controller.dart';
+import '../../core/controller/internet_connectivity_controller.dart';
+import '../../core/controller/prepareControllers/cars_controller.dart';
+import '../../core/controller/prepareControllers/devices_controllers.dart';
+import '../../core/controller/prepareControllers/pestsides_controllers.dart';
+import '../../core/controller/prepareControllers/team_controllers.dart';
+import '../../core/controller/prepareControllers/tools_controller.dart';
+import '../../core/service/prepration_services.dart';
+import '../../utils/style.dart';
+import '../auth/login_screen.dart';
+import '../home/home_screen.dart';
+import 'widgets/cars_dialog_widget.dart';
+import 'widgets/devices_dialog_widget.dart';
+import 'widgets/pesticides_dialog_widget.dart';
+import 'widgets/single_list_item_widget.dart';
+import 'widgets/team_dialog_widget.dart';
+import '../shared_widgets/header_widget.dart';
+import '../shared_widgets/line_dot.dart';
 
 // ignore: must_be_immutable
 class PrepareScreen extends StatelessWidget {

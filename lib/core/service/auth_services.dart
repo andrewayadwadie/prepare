@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:http/http.dart' as http;
-import 'package:prepare/utils/constants.dart';
+import '../../utils/constants.dart';
 
 class AuthServices {
   static Future login({

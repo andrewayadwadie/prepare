@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prepare/core/controller/prepareControllers/devices_controllers.dart';
-import 'package:prepare/utils/style.dart';
+import '../../../core/controller/prepareControllers/devices_controllers.dart';
+import '../../../utils/style.dart';
 
 class SingleDevicesTextField extends StatelessWidget {
   const SingleDevicesTextField({Key? key, required this.label,required this.title,required this.id,required this.count}) : super(key: key);

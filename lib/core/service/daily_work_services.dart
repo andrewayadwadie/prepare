@@ -1,14 +1,14 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:prepare/core/db/auth_shared_preferences.dart';
-import 'package:prepare/model/daily_task_model.dart';
-import 'package:prepare/utils/constants.dart';
+import '../db/auth_shared_preferences.dart';
+import '../../model/daily_task_model.dart';
+import '../../utils/constants.dart';
 import 'package:http/http.dart' as http;
 
 class DailyWorkServices {
   static Future getAllPoint() async {
-    String url = "${apiUrl}VehiclesInfos/GetTodayVehicleInfos/1";
+    String url = "${apiUrl}VehiclesInfos/GetTodayVehicleInfos/2";
 
     http.Response res = await http.get(
       Uri.parse(url),
@@ -28,6 +28,7 @@ class DailyWorkServices {
 
       return vehicles;
     } else if (res.statusCode == 401) {
+
       return 401;
     } else if (res.statusCode == 500 ||
         res.statusCode == 501 ||

@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-import 'package:prepare/core/db/auth_shared_preferences.dart';
-import 'package:prepare/model/cars_model.dart';
-import 'package:prepare/model/devices_model.dart';
-import 'package:prepare/model/pestside_model.dart';
-import 'package:prepare/model/tools_model.dart';
-import 'package:prepare/model/user_prepration_model.dart';
-import 'package:prepare/utils/constants.dart';
+import '../db/auth_shared_preferences.dart';
+import '../../model/cars_model.dart';
+import '../../model/devices_model.dart';
+import '../../model/pestside_model.dart';
+import '../../model/tools_model.dart';
+import '../../model/user_prepration_model.dart';
+import '../../utils/constants.dart';
 import 'package:http/http.dart' as http;
 
 class PreprationServices {

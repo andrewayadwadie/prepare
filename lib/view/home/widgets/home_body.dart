@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:prepare/utils/style.dart';
-import 'package:prepare/view/all_projects/all_projects_screen.dart';
-import 'package:prepare/view/animal/animal_main_screen.dart';
+import '../../../utils/style.dart';
+import '../../all_projects/all_projects_screen.dart';
+import '../../animal/animal_main_screen.dart';
 
-import 'package:prepare/view/bug_discover/bug_discover_main_screen.dart';
-import 'package:prepare/view/daily_work/daily_work_main_screen.dart';
-import 'package:prepare/view/epicenter/epicenter_main_screen.dart';
- import 'package:prepare/view/workers_evaluation/contractors_list_screen.dart';
+import '../../bug_discover/bug_discover_main_screen.dart';
+import '../../daily_work/daily_work_main_screen.dart';
+import '../../epicenter/epicenter_main_screen.dart';
+import '../../workers_evaluation/contractors_list_screen.dart';
 
 class HomeBodyWidget extends StatelessWidget {
   HomeBodyWidget({Key? key}) : super(key: key);

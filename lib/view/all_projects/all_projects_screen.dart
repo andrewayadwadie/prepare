@@ -1,13 +1,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prepare/core/controller/project_controller.dart';
-import 'package:prepare/utils/style.dart';
-import 'package:prepare/view/prepare/display_prepare_screen.dart';
-import 'package:prepare/view/prepare/prepare_screen.dart';
-import 'package:prepare/view/shared_widgets/custom_loader.dart';
-import 'package:prepare/view/shared_widgets/header_widget.dart';
-import 'package:prepare/view/shared_widgets/line_dot.dart';
+import '../../core/controller/project_controller.dart';
+import '../../utils/style.dart';
+import '../prepare/display_prepare_screen.dart';
+import '../prepare/prepare_screen.dart';
+import '../shared_widgets/custom_loader.dart';
+import '../shared_widgets/header_widget.dart';
+import '../shared_widgets/line_dot.dart';
 
 class AllProjectsScreen extends StatelessWidget {
   const AllProjectsScreen({Key? key}) : super(key: key);

@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:prepare/core/service/epicenter_services.dart';
+import '../../service/epicenter_services.dart';
 
 class InsectCodeController extends GetxController {
   RxString insectCode ="".obs;

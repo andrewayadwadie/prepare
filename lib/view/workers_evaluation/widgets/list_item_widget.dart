@@ -2,8 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prepare/core/controller/evaluation_controller/evaluation_controller.dart';
-import 'package:prepare/utils/style.dart';
+import '../../../core/controller/evaluation_controller/evaluation_controller.dart';
+import '../../../utils/style.dart';
 
 import 'item_widget.dart';
 import 'recommendation_widget.dart';

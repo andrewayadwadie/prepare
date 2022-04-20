@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:prepare/core/controller/evaluation_controller/contractors_list_controller.dart';
-import 'package:prepare/core/controller/internet_connectivity_controller.dart';
-import 'package:prepare/utils/style.dart';
-import 'package:prepare/view/shared_widgets/custom_loader.dart';
-import 'package:prepare/view/shared_widgets/header_widget.dart';
-import 'package:prepare/view/shared_widgets/line_dot.dart';
+import '../../core/controller/evaluation_controller/contractors_list_controller.dart';
+import '../../core/controller/internet_connectivity_controller.dart';
+import '../../utils/style.dart';
+import '../shared_widgets/custom_loader.dart';
+import '../shared_widgets/header_widget.dart';
+import '../shared_widgets/line_dot.dart';
 import 'package:get/get.dart';
 
 import 'contractors_evaluation_screen.dart';

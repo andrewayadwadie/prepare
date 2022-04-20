@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:prepare/core/controller/current_location_controller.dart';
-import 'package:prepare/core/controller/daily_controller/daily_work_audio_controller.dart';
-import 'package:prepare/core/controller/daily_controller/daily_work_map_controller.dart';
-import 'package:prepare/core/controller/internet_connectivity_controller.dart';
-import 'package:prepare/utils/style.dart';
-import 'package:prepare/view/auth/login_screen.dart';
-import 'package:prepare/view/daily_work/service/dailty_work_service.dart';
+import '../../core/controller/current_location_controller.dart';
+import '../../core/controller/daily_controller/daily_work_audio_controller.dart';
+import '../../core/controller/daily_controller/daily_work_map_controller.dart';
+import '../../core/controller/internet_connectivity_controller.dart';
+import '../../utils/style.dart';
+import '../auth/login_screen.dart';
+import 'service/dailty_work_service.dart';
 
 // ignore: must_be_immutable
 class DailyWorkScreen extends StatelessWidget {
@@ -58,7 +58,7 @@ class DailyWorkScreen extends StatelessWidget {
                               mapType: MapType.normal,
                               markers: mapCtrl.allMarkers,
                               polylines: mapCtrl.allPolyLine,
-                              myLocationEnabled: false,
+                              myLocationEnabled: true,
                               myLocationButtonEnabled: true,
                               onMapCreated: (GoogleMapController controller) {
                                 mapCtrl.compeleteController

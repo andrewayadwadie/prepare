@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prepare/core/service/bug_discover_services.dart';
+import '../../service/bug_discover_services.dart';
 
 class GetUserInsectExplorationsController extends GetxController {
   List<dynamic> insectExplorations = [].obs;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prepare/core/controller/prepareControllers/cars_controller.dart';
-import 'package:prepare/utils/style.dart';
+import '../../../core/controller/prepareControllers/cars_controller.dart';
+import '../../../utils/style.dart';
 
 class SingleCarTextField extends StatelessWidget {
   const SingleCarTextField({Key? key, required this.label,required this.title,required this.count,required this.id}) : super(key: key);

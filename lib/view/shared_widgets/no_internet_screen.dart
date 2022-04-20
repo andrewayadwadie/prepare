@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prepare/utils/style.dart';
-import 'package:prepare/view/intro/intro.dart';
-import 'package:prepare/view/shared_widgets/header_widget.dart';
+import '../../utils/style.dart';
+import '../intro/intro.dart';
+import 'header_widget.dart';
 
 class NoInternetScreen extends StatelessWidget {
   const NoInternetScreen({Key? key}) : super(key: key);

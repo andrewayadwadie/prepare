@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prepare/core/controller/site_status_controller.dart';
+
+import '../../../../core/controller/site_status_controller.dart';
 
 // ignore: must_be_immutable
 class SiteStatusWidget extends StatelessWidget {

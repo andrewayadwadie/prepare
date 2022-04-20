@@ -3,21 +3,21 @@ import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:overlay_support/overlay_support.dart';
-import 'package:prepare/core/controller/click_controller.dart';
+import '../../../core/controller/click_controller.dart';
 
-import 'package:prepare/core/controller/internet_connectivity_controller.dart';
-import 'package:prepare/core/service/all_epicenter_services.dart';
-import 'package:prepare/utils/style.dart';
-import 'package:prepare/view/auth/login_screen.dart';
+import '../../../core/controller/internet_connectivity_controller.dart';
+import '../../../core/service/all_epicenter_services.dart';
+import '../../../utils/style.dart';
+import '../../auth/login_screen.dart';
 
-import 'package:prepare/view/bug_discover/widgets/humidity_widget.dart';
-import 'package:prepare/view/bug_discover/widgets/recommendation_widget.dart';
-import 'package:prepare/view/bug_discover/widgets/temperature_widget.dart';
-import 'package:prepare/view/bug_discover/widgets/windspeed_widget.dart';
-import 'package:prepare/view/home/home_screen.dart';
+import '../../bug_discover/widgets/humidity_widget.dart';
+import '../../bug_discover/widgets/recommendation_widget.dart';
+import '../../bug_discover/widgets/temperature_widget.dart';
+import '../../bug_discover/widgets/windspeed_widget.dart';
+import '../../home/home_screen.dart';
 
-import 'package:prepare/view/shared_widgets/header_widget.dart';
-import 'package:prepare/view/shared_widgets/line_dot.dart';
+import '../../shared_widgets/header_widget.dart';
+import '../../shared_widgets/line_dot.dart';
 
   
 // ignore: must_be_immutable

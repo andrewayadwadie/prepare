@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:prepare/core/db/auth_shared_preferences.dart';
+import '../db/auth_shared_preferences.dart';
 
 // ignore: implementation_imports
 import 'package:async/src/delegate/stream.dart';

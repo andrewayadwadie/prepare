@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:prepare/core/db/auth_shared_preferences.dart';
-import 'package:prepare/model/epicenter/epicenter_model.dart';
-import 'package:prepare/model/epicenter/nearst_picenter_point_model.dart';
+import '../db/auth_shared_preferences.dart';
+import '../../model/epicenter/epicenter_model.dart';
+import '../../model/epicenter/nearst_picenter_point_model.dart';
 
 // ignore: implementation_imports
 

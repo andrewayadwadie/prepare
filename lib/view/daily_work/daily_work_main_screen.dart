@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prepare/core/controller/internet_connectivity_controller.dart';
-import 'package:prepare/utils/style.dart';
-import 'package:prepare/view/daily_work/daily_work_screen.dart';
-import 'package:prepare/view/shared_widgets/header_widget.dart';
-import 'package:prepare/view/shared_widgets/line_dot.dart';
+import '../../core/controller/internet_connectivity_controller.dart';
+import '../../utils/style.dart';
+import 'daily_work_screen.dart';
+import '../shared_widgets/header_widget.dart';
+import '../shared_widgets/line_dot.dart';
 
 class DailyWorkMainScreen extends StatelessWidget {
   const DailyWorkMainScreen({Key? key}) : super(key: key);

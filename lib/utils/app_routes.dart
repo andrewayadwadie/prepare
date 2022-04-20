@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:prepare/view/auth/login_screen.dart';
+import '../view/auth/login_screen.dart';
 
 class AppRoutes {
   static String initialRoute = "/welcome-screen";

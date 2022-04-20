@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
-import 'package:prepare/core/controller/animal_controller/animal_map_controller.dart';
-import 'package:prepare/core/controller/animal_controller/nearst_visit_animal_controller.dart';
-import 'package:prepare/core/controller/current_location_controller.dart';
-import 'package:prepare/core/controller/map/location_controller.dart';
+import '../../core/controller/animal_controller/animal_map_controller.dart';
+import '../../core/controller/animal_controller/nearst_visit_animal_controller.dart';
+import '../../core/controller/current_location_controller.dart';
+import '../../core/controller/map/location_controller.dart';
 
 // ignore: must_be_immutable
 class AnimalMapScreen extends StatelessWidget {

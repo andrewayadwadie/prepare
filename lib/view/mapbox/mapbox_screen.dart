@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_mapbox_navigation/library.dart';
 import 'package:get/get.dart';
-import 'package:prepare/utils/style.dart';
-import 'package:prepare/view/mapbox/controller/mapbox_controller.dart';
+import '../../utils/style.dart';
+import 'controller/mapbox_controller.dart';
 
 class MapBoxScreen extends StatefulWidget {
   const MapBoxScreen({Key? key}) : super(key: key);

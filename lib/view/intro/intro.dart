@@ -3,12 +3,12 @@ import 'dart:developer';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prepare/core/db/auth_shared_preferences.dart';
-import 'package:prepare/core/service/project_services.dart';
-import 'package:prepare/utils/style.dart';
- import 'package:prepare/view/auth/login_screen.dart';
-import 'package:prepare/view/home/home_screen.dart';
- import 'package:prepare/view/shared_widgets/no_internet_screen.dart';
+import '../../core/db/auth_shared_preferences.dart';
+import '../../core/service/project_services.dart';
+import '../../utils/style.dart';
+import '../auth/login_screen.dart';
+import '../home/home_screen.dart';
+import '../shared_widgets/no_internet_screen.dart';
 
 class IntroPage extends StatefulWidget {
   const IntroPage({Key? key}) : super(key: key);

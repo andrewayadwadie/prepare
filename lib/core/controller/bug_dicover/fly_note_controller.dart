@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prepare/core/service/bug_discover_services.dart';
+
+import '../../service/bug_discover_services.dart';
 
 class AllFlyNoteController extends GetxController {
   List<dynamic> flyNote = [].obs;
