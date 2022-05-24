@@ -79,9 +79,9 @@ class DailyWorkScreen extends StatelessWidget {
                                             event.latitude,
                                             event.longitude) >
                                         0.1) {
-                                      //<<<<<<<<<<check if problem is solved will popup with message and remove marker from Markers List>>>>>>>>>//
+                                      //!<<<<<<<<<<check if problem is solved will popup with message and remove marker from Markers List>>>>>>>>>//
                                       mapCtrl.isTaskDone();
-                                      //<<<<<<<<<<<<<<<< green path that belongs to car>>>>>>>>>>>>>>>>>>>>
+                                      //!<<<<<<<<<<<<<<<< green path that belongs to car>>>>>>>>>>>>>>>>>>>>
                                       mapCtrl.setnewPath(
                                           LatLng(
                                             curent.latitude ?? 0.0,

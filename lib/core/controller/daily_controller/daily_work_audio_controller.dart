@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 
+
+ 
 class DailyWorkAudioController extends GetxController {
   AudioPlayer playStart = AudioPlayer();
   AudioPlayer playerStrsight = AudioPlayer();
