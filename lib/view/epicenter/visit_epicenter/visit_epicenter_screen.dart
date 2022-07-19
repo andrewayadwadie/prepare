@@ -142,6 +142,7 @@ final int id;
                                                     barrierDismissible: false,
                                                     context: context,
                                                     type: CoolAlertType.success,
+                                                     confirmBtnTextStyle: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.normal),
                                                     title:
                                                        'A visit was successfully added'.tr,
                                                     confirmBtnText: 'ok'.tr,

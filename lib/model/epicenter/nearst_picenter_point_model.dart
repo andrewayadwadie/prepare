@@ -12,6 +12,7 @@ class NearstEpicenterModel {
   final String humidity;
   final String windSpeed;
   final String recommendation;
+  final int type ;
 
   NearstEpicenterModel({
     required this.id,
@@ -27,6 +28,7 @@ class NearstEpicenterModel {
     required this.humidity,
     required this.windSpeed,
     required this.recommendation,
+    required this.type,
   });
 
   factory NearstEpicenterModel.fromJson(Map<String, dynamic> jsonData) {
@@ -44,6 +46,7 @@ class NearstEpicenterModel {
       humidity: jsonData['humidity'],
       recommendation: jsonData['recommendation'],
       windSpeed: jsonData['windSpeed'],
+      type: 1,
     );
   }
 }

@@ -96,32 +96,19 @@ class DailyWorkMapCtrl extends GetxController {
         .asUint8List();
   }
 
+//!on map create it will draw red path and all point of problems
   void setCurrentPath() async {
-    //! icon of the marker of the epicenters that coming from Api
-    final Uint8List markerIcon =
-        await getBytesFromAsset('assets/images/b1.png', 100);
     //! make list of point that coming from Api
     for (var item in prop.dailyWorkPoint.points) {
       prop.epicenterFromApi
           .add(LatLng(double.parse(item.lat), double.parse(item.long)));
     }
 
-    for (var i = 0; i < prop.dummyEpicenterPoint.length; i++) {
-      prop.allMarkers.add(Marker(
-          markerId: MarkerId(i.toString()),
-          icon: BitmapDescriptor.fromBytes(markerIcon),
-          // icon: _locationIcon,
-          position: prop.dummyEpicenterPoint[i],
-          infoWindow: InfoWindow(
-              title: 'Site Information'.tr, snippet: " ${'site No.'.tr} $i"),
-          onTap: () {}));
-      update();
-    }
 //! red path that coming from Excel
     prop.allPolyLine.add(Polyline(
         polylineId: PolylineId(
             "${prop.deviceCurrentLocation.lat}${prop.deviceCurrentLocation.long}"),
-        width: 6,
+        width: 3,
         visible: true,
         color: Colors.red,
         consumeTapEvents: true,
@@ -181,6 +168,7 @@ class DailyWorkMapCtrl extends GetxController {
     update();
   }
 
+//!set current location of the driver markder
   void setMark(double lat, double long) async {
     final Uint8List currentIcon =
         await getBytesFromAsset('assets/images/circle.png', 120);
@@ -274,5 +262,73 @@ class DailyWorkMapCtrl extends GetxController {
         }
       });
     }
+  }
+
+  //! get epicenter point from api and put it in list
+  void addEpicenterPoints(List epicenterPointsList) async {
+    final Uint8List markerIcon =
+        await getBytesFromAsset('assets/images/flyepicenter.png', 100);
+    for (var i = 0; i < epicenterPointsList.length; i++) {
+      prop.allMarkers.add(Marker(
+        markerId: MarkerId(
+            "${epicenterPointsList[i].lat} $epicenterPointsList[i].long}"),
+        icon: BitmapDescriptor.fromBytes(markerIcon),
+        position: LatLng(double.parse(epicenterPointsList[i].lat),
+            double.parse(epicenterPointsList[i].long)),
+        infoWindow: InfoWindow(
+            title: 'Site Information'.tr,
+            snippet: "type :${epicenterPointsList[i].type}"),
+      ));
+      update();
+    }
+  }
+
+  //! get Discover point from api and put it in list
+  void addDiscoverPoints(List discoverPointsList) async {
+    final Uint8List markerIcon =
+        await getBytesFromAsset('assets/images/b1.png', 100);
+    for (var i = 0; i < discoverPointsList.length; i++) {
+      prop.allMarkers.add(Marker(
+        markerId: MarkerId(
+            "${discoverPointsList[i].lat} $discoverPointsList[i].long}"),
+        icon: BitmapDescriptor.fromBytes(markerIcon),
+        position: LatLng(double.parse(discoverPointsList[i].lat),
+            double.parse(discoverPointsList[i].long)),
+        infoWindow: InfoWindow(
+            title: 'Site Information'.tr,
+            snippet: "type :${discoverPointsList[i].type}"),
+      ));
+      update();
+    }
+  }
+
+  void playSound(List pointsList) {}
+//! voice Algorithm
+  void getVoicefromList(List routePointsList) {
+    int tempIteriable = 0;
+    List tempList = [];
+
+    prop.deviceCurrentLocation.location.onLocationChanged.listen((event) {
+      for (var i in routePointsList) {
+        if (tempIteriable == 0 || tempIteriable % 9 == 0) {
+          if (calculateDistance(event.latitude, event.longitude,
+                  double.parse(i.lat), double.parse(i.long)) <=
+              3.0) {
+            tempList.clear();
+            tempList.add(i + 1);
+            tempList.add(i + 2);
+            tempList.add(i + 3);
+            tempList.add(i + 4);
+            tempList.add(i + 5);
+            tempList.add(i + 6);
+            tempList.add(i + 7);
+            tempList.add(i + 8);
+            tempList.add(i + 9);
+            playSound(tempList);
+            tempIteriable + 9;
+          }
+        }
+      }
+    });
   }
 }

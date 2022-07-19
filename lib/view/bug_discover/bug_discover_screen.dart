@@ -384,6 +384,7 @@ class BugDiscoverScreen extends StatelessWidget {
                                                                                                     confirmBtnText: 'ok'.tr,
                                                                                                     confirmBtnColor: primaryColor,
                                                                                                     backgroundColor: primaryColor,
+                                                                                                     confirmBtnTextStyle: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.normal),
                                                                                                     onConfirmBtnTap: () {
                                                                                                       Get.back();
                                                                                                     },

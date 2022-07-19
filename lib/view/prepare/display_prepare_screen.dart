@@ -105,6 +105,7 @@ class DisplayPrepareScreen extends StatelessWidget {
                                   Get.back();
                                 },
                                 confirmBtnText: 'ok'.tr,
+                                 confirmBtnTextStyle: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.normal),
                                 confirmBtnColor: lightPrimaryColor,
                                 backgroundColor: lightPrimaryColor,
                               );

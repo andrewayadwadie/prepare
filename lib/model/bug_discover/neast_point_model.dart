@@ -18,9 +18,11 @@ class NearstBugDiscoverPointModel {
   final String flyNoteName;
   final String flySampleTypeName;
   final String code;
+  final int type;
 
   NearstBugDiscoverPointModel(
       {required this.id,
+      required this.type,
       required this.street,
       required this.image1,
       required this.image2,
@@ -60,6 +62,8 @@ class NearstBugDiscoverPointModel {
         flyTypeName: jsonData['flyTypeName'],
         flyNoteName: jsonData['flyNoteName'],
         flySampleTypeName: jsonData['flySampleTypeName'],
-        code: jsonData['code']);
+        code: jsonData['code'],
+        type: 0
+        );
   }
 }

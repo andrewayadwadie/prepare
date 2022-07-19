@@ -114,7 +114,7 @@ class EpicenterServices {
 
       return data;
     } else if (res.statusCode == 401 || res.statusCode == 403) {
-      return "عير مصرح للمستخدم";
+      return "غير مصرح للمستخدم";
     } else if (res.statusCode == 500 ||
         res.statusCode == 501 ||
         res.statusCode == 504 ||
@@ -136,7 +136,6 @@ static Future getNearstEpicenterVisit(double lat, double long) async {
       headers: <String, String>{
         "Content-type": "application/json",
         'Accept': 'application/json',
-        // 'Authorization': 'Bearer $token',
         'Authorization': 'Bearer ${TokenPref.getTokenValue()}',
       },
     );
