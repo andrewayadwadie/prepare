@@ -42,10 +42,7 @@ class CurrentLocationController extends GetxController {
         long = currentLocation.longitude;
         update();
       });
-        
-        // Use current location
-      
-     
+
     }
   }
 }

@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import '../db/auth_shared_preferences.dart';
 import '../../model/epicenter/all_epicenter_model.dart';
@@ -23,7 +22,7 @@ class AllEpicenterServices {
             'Bearer ${TokenPref.getTokenValue()}',
       },
     );
-    log("status code is : ${res.statusCode}");
+
     if (res.statusCode == 200) {
       var jsonData = jsonDecode(res.body);
 
