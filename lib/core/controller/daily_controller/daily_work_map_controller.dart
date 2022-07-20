@@ -11,8 +11,9 @@ import 'package:get/get.dart';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import '../../service/solved_epicenter_services.dart';
 
-import 'package:prepare/utils/style.dart';
+import '../../../utils/style.dart';
 
 import 'daily_work_map_proprities_controller.dart';
 
@@ -23,13 +24,18 @@ class DailyWorkMapCtrl extends GetxController {
     insertDataToList();
   }
 
+  bool isDataDidnotSend = false;
+  void changeisDataDidnotSend() {
+    isDataDidnotSend = !isDataDidnotSend;
+    update();
+  }
+
   DailyWorkMapPropertiesController prop =
       Get.put(DailyWorkMapPropertiesController());
 
   //! go to this location
   Future<void> animateCamera(LocationData _location) async {
-    final GoogleMapController controller =
-        await prop.compeleteController.future;
+    GoogleMapController controller = await prop.compeleteController.future;
     CameraPosition _cameraPostion = CameraPosition(
         bearing: 0.0,
         target: LatLng(
@@ -61,26 +67,69 @@ class DailyWorkMapCtrl extends GetxController {
 //! if epicenter problem is solved
   void isTaskDone() {
     prop.deviceCurrentLocation.location.onLocationChanged.listen((event) {
-      for (var i = 0; i < prop.dummyEpicenterPoint.length; i++) {
+      //! loop in all marks of Epicenter and check if it is in range of epicenter or not
+      for (var epicenterPoint in prop.epicenterPointsList) {
         if (calculateDistance(
                 event.latitude,
                 event.longitude,
-                prop.dummyEpicenterPoint[i].latitude,
-                prop.dummyEpicenterPoint[i].longitude) <
-            20.0) {
-          for (var element in prop.allMarkers) {
-            if (element.markerId.value == i.toString()) {
-              Get.snackbar('The problem has been resolved'.tr,
-                  "${'The problem is resolved at the site number'.tr} $i",
-                  backgroundColor: Colors.white);
+                double.parse(epicenterPoint.lat),
+                double.parse(epicenterPoint.long)) <
+            50.0) {
+          Get.snackbar('The problem has been resolved'.tr,
+              "The Epicenter problem has been resolved",
+              backgroundColor: Colors.white);
+          //! remove mark from List of markers
+          prop.allMarkers.removeWhere((maker) =>
+              maker.position ==
+              LatLng(double.parse(epicenterPoint.lat),
+                  double.parse(epicenterPoint.long)));
+          SolvedEpicenterService.addSolvedEpicenterService(
+            id: epicenterPoint.id,
+            type: epicenterPoint.type,
+          ).then((res) {
+            if (res == 200) {
+              dev.log("epicenter solved and sended successfully to server");
             }
-          }
+          });
+          prop.epicenterPointsList.remove(epicenterPoint);
+          /*
+            prop.allMarkers.removeWhere((marker) =>
+                marker.position ==
+                LatLng(double.parse(epicenterPoint.lat),
+                    double.parse(epicenterPoint.long)));
 
-          prop.allMarkers
-              .removeWhere((element) => element.markerId.value == i.toString());
+                    */
           update();
-        } else {
-          continue;
+        }
+      }
+      //! loop in all marks of Discover and check if it is in range of Discover or not
+      for (var discoverPoint in prop.discoverPointsList) {
+        if (calculateDistance(
+                event.latitude,
+                event.longitude,
+                double.parse(discoverPoint.lat),
+                double.parse(discoverPoint.long)) <
+            60.0) {
+          Get.snackbar('The problem has been resolved'.tr,
+              "The Discover problem has been resolved",
+              backgroundColor: Colors.white);
+          //! remove mark from List of markers
+
+          prop.allMarkers.removeWhere((maker) =>
+              maker.position ==
+              LatLng(double.parse(discoverPoint.lat),
+                  double.parse(discoverPoint.long)));
+
+          SolvedEpicenterService.addSolvedEpicenterService(
+            id: discoverPoint.id,
+            type: discoverPoint.type,
+          ).then((res) {
+            if (res == 200) {
+              dev.log("discoverPoint solved and sended successfully to server");
+            }
+          });
+          prop.discoverPointsList.remove(discoverPoint);
+          update();
         }
       }
     });
@@ -96,32 +145,19 @@ class DailyWorkMapCtrl extends GetxController {
         .asUint8List();
   }
 
+//!on map create it will draw red path and all point of problems
   void setCurrentPath() async {
-    //! icon of the marker of the epicenters that coming from Api
-    final Uint8List markerIcon =
-        await getBytesFromAsset('assets/images/b1.png', 100);
     //! make list of point that coming from Api
     for (var item in prop.dailyWorkPoint.points) {
       prop.epicenterFromApi
           .add(LatLng(double.parse(item.lat), double.parse(item.long)));
     }
 
-    for (var i = 0; i < prop.dummyEpicenterPoint.length; i++) {
-      prop.allMarkers.add(Marker(
-          markerId: MarkerId(i.toString()),
-          icon: BitmapDescriptor.fromBytes(markerIcon),
-          // icon: _locationIcon,
-          position: prop.dummyEpicenterPoint[i],
-          infoWindow: InfoWindow(
-              title: 'Site Information'.tr, snippet: " ${'site No.'.tr} $i"),
-          onTap: () {}));
-      update();
-    }
 //! red path that coming from Excel
     prop.allPolyLine.add(Polyline(
         polylineId: PolylineId(
             "${prop.deviceCurrentLocation.lat}${prop.deviceCurrentLocation.long}"),
-        width: 6,
+        width: 3,
         visible: true,
         color: Colors.red,
         consumeTapEvents: true,
@@ -181,10 +217,16 @@ class DailyWorkMapCtrl extends GetxController {
     update();
   }
 
+//!set current location of the driver markder
   void setMark(double lat, double long) async {
     final Uint8List currentIcon =
         await getBytesFromAsset('assets/images/circle.png', 120);
-    prop.allMarkers.remove(prop.allMarkers.last);
+
+    // prop.allMarkers
+    //     .removeWhere((element) => element.position == LatLng(lat, long));
+    if (prop.allMarkers.isNotEmpty) {
+      prop.allMarkers.remove(prop.allMarkers.last);
+    }
     prop.allMarkers.add(Marker(
       markerId: MarkerId("$lat$long"),
       icon: BitmapDescriptor.fromBytes(currentIcon),
@@ -247,6 +289,8 @@ class DailyWorkMapCtrl extends GetxController {
         setMark(event.latitude ?? 0.0, event.longitude ?? 0.0);
         animateCamera(event);
         update();
+
+        /*
         for (var i = 0; i < prop.testLineCordinatesFromExcel.length; i++) {
           if ((event.speed ?? 0.0) > 10.0) {
             prop.audio.playerAudioSlowSpeed();
@@ -271,8 +315,104 @@ class DailyWorkMapCtrl extends GetxController {
               prop.audio.playerAudioBeforeRight();
             }
           }
-        }
+        }*/
       });
     }
+  }
+
+  //! get epicenter point from api and put it in list
+  void addEpicenterPoints(List epicenterPointsList) async {
+    //? epicenterPointsList it is list that come from api
+    prop.epicenterPointsList = epicenterPointsList;
+    final Uint8List markerIcon =
+        await getBytesFromAsset('assets/images/flyepicenter.png', 100);
+    for (var i = 0; i < epicenterPointsList.length; i++) {
+      prop.allMarkers.add(Marker(
+        markerId: MarkerId(
+            "${epicenterPointsList[i].lat} $epicenterPointsList[i].long}"),
+        icon: BitmapDescriptor.fromBytes(markerIcon),
+        position: LatLng(double.parse(epicenterPointsList[i].lat),
+            double.parse(epicenterPointsList[i].long)),
+        infoWindow: InfoWindow(
+            title: 'Site Information'.tr,
+            snippet: "type :${epicenterPointsList[i].type}"),
+      ));
+      update();
+    }
+  }
+
+  //! get Discover point from api and put it in list
+  void addDiscoverPoints(List discoverPointsList) async {
+    //? discoverPointsList it is list that come from api
+    prop.discoverPointsList = discoverPointsList;
+    final Uint8List markerIcon =
+        await getBytesFromAsset('assets/images/b1.png', 100);
+    for (var i = 0; i < discoverPointsList.length; i++) {
+      prop.allMarkers.add(Marker(
+        markerId: MarkerId(
+            "${discoverPointsList[i].lat} $discoverPointsList[i].long}"),
+        icon: BitmapDescriptor.fromBytes(markerIcon),
+        position: LatLng(double.parse(discoverPointsList[i].lat),
+            double.parse(discoverPointsList[i].long)),
+        infoWindow: InfoWindow(
+            title: 'Site Information'.tr,
+            snippet: "type :${discoverPointsList[i].type}"),
+      ));
+      update();
+    }
+  }
+
+  //! play sound from List of points
+  void playSound(List<Map<String, dynamic>> pointsList) {
+    int temp = 0;
+    for (var i = 0; i < pointsList.length; i++) {
+      if (calculateDistance(pointsList[i]["lat"], pointsList[i]["long"],
+              pointsList[i + 1]["lat"], pointsList[i + 1]["long"]) <=
+          10.0) {
+        temp++;
+        if (temp == 2) {
+          prop.audio.playerAudioTurnBack();
+        }
+        if (temp == 3) {
+          prop.audio.playerAudioRight();
+        }
+        if (temp == 5) {
+          prop.audio.playerAudioLeft();
+        }
+        if (temp == 7) {
+          prop.audio.playerAudioTurnForward();
+        }
+      } else {
+        temp = 0;
+      }
+    }
+  }
+
+//! voice Algorithm
+  void getVoicefromList(List<Map<String, dynamic>> routePointsList) {
+    int tempIteriable = 0;
+    List<Map<String, dynamic>> tempList = [];
+    prop.deviceCurrentLocation.location.onLocationChanged.listen((event) {
+      for (int i = 0; i < routePointsList.length; i++) {
+        if (tempIteriable == 0 || tempIteriable % 9 == 0) {
+          if (calculateDistance(event.latitude, event.longitude,
+                  routePointsList[i]["lat"], routePointsList[i]["long"]) <=
+              1.0) {
+            tempList.clear();
+            tempList.add(routePointsList[i + 1]);
+            tempList.add(routePointsList[i + 2]);
+            tempList.add(routePointsList[i + 3]);
+            tempList.add(routePointsList[i + 4]);
+            tempList.add(routePointsList[i + 5]);
+            tempList.add(routePointsList[i + 6]);
+            tempList.add(routePointsList[i + 7]);
+            tempList.add(routePointsList[i + 8]);
+            tempList.add(routePointsList[i + 9]);
+            playSound(tempList);
+            tempIteriable + 9;
+          }
+        }
+      }
+    });
   }
 }

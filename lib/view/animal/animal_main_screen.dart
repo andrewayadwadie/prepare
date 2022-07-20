@@ -1,12 +1,12 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../core/controller/internet_connectivity_controller.dart';
 import '../../utils/style.dart';
-import 'animal_map_screen.dart';
 import '../shared_widgets/header_widget.dart';
 import '../shared_widgets/line_dot.dart';
-
+import 'animal_map_screen.dart';
 import 'animal_screen.dart';
 
 class AnimalMainScreen extends StatelessWidget {

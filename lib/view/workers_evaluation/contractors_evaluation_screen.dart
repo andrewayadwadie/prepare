@@ -4,8 +4,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../core/controller/click_controller.dart';
 
+import '../../core/controller/click_controller.dart';
 import '../../core/controller/evaluation_controller/evaluation_controller.dart';
 import '../../core/controller/internet_connectivity_controller.dart';
 import '../../core/service/contractors_services.dart';
@@ -23,9 +23,6 @@ class WorkersEvaluation extends StatelessWidget {
     required this.id,
   }) : super(key: key);
   final int id;
-  //final _itemForm = GlobalKey<FormState>();
-//  final List<GlobalKey<FormState>> itemFormKey = [];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,8 +47,6 @@ class WorkersEvaluation extends StatelessWidget {
                     fontFamily: 'hanimation'),
               ),
               const LineDots(),
-              // const Spacer(),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -195,6 +190,7 @@ class WorkersEvaluation extends StatelessWidget {
                                                         lightPrimaryColor,
                                                     backgroundColor:
                                                         lightPrimaryColor,
+                                                         confirmBtnTextStyle: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.normal),
                                                   );
                                                 } else if (value == 401) {
                                                   Get.offAll(

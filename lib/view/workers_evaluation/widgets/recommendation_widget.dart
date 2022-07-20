@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../utils/style.dart';
 import 'package:get/get.dart';
+
+import '../../../utils/style.dart';
 
 class WorkRecommendationWidget extends StatelessWidget {
   const WorkRecommendationWidget({Key? key,required this.onChange,required this.controller,}) : super(key: key);

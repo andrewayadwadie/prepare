@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../utils/style.dart';
-import 'package:get/get.dart';
 class ImagesWidget extends StatelessWidget {
   const ImagesWidget({
     Key? key,

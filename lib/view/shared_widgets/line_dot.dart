@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../utils/style.dart';
 
 class LineDots extends StatelessWidget {

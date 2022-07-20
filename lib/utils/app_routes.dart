@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+
 import '../view/auth/login_screen.dart';
 
 class AppRoutes {

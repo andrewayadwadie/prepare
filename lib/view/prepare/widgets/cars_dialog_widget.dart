@@ -2,10 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../../core/controller/prepareControllers/cars_controller.dart';
 import '../../../utils/style.dart';
-import 'single_car_textfield.dart';
 import '../../shared_widgets/line_dot.dart';
+import 'single_car_textfield.dart';
 
 // ignore: must_be_immutable
 class CarsDialogWidget extends StatelessWidget {

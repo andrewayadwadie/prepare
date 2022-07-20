@@ -2,20 +2,20 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
-import '../db/auth_shared_preferences.dart';
+// ignore: implementation_imports
+import 'package:async/src/delegate/stream.dart';
+import 'package:http/http.dart' as http;
+import 'package:path/path.dart';
+import 'package:prepare/model/bug_discover/neast_point_model.dart';
+import 'package:prepare/utils/constants.dart';
+
 import '../../model/bug_discover/cities_model.dart';
 import '../../model/bug_discover/district_model.dart';
 import '../../model/bug_discover/fly_note_model.dart';
 import '../../model/bug_discover/fly_sample_type_model.dart';
 import '../../model/bug_discover/fly_type_model.dart';
 import '../../model/bug_discover/insect_explorations_model.dart';
-// ignore: implementation_imports
-import 'package:async/src/delegate/stream.dart';
-import 'package:path/path.dart';
-import 'package:prepare/model/bug_discover/neast_point_model.dart';
-
-import 'package:prepare/utils/constants.dart';
-import 'package:http/http.dart' as http;
+import '../db/auth_shared_preferences.dart';
 
 class BugDiscoverServices {
   static Future getAllCities() async {

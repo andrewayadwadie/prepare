@@ -303,11 +303,13 @@ class PrepareScreen extends StatelessWidget {
                                                                                         CoolAlert.show(
                                                                                           context: context,
                                                                                           type: CoolAlertType.confirm,
+                                                                                           confirmBtnTextStyle: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.normal),
                                                                                           title: 'Project preparation has been successfully added'.tr,
                                                                                           onConfirmBtnTap: () {},
                                                                                           confirmBtnText: "ok".tr,
                                                                                           confirmBtnColor: lightPrimaryColor,
                                                                                           backgroundColor: lightPrimaryColor,
+                                                                                          
                                                                                         );
                                                                                       } else if (res == 401) {
                                                                                         Get.offAll(const LoginScreen());
@@ -333,6 +335,7 @@ class PrepareScreen extends StatelessWidget {
                                                                                       onConfirmBtnTap: () {
                                                                                         Get.back();
                                                                                       },
+                                                                                       confirmBtnTextStyle: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.normal),
                                                                                       confirmBtnText: "ok".tr,
                                                                                       confirmBtnColor: lightPrimaryColor,
                                                                                       backgroundColor: lightPrimaryColor,

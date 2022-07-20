@@ -96,9 +96,9 @@ class AnimalScreen extends StatelessWidget {
                           SizedBox(
                             height: MediaQuery.of(context).size.height / 20,
                           ),
-                           AutoSizeText(
+                          AutoSizeText(
                             'Add stray dogs'.tr,
-                            style:const TextStyle(
+                            style: const TextStyle(
                                 color: lightPrimaryColor,
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600),
@@ -176,9 +176,9 @@ class AnimalScreen extends StatelessWidget {
                                                     ),
                                                   ]),
                                               child: cityCtrl.cityId.value == 0
-                                                  ?  SelectableText(
+                                                  ? SelectableText(
                                                       'no code found'.tr,
-                                                      style:const TextStyle(
+                                                      style: const TextStyle(
                                                           fontSize: 12),
                                                     )
                                                   : SelectableText(
@@ -242,25 +242,30 @@ class AnimalScreen extends StatelessWidget {
                                                                       } else if (street ==
                                                                           "") {
                                                                         toast(
-                                                                           'please enter street name '.tr,
+                                                                            'please enter street name '
+                                                                                .tr,
                                                                             duration:
                                                                                 const Duration(seconds: 2));
                                                                         clk.changeClick();
                                                                       } else if (cityCtrl
                                                                               .cityText
                                                                               .value ==
-                                                                          'Baladya'.tr) {
+                                                                          'Baladya'
+                                                                              .tr) {
                                                                         toast(
-                                                                           'Please choose the baladya'.tr,
+                                                                            'Please choose the baladya'
+                                                                                .tr,
                                                                             duration:
                                                                                 const Duration(seconds: 2));
                                                                         clk.changeClick();
                                                                       } else if (disCtrl
                                                                               .districtText
                                                                               .value ==
-                                                                         'District'.tr) {
+                                                                          'District'
+                                                                              .tr) {
                                                                         toast(
-                                                                           'Please select the district' .tr,
+                                                                            'Please select the district'
+                                                                                .tr,
                                                                             duration:
                                                                                 const Duration(seconds: 2));
                                                                         clk.changeClick();
@@ -269,7 +274,8 @@ class AnimalScreen extends StatelessWidget {
                                                                               .value ==
                                                                           "") {
                                                                         toast(
-                                                                            'sorry there is no code '.tr,
+                                                                            'sorry there is no code '
+                                                                                .tr,
                                                                             duration:
                                                                                 const Duration(seconds: 2));
                                                                         clk.changeClick();
@@ -303,6 +309,7 @@ class AnimalScreen extends StatelessWidget {
                                                                                     type: CoolAlertType.success,
                                                                                     title: 'sent succesfully'.tr,
                                                                                     confirmBtnText: 'ok'.tr,
+                                                                                    confirmBtnTextStyle: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.normal),
                                                                                     confirmBtnColor: primaryColor,
                                                                                     backgroundColor: primaryColor,
                                                                                     onConfirmBtnTap: () {
@@ -365,9 +372,10 @@ class AnimalScreen extends StatelessWidget {
                                                                         ),
                                                                   child: clk.clicked ==
                                                                           false
-                                                                      ?  Text(
-                                                                          'Add stray dogs' .tr,
-                                                                          style:const TextStyle(
+                                                                      ? Text(
+                                                                          'Add stray dogs'
+                                                                              .tr,
+                                                                          style: const TextStyle(
                                                                               color: Colors.white,
                                                                               fontSize: 18),
                                                                           textAlign:

@@ -1,15 +1,16 @@
 import 'dart:async';
-import 'dart:math';
-import 'package:intl/intl.dart';
 import 'dart:developer' as dev;
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:location/location.dart';
+
 import '../../../utils/style.dart';
 import '../../../view/bug_discover/visit_bug_discover/visit_bug_discover_screen.dart';
-
 import '../current_location_controller.dart';
 import 'nearst_visit_controller.dart';
 

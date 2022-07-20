@@ -209,7 +209,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                     },
                                     confirmBtnColor: redColor,
                                     confirmBtnText: "ok".tr,
-                                    confirmBtnTextStyle: const TextStyle(),
+                                    confirmBtnTextStyle: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.normal),
+                                
                                     backgroundColor: redColor,
                                   );
                                 }

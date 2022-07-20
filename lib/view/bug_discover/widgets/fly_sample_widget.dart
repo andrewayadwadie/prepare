@@ -90,14 +90,17 @@ class FlySampleWidget extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Text(
-                              controller.flySampleText,
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                  height: 1.1,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                  color: blackColor),
+                            Expanded(
+                              child: Text(
+                                controller.flySampleText,
+                                textAlign: TextAlign.center,
+                                 overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                    height: 1.1,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                    color: blackColor),
+                              ),
                             ),
                             const Spacer(),
                             const Icon(

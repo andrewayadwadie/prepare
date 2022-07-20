@@ -1,15 +1,13 @@
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../core/controller/prepareControllers/user_prepration_controller.dart';
- 
 import '../../utils/style.dart';
- 
-import 'widgets/single_list_item_widget.dart';
 import '../shared_widgets/custom_loader.dart';
- 
 import '../shared_widgets/header_widget.dart';
 import '../shared_widgets/line_dot.dart';
+import 'widgets/single_list_item_widget.dart';
 
 // ignore: must_be_immutable
 class DisplayPrepareScreen extends StatelessWidget {
@@ -105,6 +103,7 @@ class DisplayPrepareScreen extends StatelessWidget {
                                   Get.back();
                                 },
                                 confirmBtnText: 'ok'.tr,
+                                 confirmBtnTextStyle: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.normal),
                                 confirmBtnColor: lightPrimaryColor,
                                 backgroundColor: lightPrimaryColor,
                               );

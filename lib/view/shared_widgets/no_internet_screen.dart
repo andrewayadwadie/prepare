@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../utils/style.dart';
 import '../intro/intro.dart';
 import 'header_widget.dart';

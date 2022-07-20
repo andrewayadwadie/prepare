@@ -1,16 +1,15 @@
 import 'dart:convert';
 import 'dart:io';
 
-import '../db/auth_shared_preferences.dart';
-
 // ignore: implementation_imports
 import 'package:async/src/delegate/stream.dart';
+import 'package:http/http.dart' as http;
 import 'package:path/path.dart';
 import 'package:prepare/model/animal_model.dart';
 import 'package:prepare/model/animal_nearst_point_model.dart';
-
 import 'package:prepare/utils/constants.dart';
-import 'package:http/http.dart' as http;
+
+import '../db/auth_shared_preferences.dart';
 
 class AnimalServices {
   static Future sendAnimalFormData({

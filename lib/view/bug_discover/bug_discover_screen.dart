@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hawk_fab_menu/hawk_fab_menu.dart';
 import 'package:overlay_support/overlay_support.dart';
+
 import '../../core/controller/bug_dicover/all_cities_controller.dart';
 import '../../core/controller/bug_dicover/all_district_controller.dart';
 import '../../core/controller/bug_dicover/bug_discover_code_controller.dart';
-
 import '../../core/controller/bug_dicover/fly_note_controller.dart';
 import '../../core/controller/bug_dicover/fly_sample_controller.dart';
 import '../../core/controller/bug_dicover/fly_type_controller.dart';
@@ -20,6 +20,10 @@ import '../../core/controller/internet_connectivity_controller.dart';
 import '../../core/service/bug_discover_services.dart';
 import '../../utils/style.dart';
 import '../auth/login_screen.dart';
+import '../home/home_screen.dart';
+import '../shared_widgets/header_widget.dart';
+import '../shared_widgets/images_widget.dart';
+import '../shared_widgets/line_dot.dart';
 import 'widgets/all_cities_widget.dart';
 import 'widgets/all_district_widget.dart';
 import 'widgets/fly_note_widget.dart';
@@ -32,10 +36,6 @@ import 'widgets/street_widget.dart';
 import 'widgets/temperature_widget.dart';
 import 'widgets/waving_widget.dart';
 import 'widgets/windspeed_widget.dart';
-import '../home/home_screen.dart';
-import '../shared_widgets/header_widget.dart';
-import '../shared_widgets/images_widget.dart';
-import '../shared_widgets/line_dot.dart';
 
 // ignore: must_be_immutable
 class BugDiscoverScreen extends StatelessWidget {
@@ -366,7 +366,7 @@ class BugDiscoverScreen extends StatelessWidget {
                                                                                                       street: street,
                                                                                                       temperature: temperature,
                                                                                                       waving: waving,
-                                                                                                      windSpeed: windspeed,
+                                                                                                      windSpeed: windspeed, 
                                                                                                       code: code.bugDiscoverCode)
                                                                                                   .then((value) {
                                                                                                 if (value == 400) {
@@ -384,6 +384,7 @@ class BugDiscoverScreen extends StatelessWidget {
                                                                                                     confirmBtnText: 'ok'.tr,
                                                                                                     confirmBtnColor: primaryColor,
                                                                                                     backgroundColor: primaryColor,
+                                                                                                     confirmBtnTextStyle: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.normal),
                                                                                                     onConfirmBtnTap: () {
                                                                                                       Get.back();
                                                                                                     },

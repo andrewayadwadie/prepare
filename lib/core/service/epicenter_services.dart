@@ -1,14 +1,14 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import '../db/auth_shared_preferences.dart';
-import '../../model/epicenter/epicenter_model.dart';
-import '../../model/epicenter/nearst_picenter_point_model.dart';
-
+import 'package:http/http.dart' as http;
 // ignore: implementation_imports
 
 import 'package:prepare/utils/constants.dart';
-import 'package:http/http.dart' as http;
+
+import '../../model/epicenter/epicenter_model.dart';
+import '../../model/epicenter/nearst_picenter_point_model.dart';
+import '../db/auth_shared_preferences.dart';
 
 class EpicenterServices {
   static Future getAllInsects() async {
@@ -114,7 +114,7 @@ class EpicenterServices {
 
       return data;
     } else if (res.statusCode == 401 || res.statusCode == 403) {
-      return "عير مصرح للمستخدم";
+      return "غير مصرح للمستخدم";
     } else if (res.statusCode == 500 ||
         res.statusCode == 501 ||
         res.statusCode == 504 ||
@@ -136,7 +136,6 @@ static Future getNearstEpicenterVisit(double lat, double long) async {
       headers: <String, String>{
         "Content-type": "application/json",
         'Accept': 'application/json',
-        // 'Authorization': 'Bearer $token',
         'Authorization': 'Bearer ${TokenPref.getTokenValue()}',
       },
     );

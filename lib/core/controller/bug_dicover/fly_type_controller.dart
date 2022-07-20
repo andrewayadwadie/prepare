@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../service/bug_discover_services.dart';
 
 class AllFlyTypeController extends GetxController {

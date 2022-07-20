@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-import '../db/auth_shared_preferences.dart';
-import '../../model/epicenter/all_epicenter_model.dart';
-
+import 'package:http/http.dart' as http;
 // ignore: implementation_imports
 
 import 'package:prepare/utils/constants.dart';
-import 'package:http/http.dart' as http;
+
+import '../../model/epicenter/all_epicenter_model.dart';
+import '../db/auth_shared_preferences.dart';
 
 class AllEpicenterServices {
   static Future getAllEpicenter() async {

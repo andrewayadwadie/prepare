@@ -3,19 +3,17 @@ import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:overlay_support/overlay_support.dart';
-import '../../../core/controller/click_controller.dart';
 
+import '../../../core/controller/click_controller.dart';
 import '../../../core/controller/internet_connectivity_controller.dart';
 import '../../../core/service/all_epicenter_services.dart';
 import '../../../utils/style.dart';
 import '../../auth/login_screen.dart';
-
 import '../../bug_discover/widgets/humidity_widget.dart';
 import '../../bug_discover/widgets/recommendation_widget.dart';
 import '../../bug_discover/widgets/temperature_widget.dart';
 import '../../bug_discover/widgets/windspeed_widget.dart';
 import '../../home/home_screen.dart';
-
 import '../../shared_widgets/header_widget.dart';
 import '../../shared_widgets/line_dot.dart';
 
@@ -142,6 +140,7 @@ final int id;
                                                     barrierDismissible: false,
                                                     context: context,
                                                     type: CoolAlertType.success,
+                                                     confirmBtnTextStyle: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.normal),
                                                     title:
                                                        'A visit was successfully added'.tr,
                                                     confirmBtnText: 'ok'.tr,
