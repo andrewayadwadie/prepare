@@ -16,7 +16,6 @@ class AllCitiesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // AllDistrictController dis = Get.put(AllDistrictController(controller.cityId.value));
     return Padding(
         padding: const EdgeInsets.symmetric(vertical: 10),
         child: GetBuilder<InternetController>(
@@ -47,10 +46,8 @@ class AllCitiesWidget extends StatelessWidget {
                                                       controller
                                                           .cities[index].id,
                                                       index);
-                                                  disCtrl.getDistrictCount(
-                                                      disId: controller
-                                                          .cityId.value);
-                                                  //  dis.getDistrictCount(controller.cityId.value);
+                                                  disCtrl.getDistrictCount();
+                                               
                                                 },
                                                 child: Padding(
                                                   padding: const EdgeInsets
@@ -93,8 +90,6 @@ class AllCitiesWidget extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 7),
                     margin: const EdgeInsets.symmetric(horizontal: 30),
                     alignment: Alignment.centerRight,
-                    // width:
-                    //     MediaQuery.of(context).size.width / 2,
                     height: MediaQuery.of(context).size.height / 16,
                     decoration: BoxDecoration(
                       border: Border.all(width: 1, color: Colors.grey),

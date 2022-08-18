@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../utils/style.dart';
 import 'package:get/get.dart';
+
+import '../../../utils/style.dart';
 class StreetWidget extends StatelessWidget {
   const StreetWidget({Key? key,  required this.onChange}) : super(key: key);
  

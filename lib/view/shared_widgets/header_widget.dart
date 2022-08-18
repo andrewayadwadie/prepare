@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../utils/style.dart';
 
@@ -53,19 +54,18 @@ class HeaderWidget extends StatelessWidget {
       if (arrow == true)
         Positioned(
           top: 18,
-          left: 18,
+          left: Get.locale == const Locale("ar") ? 18 : null,
+          right: Get.locale == const Locale("en") ? 18 : null,
           child: InkWell(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              //   decoration: BoxDecoration(border: Border.all(width: 2,color: Colors.red)),
-              width: MediaQuery.of(context).size.width / 7,
-              height: MediaQuery.of(context).size.height / 15,
-              child: const Icon(
-                Icons.arrow_forward_ios,
-                color: Colors.white,
-                size: 35,
-              ),
-            ),
+                width: MediaQuery.of(context).size.width / 7,
+                height: MediaQuery.of(context).size.height / 15,
+                child: const Icon(
+                  Icons.arrow_forward_ios,
+                  color: Colors.white,
+                  size: 35,
+                )),
           ),
         ),
     ]);

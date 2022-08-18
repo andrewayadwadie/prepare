@@ -1,7 +1,7 @@
-
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../core/controller/click_controller.dart';
 import '../../core/controller/internet_connectivity_controller.dart';
 import '../../core/controller/prepareControllers/cars_controller.dart';
@@ -13,34 +13,19 @@ import '../../core/service/prepration_services.dart';
 import '../../utils/style.dart';
 import '../auth/login_screen.dart';
 import '../home/home_screen.dart';
-import 'widgets/cars_dialog_widget.dart';
-import 'widgets/devices_dialog_widget.dart';
-import 'widgets/pesticides_dialog_widget.dart';
-import 'widgets/single_list_item_widget.dart';
-import 'widgets/team_dialog_widget.dart';
 import '../shared_widgets/header_widget.dart';
 import '../shared_widgets/line_dot.dart';
 
 // ignore: must_be_immutable
 class PrepareScreen extends StatelessWidget {
   PrepareScreen(
-      {Key? key,
-      required this.id,
-      required this.title,
-     // required this.tools,
-      required this.exterminators,
-      required this.devices,
-      required this.vehicles,
-      required this.teams})
+      {Key? key, required this.id, required this.title,  })
       : super(key: key);
 
   final int id;
   final String title;
- // final List tools;
-  final List exterminators;
-  final List devices;
-  final List vehicles;
-  final List teams;
+
+  
 
   int carCount = 0;
   int deviceCount = 0;
@@ -90,9 +75,8 @@ class PrepareScreen extends StatelessWidget {
                       builder: (net) {
                         return ListView(
                           children: [
-                            //==================================
-                            //============== cars ==============
-                            //==================================
+                            //!============== cars ==============
+/*
                             InkWell(
                                 onTap: () {
                                   net.checkInternet().then((val) {
@@ -104,7 +88,8 @@ class PrepareScreen extends StatelessWidget {
                                               title: 'enter vehicles count'.tr,
                                               label: 'vehicles count'.tr,
                                               emptyErrorText:
-                                                  'please enter vehicles count'.tr);
+                                                  'please enter vehicles count'
+                                                      .tr);
                                         });
                                   });
                                 },
@@ -114,45 +99,13 @@ class PrepareScreen extends StatelessWidget {
                                       carCount = controller
                                           .getCarsSum(controller.carsCount);
                                       return SingleListItem(
-                                          title:'vehicles count'.tr,
+                                          title: 'vehicles count'.tr,
                                           count:
                                               "${controller.getCarsSum(controller.carsCount)}");
                                     })),
-                            //==================================
-                            //============== tools ==============
-                            //==================================
-                            /*
-                            InkWell(
-                                onTap: () {
-                                  net.checkInternet().then((val) {
-                                    if (val) {
-                                      showDialog(
-                                          context: context,
-                                          builder: (ctx) {
-                                            return ToolsDialogWidget(
-                                                tools: tools,
-                                                title:'enter tools count'.tr,
-                                                label: 'tools count'.tr,
-                                                emptyErrorText:
-                                                    'please enter tools count'.tr);
-                                          });
-                                    }
-                                  });
-                                },
-                                child: GetBuilder<ToolsController>(
-                                    init: ToolsController(),
-                                    builder: (controller) {
-                                      toolCount = controller
-                                          .getToolsSum(controller.toolsCount);
-                                      return SingleListItem(
-                                          title: 'tools count'.tr,
-                                          count:
-                                              "${controller.getToolsSum(controller.toolsCount)}");
-                                    })),
-                            */
-                            //==================================
-                            //============== devices ==============
-                            //==================================
+*/
+                            //!============== devices ==============
+/*
                             InkWell(
                                 onTap: () {
                                   net.checkInternet().then((val) {
@@ -165,7 +118,8 @@ class PrepareScreen extends StatelessWidget {
                                                 title: 'enter devices count'.tr,
                                                 label: 'devices count'.tr,
                                                 emptyErrorText:
-                                                    'please enter devices count'.tr);
+                                                    'please enter devices count'
+                                                        .tr);
                                           });
                                     }
                                   });
@@ -180,9 +134,9 @@ class PrepareScreen extends StatelessWidget {
                                           count:
                                               "${controller.getDeviceSum(controller.devicesCount)}");
                                     })),
-                            //==================================
-                            //============== pesticides ==============
-                            //==================================
+*/
+                            //!============== pesticides ==============
+/*
                             InkWell(
                                 onTap: () {
                                   net.checkInternet().then((val) {
@@ -193,10 +147,12 @@ class PrepareScreen extends StatelessWidget {
                                             return PesticidesDialogWidget(
                                                 exterminators: exterminators,
                                                 title:
-                                                    'enter pesticide quantity'.tr,
+                                                    'enter pesticide quantity'
+                                                        .tr,
                                                 label: 'pesticide quantity'.tr,
                                                 emptyErrorText:
-                                                    'enter pesticide quantity'.tr);
+                                                    'enter pesticide quantity'
+                                                        .tr);
                                           });
                                     }
                                   });
@@ -207,13 +163,13 @@ class PrepareScreen extends StatelessWidget {
                                       pestsideCount = controller.getPestSideSum(
                                           controller.pestsidesCount);
                                       return SingleListItem(
-                                          title:'pesticide quantity'.tr,
+                                          title: 'pesticide quantity'.tr,
                                           count:
                                               "${controller.getPestSideSum(controller.pestsidesCount)}");
                                     })),
-                            //==================================
-                            //============== Team ==============
-                            //==================================
+*/
+                            //!============== Team ==============
+/*
                             InkWell(
                                 onTap: () {
                                   net.checkInternet().then((val) {
@@ -226,7 +182,8 @@ class PrepareScreen extends StatelessWidget {
                                                 title: 'enter team count'.tr,
                                                 label: 'team count'.tr,
                                                 emptyErrorText:
-                                                    'please enter team count'.tr);
+                                                    'please enter team count'
+                                                        .tr);
                                           });
                                     }
                                   });
@@ -242,13 +199,14 @@ class PrepareScreen extends StatelessWidget {
                                           count:
                                               "${controller.getTeameSum(controller.teamCount)}");
                                     })),
+                                    */
                             //============== ************* ==============
                             SizedBox(
                               height: MediaQuery.of(context).size.height / 20,
                             ),
-                            //==================================
-                            //============== submit ==============
-                            //==================================
+
+                            //!============== submit ==============
+
                             GetBuilder<InternetController>(
                                 init: InternetController(),
                                 builder: (net) {
@@ -292,10 +250,9 @@ class PrepareScreen extends StatelessWidget {
                                                                                     confirmBtnTextStyle: const TextStyle(color: Colors.white, fontSize: 12),
                                                                                     cancelBtnTextStyle: const TextStyle(color: redColor, fontSize: 22),
                                                                                     type: CoolAlertType.error,
-                                                                                    title:'Not all information required for preparation has been entered'.tr,
+                                                                                    title: 'Not all information required for preparation has been entered'.tr,
                                                                                     text: 'are you sure ?'.tr,
                                                                                     showCancelBtn: true,
-                                                                                    
                                                                                     onConfirmBtnTap: () async {
                                                                                       var res = await PreprationServices.addPrepration(projectId: id, carObjectList: carsCtrl.carObjectList, toolsObjectList: toolsCtrl.toolsObjectList, devicesObjectList: devicesCtrl.devicesObjectList, pestsideObjectList: pestsidesCtrl.pestSideObjectList, teamsObjectList: teamsCtrl.teamObjectList);
                                                                                       if (res == 200) {
@@ -303,13 +260,12 @@ class PrepareScreen extends StatelessWidget {
                                                                                         CoolAlert.show(
                                                                                           context: context,
                                                                                           type: CoolAlertType.confirm,
-                                                                                           confirmBtnTextStyle: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.normal),
+                                                                                          confirmBtnTextStyle: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.normal),
                                                                                           title: 'Project preparation has been successfully added'.tr,
                                                                                           onConfirmBtnTap: () {},
                                                                                           confirmBtnText: "ok".tr,
                                                                                           confirmBtnColor: lightPrimaryColor,
                                                                                           backgroundColor: lightPrimaryColor,
-                                                                                          
                                                                                         );
                                                                                       } else if (res == 401) {
                                                                                         Get.offAll(const LoginScreen());
@@ -335,7 +291,7 @@ class PrepareScreen extends StatelessWidget {
                                                                                       onConfirmBtnTap: () {
                                                                                         Get.back();
                                                                                       },
-                                                                                       confirmBtnTextStyle: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.normal),
+                                                                                      confirmBtnTextStyle: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.normal),
                                                                                       confirmBtnText: "ok".tr,
                                                                                       confirmBtnColor: lightPrimaryColor,
                                                                                       backgroundColor: lightPrimaryColor,
@@ -361,9 +317,9 @@ class PrepareScreen extends StatelessWidget {
                                                                               color: click.clicked == false ? lightPrimaryColor : Colors.grey,
                                                                               borderRadius: BorderRadius.circular(10)),
                                                                           child: click.clicked == false
-                                                                              ?     Text(
+                                                                              ? Text(
                                                                                   'prepare'.tr,
-                                                                                  style:const TextStyle(color: Colors.white, fontSize: 15, fontFamily: 'hanimation', fontWeight: FontWeight.w600),
+                                                                                  style: const TextStyle(color: Colors.white, fontSize: 15, fontFamily: 'hanimation', fontWeight: FontWeight.w600),
                                                                                   textAlign: TextAlign.center,
                                                                                 )
                                                                               : const CircularProgressIndicator(

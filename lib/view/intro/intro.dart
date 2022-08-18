@@ -3,12 +3,11 @@ import 'dart:developer';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../core/db/auth_shared_preferences.dart';
-import '../../core/service/project_services.dart';
 import '../../utils/style.dart';
 import '../auth/login_screen.dart';
 import '../home/home_screen.dart';
-import '../shared_widgets/no_internet_screen.dart';
 
 class IntroPage extends StatefulWidget {
   const IntroPage({Key? key}) : super(key: key);
@@ -22,6 +21,16 @@ class _IntroPageState extends State<IntroPage> with TickerProviderStateMixin {
   var expanded = false;
   final double _bigFontSize = kIsWeb ? 234 : 30;
   final transitionDuration = const Duration(seconds: 1);
+  int diffrenceBetweenExpireNow() {
+    if (SharedPref.getExpireDateValue().isNotEmpty) {
+      DateTime expireDate = DateTime.parse(SharedPref.getExpireDateValue());
+      DateTime now = DateTime.now();
+      int diff = expireDate.difference(now).inHours;
+      return diff;
+    } else {
+      return 0;
+    }
+  }
 
   @override
   void initState() {
@@ -35,24 +44,18 @@ class _IntroPageState extends State<IntroPage> with TickerProviderStateMixin {
         .then((value1) => const Duration(seconds: 1))
         .then(
           (value2) => Future.delayed(const Duration(seconds: 1)).then(
-            (value3) => _lottieAnimation.forward().then(
-                  (value4) =>
-                      ProjectServices.getAllProjects().then((checkValue) {
-                        log("$checkValue");
-                    if (checkValue == 401) {
-                      Get.offAll(const LoginScreen());
-                    } else if (checkValue.runtimeType == List) {
-                      Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(builder: (context) {
-                        return TokenPref.getTokenValue().isEmpty
-                            ? const LoginScreen()
-                            : const HomeScreen();
-                      }), (route) => false);
-                    }else if(checkValue == 500){
-                      Get.offAll(const NoInternetScreen());
-                    }
-                  }),
-                ),
+            (value3) => _lottieAnimation.forward().then((value4) {
+              log("tokkkkken :  ${SharedPref.getTokenValue()}");
+              log("diffrenceBetweenExpireNow() :  ${diffrenceBetweenExpireNow()}");
+
+              if (SharedPref.getTokenValue().isEmpty) {
+                Get.offAll(const LoginScreen());
+              } else if (diffrenceBetweenExpireNow() < 1) {
+                Get.offAll(const LoginScreen());
+              } else {
+                Get.offAll(const HomeScreen());
+              }
+            }),
           ),
         );
     super.initState();

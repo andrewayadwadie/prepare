@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../core/controller/animal_controller/animal_controller.dart';
 
+import '../../../core/controller/animal_controller/animal_controller.dart';
 import '../../../core/controller/internet_connectivity_controller.dart';
 import '../../../utils/style.dart';
 import '../../shared_widgets/custom_loader.dart';

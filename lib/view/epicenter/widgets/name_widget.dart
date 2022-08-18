@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../utils/style.dart';
 import 'package:get/get.dart';
+
+import '../../../utils/style.dart';
 
 class NameWidget extends StatelessWidget {
   const NameWidget({Key? key,  required this.onChange}) : super(key: key);

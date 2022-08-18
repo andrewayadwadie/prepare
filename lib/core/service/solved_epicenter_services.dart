@@ -16,7 +16,7 @@ class SolvedEpicenterService {
           headers: {
             'Content-type': 'application/json',
             'Accept': 'application/json',
-            'Authorization': 'Bearer ${TokenPref.getTokenValue()}',
+            'Authorization': 'Bearer ${SharedPref.getTokenValue()}',
           },
           body: jsonEncode({
             "id": id,

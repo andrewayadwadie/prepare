@@ -19,7 +19,7 @@ class AllEpicenterServices {
         'Accept': 'application/json',
         // 'Authorization': 'Bearer $token',
         'Authorization':
-            'Bearer ${TokenPref.getTokenValue()}',
+            'Bearer ${SharedPref.getTokenValue()}',
       },
     );
 
@@ -57,7 +57,7 @@ class AllEpicenterServices {
           headers: {
             'Content-type': 'application/json',
             'Accept': 'application/json',
-            'Authorization': 'Bearer ${TokenPref.getTokenValue()}',
+            'Authorization': 'Bearer ${SharedPref.getTokenValue()}',
           },
           body: jsonEncode({
             "Temperature": temperature,

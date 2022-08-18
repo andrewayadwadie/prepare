@@ -16,8 +16,8 @@ class BugDIscoverMapScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     NearstBugDiscoverVisit pointController = Get.put(
-        NearstBugDiscoverVisit(currentLocation.currentLat ?? 0.0,
-            currentLocation.currentLat ?? 0.0));
+        NearstBugDiscoverVisit(currentLocation.lat ?? 0.0,
+            currentLocation.lat ?? 0.0));
 
     return Scaffold(
         body: SafeArea(

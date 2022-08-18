@@ -9,7 +9,7 @@ import '../shared_widgets/header_widget.dart';
 import '../shared_widgets/line_dot.dart';
 import 'widgets/single_list_item_widget.dart';
 
-// ignore: must_be_immutable
+//! ignore: must_be_immutable
 class DisplayPrepareScreen extends StatelessWidget {
   const DisplayPrepareScreen({Key? key, required this.id, required this.title})
       : super(key: key);
@@ -55,81 +55,94 @@ class DisplayPrepareScreen extends StatelessWidget {
                         topLeft: Radius.circular(20),
                       )),
                   child: GetBuilder<UserPreprationController>(
-                    init: UserPreprationController(id),
-                    builder: (controller) {
-                      return 
-                      
-                      controller.loading==true?
-                     const  LoaderWidget():
-                      ListView(
-                        children: [
-                          //==================================
-                          //============== cars ==============
-                          //==================================
+                      init: UserPreprationController(id),
+                      builder: (controller) {
+                        return controller.loading == true
+                            ? const LoaderWidget()
+                            : ListView(
+                                children: [
+                                  //!============== cars ==============
 
-                          SingleListItem(title: 'vehicles count'.tr, count:"${ controller.data.numberOfVehicles}"),
+                                  SingleListItem(
+                                      title: 'vehicles count'.tr,
+                                      count:
+                                          "${controller.data.numberOfVehicles}"),
 
-                          //==================================
-                          //============== tools ==============
-                          //==================================
-                     //     SingleListItem(title: 'tools count'.tr, count: "${ controller.data.numberOfTools}"),
-                          //==================================
-                          //============== devices ==============
-                          //==================================
-                          SingleListItem(title: 'devices count'.tr, count: "${ controller.data.numberOfDevices}"),
-                          //==================================
-                          //============== pesticides ==============
-                          //==================================
-                          SingleListItem(title: 'pesticide quantity'.tr, count: "${ controller.data.quantityOfExterminator}"),
-                          //==================================
-                          //============== Team ==============
-                          //==================================
-                          SingleListItem(title: 'team count'.tr, count: "${ controller.data.numberOfEmployees}"),
-                          //============== ************* ==============
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height / 20,
-                          ),
-                          //==================================
-                          //============== submit ==============
-                          //==================================
-                          InkWell(
-                            onTap: () {
-                              CoolAlert.show(
-                                context: context,
-                                type: CoolAlertType.error,
-                                title: 'The project has been prepared'.tr,
-                                text: 'The project cannot be prepared again'.tr,
-                                onConfirmBtnTap: () {
-                                  Get.back();
-                                },
-                                confirmBtnText: 'ok'.tr,
-                                 confirmBtnTextStyle: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.normal),
-                                confirmBtnColor: lightPrimaryColor,
-                                backgroundColor: lightPrimaryColor,
+                                  //!============== devices ==============
+
+                                  SingleListItem(
+                                      title: 'devices count'.tr,
+                                      count:
+                                          "${controller.data.numberOfDevices}"),
+
+                                  //!============== pesticides ==============
+
+                                  SingleListItem(
+                                      title: 'pesticide quantity'.tr,
+                                      count:
+                                          "${controller.data.quantityOfExterminator}"),
+
+                                  //!============== Team ==============
+
+                                  SingleListItem(
+                                      title: 'team count'.tr,
+                                      count:
+                                          "${controller.data.numberOfEmployees}"),
+                                  //!============== ************* ==============
+                                  SizedBox(
+                                    height:
+                                        MediaQuery.of(context).size.height / 20,
+                                  ),
+
+                                  //!============== submit ==============
+
+                                  InkWell(
+                                    onTap: () {
+                                      CoolAlert.show(
+                                        context: context,
+                                        type: CoolAlertType.error,
+                                        title:
+                                            'The project has been prepared'.tr,
+                                        text:
+                                            'The project cannot be prepared again'
+                                                .tr,
+                                        onConfirmBtnTap: () {
+                                          Get.back();
+                                        },
+                                        confirmBtnText: 'ok'.tr,
+                                        confirmBtnTextStyle: const TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 11,
+                                            fontWeight: FontWeight.normal),
+                                        confirmBtnColor: lightPrimaryColor,
+                                        backgroundColor: lightPrimaryColor,
+                                      );
+                                    },
+                                    child: Container(
+                                      margin: const EdgeInsets.symmetric(
+                                          horizontal: 10),
+                                      alignment: Alignment.center,
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              16,
+                                      decoration: BoxDecoration(
+                                          color: Colors.grey,
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      child: Text(
+                                        'prepare'.tr,
+                                        style: const TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontFamily: 'hanimation',
+                                            fontWeight: FontWeight.w600),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  )
+                                ],
                               );
-                            },
-                            child: Container(
-                              margin: const EdgeInsets.symmetric(horizontal: 10),
-                              alignment: Alignment.center,
-                              height: MediaQuery.of(context).size.height / 16,
-                              decoration: BoxDecoration(
-                                  color: Colors.grey,
-                                  borderRadius: BorderRadius.circular(10)),
-                              child:   Text(
-                                'prepare'.tr,
-                                style:const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 15,
-                                    fontFamily: 'hanimation',
-                                    fontWeight: FontWeight.w600),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          )
-                        ],
-                      );
-                    }
-                  ),
+                      }),
                 )
               ],
             ),

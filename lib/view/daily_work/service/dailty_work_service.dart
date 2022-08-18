@@ -7,10 +7,7 @@ import '../../../utils/constants.dart';
 
 class DailyWorkService {
   static Future addLine({
-    required String date,
-    required String lat,
-    required String long,
-    required String speed,
+    required List<Object> data,
   }) async {
     var url = "${apiUrl}VehiclesInfos/AddVehicleInfos";
 
@@ -19,15 +16,12 @@ class DailyWorkService {
           headers: {
             'Content-type': 'application/json',
             'Accept': 'application/json',
-            'Authorization': 'Bearer ${TokenPref.getTokenValue()}',
+            'Authorization': 'Bearer ${SharedPref.getTokenValue()}',
           },
-          body: jsonEncode({
-            "VehicleId": 2,
-            "VehicleInfos": [
-              {"Date": date, "Lat": lat, "Long": long, "Speed": speed}
-            ]
-          }));
-
+          body: jsonEncode(
+            data,
+          ));
+ 
       if (res.statusCode == 200 || res.statusCode == 201) {
         return 200;
       } else if (res.statusCode == 400) {

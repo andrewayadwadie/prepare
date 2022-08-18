@@ -1,12 +1,12 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../core/controller/internet_connectivity_controller.dart';
 import '../../utils/style.dart';
-import 'bug_discover_map/bug_discover_map.dart';
 import '../shared_widgets/header_widget.dart';
 import '../shared_widgets/line_dot.dart';
-
+import 'bug_discover_map/bug_discover_map.dart';
 import 'bug_discover_screen.dart';
 
 class BugDiscoverMainScreen extends StatelessWidget {

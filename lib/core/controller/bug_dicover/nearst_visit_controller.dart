@@ -19,9 +19,14 @@ class NearstBugDiscoverVisit extends GetxController {
   bool get loading => _loading.value;
   dynamic getPointCount(double lat, double long) {
     if (_loading.value == true) {
+
       BugDiscoverServices.getNearstBugDiscoverVisit(lat, long).then((value) {
-        point = value;
-        _loading.value = false;
+        if(value.runtimeType == List){
+          point = value;
+        _loading.value = false; 
+        }
+       
+
         update();
       });
     }

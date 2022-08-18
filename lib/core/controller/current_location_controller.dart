@@ -13,13 +13,11 @@ class CurrentLocationController extends GetxController {
   bool serviceEnabled = false;
   PermissionStatus? permissionGranted;
   LocationData? locationData;
-
+ late LocationData currentLocationData;
   double? lat;
   double? long;
 
-  get currentLat => lat;
-
-  get currentLong => long;
+ 
   getLocationByLocation() async {
     if (permissionGranted == null || locationData == null) {
       serviceEnabled = await location.serviceEnabled();
@@ -38,6 +36,7 @@ class CurrentLocationController extends GetxController {
         }
       }
       location.getLocation().then((currentLocation){
+        currentLocationData = currentLocation;
         lat = currentLocation.latitude;
         long = currentLocation.longitude;
         update();

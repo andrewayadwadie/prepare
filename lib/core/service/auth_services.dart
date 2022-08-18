@@ -18,7 +18,7 @@ class AuthServices {
             'Content-type': 'application/json',
             'Accept': 'application/json',
           },
-          body: jsonEncode({"Email": email, "Password": password}));
+          body: jsonEncode({"Email": email, "Password": password,}));
       log(" response status from login ${res.statusCode}");
       if (res.statusCode == 200 || res.statusCode == 201) {
         var registerDataJson = jsonDecode(res.body)['data'];
@@ -26,6 +26,7 @@ class AuthServices {
         return [
           registerDataJson['token'], // 0 token
           registerDataJson['expiresOn'], // 1 expire date
+          registerDataJson['role'], // 2 role
         ];
       }
       if (res.statusCode == 400) {

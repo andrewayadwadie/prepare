@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../../core/controller/prepareControllers/devices_controllers.dart';
 import '../../../core/controller/prepareCountController/devices_count_controller.dart';
 import '../../../utils/style.dart';
 import '../../shared_widgets/line_dot.dart';
-
 import 'single_devices_textfield.dart';
 
 // ignore: must_be_immutable

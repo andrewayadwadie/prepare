@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:developer' as dev;
-import 'dart:math';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
@@ -9,6 +9,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:location/location.dart';
 
+import '../../../utils/constants.dart';
 import '../../../utils/style.dart';
 import '../../../view/bug_discover/visit_bug_discover/visit_bug_discover_screen.dart';
 import '../current_location_controller.dart';
@@ -33,7 +34,6 @@ class BugDiscoverMapCtrl extends GetxController {
   List<LatLng> polylineCoordinates = [];
 
   get initialCamPos => initialCameraPosition;
-//<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
 
   Future<void> animateCamera(LocationData _location) async {
     final GoogleMapController controller = await compeleteController.future;
@@ -48,14 +48,14 @@ class BugDiscoverMapCtrl extends GetxController {
     controller.animateCamera(CameraUpdate.newCameraPosition(_cameraPostion));
   }
 
-//<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>//
-
-  double calculateDistance(lat1, lon1, lat2, lon2) {
-    var p = 0.017453292519943295;
-    var a = 0.5 -
-        cos((lat2 - lat1) * p) / 2 +
-        cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2;
-    return 12742 * asin(sqrt(a)) * 1000;
+  double calculateDistance(lat1, long1, lat2, long2) {
+    var d1 = lat1 * (math.pi / 180.0);
+    var num1 = long1 * (math.pi / 180.0);
+    var d2 = lat2 * (math.pi / 180.0);
+    var num2 = long2 * (math.pi / 180.0) - num1;
+    var d3 = math.pow(math.sin((d2 - d1) / 2.0), 2.0) +
+        math.cos(d1) * math.cos(d2) * math.pow(math.sin(num2 / 2.0), 2.0);
+    return 6376500.0 * (2.0 * math.atan2(math.sqrt(d3), math.sqrt(1.0 - d3)));
   }
 
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
@@ -80,8 +80,7 @@ class BugDiscoverMapCtrl extends GetxController {
 
   void setMarkers(List<LatLng> locations) {
     NearstBugDiscoverVisit nearstPoint = Get.put(NearstBugDiscoverVisit(
-        deviceCurrentLocation.currentLat ?? 0.0,
-        deviceCurrentLocation.currentLong ?? 0.0));
+        deviceCurrentLocation.lat ?? 0.0, deviceCurrentLocation.long ?? 0.0));
 
     for (var i = 0; i < locations.length; i++) {
       marks.add(Marker(
@@ -90,8 +89,8 @@ class BugDiscoverMapCtrl extends GetxController {
           position: locations[i],
           onTap: () {
             if (calculateDistance(
-                    deviceCurrentLocation.currentLat,
-                    deviceCurrentLocation.currentLong,
+                    deviceCurrentLocation.lat,
+                    deviceCurrentLocation.long,
                     double.parse(nearstPoint.point[i].lat),
                     double.parse(nearstPoint.point[i].long)) <
                 200.0) {
@@ -100,7 +99,7 @@ class BugDiscoverMapCtrl extends GetxController {
                 titleStyle: const TextStyle(
                     color: primaryColor, fontWeight: FontWeight.bold),
                 middleText:
-                    "${"You are within distance".tr} ${(calculateDistance(deviceCurrentLocation.currentLat, deviceCurrentLocation.currentLong, double.parse(nearstPoint.point[i].lat), double.parse(nearstPoint.point[i].long))).toStringAsFixed(3)} ${"meter".tr} ",
+                    "${"You are within distance".tr} ${(calculateDistance(deviceCurrentLocation.lat, deviceCurrentLocation.long, double.parse(nearstPoint.point[i].lat), double.parse(nearstPoint.point[i].long))).toStringAsFixed(3)} ${"meter".tr} ",
                 cancel: InkWell(
                   onTap: () {
                     Get.to(VisitBugDiscoverScreen(id: nearstPoint.point[i].id));
@@ -112,9 +111,9 @@ class BugDiscoverMapCtrl extends GetxController {
                       decoration: BoxDecoration(
                           color: lightPrimaryColor,
                           borderRadius: BorderRadius.circular(30)),
-                      child:  Text(
+                      child: Text(
                         'Add a visit'.tr,
-                        style:const TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                         ),
                       )),
@@ -134,7 +133,7 @@ class BugDiscoverMapCtrl extends GetxController {
   ${'salinity'.tr} : ${nearstPoint.point[i].waving}
   ph : ${nearstPoint.point[i].ph}
   ${'Type of exploration'.tr} : ${nearstPoint.point[i].flyTypeName}
-  ${'note type'.tr}: ${nearstPoint.point[i].flyNotBaladyaeName}
+  ${'note type'.tr}: ${nearstPoint.point[i].flyNoteName}
   ${'sample type'.tr} : ${nearstPoint.point[i].flySampleTypeName}
   ${'Date'.tr} : ${DateFormat('yyyy-MM-dd : kk:mm').format(DateTime.parse(nearstPoint.point[i].date))}
   ${'notes'.tr} :  ${nearstPoint.point[i].recommendation}
@@ -147,8 +146,8 @@ class BugDiscoverMapCtrl extends GetxController {
                       LatLng(double.parse(nearstPoint.point[i].lat),
                           double.parse(nearstPoint.point[i].long)),
                       LatLng(
-                        deviceCurrentLocation.currentLat,
-                        deviceCurrentLocation.currentLong,
+                        deviceCurrentLocation.lat ?? 0.0,
+                        deviceCurrentLocation.long ?? 0.0,
                       )
                     ]);
                   },
@@ -159,9 +158,9 @@ class BugDiscoverMapCtrl extends GetxController {
                       decoration: BoxDecoration(
                           color: primaryColor,
                           borderRadius: BorderRadius.circular(30)),
-                      child:  Text(
+                      child: Text(
                         'Go to the site'.tr,
-                        style:const TextStyle(
+                        style: const TextStyle(
                           fontSize: 11,
                           color: Colors.white,
                         ),
@@ -180,9 +179,9 @@ class BugDiscoverMapCtrl extends GetxController {
                       decoration: BoxDecoration(
                           color: lightPrimaryColor,
                           borderRadius: BorderRadius.circular(30)),
-                      child:  Text(
+                      child: Text(
                         'Add a visit'.tr,
-                        style:const TextStyle(
+                        style: const TextStyle(
                           fontSize: 11,
                           color: Colors.white,
                         ),
@@ -203,7 +202,7 @@ class BugDiscoverMapCtrl extends GetxController {
     PolylinePoints polylinePoints = PolylinePoints();
 
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-      "AIzaSyBGOAVKbeA0MiN6NfGm8Z0y5LtE7cgdCo4",
+      apiKey2,
       PointLatLng(
           locations[1].latitude, locations[1].longitude), // Google Maps API Key
       PointLatLng(locations[0].latitude, locations[0].longitude),

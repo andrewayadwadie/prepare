@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:developer' as dev;
-import 'dart:math';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
@@ -9,6 +9,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:location/location.dart';
 
+import '../../../utils/constants.dart';
 import '../../../utils/style.dart';
 import '../../../view/epicenter/visit_epicenter/visit_epicenter_screen.dart';
 import '../current_location_controller.dart';
@@ -50,12 +51,14 @@ class MapCtrl extends GetxController {
 
 //<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>//
 
-  double calculateDistance(lat1, lon1, lat2, lon2) {
-    var p = 0.017453292519943295;
-    var a = 0.5 -
-        cos((lat2 - lat1) * p) / 2 +
-        cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2;
-    return 12742 * asin(sqrt(a)) * 1000;
+  double calculateDistance(lat1, long1, lat2, long2) { 
+    var d1 = lat1 * (math.pi / 180.0);
+    var num1 = long1 * (math.pi / 180.0);
+    var d2 = lat2 * (math.pi / 180.0);
+    var num2 = long2 * (math.pi / 180.0) - num1;
+    var d3 = math.pow(math.sin((d2 - d1) / 2.0), 2.0) +
+        math.cos(d1) * math.cos(d2) * math.pow(math.sin(num2 / 2.0), 2.0);
+    return 6376500.0 * (2.0 * math.atan2(math.sqrt(d3), math.sqrt(1.0 - d3)));
   }
 
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
@@ -80,8 +83,8 @@ class MapCtrl extends GetxController {
 
   void setMarkers(List<LatLng> locations) {
     AllNearstPointsController nearstPoint = Get.put(AllNearstPointsController(
-        deviceCurrentLocation.currentLat ?? 0.0,
-        deviceCurrentLocation.currentLong ?? 0.0));
+        deviceCurrentLocation.lat ?? 0.0,
+        deviceCurrentLocation.long ?? 0.0));
 
     for (var i = 0; i < locations.length; i++) {
       marks.add(Marker(
@@ -90,8 +93,8 @@ class MapCtrl extends GetxController {
           position: locations[i],
           onTap: () {
             if (calculateDistance(
-                    deviceCurrentLocation.currentLat,
-                    deviceCurrentLocation.currentLong,
+                    deviceCurrentLocation.lat,
+                    deviceCurrentLocation.long,
                     double.parse(nearstPoint.point[i].lat),
                     double.parse(nearstPoint.point[i].long)) <
                 200.0) {
@@ -100,7 +103,7 @@ class MapCtrl extends GetxController {
                 titleStyle: const TextStyle(
                     color: primaryColor, fontWeight: FontWeight.bold),
                 middleText:
-                    "${'You are within distance'.tr} ${(calculateDistance(deviceCurrentLocation.currentLat, deviceCurrentLocation.currentLong, double.parse(nearstPoint.point[i].lat), double.parse(nearstPoint.point[i].long))).toStringAsFixed(3)} ${'meter'.tr} ",
+                    "${'You are within distance'.tr} ${(calculateDistance(deviceCurrentLocation.lat, deviceCurrentLocation.long, double.parse(nearstPoint.point[i].lat), double.parse(nearstPoint.point[i].long))).toStringAsFixed(3)} ${'meter'.tr} ",
                 cancel: InkWell(
                   onTap: () {
                     Get.to(VisitEpicenterScreen(
@@ -128,14 +131,15 @@ class MapCtrl extends GetxController {
                 titleStyle: const TextStyle(
                     color: primaryColor, fontWeight: FontWeight.bold),
                 middleText: """
- ${'Location'.tr} : ${nearstPoint.point[i].name}
+  ${'Location'.tr} : ${nearstPoint.point[i].name}
   ${'Type of insect'.tr}:  ${nearstPoint.point[i].insectName}
- ${'Date'.tr} : ${DateFormat('yyyy-MM-dd : kk:mm').format(DateTime.parse(nearstPoint.point[i].date))}
- ${'District'.tr} :  ${nearstPoint.point[i].districtName}
- ${'Baladya'.tr} :  ${nearstPoint.point[i].cityName}
+  ${'Date'.tr} : ${DateFormat('yyyy-MM-dd : kk:mm').format(DateTime.parse(nearstPoint.point[i].date))}
+  ${'District'.tr} :  ${nearstPoint.point[i].districtName}
+  ${'Baladya'.tr} :  ${nearstPoint.point[i].cityName}
   ${'notes'.tr} :  ${nearstPoint.point[i].recommendation}
  
                            """,
+                           
                 confirm: InkWell(
                   onTap: () {
                     Get.back();
@@ -143,8 +147,8 @@ class MapCtrl extends GetxController {
                       LatLng(double.parse(nearstPoint.point[i].lat),
                           double.parse(nearstPoint.point[i].long)),
                       LatLng(
-                        deviceCurrentLocation.currentLat,
-                        deviceCurrentLocation.currentLong,
+                        deviceCurrentLocation.lat??0.0,
+                        deviceCurrentLocation.long??0.0,
                       )
                     ]);
                   },
@@ -197,7 +201,7 @@ class MapCtrl extends GetxController {
     PolylinePoints polylinePoints = PolylinePoints();
 
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-      "AIzaSyBGOAVKbeA0MiN6NfGm8Z0y5LtE7cgdCo4",
+      apiKey2,
       PointLatLng(
           locations[1].latitude, locations[1].longitude), // Google Maps API Key
       PointLatLng(locations[0].latitude, locations[0].longitude),

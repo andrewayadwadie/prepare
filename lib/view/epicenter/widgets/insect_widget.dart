@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:prepare/core/controller/epicenter/insect_code_controller.dart';
 
 import '../../../core/controller/epicenter/all_insects_controller.dart';
 import '../../../core/controller/internet_connectivity_controller.dart';
@@ -34,41 +35,48 @@ class InsectWidget extends StatelessWidget {
                                       child: ListView.builder(
                                           itemCount: controller.insects.length,
                                           itemBuilder: (context, index) {
-                                            return InkWell(
-                                              onTap: () {
-                                                controller.onTapSelected(
-                                                    ctx,
-                                                    controller
-                                                        .insects[index].id,
-                                                    index);
-                                              },
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 60,
-                                                        vertical: 15),
-                                                child: Container(
-                                                  alignment: Alignment.center,
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height /
-                                                      12,
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10),
-                                                      border: Border.all(
-                                                          width: 1,
-                                                          color: Colors.grey)),
-                                                  child: Text(
-                                                    controller
-                                                        .insects[index].name,
-                                                    style: const TextStyle(
-                                                        color: primaryColor,
-                                                        fontSize: 15),
+                                            return GetBuilder<InsectCodeController>(
+                                              init: InsectCodeController(),
+                                              builder: (code) {
+                                                return InkWell(
+                                                  onTap: () {
+                                                    controller.onTapSelected(
+                                                        ctx,
+                                                        controller
+                                                            .insects[index].id,
+                                                        index);
+                                                        code.getInsectCodeCount( controller
+                                                            .insects[index].id,);
+                                                  },
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.symmetric(
+                                                            horizontal: 60,
+                                                            vertical: 15),
+                                                    child: Container(
+                                                      alignment: Alignment.center,
+                                                      height: MediaQuery.of(context)
+                                                              .size
+                                                              .height /
+                                                          12,
+                                                      decoration: BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                  10),
+                                                          border: Border.all(
+                                                              width: 1,
+                                                              color: Colors.grey)),
+                                                      child: Text(
+                                                        controller
+                                                            .insects[index].name,
+                                                        style: const TextStyle(
+                                                            color: primaryColor,
+                                                            fontSize: 15),
+                                                      ),
+                                                    ),
                                                   ),
-                                                ),
-                                              ),
+                                                );
+                                              }
                                             );
                                           }),
                                     ),

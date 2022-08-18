@@ -242,6 +242,12 @@ class VisitBugDiscoverScreen extends StatelessWidget {
                                                                             'sent succesfully'.tr,
                                                                         confirmBtnText:
                                                                            'ok'.tr,
+                                                                           confirmBtnTextStyle: const TextStyle(
+                                                                            color: Colors.white,
+                                                                            fontSize:
+                                                                                12,
+                                                                            fontWeight:
+                                                                                FontWeight.bold,),
                                                                         confirmBtnColor:
                                                                             primaryColor,
                                                                         backgroundColor:

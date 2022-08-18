@@ -5,8 +5,11 @@ import 'package:http/http.dart' as http;
 //import 'package:prepare/core/db/auth_shared_preferences.dart';
 import 'package:prepare/model/contractors_list_model.dart';
 import 'package:prepare/utils/constants.dart';
-class ContractrosServices{
-   static Future getAllContractros() async {
+
+import '../db/auth_shared_preferences.dart';
+
+class ContractrosServices {
+  static Future getAllContractros() async {
     String url = "${apiUrl}Contractors/GetAllContractors";
 
     http.Response res = await http.get(
@@ -14,11 +17,9 @@ class ContractrosServices{
       headers: <String, String>{
         "Content-type": "application/json",
         'Accept': 'application/json',
-        // 'Authorization': 'Bearer $token',
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBZHZpc29yIiwianRpIjoiNmQyNGQ3OWYtYmRmNi00Y2JlLWI2MmUtY2FjZmJiYTA3OTRmIiwiZW1haWwiOiJBZHZpc29yQGdtYWlsLmNvbSIsInVpZCI6ImI3NGRkZDE0LTYzNDAtNDg0MC05NWMyLWRiMTI1NTQ4NDNlNSIsInJvbGVzIjoiQWR2aXNvciIsImV4cCI6MTY0NzMzMzMwNiwiaXNzIjoiU2VjdXJlQXBpIiwiYXVkIjoiU2VjdXJlQXBpVXNlciJ9.AMw6Ffok-igb-HQA4eMOGKC18Hrw2TKkAEu9EKuu4JE',
+        'Authorization': 'Bearer ${SharedPref.getTokenValue()}',
       },
     );
-    //   log("token is : ${TokenPref.getTokenValue()}");
     if (res.statusCode == 200) {
       var jsonData = jsonDecode(res.body);
 
@@ -38,10 +39,9 @@ class ContractrosServices{
     return 400;
   }
 
-    static Future addEvaluation({
+  static Future addEvaluation({
     required int contractorId,
     required List rates,
-
   }) async {
     var url = "${apiUrl}ContractorsRates/AddContractorRates";
 
@@ -50,14 +50,13 @@ class ContractrosServices{
           headers: {
             'Content-type': 'application/json',
             'Accept': 'application/json',
-            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBZHZpc29yIiwianRpIjoiNmQyNGQ3OWYtYmRmNi00Y2JlLWI2MmUtY2FjZmJiYTA3OTRmIiwiZW1haWwiOiJBZHZpc29yQGdtYWlsLmNvbSIsInVpZCI6ImI3NGRkZDE0LTYzNDAtNDg0MC05NWMyLWRiMTI1NTQ4NDNlNSIsInJvbGVzIjoiQWR2aXNvciIsImV4cCI6MTY0NzMzMzMwNiwiaXNzIjoiU2VjdXJlQXBpIiwiYXVkIjoiU2VjdXJlQXBpVXNlciJ9.AMw6Ffok-igb-HQA4eMOGKC18Hrw2TKkAEu9EKuu4JE',
+            'Authorization': 'Bearer ${SharedPref.getTokenValue()}',
           },
           body: jsonEncode({
             "ContractorId": contractorId,
             "Rates": rates,
-  
-          }));
-log("res $res");
+          }));  
+      log("res $res");
       if (res.statusCode == 200 || res.statusCode == 201) {
         return 200;
       } else if (res.statusCode == 400) {

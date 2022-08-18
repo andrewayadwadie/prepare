@@ -1,34 +1,26 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../core/controller/internet_connectivity_controller.dart';
 import '../../utils/style.dart';
-import 'epicenter_map/epicenter_map_screen.dart';
 import '../shared_widgets/header_widget.dart';
 import '../shared_widgets/line_dot.dart';
-
+import 'epicenter_map/epicenter_map_screen.dart';
 import 'epicenter_screen.dart';
 
 class EpicCenterMainScreen extends StatelessWidget {
   EpicCenterMainScreen({Key? key}) : super(key: key);
   final List<String> titles = [
     'Add density measurement'.tr,
-    //  "زيارة بؤرة",
     'Visit a density measurement'.tr
   ];
-  final List<Widget> screens = [
-    EpiCenterScreen(),
-    //  VisitEpicenterScreen(),
-    EpiCenterMapScreen()
-
-
-
-    
-  ];
+  final List<Widget> screens = [EpiCenterScreen(), EpiCenterMapScreen()];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[200],
       body: SafeArea(
           child: SingleChildScrollView(
         child: Column(
@@ -37,9 +29,9 @@ class EpicCenterMainScreen extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height / 20,
             ),
-             AutoSizeText(
+            AutoSizeText(
               'Density measurement'.tr,
-              style:const TextStyle(
+              style: const TextStyle(
                   color: lightPrimaryColor,
                   fontSize: 18,
                   fontWeight: FontWeight.w600),
@@ -67,70 +59,75 @@ class EpicCenterMainScreen extends StatelessWidget {
                   itemCount: 2,
                   itemBuilder: (BuildContext ctx, index) {
                     return GetBuilder<InternetController>(
-                      init:InternetController() ,
-                      builder: (net) {
-                      return InkWell(
-                        onTap: () {
-                          net.checkInternet().then((value) {
-                            if (value) {
-                              Get.to(screens[index]);
-                            }
-                          });
-                        },
-                        child: Container(
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            border:
-                                Border.all(width: 1, color: lightPrimaryColor),
-                            color: Colors.white,
-                            boxShadow: <BoxShadow>[
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.6),
-                                blurRadius: 6,
-                                offset: const Offset(2, 4),
+                        init: InternetController(),
+                        builder: (net) {
+                          return InkWell(
+                            onTap: () {
+                              net.checkInternet().then((value) {
+                                if (value) {
+                                  Get.to(screens[index]);
+                                }
+                              });
+                            },
+                            child: Container(
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(
+                                    width: 1, color: lightPrimaryColor),
+                                color: Colors.white,
+                                boxShadow: <BoxShadow>[
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.6),
+                                    blurRadius: 6,
+                                    offset: const Offset(2, 4),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.symmetric(vertical: 7),
-                                width: MediaQuery.of(context).size.width / 3,
-                                height: MediaQuery.of(context).size.height / 9,
-                                padding: const EdgeInsets.all(3),
-                                child: Image.asset(
-                                  "assets/images/b$index.png",
-                                  fit: BoxFit.contain,
-                                ),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    margin:
+                                        const EdgeInsets.symmetric(vertical: 7),
+                                    width:
+                                        MediaQuery.of(context).size.width / 3,
+                                    height:
+                                        MediaQuery.of(context).size.height / 9,
+                                    padding: const EdgeInsets.all(3),
+                                    child: Image.asset(
+                                      "assets/images/b$index.png",
+                                      fit: BoxFit.contain,
+                                    ),
+                                  ),
+                                  Container(
+                                    alignment: Alignment.center,
+                                    width: MediaQuery.of(context).size.width,
+                                    height:
+                                        MediaQuery.of(context).size.height / 22,
+                                    decoration: const BoxDecoration(
+                                        color: lightPrimaryColor,
+                                        borderRadius: BorderRadius.only(
+                                            topRight: Radius.circular(25),
+                                            topLeft: Radius.circular(25),
+                                            bottomRight: Radius.circular(12),
+                                            bottomLeft: Radius.circular(12))),
+                                    child: Text(
+                                      titles[index],
+                                      textAlign: TextAlign.center,
+                                      style: const TextStyle(
+                                          fontSize: 17,
+                                          fontFamily: 'hanimation',
+                                          // fontWeight: FontWeight.bold,
+                                          color: Colors.white),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              Container(
-                                alignment: Alignment.center,
-                                width: MediaQuery.of(context).size.width,
-                                height: MediaQuery.of(context).size.height / 22,
-                                decoration: const BoxDecoration(
-                                    color: lightPrimaryColor,
-                                    borderRadius: BorderRadius.only(
-                                        topRight: Radius.circular(25),
-                                        topLeft: Radius.circular(25),
-                                        bottomRight: Radius.circular(12),
-                                        bottomLeft: Radius.circular(12))),
-                                child: Text(
-                                  titles[index],
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                      fontSize: 17,
-                                      fontFamily: 'hanimation',
-                                      // fontWeight: FontWeight.bold,
-                                      color: Colors.white),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    });
+                            ),
+                          );
+                        });
                   }),
             )
           ],

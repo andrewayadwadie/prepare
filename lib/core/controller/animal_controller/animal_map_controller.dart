@@ -1,17 +1,19 @@
 import 'dart:async';
-import 'dart:math';
-import 'package:intl/intl.dart';
 import 'dart:developer' as dev;
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:location/location.dart';
-import 'nearst_visit_animal_controller.dart';
+
+import '../../../utils/constants.dart';
 import '../../../utils/style.dart';
 import '../../../view/animal/visit_animal_screen.dart';
 import '../current_location_controller.dart';
- 
+import 'nearst_visit_animal_controller.dart';
 
 class AnimalMapCtrl extends GetxController {
   CurrentLocationController deviceCurrentLocation =
@@ -78,11 +80,10 @@ class AnimalMapCtrl extends GetxController {
 //<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
 
   void setMarkers(List<LatLng> locations) {
-    dev.log("test location : ${locations.length}");
-    NearstVisitAnimalController nearstPoint = Get.put(NearstVisitAnimalController(
-        deviceCurrentLocation.currentLat ?? 0.0,
-        deviceCurrentLocation.currentLong ?? 0.0));
-    dev.log("test point : ${nearstPoint.point.length}");
+    NearstVisitAnimalController nearstPoint = Get.put(
+        NearstVisitAnimalController(deviceCurrentLocation.lat ?? 0.0,
+            deviceCurrentLocation.long ?? 0.0));
+
     for (var i = 0; i < locations.length; i++) {
       marks.add(Marker(
           markerId: MarkerId(locations[i].toString()),
@@ -90,20 +91,22 @@ class AnimalMapCtrl extends GetxController {
           position: locations[i],
           onTap: () {
             if (calculateDistance(
-                    deviceCurrentLocation.currentLat,
-                    deviceCurrentLocation.currentLong,
+                    deviceCurrentLocation.lat,
+                    deviceCurrentLocation.long,
                     double.parse(nearstPoint.point[i].lat),
                     double.parse(nearstPoint.point[i].long)) <
                 200.0) {
               Get.defaultDialog(
-                title: 'Information about the location of stray dogs' .tr,
+                title: 'Information about the location of stray dogs'.tr,
                 titleStyle: const TextStyle(
                     color: primaryColor, fontWeight: FontWeight.bold),
                 middleText:
-                    "${'You are within distance'.tr} ${(calculateDistance(deviceCurrentLocation.currentLat, deviceCurrentLocation.currentLong, double.parse(nearstPoint.point[i].lat), double.parse(nearstPoint.point[i].long))).toStringAsFixed(3)} ${'meter'.tr} ",
+                    "${'You are within distance'.tr} ${(calculateDistance(deviceCurrentLocation.lat, deviceCurrentLocation.long, double.parse(nearstPoint.point[i].lat), double.parse(nearstPoint.point[i].long))).toStringAsFixed(3)} ${'meter'.tr} ",
                 cancel: InkWell(
                   onTap: () {
-                    Get.to(VisitAnimalScreen(id: nearstPoint.point[i].id,));
+                    Get.to(VisitAnimalScreen(
+                      id: nearstPoint.point[i].id,
+                    ));
                   },
                   child: Container(
                       alignment: Alignment.center,
@@ -112,9 +115,9 @@ class AnimalMapCtrl extends GetxController {
                       decoration: BoxDecoration(
                           color: lightPrimaryColor,
                           borderRadius: BorderRadius.circular(30)),
-                      child:  Text(
-                       'Add a visit'.tr,
-                        style:const TextStyle(
+                      child: Text(
+                        'Add a visit'.tr,
+                        style: const TextStyle(
                           color: Colors.white,
                         ),
                       )),
@@ -122,7 +125,7 @@ class AnimalMapCtrl extends GetxController {
               );
             } else {
               Get.defaultDialog(
-                title: 'Information about the location of stray dogs' .tr,
+                title: 'Information about the location of stray dogs'.tr,
                 titleStyle: const TextStyle(
                     color: primaryColor, fontWeight: FontWeight.bold),
                 middleText: """
@@ -133,14 +136,13 @@ class AnimalMapCtrl extends GetxController {
                            """,
                 confirm: InkWell(
                   onTap: () {
-       
                     Get.back();
                     setPolyLine([
                       LatLng(double.parse(nearstPoint.point[i].lat),
                           double.parse(nearstPoint.point[i].long)),
                       LatLng(
-                        deviceCurrentLocation.currentLat,
-                        deviceCurrentLocation.currentLong,
+                        deviceCurrentLocation.lat ?? 0.0,
+                        deviceCurrentLocation.long ?? 0.0,
                       )
                     ]);
                   },
@@ -151,9 +153,9 @@ class AnimalMapCtrl extends GetxController {
                       decoration: BoxDecoration(
                           color: primaryColor,
                           borderRadius: BorderRadius.circular(30)),
-                      child:  Text(
+                      child: Text(
                         'Go to the site'.tr,
-                        style:const TextStyle(
+                        style: const TextStyle(
                           fontSize: 11,
                           color: Colors.white,
                         ),
@@ -161,7 +163,9 @@ class AnimalMapCtrl extends GetxController {
                 ),
                 cancel: InkWell(
                   onTap: () {
-                    Get.to(VisitAnimalScreen(id: nearstPoint.point[i].id,));
+                    Get.to(VisitAnimalScreen(
+                      id: nearstPoint.point[i].id,
+                    ));
                   },
                   child: Container(
                       alignment: Alignment.center,
@@ -170,9 +174,9 @@ class AnimalMapCtrl extends GetxController {
                       decoration: BoxDecoration(
                           color: lightPrimaryColor,
                           borderRadius: BorderRadius.circular(30)),
-                      child:  Text(
+                      child: Text(
                         'Add a visit'.tr,
-                        style:const TextStyle(
+                        style: const TextStyle(
                           fontSize: 11,
                           color: Colors.white,
                         ),
@@ -193,7 +197,7 @@ class AnimalMapCtrl extends GetxController {
     PolylinePoints polylinePoints = PolylinePoints();
 
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-      "AIzaSyBGOAVKbeA0MiN6NfGm8Z0y5LtE7cgdCo4",
+      apiKey2,
       PointLatLng(
           locations[1].latitude, locations[1].longitude), // Google Maps API Key
       PointLatLng(locations[0].latitude, locations[0].longitude),

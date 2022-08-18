@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
 import '../../core/controller/evaluation_controller/contractors_list_controller.dart';
 import '../../core/controller/internet_connectivity_controller.dart';
 import '../../utils/style.dart';
 import '../shared_widgets/custom_loader.dart';
 import '../shared_widgets/header_widget.dart';
 import '../shared_widgets/line_dot.dart';
-import 'package:get/get.dart';
-
 import 'contractors_evaluation_screen.dart';
 
 class ContractorsListScreen extends StatelessWidget {
@@ -39,15 +39,7 @@ class ContractorsListScreen extends StatelessWidget {
                     ),
                     const LineDots(),
                     const Spacer(),
-                      // controller.errorNo > 0?
-                      //   SizedBox(
-                      //   width: 100,
-                      //   height: 100,
-                      //   child: Text(
-                      //     "error ${controller.errorNo}",
-                      //     style: const TextStyle(color: Colors.red, fontSize: 20),
-                      //   ),
-                      // ):
+          
                     Container(
                         padding: const EdgeInsets.symmetric(
                             vertical: 5, horizontal: 20),

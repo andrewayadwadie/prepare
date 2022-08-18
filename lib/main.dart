@@ -11,11 +11,7 @@ import 'utils/translations/app_translations.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  //await Firebase.initializeApp();
-  await TokenPref.init();
-  await ExpireDatePref.init();
-
+  await SharedPref.init();
   runApp(const MyApp());
 }
 

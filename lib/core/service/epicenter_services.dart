@@ -20,7 +20,7 @@ class EpicenterServices {
         "Content-type": "application/json",
         'Accept': 'application/json',
         // 'Authorization': 'Bearer $token',
-        'Authorization': 'Bearer ${TokenPref.getTokenValue()}',
+        'Authorization': 'Bearer ${SharedPref.getTokenValue()}',
       },
     );
     log("status code is : ${res.statusCode}");
@@ -63,7 +63,7 @@ class EpicenterServices {
           headers: {
             'Content-type': 'application/json',
             'Accept': 'application/json',
-            'Authorization': 'Bearer ${TokenPref.getTokenValue()}',
+            'Authorization': 'Bearer ${SharedPref.getTokenValue()}',
           },
           body: jsonEncode({
             "Name": name,
@@ -96,8 +96,8 @@ class EpicenterServices {
 
 //========================================================
 
-  static Future getInsectsCode(int cityId, int insectId) async {
-    String url = "${apiUrl}Epicenters/GetEpicenterCode/$cityId/$insectId";
+  static Future getInsectsCode(int insectId) async {
+    String url = "${apiUrl}Epicenters/GetEpicenterCode/$insectId";
 
     http.Response res = await http.get(
       Uri.parse(url),
@@ -105,7 +105,7 @@ class EpicenterServices {
         "Content-type": "application/json",
         'Accept': 'application/json',
         // 'Authorization': 'Bearer $token',
-        'Authorization': 'Bearer ${TokenPref.getTokenValue()}',
+        'Authorization': 'Bearer ${SharedPref.getTokenValue()}',
       },
     );
     log("status code is : ${res.statusCode}");
@@ -136,10 +136,10 @@ static Future getNearstEpicenterVisit(double lat, double long) async {
       headers: <String, String>{
         "Content-type": "application/json",
         'Accept': 'application/json',
-        'Authorization': 'Bearer ${TokenPref.getTokenValue()}',
+        'Authorization': 'Bearer ${SharedPref.getTokenValue()}',
       },
     );
-    //   log("token is : ${TokenPref.getTokenValue()}");
+    //   log("token is : ${SharedPref.getTokenValue()}");
     if (res.statusCode == 200) {
       var jsonData = jsonDecode(res.body);
 

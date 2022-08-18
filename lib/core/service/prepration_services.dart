@@ -1,13 +1,14 @@
 import 'dart:convert';
 
-import '../db/auth_shared_preferences.dart';
+import 'package:http/http.dart' as http;
+
 import '../../model/cars_model.dart';
 import '../../model/devices_model.dart';
 import '../../model/pestside_model.dart';
 import '../../model/tools_model.dart';
 import '../../model/user_prepration_model.dart';
 import '../../utils/constants.dart';
-import 'package:http/http.dart' as http;
+import '../db/auth_shared_preferences.dart';
 
 class PreprationServices {
   static Future getUserPrepration(int id) async {
@@ -18,20 +19,13 @@ class PreprationServices {
       headers: <String, String>{
         "Content-type": "application/json",
         'Accept': 'application/json',
-        // 'Authorization': 'Bearer $token',
-        'Authorization': 'Bearer ${TokenPref.getTokenValue()}',
+        'Authorization': 'Bearer ${SharedPref.getTokenValue()}',
       },
     );
-    //   log("token is : ${TokenPref.getTokenValue()}");
+
     if (res.statusCode == 200) {
       var jsonData = jsonDecode(res.body);
-
-      // List data = jsonData.map((element) {
-      //   return UserPreprationModel.fromJson(element);
-      // }).toList();
-
       dynamic data = UserPreprationModel.fromJson(jsonData);
-
       return data;
     } else if (res.statusCode == 401) {
       return 401;
@@ -46,17 +40,14 @@ class PreprationServices {
 
   static Future getAllCars() async {
     String url = "${apiUrl}Vehicles/GetAllVehicles";
-
     http.Response res = await http.get(
       Uri.parse(url),
       headers: <String, String>{
         "Content-type": "application/json",
         'Accept': 'application/json',
-        // 'Authorization': 'Bearer $token',
-        'Authorization': 'Bearer ${TokenPref.getTokenValue()}',
+        'Authorization': 'Bearer ${SharedPref.getTokenValue()}',
       },
     );
-    //   log("token is : ${TokenPref.getTokenValue()}");
     if (res.statusCode == 200) {
       var jsonData = jsonDecode(res.body);
 
@@ -84,11 +75,9 @@ class PreprationServices {
       headers: <String, String>{
         "Content-type": "application/json",
         'Accept': 'application/json',
-        // 'Authorization': 'Bearer $token',
-        'Authorization': 'Bearer ${TokenPref.getTokenValue()}',
+        'Authorization': 'Bearer ${SharedPref.getTokenValue()}',
       },
     );
-    //   log("token is : ${TokenPref.getTokenValue()}");
     if (res.statusCode == 200) {
       var jsonData = jsonDecode(res.body);
 
@@ -116,11 +105,9 @@ class PreprationServices {
       headers: <String, String>{
         "Content-type": "application/json",
         'Accept': 'application/json',
-        // 'Authorization': 'Bearer $token',
-        'Authorization': 'Bearer ${TokenPref.getTokenValue()}',
+        'Authorization': 'Bearer ${SharedPref.getTokenValue()}',
       },
     );
-    //   log("token is : ${TokenPref.getTokenValue()}");
     if (res.statusCode == 200) {
       var jsonData = jsonDecode(res.body);
 
@@ -148,11 +135,9 @@ class PreprationServices {
       headers: <String, String>{
         "Content-type": "application/json",
         'Accept': 'application/json',
-        // 'Authorization': 'Bearer $token',
-        'Authorization': 'Bearer ${TokenPref.getTokenValue()}',
+        'Authorization': 'Bearer ${SharedPref.getTokenValue()}',
       },
     );
-    //   log("token is : ${TokenPref.getTokenValue()}");
     if (res.statusCode == 200) {
       var jsonData = jsonDecode(res.body);
 
@@ -187,7 +172,7 @@ class PreprationServices {
           headers: {
             'Content-type': 'application/json',
             'Accept': 'application/json',
-            'Authorization': 'Bearer ${TokenPref.getTokenValue()}',
+            'Authorization': 'Bearer ${SharedPref.getTokenValue()}',
           },
           body: jsonEncode({
             "ProjectId": projectId,

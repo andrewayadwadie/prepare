@@ -1,7 +1,8 @@
 import 'dart:convert';
 
+import '../../view/all_projects/model/prepare_model.dart';
 import '../db/auth_shared_preferences.dart';
-import '../../model/project_model.dart';
+ 
 import '../../utils/constants.dart';
 import 'package:http/http.dart' as http;
 
@@ -15,14 +16,14 @@ class ProjectServices {
         "Content-type": "application/json",
         'Accept': 'application/json',
         // 'Authorization': 'Bearer $token',
-        'Authorization': 'Bearer ${TokenPref.getTokenValue()}',
+        'Authorization': 'Bearer ${SharedPref.getTokenValue()}',
       },
     );
-    //   log("token is : ${TokenPref.getTokenValue()}");
+    //   log("token is : ${SharedPref.getTokenValue()}");
     if (res.statusCode == 200) {
-      var jsonData = jsonDecode(res.body);
+       List<dynamic> jsonData = jsonDecode(res.body);
 
-      List projects = jsonData.map((element) {
+      List<ProjectModel> projects = jsonData.map((element) {
         return ProjectModel.fromJson(element);
       }).toList();
 

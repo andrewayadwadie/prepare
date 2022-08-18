@@ -1,22 +1,17 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../service/bug_discover_services.dart';
 
 class AllDistrictController extends GetxController {
-  // AllDistrictController(this.id);
-  // final RxInt id;
-
   List<dynamic> district = [].obs;
   final RxBool _loading = true.obs;
 
-  // @override
-  // void onInit() {
-  //   getDistrictCount(disId :id.value);
-  //   super.onInit();
-  // }
+  @override
+  void onInit() {
+    getDistrictCount();
+    super.onInit();
+  }
 
   RxString districtText = 'District'.tr.obs;
   RxInt districtId = 0.obs;
@@ -29,16 +24,13 @@ class AllDistrictController extends GetxController {
   }
 
   bool get loading => _loading.value;
-  dynamic getDistrictCount({required int disId}) {
-    log("disId : $disId");
-    // if (_loading.value == true) {
-    log("disId : $disId");
-    BugDiscoverServices.getAllDistrict(disId).then((value) {
+  dynamic getDistrictCount() {
+    BugDiscoverServices.getAllDistrict().then((value) {
       district = value;
       // _loading.value = false;
       update();
     });
-    // }
+
     return district;
   }
 }

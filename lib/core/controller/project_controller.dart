@@ -1,8 +1,10 @@
-import '../service/project_services.dart';
 import 'package:get/get.dart';
 
+import '../../view/all_projects/model/prepare_model.dart';
+import '../service/project_services.dart';
+
 class ProjectController extends GetxController {
-  List<dynamic> projects = [].obs;
+  List<ProjectModel> projects = [];
   final RxBool _loading = true.obs;
 
   @override
@@ -12,12 +14,17 @@ class ProjectController extends GetxController {
   }
 
   bool get loading => _loading.value;
-  List<dynamic> getAllProjectsData() {
+  List<ProjectModel> getAllProjectsData() {
     if (_loading.value == true) {
       ProjectServices.getAllProjects().then((value) {
-        projects = value;
-        _loading.value = false;
-        update();
+        if (value.runtimeType == List<ProjectModel>) {
+          projects = value;
+          _loading.value = false;
+          update();
+        } else {
+          projects = [];
+          _loading.value = false;
+        }
       });
     }
     return projects;

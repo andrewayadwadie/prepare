@@ -1,27 +1,21 @@
-import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../core/db/auth_shared_preferences.dart';
-import '../../core/service/auth_services.dart';
+import 'controller/login_controller.dart';
+import '../shared_widgets/custom_loader.dart';
+
 import '../../utils/style.dart';
-import '../home/home_screen.dart';
- 
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
-
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
   String? email = '';
-
   String? password = '';
-
   bool vis = true;
-
   final _loginformKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -68,9 +62,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         Container(
                           margin: const EdgeInsets.only(right: 20, top: 20),
                           alignment: Alignment.bottomRight,
-                          child:  Text(
+                          child: Text(
                             'login'.tr,
-                            style:const TextStyle(fontSize: 20, color: Colors.white),
+                            style: const TextStyle(
+                                fontSize: 20, color: Colors.white),
                           ),
                         )
                       ],
@@ -114,139 +109,134 @@ class _LoginScreenState extends State<LoginScreen> {
                                 if (value == null || value.isEmpty) {
                                   return 'Please enter e-mail'.tr;
                                 } else if (!value.contains("@")) {
-                                  return  'Please enter a valid email'.tr;
+                                  return 'Please enter a valid email'.tr;
                                 } else {
                                   return null;
                                 }
                               }, // enabledBorder: InputBorder.none,
                             ),
                           ),
-                          StatefulBuilder(builder: (context, setter) {
-                            return Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 40, right: 40, top: 30),
-                              child: TextFormField(
-                                obscureText: vis,
-                                keyboardType: TextInputType.visiblePassword,
-                                cursorColor: primaryColor,
-                                decoration: InputDecoration(
-                                    border: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          width: 2, color: Colors.grey),
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          width: 2, color: primaryColor),
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    icon: const Icon(
-                                      Icons.vpn_key,
-                                      color: primaryColor,
-                                    ),
-                                    labelText: 'password'.tr,
-                                    hintText: 'password'.tr,
-                                    labelStyle: const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold),
-                                    suffix: GestureDetector(
-                                      onTap: () {
-                                        setter(() {
-                                          vis = !vis;
-                                        });
-                                      },
-                                      child: Icon(
-                                        vis == true
-                                            ? Icons.visibility
-                                            : Icons.visibility_off,
-                                        color: primaryColor,
-                                        size: 19,
-                                      ),
-                                    ) // enab
-                                    ),
-                                onSaved: (val) {
-                                  password = val;
-                                },
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return  'Please enter your password'.tr;
-                                  } else if (value.length < 8) {
-                                    return 'The password must be more than 8 characters'.tr;
-                                  } else {
-                                    return null;
-                                  }
-                                },
-                              ),
-                            );
-                          }),
-
-                          // login button ========
-                          GestureDetector(
-                            onTap: () async {
-                              if (_loginformKey.currentState!.validate()) {
-                                _loginformKey.currentState!.save();
-
-                                var res = await AuthServices.login(
-                                    email: email ?? "",
-                                    password: password ?? "");
-                                if (res.runtimeType == List) {
-                                  //    IsLogin.setIsLoginValue(true);
-                                  TokenPref.setTokenValue(res[0].toString());
-                                  ExpireDatePref.setExpireDateValue(
-                                      res[1].toString());
-
-                                  Get.offAll(() => const HomeScreen());
-                                } else if (res.runtimeType == String) {
-                                  CoolAlert.show(
-                                    context: context,
-                                    type: CoolAlertType.error,
-                                    //==========response message =============
-                                    title: res.toString(),
-                                    barrierDismissible: false,
-                                    animType: CoolAlertAnimType.slideInUp,
-                                    onConfirmBtnTap: () {
-                                      Navigator.pop(context);
+                          GetBuilder<LoginController>(
+                              init: LoginController(),
+                              builder: (loginCtrl) {
+                                return Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 40, right: 40, top: 30),
+                                  child: TextFormField(
+                                    obscureText: vis,
+                                    keyboardType: TextInputType.visiblePassword,
+                                    cursorColor: primaryColor,
+                                    decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                              width: 2, color: Colors.grey),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                              width: 2, color: primaryColor),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        icon: const Icon(
+                                          Icons.vpn_key,
+                                          color: primaryColor,
+                                        ),
+                                        labelText: 'password'.tr,
+                                        hintText: 'password'.tr,
+                                        labelStyle: const TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                        suffix: GestureDetector(
+                                          onTap: () {
+                                            loginCtrl.eyetToggle();
+                                          },
+                                          child: Icon(
+                                            vis == true
+                                                ? Icons.visibility
+                                                : Icons.visibility_off,
+                                            color: primaryColor,
+                                            size: 19,
+                                          ),
+                                        ) // enab
+                                        ),
+                                    onSaved: (val) {
+                                      password = val;
                                     },
-                                    confirmBtnColor: redColor,
-                                    confirmBtnText: "ok".tr,
-                                    confirmBtnTextStyle: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 11,
-                                        fontWeight: FontWeight.normal),
-                                
-                                    backgroundColor: redColor,
-                                  );
-                                }
-                               
-                              }
-                            },
-                            child: Container(
-                              alignment: Alignment.center,
-                              margin: const EdgeInsets.only(
-                                  left: 20, right: 20, top: 70),
-                              padding:
-                                  const EdgeInsets.only(left: 20, right: 20),
-                              height: 54,
-                              decoration: BoxDecoration(
-                                gradient: const LinearGradient(
-                                    colors: [(primaryColor), lightPrimaryColor],
-                                    begin: Alignment.centerLeft,
-                                    end: Alignment.centerRight),
-                                borderRadius: BorderRadius.circular(50),
-                                color: Colors.grey[200],
-                                boxShadow: const [
-                                  BoxShadow(
-                                      offset: Offset(0, 10),
-                                      blurRadius: 50,
-                                      color: Color(0xffEEEEEE)),
-                                ],
-                              ),
-                              child:  Text(
-                                'login'.tr,
-                                style:const TextStyle(color: Colors.white),
-                              ),
-                            ),
-                          ),
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Please enter your password'.tr;
+                                      } else if (value.length < 8) {
+                                        return 'The password must be more than 8 characters'
+                                            .tr;
+                                      } else {
+                                        return null;
+                                      }
+                                    },
+                                  ),
+                                );
+                              }),
+
+                          //! login button ========
+                          GetX<LoginController>(
+                              init: LoginController(),
+                              builder: (loginController) {
+                                return GestureDetector(
+                                  onTap: () async {
+                                    if (_loginformKey.currentState!
+                                        .validate()) {
+                                      _loginformKey.currentState!.save();
+                                      loginController.sendLoginData(
+                                          email: email, password: password);
+                                    }
+                                  },
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    margin: const EdgeInsets.only(
+                                        left: 20, right: 20, top: 70),
+                                    padding: const EdgeInsets.only(
+                                        left: 20, right: 20),
+                                    height: 54,
+                                    decoration: BoxDecoration(
+                                      gradient:
+                                          loginController.loading.value == true
+                                              ? const LinearGradient(
+                                                  colors: [
+                                                      (primaryColor),
+                                                      lightPrimaryColor
+                                                    ],
+                                                  begin: Alignment.centerLeft,
+                                                  end: Alignment.centerRight)
+                                              : LinearGradient(
+                                                  colors: [
+                                                      (greyColor),
+                                                      greyColor.withOpacity(0.5)
+                                                    ],
+                                                  begin: Alignment.centerLeft,
+                                                  end: Alignment.centerRight),
+                                      borderRadius: BorderRadius.circular(50),
+                                      color: Colors.grey[200],
+                                      boxShadow: const [
+                                        BoxShadow(
+                                            offset: Offset(0, 10),
+                                            blurRadius: 50,
+                                            color: Color(0xffEEEEEE)),
+                                      ],
+                                    ),
+                                    child: loginController.loading.value == true
+                                        ? Text(
+                                            'login'.tr,
+                                            style: const TextStyle(
+                                                color: Colors.white),
+                                          )
+                                        : const SizedBox(
+                                          height: 50,
+                                          width: 50,
+                                          child: LoaderWidget()),
+                                  ),
+                                );
+                              }),
                         ],
                       )),
                 ],

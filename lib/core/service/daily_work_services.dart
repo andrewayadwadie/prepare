@@ -1,10 +1,11 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import '../db/auth_shared_preferences.dart';
+import 'package:http/http.dart' as http;
+
 import '../../model/daily_task_model.dart';
 import '../../utils/constants.dart';
-import 'package:http/http.dart' as http;
+import '../db/auth_shared_preferences.dart';
 
 class DailyWorkServices {
   static Future getAllPoint() async {
@@ -15,7 +16,7 @@ class DailyWorkServices {
       headers: <String, String>{
         "Content-type": "application/json",
         'Accept': 'application/json',
-        'Authorization': 'Bearer ${TokenPref.getTokenValue()}',
+        'Authorization': 'Bearer ${SharedPref.getTokenValue()}',
       },
     );
     log("status code is : ${res.statusCode}");

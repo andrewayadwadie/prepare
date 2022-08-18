@@ -28,7 +28,7 @@ class AnimalServices {
     var headers = <String, String>{
       "Content-type": "application/json",
       'Accept': 'application/json',
-      'Authorization': 'Bearer ${TokenPref.getTokenValue()}',
+      'Authorization': 'Bearer ${SharedPref.getTokenValue()}',
     };
 
     var request = http.MultipartRequest("POST", url);
@@ -74,8 +74,8 @@ class AnimalServices {
   }
 
   //=================================================================================
-  static Future getAnimalCode(int cityId) async {
-    String url = "${apiUrl}StrayDogs/GetStrayDogCode/$cityId";
+  static Future getAnimalCode( ) async {
+    String url = "${apiUrl}StrayDogs/GetStrayDogCode";
 
     http.Response res = await http.get(
       Uri.parse(url),
@@ -83,7 +83,7 @@ class AnimalServices {
         "Content-type": "application/json",
         'Accept': 'application/json',
         // 'Authorization': 'Bearer $token',
-        'Authorization': 'Bearer ${TokenPref.getTokenValue()}',
+        'Authorization': 'Bearer ${SharedPref.getTokenValue()}',
       },
     );
 
@@ -115,7 +115,7 @@ class AnimalServices {
         "Content-type": "application/json",
         'Accept': 'application/json',
         // 'Authorization': 'Bearer $token',
-        'Authorization': 'Bearer ${TokenPref.getTokenValue()}',
+        'Authorization': 'Bearer ${SharedPref.getTokenValue()}',
       },
     );
 
@@ -155,7 +155,7 @@ class AnimalServices {
     var headers = <String, String>{
       "Content-type": "application/json",
       'Accept': 'application/json',
-      'Authorization': 'Bearer ${TokenPref.getTokenValue()}',
+      'Authorization': 'Bearer ${SharedPref.getTokenValue()}',
     };
 
     var request = http.MultipartRequest("POST", url);
@@ -209,10 +209,10 @@ class AnimalServices {
         "Content-type": "application/json",
         'Accept': 'application/json',
         // 'Authorization': 'Bearer $token',
-        'Authorization': 'Bearer ${TokenPref.getTokenValue()}',
+        'Authorization': 'Bearer ${SharedPref.getTokenValue()}',
       },
     );
-    //   log("token is : ${TokenPref.getTokenValue()}");
+    //   log("token is : ${SharedPref.getTokenValue()}");
     if (res.statusCode == 200) {
       var jsonData = jsonDecode(res.body);
 

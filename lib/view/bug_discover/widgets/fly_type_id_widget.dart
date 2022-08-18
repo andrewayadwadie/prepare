@@ -1,5 +1,8 @@
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../core/controller/bug_dicover/bug_discover_code_controller.dart';
 import '../../../core/controller/bug_dicover/fly_type_controller.dart';
 import '../../../core/controller/internet_connectivity_controller.dart';
 import '../../../utils/style.dart';
@@ -33,42 +36,62 @@ class FlyTypeIdWidget extends StatelessWidget {
                                       child: ListView.builder(
                                           itemCount: controller.flyType.length,
                                           itemBuilder: (context, index) {
-                                            return InkWell(
-                                              onTap: () {
-                                                controller.onTapSelected(
-                                                    ctx,
-                                                    controller
-                                                        .flyType[index].id,
-                                                    index);
-                                              },
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 60,
-                                                        vertical: 15),
-                                                child: Container(
-                                                  alignment: Alignment.center,
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height /
-                                                      12,
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10),
-                                                      border: Border.all(
-                                                          width: 1,
-                                                          color: Colors.grey)),
-                                                  child: Text(
-                                                    controller
-                                                        .flyType[index].name,
-                                                    style: const TextStyle(
-                                                        color: primaryColor,
-                                                        fontSize: 15),
-                                                  ),
-                                                ),
-                                              ),
-                                            );
+                                            return GetBuilder<
+                                                    BugDiscoverCodeController>(
+                                                init: BugDiscoverCodeController(
+                                                    // controller
+                                                    //     .flyType[index].id
+                                                        
+                                                        ),
+                                                builder: (code) {
+                                                  return InkWell(
+                                                    onTap: () {
+                                                      controller.onTapSelected(
+                                                          ctx,
+                                                          controller
+                                                              .flyType[index]
+                                                              .id,
+                                                          index);
+                                                      code.getBugDiscoverCodeCount(
+                                                          controller
+                                                              .flyType[index]
+                                                              .id);
+                                                    },
+                                                    child: Padding(
+                                                      padding: const EdgeInsets
+                                                              .symmetric(
+                                                          horizontal: 60,
+                                                          vertical: 15),
+                                                      child: Container(
+                                                        alignment:
+                                                            Alignment.center,
+                                                        height: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .height /
+                                                            12,
+                                                        decoration: BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10),
+                                                            border: Border.all(
+                                                                width: 1,
+                                                                color: Colors
+                                                                    .grey)),
+                                                        child: Text(
+                                                          controller
+                                                              .flyType[index]
+                                                              .name,
+                                                          style: const TextStyle(
+                                                              color:
+                                                                  primaryColor,
+                                                              fontSize: 15),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  );
+                                                });
                                           }),
                                     ),
                             );

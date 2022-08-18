@@ -25,8 +25,10 @@ const TextStyle whiteTextStyle = TextStyle(
     fontSize: 17,
     fontWeight: FontWeight.w600,
     color: whiteColor);
-const TextStyle blackTextStyle =
-    TextStyle(fontFamily: fontFamily, fontSize: 17, color: blackColor);
+const TextStyle blackTextStyle = TextStyle(
+    fontFamily: fontFamily, fontSize: 15, color: blackColor, height: 1.2);
+const TextStyle h3Style = TextStyle(
+    fontFamily: fontFamily, fontSize: 13, color: blackColor, height: 1.2);
 InputDecoration textFormDecoration = InputDecoration(
     contentPadding: const EdgeInsets.all(10),
     focusColor: primaryColor,

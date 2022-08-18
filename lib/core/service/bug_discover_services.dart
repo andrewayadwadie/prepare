@@ -4,10 +4,12 @@ import 'dart:io';
 
 // ignore: implementation_imports
 import 'package:async/src/delegate/stream.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart';
 import 'package:prepare/model/bug_discover/neast_point_model.dart';
 import 'package:prepare/utils/constants.dart';
+import 'package:prepare/view/auth/login_screen.dart';
 
 import '../../model/bug_discover/cities_model.dart';
 import '../../model/bug_discover/district_model.dart';
@@ -26,8 +28,7 @@ class BugDiscoverServices {
       headers: <String, String>{
         "Content-type": "application/json",
         'Accept': 'application/json',
-        // 'Authorization': 'Bearer $token',
-        'Authorization': 'Bearer ${TokenPref.getTokenValue()}',
+        'Authorization': 'Bearer ${SharedPref.getTokenValue()}',
       },
     );
     log("status code is : ${res.statusCode}");
@@ -51,29 +52,23 @@ class BugDiscoverServices {
   }
 
 //===============================================
-  static Future getAllDistrict(int id) async {
-    log("district id is : $id");
-    String url = "${apiUrl}Districts/GetCityDistricts/$id";
+  static Future getAllDistrict() async {
+    String url = "${apiUrl}Districts/GetUserDistricts";
 
     http.Response res = await http.get(
       Uri.parse(url),
       headers: <String, String>{
         "Content-type": "application/json",
         'Accept': 'application/json',
-        // 'Authorization': 'Bearer $token',
-        'Authorization': 'Bearer ${TokenPref.getTokenValue()}',
+        'Authorization': 'Bearer ${SharedPref.getTokenValue()}',
       },
     );
-    //   log("token is : ${TokenPref.getTokenValue()}");
     log("district status code is : ${res.statusCode}");
-
     if (res.statusCode == 200) {
       var jsonData = jsonDecode(res.body);
-
       List district = jsonData.map((element) {
         return DistrictModel.fromJson(element);
       }).toList();
-
       return district;
     } else if (res.statusCode == 401) {
       return 401;
@@ -95,18 +90,15 @@ class BugDiscoverServices {
       headers: <String, String>{
         "Content-type": "application/json",
         'Accept': 'application/json',
-        // 'Authorization': 'Bearer $token',
-        'Authorization': 'Bearer ${TokenPref.getTokenValue()}',
+        'Authorization': 'Bearer ${SharedPref.getTokenValue()}',
       },
     );
-    //   log("token is : ${TokenPref.getTokenValue()}");
+ 
     if (res.statusCode == 200) {
       var jsonData = jsonDecode(res.body);
-
       List flyType = jsonData.map((element) {
         return FlyTypeModel.fromJson(element);
       }).toList();
-
       return flyType;
     } else if (res.statusCode == 401) {
       return 401;
@@ -120,17 +112,16 @@ class BugDiscoverServices {
   }
 //========================================================
 
-  static Future getBugDiscoverCode(int flyTypeId, int cityId) async {
+  static Future getBugDiscoverCode(int flyTypeId) async {
     String url =
-        "${apiUrl}InsectExplorations/GetInsectExplorationCode/$cityId/$flyTypeId";
+        "${apiUrl}InsectExplorations/GetInsectExplorationCode/$flyTypeId";
 
     http.Response res = await http.get(
       Uri.parse(url),
       headers: <String, String>{
         "Content-type": "application/json",
         'Accept': 'application/json',
-        // 'Authorization': 'Bearer $token',
-        'Authorization': 'Bearer ${TokenPref.getTokenValue()}',
+        'Authorization': 'Bearer ${SharedPref.getTokenValue()}',
       },
     );
     log("status code is : ${res.statusCode}");
@@ -138,8 +129,10 @@ class BugDiscoverServices {
       var data = res.body;
 
       return data;
-    } else if (res.statusCode == 401 || res.statusCode == 403) {
+    } else if (res.statusCode == 403) {
       return "عير مصرح للمستخدم";
+    } else if (res.statusCode == 401) {
+      Get.offAll(() => const LoginScreen());
     } else if (res.statusCode == 500 ||
         res.statusCode == 501 ||
         res.statusCode == 504 ||
@@ -163,10 +156,10 @@ class BugDiscoverServices {
         "Content-type": "application/json",
         'Accept': 'application/json',
         // 'Authorization': 'Bearer $token',
-        'Authorization': 'Bearer ${TokenPref.getTokenValue()}',
+        'Authorization': 'Bearer ${SharedPref.getTokenValue()}',
       },
     );
-    //   log("token is : ${TokenPref.getTokenValue()}");
+    //   log("token is : ${SharedPref.getTokenValue()}");
     if (res.statusCode == 200) {
       var jsonData = jsonDecode(res.body);
 
@@ -196,10 +189,10 @@ class BugDiscoverServices {
         "Content-type": "application/json",
         'Accept': 'application/json',
         // 'Authorization': 'Bearer $token',
-        'Authorization': 'Bearer ${TokenPref.getTokenValue()}',
+        'Authorization': 'Bearer ${SharedPref.getTokenValue()}',
       },
     );
-    //   log("token is : ${TokenPref.getTokenValue()}");
+    //   log("token is : ${SharedPref.getTokenValue()}");
     if (res.statusCode == 200) {
       var jsonData = jsonDecode(res.body);
 
@@ -229,10 +222,10 @@ class BugDiscoverServices {
         "Content-type": "application/json",
         'Accept': 'application/json',
         // 'Authorization': 'Bearer $token',
-        'Authorization': 'Bearer ${TokenPref.getTokenValue()}',
+        'Authorization': 'Bearer ${SharedPref.getTokenValue()}',
       },
     );
-    //   log("token is : ${TokenPref.getTokenValue()}");
+    //   log("token is : ${SharedPref.getTokenValue()}");
     if (res.statusCode == 200) {
       var jsonData = jsonDecode(res.body);
 
@@ -262,10 +255,10 @@ class BugDiscoverServices {
         "Content-type": "application/json",
         'Accept': 'application/json',
         // 'Authorization': 'Bearer $token',
-        'Authorization': 'Bearer ${TokenPref.getTokenValue()}',
+        'Authorization': 'Bearer ${SharedPref.getTokenValue()}',
       },
     );
-    //   log("token is : ${TokenPref.getTokenValue()}");
+    //   log("token is : ${SharedPref.getTokenValue()}");
     if (res.statusCode == 200) {
       var jsonData = jsonDecode(res.body);
 
@@ -312,7 +305,7 @@ class BugDiscoverServices {
     var headers = <String, String>{
       "Content-type": "application/json",
       'Accept': 'application/json',
-      'Authorization': 'Bearer ${TokenPref.getTokenValue()}',
+      'Authorization': 'Bearer ${SharedPref.getTokenValue()}',
     };
 
     var request = http.MultipartRequest("POST", url);
@@ -389,7 +382,7 @@ class BugDiscoverServices {
     var headers = <String, String>{
       "Content-type": "application/json",
       'Accept': 'application/json',
-      'Authorization': 'Bearer ${TokenPref.getTokenValue()}',
+      'Authorization': 'Bearer ${SharedPref.getTokenValue()}',
     };
 
     var request = http.MultipartRequest("POST", url);
@@ -448,18 +441,14 @@ class BugDiscoverServices {
       headers: <String, String>{
         "Content-type": "application/json",
         'Accept': 'application/json',
-        // 'Authorization': 'Bearer $token',
-        'Authorization': 'Bearer ${TokenPref.getTokenValue()}',
+        'Authorization': 'Bearer ${SharedPref.getTokenValue()}',
       },
     );
-    //   log("token is : ${TokenPref.getTokenValue()}");
     if (res.statusCode == 200) {
       var jsonData = jsonDecode(res.body);
-
       List closeBugDiscoverVisit = jsonData.map((element) {
         return NearstBugDiscoverPointModel.fromJson(element);
       }).toList();
-
       return closeBugDiscoverVisit;
     } else if (res.statusCode == 401) {
       return 401;
