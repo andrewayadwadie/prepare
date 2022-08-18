@@ -1,12 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../../core/controller/bug_dicover/bug_discover_code_controller.dart';
-import '../../../core/controller/bug_dicover/fly_type_controller.dart';
-import '../../../core/controller/internet_connectivity_controller.dart';
-import '../../../utils/style.dart';
-import '../../shared_widgets/custom_loader.dart';
+import 'package:prepare/core/controller/bug_dicover/fly_type_controller.dart';
+import 'package:prepare/core/controller/internet_connectivity_controller.dart';
+import 'package:prepare/utils/style.dart';
+import 'package:prepare/view/shared_widgets/custom_loader.dart';
 
 class FlyTypeIdWidget extends StatelessWidget {
   const FlyTypeIdWidget({Key? key}) : super(key: key);
@@ -36,62 +33,42 @@ class FlyTypeIdWidget extends StatelessWidget {
                                       child: ListView.builder(
                                           itemCount: controller.flyType.length,
                                           itemBuilder: (context, index) {
-                                            return GetBuilder<
-                                                    BugDiscoverCodeController>(
-                                                init: BugDiscoverCodeController(
-                                                    // controller
-                                                    //     .flyType[index].id
-                                                        
-                                                        ),
-                                                builder: (code) {
-                                                  return InkWell(
-                                                    onTap: () {
-                                                      controller.onTapSelected(
-                                                          ctx,
-                                                          controller
-                                                              .flyType[index]
-                                                              .id,
-                                                          index);
-                                                      code.getBugDiscoverCodeCount(
-                                                          controller
-                                                              .flyType[index]
-                                                              .id);
-                                                    },
-                                                    child: Padding(
-                                                      padding: const EdgeInsets
-                                                              .symmetric(
-                                                          horizontal: 60,
-                                                          vertical: 15),
-                                                      child: Container(
-                                                        alignment:
-                                                            Alignment.center,
-                                                        height: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .height /
-                                                            12,
-                                                        decoration: BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        10),
-                                                            border: Border.all(
-                                                                width: 1,
-                                                                color: Colors
-                                                                    .grey)),
-                                                        child: Text(
-                                                          controller
-                                                              .flyType[index]
-                                                              .name,
-                                                          style: const TextStyle(
-                                                              color:
-                                                                  primaryColor,
-                                                              fontSize: 15),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  );
-                                                });
+                                            return InkWell(
+                                              onTap: () {
+                                                controller.onTapSelected(
+                                                    ctx,
+                                                    controller
+                                                        .flyType[index].id,
+                                                    index);
+                                              },
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 60,
+                                                        vertical: 15),
+                                                child: Container(
+                                                  alignment: Alignment.center,
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height /
+                                                      12,
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                      border: Border.all(
+                                                          width: 1,
+                                                          color: Colors.grey)),
+                                                  child: Text(
+                                                    controller
+                                                        .flyType[index].name,
+                                                    style: const TextStyle(
+                                                        color: primaryColor,
+                                                        fontSize: 15),
+                                                  ),
+                                                ),
+                                              ),
+                                            );
                                           }),
                                     ),
                             );
@@ -112,17 +89,14 @@ class FlyTypeIdWidget extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Expanded(
-                              child: Text(
-                                controller.flyTypeText,
-                                textAlign: TextAlign.center,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                    height: 1.1,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
-                                    color: blackColor),
-                              ),
+                            Text(
+                              controller.flyTypeText,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                  height: 1.1,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  color: blackColor),
                             ),
                             const Spacer(),
                             const Icon(

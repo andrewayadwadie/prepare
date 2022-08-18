@@ -170,4 +170,8 @@ const Map<String, String> en = {
   'Vehicles': 'Vehicles',
   'Cities':'Cities',
   "add": "add",
+  "There was an error while preparing": "There was an error while preparing",
+  "server error": "server error",
+  'No preparations today': 'No preparations today',
+  "You are currently far from the assembly point " : "You are currently far from the assembly point ",
 };

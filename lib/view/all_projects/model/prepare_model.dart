@@ -54,10 +54,14 @@ class City {
   final int id;
   final String name;
   final String code;
+  final double lat;
+  final double long;
   City({
     required this.id,
     required this.name,
     required this.code,
+    required this.lat,
+    required this.long,
   });
 
   factory City.fromJson(Map<String, dynamic> jsonData) {
@@ -65,6 +69,8 @@ class City {
       id: jsonData['id'] ?? 0,
       name: jsonData['name'] ?? "",
       code: jsonData['code'] ?? "",
+      lat: jsonData['lat'] ?? 0.0,
+      long: jsonData['long'] ?? 0.0,
     );
   }
 }

@@ -8,6 +8,7 @@ import 'package:hawk_fab_menu/hawk_fab_menu.dart';
 import 'package:overlay_support/overlay_support.dart';
 
 import '../../core/controller/animal_controller/animal_code_controller.dart';
+import '../../core/controller/bug_dicover/all_cities_controller.dart';
 import '../../core/controller/bug_dicover/all_district_controller.dart';
 import '../../core/controller/click_controller.dart';
 import '../../core/controller/current_location_controller.dart';
@@ -17,6 +18,7 @@ import '../../core/db/auth_shared_preferences.dart';
 import '../../core/service/animal_services.dart';
 import '../../utils/style.dart';
 import '../auth/login_screen.dart';
+import '../bug_discover/widgets/all_cities_widget.dart';
 import '../bug_discover/widgets/all_district_widget.dart';
 import '../bug_discover/widgets/street_widget.dart';
 import '../home/home_screen.dart';
@@ -112,7 +114,19 @@ class AnimalScreen extends StatelessWidget {
                               children: [
                                 //!<<<<<<<<<<<<<<<<<<Dropdown Type >>>>>>>>>>>>>>>>>>>>>>>>>>>
                                 //!====== Cities  & District==========
-                                const AllDistrictWidget(),
+                                  GetX<AllCitiesController>(
+                                    init: AllCitiesController(),
+                                    builder: (controller) {
+                                      return Column(
+                                        children: [
+                                          AllCitiesWidget(
+                                              controller: controller),
+                                          if (controller.cityId.value != 0)
+                                            AllDistrictWidget(
+                                                id: controller.cityId.value)
+                                        ],
+                                      );
+                                    }),
                                 //!<<<<<<<<<<<<<<<<<<String Type >>>>>>>>>>>>>>>>>>>>>>>>>>>
 
                                 //!====== street ==========

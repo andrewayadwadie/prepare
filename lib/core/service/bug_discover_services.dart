@@ -2,22 +2,20 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:prepare/core/db/auth_shared_preferences.dart';
+import 'package:prepare/model/bug_discover/cities_model.dart';
+import 'package:prepare/model/bug_discover/district_model.dart';
+import 'package:prepare/model/bug_discover/fly_note_model.dart';
+import 'package:prepare/model/bug_discover/fly_sample_type_model.dart';
+import 'package:prepare/model/bug_discover/fly_type_model.dart';
+import 'package:prepare/model/bug_discover/insect_explorations_model.dart';
 // ignore: implementation_imports
 import 'package:async/src/delegate/stream.dart';
-import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 import 'package:path/path.dart';
 import 'package:prepare/model/bug_discover/neast_point_model.dart';
-import 'package:prepare/utils/constants.dart';
-import 'package:prepare/view/auth/login_screen.dart';
 
-import '../../model/bug_discover/cities_model.dart';
-import '../../model/bug_discover/district_model.dart';
-import '../../model/bug_discover/fly_note_model.dart';
-import '../../model/bug_discover/fly_sample_type_model.dart';
-import '../../model/bug_discover/fly_type_model.dart';
-import '../../model/bug_discover/insect_explorations_model.dart';
-import '../db/auth_shared_preferences.dart';
+import 'package:prepare/utils/constants.dart';
+import 'package:http/http.dart' as http;
 
 class BugDiscoverServices {
   static Future getAllCities() async {
@@ -28,6 +26,7 @@ class BugDiscoverServices {
       headers: <String, String>{
         "Content-type": "application/json",
         'Accept': 'application/json',
+        // 'Authorization': 'Bearer $token',
         'Authorization': 'Bearer ${SharedPref.getTokenValue()}',
       },
     );
@@ -52,23 +51,29 @@ class BugDiscoverServices {
   }
 
 //===============================================
-  static Future getAllDistrict() async {
-    String url = "${apiUrl}Districts/GetUserDistricts";
+  static Future getAllDistrict(int id) async {
+    log("district id is : $id");
+    String url = "${apiUrl}Districts/GetCityDistricts/$id";
 
     http.Response res = await http.get(
       Uri.parse(url),
       headers: <String, String>{
         "Content-type": "application/json",
         'Accept': 'application/json',
+        // 'Authorization': 'Bearer $token',
         'Authorization': 'Bearer ${SharedPref.getTokenValue()}',
       },
     );
+    //   log("token is : ${SharedPref.getTokenValue()}");
     log("district status code is : ${res.statusCode}");
+
     if (res.statusCode == 200) {
       var jsonData = jsonDecode(res.body);
+
       List district = jsonData.map((element) {
         return DistrictModel.fromJson(element);
       }).toList();
+
       return district;
     } else if (res.statusCode == 401) {
       return 401;
@@ -90,15 +95,18 @@ class BugDiscoverServices {
       headers: <String, String>{
         "Content-type": "application/json",
         'Accept': 'application/json',
+        // 'Authorization': 'Bearer $token',
         'Authorization': 'Bearer ${SharedPref.getTokenValue()}',
       },
     );
- 
+    //   log("token is : ${SharedPref.getTokenValue()}");
     if (res.statusCode == 200) {
       var jsonData = jsonDecode(res.body);
+
       List flyType = jsonData.map((element) {
         return FlyTypeModel.fromJson(element);
       }).toList();
+
       return flyType;
     } else if (res.statusCode == 401) {
       return 401;
@@ -112,15 +120,16 @@ class BugDiscoverServices {
   }
 //========================================================
 
-  static Future getBugDiscoverCode(int flyTypeId) async {
+  static Future getBugDiscoverCode(int flyTypeId, int cityId) async {
     String url =
-        "${apiUrl}InsectExplorations/GetInsectExplorationCode/$flyTypeId";
+        "${apiUrl}InsectExplorations/GetInsectExplorationCode/$cityId/$flyTypeId";
 
     http.Response res = await http.get(
       Uri.parse(url),
       headers: <String, String>{
         "Content-type": "application/json",
         'Accept': 'application/json',
+        // 'Authorization': 'Bearer $token',
         'Authorization': 'Bearer ${SharedPref.getTokenValue()}',
       },
     );
@@ -129,10 +138,8 @@ class BugDiscoverServices {
       var data = res.body;
 
       return data;
-    } else if (res.statusCode == 403) {
+    } else if (res.statusCode == 401 || res.statusCode == 403) {
       return "عير مصرح للمستخدم";
-    } else if (res.statusCode == 401) {
-      Get.offAll(() => const LoginScreen());
     } else if (res.statusCode == 500 ||
         res.statusCode == 501 ||
         res.statusCode == 504 ||
@@ -441,14 +448,18 @@ class BugDiscoverServices {
       headers: <String, String>{
         "Content-type": "application/json",
         'Accept': 'application/json',
+        // 'Authorization': 'Bearer $token',
         'Authorization': 'Bearer ${SharedPref.getTokenValue()}',
       },
     );
+    //   log("token is : ${SharedPref.getTokenValue()}");
     if (res.statusCode == 200) {
       var jsonData = jsonDecode(res.body);
+
       List closeBugDiscoverVisit = jsonData.map((element) {
         return NearstBugDiscoverPointModel.fromJson(element);
       }).toList();
+
       return closeBugDiscoverVisit;
     } else if (res.statusCode == 401) {
       return 401;

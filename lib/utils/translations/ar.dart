@@ -50,7 +50,7 @@ const Map<String, String> ar = {
   'Project preparation has been successfully added':
       'تم إضافة تحضير للمشروع بنجاح',
   'The project has been prepared': 'تم تحضير المشروع من قبل ',
-  'The project cannot be prepare d again': 'لايمكن تحضير المشروع مرة اخري',
+  'The project cannot be prepared again': 'لايمكن تحضير المشروع مرة اخري',
   //bug discover
   'Insect Exploration': 'الإستكشاف الحشري',
   'Add Insect Exploration': 'إضافة إستكشاف حشري',
@@ -167,4 +167,8 @@ const Map<String, String> ar = {
   'Vehicles': 'السيارات',
   'Cities' : 'المدن',
   "add": "إضافة",
+  "There was an error while preparing":"يوجد خطأ اثناء التحضير ",
+  "server error": "خطأ فى الخادم",
+  "No preparations today": "لا يوجد تحضيرات لهذا اليوم",
+  "You are currently far from the assembly point " : "أنت بعيد عن مكان التجمع",
 };

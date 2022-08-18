@@ -3,6 +3,7 @@ import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:overlay_support/overlay_support.dart';
+import '../../core/controller/bug_dicover/all_cities_controller.dart';
 import '../../core/controller/bug_dicover/all_district_controller.dart';
 import '../../core/controller/click_controller.dart';
 import '../../core/controller/current_location_controller.dart';
@@ -12,6 +13,7 @@ import '../../core/controller/internet_connectivity_controller.dart';
 import '../../core/service/epicenter_services.dart';
 import '../../utils/style.dart';
 import '../auth/login_screen.dart';
+import '../bug_discover/widgets/all_cities_widget.dart';
 import '../bug_discover/widgets/all_district_widget.dart';
 import '../bug_discover/widgets/humidity_widget.dart';
 import '../bug_discover/widgets/recommendation_widget.dart';
@@ -66,7 +68,17 @@ class EpiCenterScreen extends StatelessWidget {
                     //!======= insects =================
                     const InsectWidget(),
                     //!====== Cities  & District==========
-                    const AllDistrictWidget(),
+                      GetBuilder<AllCitiesController>(
+                        init: AllCitiesController(),
+                        builder: (controller) {
+                          return Column(
+                            children: [
+                              AllCitiesWidget(controller: controller),
+                              if (controller.cityId.value != 0)
+                                AllDistrictWidget(id: controller.cityId.value)
+                            ],
+                          );
+                        }),
 
                     //!====== name ==========
                     NameWidget(onChange: (value) {

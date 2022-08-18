@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:prepare/utils/constants.dart';
+import 'package:prepare/view/auth/login_screen.dart';
 
 import '../../../core/db/auth_shared_preferences.dart';
 
@@ -18,8 +20,7 @@ class PrepareServices {
   }) async {
     var url = "${apiUrl}Preparations/AddPreparation";
     try {
-      log(
-        """
+      log("""
               {
                     "ProjectId": $projectId,
                     "ProjectCityPreparation": {
@@ -58,7 +59,7 @@ class PrepareServices {
         var registerDataJson = jsonDecode(res.body);
         return registerDataJson['errors'][0][0];
       } else if (res.statusCode == 401) {
-        return 401;
+        Get.offAll(() => const LoginScreen());
       } else if (res.statusCode == 500 ||
           res.statusCode == 501 ||
           res.statusCode == 504) {

@@ -2,23 +2,22 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prepare/core/controller/animal_controller/animal_code_controller.dart';
 
-import '../../../core/controller/bug_dicover/all_district_controller.dart';
-import '../../../core/controller/internet_connectivity_controller.dart';
-import '../../../utils/style.dart';
-import '../../shared_widgets/custom_loader.dart';
+import 'package:prepare/core/controller/bug_dicover/all_district_controller.dart';
+import 'package:prepare/core/controller/internet_connectivity_controller.dart';
+import 'package:prepare/utils/style.dart';
+import 'package:prepare/view/shared_widgets/custom_loader.dart';
 
 class AllDistrictWidget extends StatelessWidget {
   const AllDistrictWidget({
     Key? key,
- 
+    required this.id,
   }) : super(key: key);
- 
+  final int id;
 
   @override
   Widget build(BuildContext context) {
-   
+    log("id from district id widget : $id");
     return Padding(
         padding: const EdgeInsets.symmetric(vertical: 10),
         child: GetBuilder<AllDistrictController>(
@@ -51,50 +50,44 @@ class AllDistrictWidget extends StatelessWidget {
                                                 width: 100,
                                                 height: 100,
                                               )
-                                            : GetBuilder<AnimaCodeController>(
-                                              init: AnimaCodeController(),
-                                              builder: (code) {
-                                                return InkWell(
-                                                    onTap: () {
-                                                      disCtrl.onTapSelected(
-                                                          ctx,
-                                                          disCtrl
-                                                              .district[index].id,
-                                                          index);
-                                                      code.getAnimalCode();
-                                                    },
-                                                    child: Padding(
-                                                      padding: const EdgeInsets
-                                                              .symmetric(
-                                                          horizontal: 60,
-                                                          vertical: 15),
-                                                      child: Container(
-                                                        alignment: Alignment.center,
-                                                        height:
-                                                            MediaQuery.of(context)
-                                                                    .size
-                                                                    .height /
-                                                                12,
-                                                        decoration: BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(10),
-                                                            border: Border.all(
-                                                                width: 1,
-                                                                color:
-                                                                    Colors.grey)),
-                                                        child: Text(
-                                                          disCtrl
-                                                              .district[index].name,
-                                                          style: const TextStyle(
-                                                              color: primaryColor,
-                                                              fontSize: 15),
-                                                        ),
-                                                      ),
+                                            : InkWell(
+                                                onTap: () {
+                                                  disCtrl.onTapSelected(
+                                                      ctx,
+                                                      disCtrl
+                                                          .district[index].id,
+                                                      index);
+                                                },
+                                                child: Padding(
+                                                  padding: const EdgeInsets
+                                                          .symmetric(
+                                                      horizontal: 60,
+                                                      vertical: 15),
+                                                  child: Container(
+                                                    alignment: Alignment.center,
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height /
+                                                            12,
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                        border: Border.all(
+                                                            width: 1,
+                                                            color:
+                                                                Colors.grey)),
+                                                    child: Text(
+                                                      disCtrl
+                                                          .district[index].name,
+                                                      style: const TextStyle(
+                                                          color: primaryColor,
+                                                          fontSize: 15),
                                                     ),
-                                                  );
-                                              }
-                                            );
+                                                  ),
+                                                ),
+                                              );
                                       }),
                                 ),
                               );
@@ -105,6 +98,8 @@ class AllDistrictWidget extends StatelessWidget {
                           padding: const EdgeInsets.only(right: 7),
                           margin: const EdgeInsets.symmetric(horizontal: 30),
                           alignment: Alignment.centerRight,
+                          // width:
+                          //     MediaQuery.of(context).size.width / 2,
                           height: MediaQuery.of(context).size.height / 16,
                           decoration: BoxDecoration(
                             border: Border.all(width: 1, color: Colors.grey),

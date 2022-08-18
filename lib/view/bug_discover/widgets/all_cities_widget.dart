@@ -1,11 +1,12 @@
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../core/controller/bug_dicover/all_cities_controller.dart';
-import '../../../core/controller/bug_dicover/all_district_controller.dart';
-import '../../../core/controller/internet_connectivity_controller.dart';
-import '../../../utils/style.dart';
-import '../../shared_widgets/custom_loader.dart';
+import 'package:prepare/core/controller/bug_dicover/all_cities_controller.dart';
+import 'package:prepare/core/controller/bug_dicover/all_district_controller.dart';
+import 'package:prepare/core/controller/internet_connectivity_controller.dart';
+import 'package:prepare/utils/style.dart';
+import 'package:prepare/view/shared_widgets/custom_loader.dart';
 
 class AllCitiesWidget extends StatelessWidget {
   const AllCitiesWidget({
@@ -16,6 +17,7 @@ class AllCitiesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // AllDistrictController dis = Get.put(AllDistrictController(controller.cityId.value));
     return Padding(
         padding: const EdgeInsets.symmetric(vertical: 10),
         child: GetBuilder<InternetController>(
@@ -41,13 +43,16 @@ class AllCitiesWidget extends StatelessWidget {
                                             builder: (disCtrl) {
                                               return InkWell(
                                                 onTap: () {
+                                                
                                                   controller.onTapSelected(
                                                       ctx,
                                                       controller
                                                           .cities[index].id,
                                                       index);
-                                                  disCtrl.getDistrictCount();
-                                               
+                                                  disCtrl.getDistrictCount(
+                                                      disId: controller
+                                                          .cityId.value);
+                                                  //  dis.getDistrictCount(controller.cityId.value);
                                                 },
                                                 child: Padding(
                                                   padding: const EdgeInsets
@@ -90,6 +95,8 @@ class AllCitiesWidget extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 7),
                     margin: const EdgeInsets.symmetric(horizontal: 30),
                     alignment: Alignment.centerRight,
+                    // width:
+                    //     MediaQuery.of(context).size.width / 2,
                     height: MediaQuery.of(context).size.height / 16,
                     decoration: BoxDecoration(
                       border: Border.all(width: 1, color: Colors.grey),

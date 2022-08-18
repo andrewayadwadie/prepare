@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../service/bug_discover_services.dart';
+import 'package:prepare/core/service/bug_discover_services.dart';
 
 class AllFlyTypeController extends GetxController {
   List<dynamic> flyType = [].obs;
@@ -13,7 +12,7 @@ class AllFlyTypeController extends GetxController {
     super.onInit();
   }
 
-  String flyTypeText = 'Site type'.tr;
+  String flyTypeText = "نوع الموقع";
 
   int flyTypeId = 0;
 

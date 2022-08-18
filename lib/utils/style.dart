@@ -14,6 +14,7 @@ const Color whiteColor = Color(0xFFFEFEFE);
 const Color blackColor = Color(0xFF030303);
 const Color darkColor = Color(0xff242937);
 Color greyColor = Colors.grey.shade200;
+Color darkGreyColor = Colors.grey;
 
 ///
 /// Text Style
