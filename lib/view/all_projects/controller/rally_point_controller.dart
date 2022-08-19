@@ -1,5 +1,6 @@
-import 'package:get/get.dart';
 import 'dart:math' as math;
+
+import 'package:get/get.dart';
 
 import '../../../core/controller/map/location_controller.dart';
 

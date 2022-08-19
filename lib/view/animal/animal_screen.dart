@@ -114,7 +114,7 @@ class AnimalScreen extends StatelessWidget {
                               children: [
                                 //!<<<<<<<<<<<<<<<<<<Dropdown Type >>>>>>>>>>>>>>>>>>>>>>>>>>>
                                 //!====== Cities  & District==========
-                                  GetX<AllCitiesController>(
+                                GetX<AllCitiesController>(
                                     init: AllCitiesController(),
                                     builder: (controller) {
                                       return Column(
@@ -141,42 +141,61 @@ class AnimalScreen extends StatelessWidget {
                                     path2: imgCtrl.image2.path,
                                     file1: imgCtrl.image,
                                     file2: imgCtrl.image2),
-                                GetX<AnimaCodeController>(
-                                    init: AnimaCodeController(),
-                                    builder: (codeCtrl) {
-                                      return Container(
-                                        alignment: Alignment.center,
-                                        margin: const EdgeInsets.only(
-                                            right: 100,
-                                            left: 100,
-                                            top: 30,
-                                            bottom: 30),
-                                        height:
-                                            MediaQuery.of(context).size.height /
-                                                15,
-                                        decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Colors.grey
-                                                    .withOpacity(0.5),
-                                                spreadRadius: 5,
-                                                blurRadius: 7,
-                                                offset: const Offset(0,
-                                                    3), // changes position of shadow
-                                              ),
-                                            ]),
-                                        child: SelectableText(
-                                          codeCtrl.animalCode.value,
-                                          style: const TextStyle(fontSize: 15),
-                                        ),
-                                      );
+                                GetBuilder<AllCitiesController>(
+                                    init: AllCitiesController(),
+                                    builder: (cityCtrl) {
+                                      return GetBuilder<AnimaCodeController>(
+                                          init: AnimaCodeController(),
+                                          builder: (codeCtrl) {
+                                            return Container(
+                                              alignment: Alignment.center,
+                                              margin: const EdgeInsets.only(
+                                                  right: 100,
+                                                  left: 100,
+                                                  top: 30,
+                                                  bottom: 30),
+                                              //  width: MediaQuery.of(context).size.width/4,
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height /
+                                                  15,
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  // border: Border.all(width: 1, color: Colors.black),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Colors.grey
+                                                          .withOpacity(0.5),
+                                                      spreadRadius: 5,
+                                                      blurRadius: 7,
+                                                      offset: const Offset(0,
+                                                          3), // changes position of shadow
+                                                    ),
+                                                  ]),
+                                              child: cityCtrl.cityId.value == 0
+                                                  ? SelectableText(
+                                                      'no code found'.tr,
+                                                      style: const TextStyle(
+                                                          fontSize: 12),
+                                                    )
+                                                  : SelectableText(
+                                                      codeCtrl
+                                                          .getAnimalCode(
+                                                              cityCtrl
+                                                                  .cityId.value)
+                                                          .toString(),
+                                                      style: const TextStyle(
+                                                          fontSize: 15),
+                                                    ),
+                                            );
+                                          });
                                     })
                               ],
                             ),
                           ),
+
                           // Send Report button
                           GetBuilder<CurrentLocationController>(
                               init: CurrentLocationController(),
@@ -286,7 +305,7 @@ class AnimalScreen extends StatelessWidget {
                                                                               type: CoolAlertType.success,
                                                                               title: 'sent succesfully'.tr,
                                                                               confirmBtnText: 'ok'.tr,
-                                                                              confirmBtnTextStyle: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.normal),
+                                                                              confirmBtnTextStyle: const TextStyle(color: Colors.white, fontSize: 8, fontWeight: FontWeight.normal),
                                                                               confirmBtnColor: primaryColor,
                                                                               backgroundColor: primaryColor,
                                                                               onConfirmBtnTap: () {

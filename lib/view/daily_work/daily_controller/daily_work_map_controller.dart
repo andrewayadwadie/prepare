@@ -8,13 +8,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:get/get.dart';
-
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
 import '../../../../core/service/solved_epicenter_services.dart';
 import '../../../../utils/style.dart';
-
 import '../../../utils/constants.dart';
 import 'daily_work_audio_controller.dart';
 import 'daily_work_map_proprities_controller.dart';

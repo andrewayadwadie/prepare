@@ -96,8 +96,8 @@ class EpicenterServices {
 
 //========================================================
 
-  static Future getInsectsCode(int insectId) async {
-    String url = "${apiUrl}Epicenters/GetEpicenterCode/$insectId";
+  static Future getInsectsCode(int cityId, int insectId) async {
+    String url = "${apiUrl}Epicenters/GetEpicenterCode/$cityId/$insectId";
 
     http.Response res = await http.get(
       Uri.parse(url),
@@ -114,7 +114,7 @@ class EpicenterServices {
 
       return data;
     } else if (res.statusCode == 401 || res.statusCode == 403) {
-      return "غير مصرح للمستخدم";
+      return "عير مصرح للمستخدم";
     } else if (res.statusCode == 500 ||
         res.statusCode == 501 ||
         res.statusCode == 504 ||
@@ -136,6 +136,7 @@ static Future getNearstEpicenterVisit(double lat, double long) async {
       headers: <String, String>{
         "Content-type": "application/json",
         'Accept': 'application/json',
+        // 'Authorization': 'Bearer $token',
         'Authorization': 'Bearer ${SharedPref.getTokenValue()}',
       },
     );

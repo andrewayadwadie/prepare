@@ -3,8 +3,8 @@ import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:prepare/utils/constants.dart';
-import 'package:prepare/view/auth/login_screen.dart';
+import '../../../utils/constants.dart';
+import '../../auth/login_screen.dart';
 
 import '../../../core/db/auth_shared_preferences.dart';
 

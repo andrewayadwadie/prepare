@@ -2,13 +2,13 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:prepare/core/db/auth_shared_preferences.dart';
-import 'package:prepare/model/bug_discover/cities_model.dart';
-import 'package:prepare/model/bug_discover/district_model.dart';
-import 'package:prepare/model/bug_discover/fly_note_model.dart';
-import 'package:prepare/model/bug_discover/fly_sample_type_model.dart';
-import 'package:prepare/model/bug_discover/fly_type_model.dart';
-import 'package:prepare/model/bug_discover/insect_explorations_model.dart';
+import '../db/auth_shared_preferences.dart';
+import '../../model/bug_discover/cities_model.dart';
+import '../../model/bug_discover/district_model.dart';
+import '../../model/bug_discover/fly_note_model.dart';
+import '../../model/bug_discover/fly_sample_type_model.dart';
+import '../../model/bug_discover/fly_type_model.dart';
+import '../../model/bug_discover/insect_explorations_model.dart';
 // ignore: implementation_imports
 import 'package:async/src/delegate/stream.dart';
 import 'package:path/path.dart';

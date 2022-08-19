@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hawk_fab_menu/hawk_fab_menu.dart';
 import 'package:overlay_support/overlay_support.dart';
-import 'package:prepare/view/bug_discover/widgets/all_cities_widget.dart';
+import 'widgets/all_cities_widget.dart';
 
 import '../../core/controller/bug_dicover/all_cities_controller.dart';
 import '../../core/controller/bug_dicover/all_district_controller.dart';
@@ -217,7 +217,7 @@ class BugDiscoverScreen extends StatelessWidget {
                                                             left: 100,
                                                             top: 30,
                                                             bottom: 30),
-                                                    //  width: MediaQuery.of(context).size.width/4,
+                                                     
                                                     height:
                                                         MediaQuery.of(context)
                                                                 .size
@@ -374,7 +374,7 @@ class BugDiscoverScreen extends StatelessWidget {
                                                                                                 } else if (value == 201) {
                                                                                                   Get.offAll(() => const HomeScreen());
                                                                                                   CoolAlert.show(
-                                                                                                    barrierDismissible: false,
+                                                                                                    barrierDismissible: false, 
                                                                                                     context: context,
                                                                                                     type: CoolAlertType.success,
                                                                                                     title: "تم الارسال بنجاح",

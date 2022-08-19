@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:prepare/utils/style.dart';
+import '../../../utils/style.dart';
 
 class InfoListItemWidget extends StatelessWidget {
   const InfoListItemWidget({

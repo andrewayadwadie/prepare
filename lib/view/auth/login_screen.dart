@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'controller/login_controller.dart';
-import '../shared_widgets/custom_loader.dart';
 
 import '../../utils/style.dart';
+import '../shared_widgets/custom_loader.dart';
+import 'controller/login_controller.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -14,7 +14,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   String? email = '';
   String? password = '';
-  bool vis = true;
+ 
   final _loginformKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -123,7 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   padding: const EdgeInsets.only(
                                       left: 40, right: 40, top: 30),
                                   child: TextFormField(
-                                    obscureText: vis,
+                                    obscureText:loginCtrl. vis,
                                     keyboardType: TextInputType.visiblePassword,
                                     cursorColor: primaryColor,
                                     decoration: InputDecoration(
@@ -153,7 +153,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                             loginCtrl.eyetToggle();
                                           },
                                           child: Icon(
-                                            vis == true
+                                           loginCtrl. vis == true
                                                 ? Icons.visibility
                                                 : Icons.visibility_off,
                                             color: primaryColor,

@@ -1,15 +1,16 @@
 import 'dart:convert';
 import 'dart:io';
 
+import '../db/auth_shared_preferences.dart';
+
 // ignore: implementation_imports
 import 'package:async/src/delegate/stream.dart';
-import 'package:http/http.dart' as http;
 import 'package:path/path.dart';
 import 'package:prepare/model/animal_model.dart';
 import 'package:prepare/model/animal_nearst_point_model.dart';
-import 'package:prepare/utils/constants.dart';
 
-import '../db/auth_shared_preferences.dart';
+import 'package:prepare/utils/constants.dart';
+import 'package:http/http.dart' as http;
 
 class AnimalServices {
   static Future sendAnimalFormData({
@@ -74,8 +75,8 @@ class AnimalServices {
   }
 
   //=================================================================================
-  static Future getAnimalCode( ) async {
-    String url = "${apiUrl}StrayDogs/GetStrayDogCode";
+  static Future getAnimalCode(int cityId) async {
+    String url = "${apiUrl}StrayDogs/GetStrayDogCode/$cityId";
 
     http.Response res = await http.get(
       Uri.parse(url),

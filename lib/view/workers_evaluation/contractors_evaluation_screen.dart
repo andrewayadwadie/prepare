@@ -190,7 +190,7 @@ class WorkersEvaluation extends StatelessWidget {
                                                         lightPrimaryColor,
                                                     backgroundColor:
                                                         lightPrimaryColor,
-                                                         confirmBtnTextStyle: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.normal),
+                                                         confirmBtnTextStyle: const TextStyle(color: Colors.white, fontSize: 9, fontWeight: FontWeight.normal),
                                                   );
                                                 } else if (value == 401) {
                                                   Get.offAll(

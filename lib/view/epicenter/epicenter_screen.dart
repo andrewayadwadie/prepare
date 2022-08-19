@@ -68,7 +68,7 @@ class EpiCenterScreen extends StatelessWidget {
                     //!======= insects =================
                     const InsectWidget(),
                     //!====== Cities  & District==========
-                      GetBuilder<AllCitiesController>(
+                    GetBuilder<AllCitiesController>(
                         init: AllCitiesController(),
                         builder: (controller) {
                           return Column(
@@ -106,44 +106,60 @@ class EpiCenterScreen extends StatelessWidget {
                     RecommendationWidget(onChange: (value) {
                       recommendation = value;
                     }),
-
                     // !====== Generate Epicenter Code
                     GetBuilder<AllInsectsController>(
                         init: AllInsectsController(),
-                        builder: (insect) {
-                          return GetX<InsectCodeController>(
-                              init: InsectCodeController(),
-                              builder: (codeCtrl) {
-                                return Container(
-                                  alignment: Alignment.center,
-                                  margin: const EdgeInsets.only(
-                                      right: 100,
-                                      left: 100,
-                                      top: 10,
-                                      bottom: 30),
-                                  //  width: MediaQuery.of(context).size.width/4,
-                                  height:
-                                      MediaQuery.of(context).size.height / 15,
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      // border: Border.all(width: 1, color: Colors.black),
-                                      borderRadius: BorderRadius.circular(10),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.5),
-                                          spreadRadius: 5,
-                                          blurRadius: 7,
-                                          offset: const Offset(0,
-                                              3), // changes position of shadow
-                                        ),
-                                      ]),
-                                  child: SelectableText(
-                                    codeCtrl.insectCode.value,
-                                    style: const TextStyle(fontSize: 15),
-                                  ),
-                                );
+                        builder: (insectCtrl) {
+                          return GetBuilder<AllCitiesController>(
+                              init: AllCitiesController(),
+                              builder: (cityCtrl) {
+                                return GetBuilder<InsectCodeController>(
+                                    init: InsectCodeController(),
+                                    builder: (codeCtrl) {
+                                      return Container(
+                                        alignment: Alignment.center,
+                                        margin: const EdgeInsets.only(
+                                            right: 100,
+                                            left: 100,
+                                            top: 30,
+                                            bottom: 30),
+                                        height:
+                                            MediaQuery.of(context).size.height /
+                                                15,
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            // border: Border.all(width: 1, color: Colors.black),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.grey
+                                                    .withOpacity(0.5),
+                                                spreadRadius: 5,
+                                                blurRadius: 7,
+                                                offset: const Offset(0,
+                                                    3), // changes position of shadow
+                                              ),
+                                            ]),
+                                        child: insectCtrl.insectsId == 0 ||
+                                                cityCtrl.cityId.value == 0
+                                            ? const SelectableText(
+                                                "لا يوجد كود حالياً ",
+                                                style: TextStyle(fontSize: 12),
+                                              )
+                                            : SelectableText(
+                                                codeCtrl
+                                                    .getInsectCodeCount(
+                                                        cityCtrl.cityId.value,
+                                                        insectCtrl.insectsId)
+                                                    .toString(),
+                                                style: const TextStyle(
+                                                    fontSize: 15),
+                                              ),
+                                      );
+                                    });
                               });
-                        })
+                        }),
                   ],
                 ),
               ),

@@ -54,9 +54,11 @@ class HomeScreen extends StatelessWidget {
                           children: [
                             //! Header
                             const HeaderWidget(arrow: false),
-                           //! LogOut Button
+                            //! LogOut Button
                             Align(
-                              alignment: Alignment.topRight,
+                              alignment: Get.locale == const Locale('en')
+                                  ? Alignment.topRight
+                                  : Alignment.topLeft,
                               child: InkWell(
                                 onTap: () {
                                   SharedPref.clearToken();
@@ -65,8 +67,7 @@ class HomeScreen extends StatelessWidget {
                                 child: Container(
                                   margin: const EdgeInsets.only(
                                       left: 15, top: 15, bottom: 20),
-                                  width:
-                                      MediaQuery.of(context).size.width / 10,
+                                  width: MediaQuery.of(context).size.width / 10,
                                   height:
                                       MediaQuery.of(context).size.height / 20,
                                   decoration: BoxDecoration(
@@ -82,7 +83,6 @@ class HomeScreen extends StatelessWidget {
                         const SizedBox(
                           height: 10,
                         ),
-                      
                         const Expanded(child: HomeBodyWidget())
                       ],
                     ),

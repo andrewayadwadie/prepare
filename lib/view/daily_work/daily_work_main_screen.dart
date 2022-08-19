@@ -1,8 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prepare/view/daily_work/controller/task_controller.dart';
-import 'package:prepare/view/shared_widgets/custom_loader.dart';
+import 'controller/task_controller.dart';
+import '../shared_widgets/custom_loader.dart';
 
 import '../../core/controller/internet_connectivity_controller.dart';
 import '../../utils/style.dart';

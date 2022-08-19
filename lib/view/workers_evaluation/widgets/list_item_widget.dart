@@ -2,9 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../../core/controller/evaluation_controller/evaluation_controller.dart';
 import '../../../utils/style.dart';
-
 import 'item_widget.dart';
 import 'recommendation_widget.dart';
 
