@@ -33,6 +33,7 @@ class DailyWorkMapCtrl extends GetxController {
   DailyWorkMapPropertiesController prop =
       Get.put(DailyWorkMapPropertiesController());
   DailyWorkAudioController audio = Get.put(DailyWorkAudioController());
+
   //! go to this location
   Future<void> animateCamera(LocationData _location) async {
     GoogleMapController controller = await prop.compeleteController.future;
@@ -254,7 +255,7 @@ class DailyWorkMapCtrl extends GetxController {
             allPathDataFromApi[0]["long"],
             prop.deviceCurrentLocation.lat ?? 0.0,
             prop.deviceCurrentLocation.long ?? 0.0) >
-        1500.0) {
+        50.0) {
       Get.defaultDialog(
         title: 'There is a problem'.tr,
         content: Text(

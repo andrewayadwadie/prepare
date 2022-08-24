@@ -138,9 +138,8 @@ class DailyWorkScreen extends StatelessWidget {
                                                                     0.0,
                                                                 event.longitude ??
                                                                     0.0));
-                                                     
                                                       }
-                                                      if(mapCtrl.calculateDistance(
+                                                      if (mapCtrl.calculateDistance(
                                                               curent.latitude ??
                                                                   0.0,
                                                               curent.longitude ??
@@ -149,8 +148,8 @@ class DailyWorkScreen extends StatelessWidget {
                                                                   0.0,
                                                               event.longitude ??
                                                                   0.0) >
-                                                          15){
-                                                           prop.evaluationPoint
+                                                          15) {
+                                                        prop.evaluationPoint
                                                             .add({
                                                           "Lat": event.latitude
                                                               .toString(),
@@ -177,7 +176,6 @@ class DailyWorkScreen extends StatelessWidget {
                                                                     data: prop
                                                                         .evaluationPoint)
                                                                 .then((value) {
-                                                             
                                                               if (value ==
                                                                   401) {
                                                                 Get.offAll(
@@ -197,7 +195,6 @@ class DailyWorkScreen extends StatelessWidget {
                                                             });
                                                           }
                                                         });
-                                                     
                                                       }
                                                     });
                                                   });
