@@ -267,8 +267,8 @@ class DailyWorkMapCtrl extends GetxController {
               LatLng(prop.deviceCurrentLocation.lat ?? 0.0,
                   prop.deviceCurrentLocation.long ?? 0.0),
               LatLng(
-                prop.redRoutePointTest[0]["lat"],
-                prop.redRoutePointTest[0]["long"],
+                pathDataFromApi[0].latitude,
+                pathDataFromApi[0].longitude,
               )
             ]);
             Get.back();

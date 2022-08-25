@@ -70,7 +70,7 @@ class AllProjectsScreen extends StatelessWidget {
                                                       "assets/images/empty_product_banner.c076afe7.png"),
                                                   fit: BoxFit.contain)),
                                         )
-                                      : InfoCardWidget(data: data);
+                                      : InfoCardWidget(data: data,index:index);
                                 }),
                       );
                     }),

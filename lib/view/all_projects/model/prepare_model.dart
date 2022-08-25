@@ -54,14 +54,14 @@ class City {
   final int id;
   final String name;
   final String code;
-  final double lat;
-  final double long;
+  // final double lat;
+  // final double long;
   City({
     required this.id,
     required this.name,
     required this.code,
-    required this.lat,
-    required this.long,
+    // required this.lat,
+    // required this.long,
   });
 
   factory City.fromJson(Map<String, dynamic> jsonData) {
@@ -69,8 +69,8 @@ class City {
       id: jsonData['id'] ?? 0,
       name: jsonData['name'] ?? "",
       code: jsonData['code'] ?? "",
-      lat: jsonData['lat'] ?? 0.0,
-      long: jsonData['long'] ?? 0.0,
+      // lat: jsonData['lat'] ?? 0.0,
+      // long: jsonData['long'] ?? 0.0,
     );
   }
 }
@@ -79,18 +79,24 @@ class ProjectCityTasks {
   final int id;
   final String day;
   final int numberOfTeams;
+  final double lat;
+  final double long;
   final List<ProjectTrackVehicleTypesTasks> projectTrackVehicleTypesTasks;
   ProjectCityTasks({
     required this.id,
     required this.day,
     required this.numberOfTeams,
     required this.projectTrackVehicleTypesTasks,
+    required this.lat,
+    required this.long,
   });
 
   factory ProjectCityTasks.fromJson(Map<String, dynamic> jsonData) {
     return ProjectCityTasks(
       id: jsonData['id'] ?? 0,
       day: jsonData['day'] ?? "",
+      lat: jsonData['lat'] ?? 0.0,
+      long: jsonData['long'] ?? 0.0,
       numberOfTeams: jsonData['numberOfTeams'] ?? 0,
       projectTrackVehicleTypesTasks:
           jsonData['projectTrackVehicleTypesTasks'] != null

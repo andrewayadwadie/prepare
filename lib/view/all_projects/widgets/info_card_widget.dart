@@ -13,9 +13,9 @@ import 'info_card_header.dart';
 import 'info_list_item_widget.dart';
 
 class InfoCardWidget extends StatelessWidget {
-  const InfoCardWidget({Key? key, required this.data}) : super(key: key);
+  const InfoCardWidget({Key? key, required this.data, required this.index}) : super(key: key);
   final ProjectModel data;
-
+  final int index;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -36,8 +36,8 @@ class InfoCardWidget extends StatelessWidget {
         ],
       ),
       child: GetBuilder<RallyPointController>(
-          init: RallyPointController(
-              data.projectCity.city.lat, data.projectCity.city.long),
+          init: RallyPointController(data.projectCity.projectCityTasks[index].lat,
+              data.projectCity.projectCityTasks[index].long),
           builder: (pointCtrl) {
             return pointCtrl.isCorrectPoint == true
                 ? Column(
@@ -321,8 +321,7 @@ class InfoCardWidget extends StatelessWidget {
                       ],
                     ),
                     child: Text(
-                        "You are currently far from the assembly point "
-                            .tr));
+                        "You are currently far from the assembly point ".tr));
           }),
     );
   }
