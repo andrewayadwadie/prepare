@@ -55,29 +55,50 @@ class HomeScreen extends StatelessWidget {
                             //! Header
                             const HeaderWidget(arrow: false),
                             //! LogOut Button
+
                             Align(
                               alignment: Get.locale == const Locale('en')
                                   ? Alignment.topRight
                                   : Alignment.topLeft,
-                              child: InkWell(
-                                onTap: () {
-                                  SharedPref.clearToken();
-                                  Get.offAll(const LoginScreen());
-                                },
-                                child: Container(
-                                  margin: const EdgeInsets.only(
-                                      left: 15, top: 15, bottom: 20),
-                                  width: MediaQuery.of(context).size.width / 10,
-                                  height:
-                                      MediaQuery.of(context).size.height / 20,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
+                              child: IconButton(
+                                  icon: Image.asset(
+                                    "assets/images/shutdown.png",
+                                    width:
+                                        MediaQuery.of(context).size.width / 13,
+                                    height:
+                                        MediaQuery.of(context).size.height / 13,
                                   ),
-                                  child: const Icon(Icons.exit_to_app,
-                                      color: redColor, size: 30),
-                                ),
-                              ),
-                            )
+                                  onPressed: () {
+                                    SharedPref.clearToken();
+                                    SharedPref.clearUserName();
+                                    Get.offAll(const LoginScreen());
+                                  }),
+                            ),
+                            Align(
+                              alignment: Get.locale == const Locale('ar')
+                                  ? Alignment.topRight
+                                  : Alignment.topLeft,
+                              child: Get.locale == const Locale('ar')
+                                  ? Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Text(
+                                        "إسم المستخدم : ${SharedPref.getUserNameValue()}",
+                                        style: const TextStyle(
+                                            color: whiteColor,
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.w500),
+                                      ))
+                                  : Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Text(
+                                        "User Name : ${SharedPref.getUserNameValue()}",
+                                        style: const TextStyle(
+                                            color: whiteColor,
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                    ),
+                            ),
                           ],
                         ),
                         const SizedBox(

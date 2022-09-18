@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+
 import '../../service/epicenter_services.dart';
 
 class InsectCodeController extends GetxController {

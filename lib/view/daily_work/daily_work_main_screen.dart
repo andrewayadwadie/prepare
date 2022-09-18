@@ -1,14 +1,14 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'controller/task_controller.dart';
-import '../shared_widgets/custom_loader.dart';
 
 import '../../core/controller/internet_connectivity_controller.dart';
 import '../../utils/style.dart';
+import '../shared_widgets/custom_loader.dart';
 import '../shared_widgets/custom_no_data.dart';
 import '../shared_widgets/header_widget.dart';
 import '../shared_widgets/line_dot.dart';
+import 'controller/task_controller.dart';
 import 'daily_controller/daily_work_audio_controller.dart';
 import 'daily_work_screen.dart';
 

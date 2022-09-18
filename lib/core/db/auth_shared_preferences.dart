@@ -5,11 +5,13 @@ class SharedPref {
   static const _token = 'usertoken';
   static const _expireDate = 'expiredate';
   static const _role = 'role';
+  static const _name = 'name';
+
   static Future init() async {
     _pref = await SharedPreferences.getInstance();
   }
 
-/*------------------------------- Token---------------------------- */
+//*------------------------------- Token---------------------------- */
   static Future setTokenValue(String value) async {
     await _pref!.setString(_token, value);
   }
@@ -22,20 +24,21 @@ class SharedPref {
     await _pref!.remove(_token);
   }
 
-/*------------------------------- Expire Date---------------------------- */
+//*------------------------------- Expire Date---------------------------- */
   static Future setExpireDateValue(String value) async {
     await _pref!.setString(_expireDate, value);
   }
 
   static String getExpireDateValue() {
-    return _pref!.getString(_expireDate)??"";
+    return _pref!.getString(_expireDate) ?? "";
   }
 
   static Future clearExpireDate() async {
     await _pref!.remove(_expireDate);
   }
-/*---------------------------------------------------------------------- */
-/*------------------------------- role ---------------------------- */
+
+//*---------------------------------------------------------------------- */
+//*------------------------------- role ---------------------------- */
   static Future setRoleValue(String value) async {
     await _pref!.setString(_role, value);
   }
@@ -47,5 +50,19 @@ class SharedPref {
   static Future clearRole() async {
     await _pref!.remove(_role);
   }
-/*---------------------------------------------------------------------- */
+
+//*---------------------------------------------------------------------- */
+//*-----------------------User Name-------------------------------------- */
+  static Future setUserNameValue(String value) async {
+    await _pref!.setString(_name, value);
+  }
+
+  static String getUserNameValue() {
+    return _pref!.getString(_name)!;
+  }
+
+  static Future clearUserName() async {
+    await _pref!.remove(_name);
+  }
+//*---------------------------------------------------------------------- */
 }

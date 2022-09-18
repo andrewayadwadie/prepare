@@ -2,11 +2,10 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 
 import '../../../core/db/auth_shared_preferences.dart';
 import '../../../utils/constants.dart';
-import 'package:http/http.dart' as http;
-
 import '../../../utils/style.dart';
 import '../../auth/login_screen.dart';
 import '../model/task_model.dart';

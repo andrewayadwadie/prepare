@@ -20,6 +20,7 @@ class LoginController extends GetxController {
         SharedPref.setTokenValue(res[0].toString());
         SharedPref.setExpireDateValue(res[1].toString());
         SharedPref.setRoleValue(res[2].toString());
+        SharedPref.setUserNameValue(res[3].toString());
 
         Get.offAll(() => const HomeScreen());
 

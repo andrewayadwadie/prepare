@@ -1,8 +1,9 @@
 import 'dart:convert';
 
+import 'package:http/http.dart' as http;
+
 import '../../utils/constants.dart';
 import '../db/auth_shared_preferences.dart';
-import 'package:http/http.dart' as http;
 
 class SolvedEpicenterService {
  static Future addSolvedEpicenterService({

@@ -3,36 +3,42 @@ import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import '../../../utils/constants.dart';
-import '../../auth/login_screen.dart';
 
 import '../../../core/db/auth_shared_preferences.dart';
+import '../../../utils/constants.dart';
+import '../../auth/login_screen.dart';
+import '../model/add_prepration_model.dart';
 
 class PrepareServices {
   static Future addPrepartion({
-    required int cityId,
-    required int projectId,
-    required String numberOfTeams,
-    required String numberOfSectorSupervisors,
-    required String numberOfControlSpecialist,
-    required String numberOfEmployees,
-    required List projectTrackVehicleTypesPreparations,
+    // required int cityId,
+    // required int projectId,
+    // required String numberOfTeams,
+    // required String numberOfSectorSupervisors,
+    // required String numberOfControlSpecialist,
+    // required String numberOfEmployees,
+    // required List projectTrackVehicleTypesPreparations,
+    required Preparation preparationModel,
   }) async {
     var url = "${apiUrl}Preparations/AddPreparation";
     try {
       log("""
-              {
-                    "ProjectId": $projectId,
-                    "ProjectCityPreparation": {
-                      "NumberOfTeams": $numberOfTeams,
-                      "NumberOfSectorSupervisors": $numberOfSectorSupervisors,
-                      "NumberOfControlSpecialist": $numberOfControlSpecialist,
-                      "NumberOfEmployees": $numberOfEmployees,
-                      "CityId": $cityId,
-                      "ProjectTrackVehicleTypesPreparations":
-                          $projectTrackVehicleTypesPreparations
-                    }
-                  }
+             {
+            "ProjectId": ${preparationModel.projectId},
+            "ProjectCityPreparation": {
+              "NumberOfSectorSupervisors":${preparationModel.projectCityPreparation.numberOfSectorSupervisors},
+            "NumberOfControlSpecialist":${preparationModel.projectCityPreparation.numberOfControlSpecialist},
+            "NumberOfEmployees":${preparationModel.projectCityPreparation.numberOfEmployees},
+            "NumberOfDrivers":${preparationModel.projectCityPreparation.numberOfDrivers}, 
+            "NumberOfLiquidDevices":${preparationModel.projectCityPreparation.numberOfLiquidDevices}, 
+            "NumberOfULVDevices":${preparationModel.projectCityPreparation.numberOfULVDevices}, 
+            "NumberOfFogDevices":${preparationModel.projectCityPreparation.numberOfFogDevices}, 
+            "NumberOfPumps":${preparationModel.projectCityPreparation.numberOfPumps}, 
+            "CityId":${preparationModel.projectCityPreparation.cityId},
+              "ProjectTrackVehicleTypesPreparations":
+                 ${preparationModel.projectCityPreparation.projectTrackVehicleTypesPreparations}
+ 
+        
               """);
       var res = await http.post(Uri.parse(url),
           headers: {
@@ -41,15 +47,28 @@ class PrepareServices {
             'Authorization': 'Bearer ${SharedPref.getTokenValue()}',
           },
           body: jsonEncode({
-            "ProjectId": projectId,
+            "ProjectId": preparationModel.projectId,
             "ProjectCityPreparation": {
-              "NumberOfTeams": numberOfTeams,
-              "NumberOfSectorSupervisors": numberOfSectorSupervisors,
-              "NumberOfControlSpecialist": numberOfControlSpecialist,
-              "NumberOfEmployees": numberOfEmployees,
-              "CityId": cityId,
-              "ProjectTrackVehicleTypesPreparations":
-                  projectTrackVehicleTypesPreparations
+              "NumberOfSectorSupervisors": preparationModel
+                  .projectCityPreparation.numberOfSectorSupervisors,
+              "NumberOfControlSpecialist": preparationModel
+                  .projectCityPreparation.numberOfControlSpecialist,
+              "NumberOfEmployees":
+                  preparationModel.projectCityPreparation.numberOfEmployees,
+              "NumberOfDrivers":
+                  preparationModel.projectCityPreparation.numberOfDrivers,
+              "NumberOfLiquidDevices":
+                  preparationModel.projectCityPreparation.numberOfLiquidDevices,
+              "NumberOfULVDevices":
+                  preparationModel.projectCityPreparation.numberOfULVDevices,
+              "NumberOfFogDevices":
+                  preparationModel.projectCityPreparation.numberOfFogDevices,
+              "NumberOfPumps":
+                  preparationModel.projectCityPreparation.numberOfPumps,
+              "CityId": preparationModel.projectCityPreparation.cityId,
+              "ProjectTrackVehicleTypesPreparations": preparationModel
+                  .projectCityPreparation.projectTrackVehicleTypesPreparations
+            
             }
           }));
 

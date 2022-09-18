@@ -9,21 +9,19 @@ class InfoCardHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      flex: 1,
-      child: Container(
-        alignment: Get.locale == const Locale("en")
-            ? Alignment.centerLeft
-            : Alignment.centerRight,
-        width: MediaQuery.of(context).size.width,
-        // padding: const EdgeInsets.only(left: 10, right: 10),
-        child: Text(
-          title,
-          style: blackTextStyle,
-          overflow: TextOverflow.ellipsis,
-          textAlign: TextAlign.start,
-          maxLines: 2,
-        ),
+    return Container(
+      alignment: Get.locale == const Locale("en")
+          ? Alignment.centerLeft
+          : Alignment.centerRight,
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height / 15,
+      padding: const EdgeInsets.only(left: 5, right: 5),
+      child: Text(
+        title,
+        style: blackTextStyle,
+        overflow: TextOverflow.ellipsis,
+        textAlign: TextAlign.start,
+        maxLines: 2,
       ),
     );
   }

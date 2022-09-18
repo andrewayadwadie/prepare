@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+
 import '../../service/animal_services.dart';
 
 class AnimaCodeController extends GetxController {

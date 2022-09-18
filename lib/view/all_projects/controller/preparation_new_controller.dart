@@ -6,12 +6,17 @@ import '../model/prepare_model.dart';
 class NewPreparationController extends GetxController {
   final List<ProjectTrackVehicleTypesTasks> trackVehicles;
   NewPreparationController(this.trackVehicles);
-  TextEditingController teamsController = TextEditingController();
+ 
   TextEditingController employeesController = TextEditingController();
   TextEditingController supervisorController = TextEditingController();
   TextEditingController specailistController = TextEditingController();
+  TextEditingController driversController = TextEditingController();
+  TextEditingController ulvDevicesController = TextEditingController();
+  TextEditingController fogDevicesController = TextEditingController();
+  TextEditingController pumpDevicesController = TextEditingController();
+  TextEditingController liquidDevicesController = TextEditingController();
   List<TextEditingController> vehiclesController = [];
-  List<Map<String,dynamic>> vechilesPost = [];
+  List vechilesPost = [];
 
   @override
   void onInit() {
@@ -21,10 +26,15 @@ class NewPreparationController extends GetxController {
 
   @override
   void onClose() {
-    teamsController.dispose();
+ 
     employeesController.dispose();
     supervisorController.dispose();
     specailistController.dispose();
+    driversController.dispose();
+    ulvDevicesController.dispose();
+    fogDevicesController.dispose();
+    pumpDevicesController.dispose();
+    liquidDevicesController.dispose();
     super.onClose();
   }
 
@@ -39,11 +49,11 @@ class NewPreparationController extends GetxController {
   void addVehiclePost(List<ProjectTrackVehicleTypesTasks> trackVehicles) {
     vechilesPost.clear();
     for (int i = 0; i < trackVehicles.length; i++) {
-
-      vechilesPost.add(Map.from( {
-        "Count": vehiclesController[i].text.toString(),
-        "TrackVehicleTypeId": trackVehicles[i].trackVehicleTypeId.toString()
-      }));
+      vechilesPost.add({
+          "Count": vehiclesController[i].text.toString(),
+          "trackVehicleTypeId": "${trackVehicles[i].trackVehicleTypeId}"
+          
+          });
     }
 
     update();
