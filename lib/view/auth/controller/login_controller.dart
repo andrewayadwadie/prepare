@@ -21,9 +21,10 @@ class LoginController extends GetxController {
         SharedPref.setExpireDateValue(res[1].toString());
         SharedPref.setRoleValue(res[2].toString());
         SharedPref.setUserNameValue(res[3].toString());
-
-        Get.offAll(() => const HomeScreen());
-
+//Todo : this condition temproray still work in new api
+        if (SharedPref.getRoleValue() == "Driver") {
+          Get.offAll(() => const HomeScreen());
+        }
         //!Error
       } else if (res.runtimeType == String) {
         loading.value = true;

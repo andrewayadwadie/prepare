@@ -3,7 +3,7 @@ const Map<String, String> ar = {
   'english language': 'اللغة الانجليزية ',
   'yes': 'نعم',
   'no': 'لا',
-  'ok': 'حسناً',
+  'ok': 'موافق',
   'cancel': 'إلغاء',
 
   //Auth
@@ -176,4 +176,6 @@ const Map<String, String> ar = {
   "server error": "خطأ فى الخادم",
   "No preparations today": "لا يوجد تحضيرات لهذا اليوم",
   "You are currently far from the assembly point ": "أنت بعيد عن مكان التجمع",
+  'Exit from mission': 'الخروج من المهمة',
+  "Want to get off the mission ?":"هل تريد الخروج من المهمة ؟",
 };

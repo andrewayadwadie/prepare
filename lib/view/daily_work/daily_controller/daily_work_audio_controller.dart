@@ -12,27 +12,9 @@ class DailyWorkAudioController extends GetxController {
     super.onClose();
   }
 
-  Future<void> playerAudioRight() async {
-    try {
-      await player.setAsset('assets/audio/take your right.mp3');
-      player.play();
-    } catch (e) {
-      log("can not play Audio Right cause : $e ");
-    }
-  }
-
-  Future<void> playerAudioLeft() async {
-    try {
-      await player.setAsset('assets/audio/take your left.mp3');
-      player.play();
-    } catch (e) {
-      log("can not play Audio Left cause : $e ");
-    }
-  }
-
   Future<void> playerAudioTurnBack() async {
     try {
-      await player.setAsset('assets/audio/turn back again .mp3');
+      await player.setAsset('assets/audio/turn_back.mp3');
       player.play();
     } catch (e) {
       log("can not play Audio Turn Back cause : $e ");
@@ -41,7 +23,7 @@ class DailyWorkAudioController extends GetxController {
 
   Future<void> playerAudioStart() async {
     try {
-      await player.setAsset('assets/audio/start your mission .mp3');
+      await player.setAsset('assets/audio/start_your_mission.mp3');
       player.play();
     } catch (e) {
       log("can not play Audio Start cause : $e ");
@@ -50,7 +32,8 @@ class DailyWorkAudioController extends GetxController {
 
   Future<void> playerAudioFinish() async {
     try {
-      await player.setAsset('assets/audio/You finished your Mission.mp3');
+      await player
+          .setAsset('assets/audio/stop_here_you_finished_your_trip.mp3');
       player.play();
     } catch (e) {
       log("can not play Audio Finish cause : $e ");
@@ -59,7 +42,7 @@ class DailyWorkAudioController extends GetxController {
 
   Future<void> playerAudioUturnLeft() async {
     try {
-      await player.setAsset('assets/audio/take next uturn to left.mp3');
+      await player.setAsset('assets/audio/turn_left.mp3');
       player.play();
     } catch (e) {
       log("can not play Audio ul cause : $e ");
@@ -68,29 +51,28 @@ class DailyWorkAudioController extends GetxController {
 
   Future<void> playerAudioUturnRight() async {
     try {
-      await player.setAsset('assets/audio/take next uturn to right.mp3');
+      await player.setAsset('assets/audio/turn_right.mp3');
       player.play();
     } catch (e) {
       log("can not play Audio Ur cause : $e ");
     }
   }
 
-Future<void> playerAudioStraight() async {
+  Future<void> playerAudioStraight() async {
     try {
-      await player.setAsset('assets/audio/go straight ahead .mp3');
+      await player.setAsset('assets/audio/go_straight.mp3');
       player.play();
     } catch (e) {
       log("can not play Audio go straight ahead   cause : $e ");
     }
   }
 
-Future<void> playerAudioUTurn() async {
+  Future<void> playerAudioUTurn() async {
     try {
-      await player.setAsset('assets/audio/take the Next U turn.mp3');
+      await player.setAsset('assets/audio/take_the_next_turn.mp3');
       player.play();
     } catch (e) {
       log("can not play Audio take the Next U turn cause : $e ");
     }
   }
-
 }

@@ -3,14 +3,12 @@ import 'dart:developer' as dev;
 import 'dart:math' as math;
 import 'dart:typed_data';
 import 'dart:ui' as ui;
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
-
 import '../../../../core/service/solved_epicenter_services.dart';
 import '../../../../utils/style.dart';
 import '../../../utils/constants.dart';
@@ -22,6 +20,11 @@ class DailyWorkMapCtrl extends GetxController {
   void onInit() {
     super.onInit();
     insertDataToList();
+  }
+ @override
+  void onClose() {
+     prop.deviceCurrentLocation.location.onLocationChanged.listen((event) {}).cancel();
+    super.onClose();
   }
 
   bool isDataDidnotSend = false;
@@ -43,7 +46,7 @@ class DailyWorkMapCtrl extends GetxController {
           _location.latitude!,
           _location.longitude!,
         ),
-        zoom: 19.0);
+        zoom: 15.5);
 
     controller.animateCamera(CameraUpdate.newCameraPosition(_cameraPostion));
   }
@@ -70,8 +73,7 @@ class DailyWorkMapCtrl extends GetxController {
   }
 
 //!calculate distance function
-  double calculateDistance(
-      double lat1, double long1, double lat2, double long2) {
+  double calculateDistance(double lat1, double long1, double lat2, double long2) {
     var d1 = lat1 * (math.pi / 180.0);
     var num1 = long1 * (math.pi / 180.0);
     var d2 = lat2 * (math.pi / 180.0);
@@ -245,17 +247,15 @@ class DailyWorkMapCtrl extends GetxController {
     //?<<<<<<<<<<<< if true draw google direction to Start point >>>>>>>>>>>>>>>>
     dev.log("deviceCurrentLocation.lat ${prop.deviceCurrentLocation.lat}");
     dev.log("deviceCurrentLocation.long ${prop.deviceCurrentLocation.long}");
-    dev.log(
-        "first point of path from api .lat ${allPathDataFromApi[0]["lat"]}");
-    dev.log(
-        "first point of path from api.long ${allPathDataFromApi[0]["long"]}");
+    dev.log("first point of path from api .lat ${allPathDataFromApi[0]["lat"]}");
+    dev.log("first point of path from api.long ${allPathDataFromApi[0]["long"]}");
     //! if user far from start location and draw google direction to Start point
     if (calculateDistance(
             allPathDataFromApi[0]["lat"],
             allPathDataFromApi[0]["long"],
             prop.deviceCurrentLocation.lat ?? 0.0,
             prop.deviceCurrentLocation.long ?? 0.0) >
-        50.0) {
+        300.0) {
       Get.defaultDialog(
         title: 'There is a problem'.tr,
         content: Text(
@@ -289,7 +289,7 @@ class DailyWorkMapCtrl extends GetxController {
       //?<<<<<<<<<<<< if false start Gis Directions with voices >>>>>>>>>>>>>>>>
     } else {
       prop.startMissionButton = false;
-      animateCamera(await prop.deviceCurrentLocation.location.getLocation());
+  //    animateCamera(await prop.deviceCurrentLocation.location.getLocation());
       update();
       prop.deviceCurrentLocation.location.onLocationChanged.listen((event) {
         setMark(event.latitude ?? 0.0, event.longitude ?? 0.0);
@@ -314,11 +314,11 @@ class DailyWorkMapCtrl extends GetxController {
             }
             if (allPathDataFromApi[i]['description'] == "r") {
               dev.log("voice is : right");
-              audio.playerAudioRight();
+              audio.playerAudioUturnRight();
             }
             if (allPathDataFromApi[i]['description'] == "l") {
               dev.log("voice is : left");
-              audio.playerAudioLeft();
+              audio.playerAudioUturnLeft();
             }
             if (allPathDataFromApi[i]['description'] == "u") {
               dev.log("voice is : uturn right");
@@ -390,7 +390,7 @@ class DailyWorkMapCtrl extends GetxController {
       update();
     }
   }
-
+/*
   //! play sound from List of points
   void playSound(List<Map<String, dynamic>> pointsList) {
     int temp = 0;
@@ -405,11 +405,11 @@ class DailyWorkMapCtrl extends GetxController {
           dev.log("turn back voice plyed");
         }
         if (temp == 3) {
-          audio.playerAudioRight();
+          audio.playerAudioUturnRight();
           dev.log("right voice plyed");
         }
         if (temp == 5) {
-          audio.playerAudioLeft();
+          audio.playerAudioUturnLeft();
           dev.log("left voice plyed");
         }
         if (temp == 7) {
@@ -475,7 +475,7 @@ class DailyWorkMapCtrl extends GetxController {
       }
     });
   }
-
+*/
 //!=================================================================
 //!=================================================================
   List<Map<String, dynamic>> allPathDataFromApi = [];

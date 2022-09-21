@@ -180,4 +180,6 @@ const Map<String, String> en = {
   'No preparations today': 'No preparations today',
   "You are currently far from the assembly point ":
       "You are currently far from the assembly point ",
+  'Exit from mission': 'Exit from mission',
+  "Want to get off the mission ?": "Want to get off the mission ?",
 };

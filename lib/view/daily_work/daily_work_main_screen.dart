@@ -9,7 +9,6 @@ import '../shared_widgets/custom_no_data.dart';
 import '../shared_widgets/header_widget.dart';
 import '../shared_widgets/line_dot.dart';
 import 'controller/task_controller.dart';
-import 'daily_controller/daily_work_audio_controller.dart';
 import 'daily_work_screen.dart';
 
 class DailyWorkMainScreen extends StatelessWidget {
@@ -23,12 +22,7 @@ class DailyWorkMainScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            GetBuilder<DailyWorkAudioController>(
-              init: DailyWorkAudioController(),
-              builder: (audio) {
-                return const HeaderWidget(arrow: true);
-              }
-            ),
+            const HeaderWidget(arrow: true),
             SizedBox(
               height: MediaQuery.of(context).size.height / 20,
             ),
@@ -76,9 +70,11 @@ class DailyWorkMainScreen extends StatelessWidget {
                                                         districtLocations:
                                                             allTasksData[index]
                                                                 .districtLocations,
-                                                        districtId :   allTasksData[index]
-                                                                .districtId , 
-                                                        routeId:    allTasksData[index]
+                                                        districtId:
+                                                            allTasksData[index]
+                                                                .districtId,
+                                                        routeId:
+                                                            allTasksData[index]
                                                                 .routeNumber,
                                                       ));
                                                 }

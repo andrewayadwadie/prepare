@@ -3,15 +3,12 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'service/complete_task_service.dart';
 
 import '../../core/controller/bug_dicover/nearst_visit_controller.dart';
 import '../../core/controller/current_location_controller.dart';
-
 import '../../core/controller/epicenter/all_nearst_point_controllerd.dart';
 import '../../core/controller/internet_connectivity_controller.dart';
 import '../../utils/style.dart';
-
 import '../auth/login_screen.dart';
 import '../home/home_screen.dart';
 import 'daily_controller/daily_work_audio_controller.dart';
@@ -108,96 +105,6 @@ class DailyWorkScreen extends StatelessWidget {
                                                     mapCtrl.addEpicenterPoints(
                                                         epicenter.point);
                                                   });
-
-                                                  currentLocation.location
-                                                      .onLocationChanged
-                                                      .listen((event) {
-                                                    currentLocation.location
-                                                        .getLocation()
-                                                        .then((curent) {
-                                                      if (mapCtrl.calculateDistance(
-                                                              curent.latitude ??
-                                                                  0.0,
-                                                              curent.longitude ??
-                                                                  0.0,
-                                                              event.latitude ??
-                                                                  0.0,
-                                                              event.longitude ??
-                                                                  0.0) >
-                                                          5) {
-                                                        //!<<<<<<<<<<<<<<<< green path that belongs to car>>>>>>>>>>>>>>>>>>>>
-                                                        mapCtrl.setnewPath(
-                                                            LatLng(
-                                                              curent.latitude ??
-                                                                  0.0,
-                                                              curent.longitude ??
-                                                                  0.0,
-                                                            ),
-                                                            LatLng(
-                                                                event.latitude ??
-                                                                    0.0,
-                                                                event.longitude ??
-                                                                    0.0));
-                                                      }
-                                                      if (mapCtrl.calculateDistance(
-                                                              curent.latitude ??
-                                                                  0.0,
-                                                              curent.longitude ??
-                                                                  0.0,
-                                                              event.latitude ??
-                                                                  0.0,
-                                                              event.longitude ??
-                                                                  0.0) >
-                                                          15) {
-                                                        prop.evaluationPoint
-                                                            .add({
-                                                          "Lat": event.latitude
-                                                              .toString(),
-                                                          "Long": curent
-                                                              .longitude
-                                                              .toString(),
-                                                          "Speed": event.speed
-                                                              .toString(),
-                                                          "Date": DateTime.now()
-                                                              .toString(),
-                                                          "RouteNumber":
-                                                              routeId,
-                                                          "DistrictId":
-                                                              districtId
-                                                        });
-                                                        //!<<<<<<<<< send path to backend >>>>>>>>>>>
-                                                        net
-                                                            .checkInternet()
-                                                            .then((val) {
-                                                          if (val) {
-                                                            //! send green path to Api
-
-                                                            DailyWorkService.addLine(
-                                                                    data: prop
-                                                                        .evaluationPoint)
-                                                                .then((value) {
-                                                              if (value ==
-                                                                  401) {
-                                                                Get.offAll(
-                                                                    const LoginScreen());
-                                                              } else if (value ==
-                                                                  400) {
-                                                                Get.snackbar(
-                                                                    'There is a problem'
-                                                                        .tr,
-                                                                    'There is a problem sending data'
-                                                                        .tr);
-                                                              } else if (value ==
-                                                                  200) {
-                                                                log("green path status = 200");
-                                                                return;
-                                                              }
-                                                            });
-                                                          }
-                                                        });
-                                                      }
-                                                    });
-                                                  });
                                                 },
                                               );
                                             });
@@ -214,7 +121,79 @@ class DailyWorkScreen extends StatelessWidget {
                                         child: InkWell(
                                           splashColor: primaryColor,
                                           onTap: () {
+                                            //! this function to show current point of car and play voices
                                             mapCtrl.startMission(context);
+                                            //! this function to draw green line and send path to backend
+                                            currentLocation
+                                                .location.onLocationChanged
+                                                .listen((event) {
+                                              currentLocation.location
+                                                  .getLocation()
+                                                  .then((curent) {
+                                                if (mapCtrl.calculateDistance(
+                                                        curent.latitude ?? 0.0,
+                                                        curent.longitude ?? 0.0,
+                                                        event.latitude ?? 0.0,
+                                                        event.longitude ??
+                                                            0.0) >=
+                                                    8) {
+                                                  //!<<<<<<<<<<<<<<<< green path that belongs to car>>>>>>>>>>>>>>>>>>>>
+                                                  mapCtrl.setnewPath(
+                                                      LatLng(
+                                                        curent.latitude ?? 0.0,
+                                                        curent.longitude ?? 0.0,
+                                                      ),
+                                                      LatLng(
+                                                          event.latitude ?? 0.0,
+                                                          event.longitude ??
+                                                              0.0));
+                                                  //!===================================
+                                                  prop.evaluationPoint.add({
+                                                    "Lat": event.latitude
+                                                        .toString(),
+                                                    "Long": curent.longitude
+                                                        .toString(),
+                                                    "Speed":
+                                                        event.speed.toString(),
+                                                    "Date": DateTime.now()
+                                                        .toString(),
+                                                    "RouteNumber": routeId,
+                                                    "DistrictId": districtId
+                                                  });
+                                                  //!<<<<<<<<< send path to backend >>>>>>>>>>>
+                                                  net
+                                                      .checkInternet()
+                                                      .then((val) {
+                                                    if (val) {
+                                                      //! send green path to Api
+                                                      DailyWorkService.addLine(
+                                                              data: prop
+                                                                  .evaluationPoint)
+                                                          .then((value) {
+                                                        if (value == 401) {
+                                                          Get.offAll(
+                                                              const LoginScreen());
+                                                        } else if (value ==
+                                                            400) {
+                                                          Get.snackbar(
+                                                              'There is a problem'
+                                                                  .tr,
+                                                              'There is a problem sending data'
+                                                                  .tr);
+                                                        } else if (value ==
+                                                            200) {
+                                                          log("green path status = 200");
+                                                          prop.evaluationPoint
+                                                              .clear();
+                                                          return;
+                                                        }
+                                                      });
+                                                    }
+                                                  });
+                                                }
+                                              });
+                                            });
+
                                             // mapCtrl.getVoicefromList(
                                             //           prop.redRoutePoint);
                                             //!<<<<<<<<<<check if problem is solved will popup with message and remove marker from Markers List>>>>>>>>>//
@@ -260,21 +239,13 @@ class DailyWorkScreen extends StatelessWidget {
                                               return InkWell(
                                                 splashColor: primaryColor,
                                                 onTap: () {
-                                                  CompleteTaskService
-                                                          .completeTask(
-                                                              districtId:
-                                                                  districtId,
-                                                              routeId: routeId)
+                                                  /*
+                                                  CompleteTaskService.completeTask(districtId:districtId,routeId: routeId)
                                                       .then((value) {
-                                                    if (value.runtimeType ==
-                                                        double) {
+                                                    if (value.runtimeType ==double) {
                                                       Get.defaultDialog(
-                                                        title:
-                                                            'Performance evaluation'
-                                                                .tr,
-                                                        content: Text(
-                                                          "$value %",
-                                                        ),
+                                                        title:'Performance evaluation'.tr,
+                                                        content: Text("$value %",),
                                                         confirm: InkWell(
                                                           onTap: () {
                                                             Get.offAll(() =>
@@ -311,20 +282,88 @@ class DailyWorkScreen extends StatelessWidget {
                                                                         17),
                                                               )),
                                                         ),
-                                                        barrierDismissible:
-                                                            false,
+                                                        barrierDismissible:false,
                                                       );
                                                     } else if (value == 401) {
-                                                      Get.offAll(
-                                                          const LoginScreen());
+                                                      Get.offAll(const LoginScreen());
                                                     } else if (value == 400) {
-                                                      Get.snackbar(
-                                                          'There is a problem'
-                                                              .tr,
-                                                          'There is a problem sending data'
-                                                              .tr);
+                                                      Get.snackbar('There is a problem'.tr,'There is a problem sending data'.tr);
                                                     }
                                                   });
+                                                  */
+
+                                                  Get.defaultDialog(
+                                                    title: 'Exit from mission'.tr,
+                                                    content:   Text(
+                                                      "Want to get off the mission ?".tr,
+                                                    ),
+                                                    confirm: InkWell(
+                                                      onTap: () {
+                                                        Get.offAll(() =>
+                                                            const HomeScreen());
+                                                      },
+                                                      child: Container(
+                                                          decoration: BoxDecoration(
+                                                              color:
+                                                                  lightPrimaryColor,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10)),
+                                                          alignment: Alignment
+                                                              .center,
+                                                          width: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width /
+                                                              2 ,
+                                                          height: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .height /
+                                                              20,
+                                                          child: Text(
+                                                            'ok'.tr,
+                                                            style: const TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 15),
+                                                          )),
+                                                    ),
+                                                    cancel: InkWell(
+                                                      onTap: () {
+                                                        Get.back();
+                                                      },
+                                                      child: Container(
+                                                          decoration: BoxDecoration(
+                                                              color:
+                                                                  redColor,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10)),
+                                                          alignment: Alignment
+                                                              .center,
+                                                          width: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width /
+                                                              2 ,
+                                                          height: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .height /
+                                                              20,
+                                                          child: Text(
+                                                            'cancel'.tr,
+                                                            style: const TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 15),
+                                                          )),
+                                                    ),
+                                                    barrierDismissible: false,
+                                                  );
                                                 },
                                                 child: Container(
                                                   alignment: Alignment.center,
