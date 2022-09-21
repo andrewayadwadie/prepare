@@ -14,6 +14,7 @@ import '../home/home_screen.dart';
 import 'daily_controller/daily_work_audio_controller.dart';
 import 'daily_controller/daily_work_map_controller.dart';
 import 'daily_controller/daily_work_map_proprities_controller.dart';
+import 'service/complete_task_service.dart';
 import 'service/dailty_work_service.dart';
 
 // ignore: must_be_immutable
@@ -239,68 +240,40 @@ class DailyWorkScreen extends StatelessWidget {
                                               return InkWell(
                                                 splashColor: primaryColor,
                                                 onTap: () {
-                                                  /*
-                                                  CompleteTaskService.completeTask(districtId:districtId,routeId: routeId)
-                                                      .then((value) {
-                                                    if (value.runtimeType ==double) {
-                                                      Get.defaultDialog(
-                                                        title:'Performance evaluation'.tr,
-                                                        content: Text("$value %",),
-                                                        confirm: InkWell(
-                                                          onTap: () {
-                                                            Get.offAll(() =>
-                                                                const HomeScreen());
-                                                          },
-                                                          child: Container(
-                                                              decoration: BoxDecoration(
-                                                                  color:
-                                                                      lightPrimaryColor,
-                                                                  borderRadius:
-                                                                      BorderRadius.circular(
-                                                                          10)),
-                                                              alignment:
-                                                                  Alignment
-                                                                      .center,
-                                                              width: MediaQuery
-                                                                          .of(
-                                                                              context)
-                                                                      .size
-                                                                      .width /
-                                                                  2.5,
-                                                              height: MediaQuery.of(
-                                                                          context)
-                                                                      .size
-                                                                      .height /
-                                                                  20,
-                                                              child: Text(
-                                                                'finish Task'
-                                                                    .tr,
-                                                                style: const TextStyle(
-                                                                    color: Colors
-                                                                        .white,
-                                                                    fontSize:
-                                                                        17),
-                                                              )),
-                                                        ),
-                                                        barrierDismissible:false,
-                                                      );
-                                                    } else if (value == 401) {
-                                                      Get.offAll(const LoginScreen());
-                                                    } else if (value == 400) {
-                                                      Get.snackbar('There is a problem'.tr,'There is a problem sending data'.tr);
-                                                    }
-                                                  });
-                                                  */
-
                                                   Get.defaultDialog(
-                                                    title: 'Exit from mission'.tr,
-                                                    content:   Text(
-                                                      "Want to get off the mission ?".tr,
+                                                    title:
+                                                        'Exit from mission'.tr,
+                                                    content: Text(
+                                                      "Want to get off the mission ?"
+                                                          .tr,
                                                     ),
                                                     confirm: InkWell(
                                                       onTap: () {
-                                                        Get.offAll(() =>
-                                                            const HomeScreen());
+                                                        CompleteTaskService
+                                                                .completeTask(
+                                                                    districtId:
+                                                                        districtId,
+                                                                    routeId:
+                                                                        routeId)
+                                                            .then((value) {
+                                                          if (value
+                                                                  .runtimeType ==
+                                                              double) {
+                                                            Get.offAll(() =>
+                                                                const HomeScreen());
+                                                          } else if (value ==
+                                                              401) {
+                                                            Get.offAll(
+                                                                const LoginScreen());
+                                                          } else if (value ==
+                                                              400) {
+                                                            Get.snackbar(
+                                                                'There is a problem'
+                                                                    .tr,
+                                                                'There is a problem sending data'
+                                                                    .tr);
+                                                          }
+                                                        });
                                                       },
                                                       child: Container(
                                                           decoration: BoxDecoration(
@@ -316,7 +289,7 @@ class DailyWorkScreen extends StatelessWidget {
                                                                       context)
                                                                   .size
                                                                   .width /
-                                                              2 ,
+                                                              2,
                                                           height: MediaQuery.of(
                                                                       context)
                                                                   .size
@@ -336,8 +309,7 @@ class DailyWorkScreen extends StatelessWidget {
                                                       },
                                                       child: Container(
                                                           decoration: BoxDecoration(
-                                                              color:
-                                                                  redColor,
+                                                              color: redColor,
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
@@ -348,7 +320,7 @@ class DailyWorkScreen extends StatelessWidget {
                                                                       context)
                                                                   .size
                                                                   .width /
-                                                              2 ,
+                                                              2,
                                                           height: MediaQuery.of(
                                                                       context)
                                                                   .size
