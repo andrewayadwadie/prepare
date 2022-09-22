@@ -5,13 +5,12 @@ import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../../core/service/solved_epicenter_services.dart';
 import '../../../../utils/style.dart';
-import '../../../utils/constants.dart';
 import 'daily_work_audio_controller.dart';
 import 'daily_work_map_proprities_controller.dart';
 
@@ -192,8 +191,18 @@ class DailyWorkMapCtrl extends GetxController {
   }
 
 //! draw google line with prediction to driver to start from start point of real route (red route )
-  void setGooglePolyLine(List<LatLng> locations) async {
-    PolylinePoints polylinePoints = PolylinePoints();
+  
+ Future<void> setGooglePolyLine(List<LatLng> locations) async {
+
+ String googleMapUrl =
+        "https://www.google.com/maps/search/?api=1&query=${locations.last.latitude},${locations.last.longitude}";
+    if (await canLaunchUrl(Uri.parse(googleMapUrl))) {
+      await launchUrl(Uri.parse(googleMapUrl));
+    } else {
+      throw 'could not open map';
+    }
+    
+  /*  PolylinePoints polylinePoints = PolylinePoints();
 
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
       apiKey2,
@@ -222,6 +231,7 @@ class DailyWorkMapCtrl extends GetxController {
         endCap: Cap.roundCap,
         points: prop.polylineCoordinates));
     update();
+    */
   }
 
 //!set current location of the driver markder
